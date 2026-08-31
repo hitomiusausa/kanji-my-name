@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanji Name Atelier — Your Name in Kanji, as Art</title>
+<meta name="description" content="Turn your name into beautiful Japanese kanji calligraphy art. Choose kanji by meaning — love, strength, dreams — and download your personalized vertical kanji name art for free.">
+<meta property="og:title" content="Kanji Name Atelier — Your Name in Kanji, as Art">
+<meta property="og:description" content="Turn your name into beautiful kanji art. Every kanji carries a meaning you choose.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Yuji+Syuku&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1c1a17; --paper:#f6f1e7; --paper2:#efe7d7; --red:#b3402e; --gold:#a08339;
+  --muted:#6f675a; --line:#d9cfba;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;background-image:radial-gradient(circle at 20% 10%, #fbf7ee 0%, transparent 50%),radial-gradient(circle at 90% 90%, #ece2cd 0%, transparent 40%)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{padding:48px 0 8px;text-align:center}
+.brand{font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold)}
+h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(34px,6vw,58px);line-height:1.15;margin:10px 0 6px}
+h1 .jp{font-family:'Shippori Mincho',serif;font-size:.55em;color:var(--red);vertical-align:middle}
+.sub{color:var(--muted);max-width:560px;margin:10px auto 0;font-size:16px}
+.app{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin:44px 0 30px;align-items:start}
+@media(max-width:820px){.app{grid-template-columns:1fr}}
+.panel{background:#fffdf8;border:1px solid var(--line);border-radius:14px;padding:26px;box-shadow:0 8px 30px rgba(60,45,20,.06)}
+label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
+input[type=text]{width:100%;font-size:22px;font-family:'Cormorant Garamond',serif;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);outline:none}
+input[type=text]:focus{border-color:var(--gold)}
+.btn{display:inline-block;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;border-radius:10px;padding:13px 22px;transition:.2s}
+.btn-red{background:var(--red);color:#fff}
+.btn-red:hover{background:#96331f}
+.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--gold)}
+.row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.syl-area{margin-top:22px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;text-align:center;cursor:pointer;min-width:78px;transition:.15s;user-select:none}
+.chip:hover{border-color:var(--red);transform:translateY(-2px)}
+.chip .k{font-family:'Shippori Mincho',serif;font-size:30px;line-height:1.2;display:block}
+.chip .s{font-size:11px;color:var(--muted);letter-spacing:.06em}
+.chip .m{font-size:11px;color:var(--red);display:block;margin-top:2px}
+.hint{font-size:12.5px;color:var(--muted);margin-top:10px}
+.canvas-holder{position:relative;text-align:center}
+canvas{max-width:100%;height:auto;border-radius:10px;box-shadow:0 14px 40px rgba(60,45,20,.18)}
+.dl-row{margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.picker{position:fixed;inset:0;background:rgba(28,26,23,.5);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
+.picker.open{display:flex}
+.picker-card{background:#fffdf8;border-radius:16px;padding:26px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto}
+.picker-card h3{font-family:'Cormorant Garamond',serif;font-size:24px;margin-bottom:4px}
+.picker-card p{font-size:13px;color:var(--muted);margin-bottom:16px}
+.opt{display:flex;align-items:center;gap:16px;padding:12px;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;cursor:pointer;transition:.15s}
+.opt:hover{border-color:var(--red);background:var(--paper)}
+.opt .k{font-family:'Shippori Mincho',serif;font-size:36px}
+.opt .m{font-size:14px}.opt .m b{color:var(--red)}
+.styles{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.style-b{font-size:13px;padding:8px 14px;border-radius:20px;border:1px solid var(--line);background:transparent;cursor:pointer}
+.style-b.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.premium{margin:50px 0;background:linear-gradient(135deg,#211e19,#3a3126);color:#f2ead9;border-radius:18px;padding:40px;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+@media(max-width:820px){.premium{grid-template-columns:1fr}}
+.premium h2{font-family:'Cormorant Garamond',serif;font-size:32px;margin-bottom:10px}
+.premium ul{list-style:none;margin:14px 0}
+.premium li{padding:5px 0 5px 26px;position:relative;font-size:15px}
+.premium li::before{content:"◆";position:absolute;left:0;color:var(--gold);font-size:11px;top:9px}
+.price{font-family:'Cormorant Garamond',serif;font-size:44px}
+.price small{font-size:16px;font-family:'Inter',sans-serif;color:#bfb49c}
+.unlock-in{display:flex;gap:8px;margin-top:14px}
+.unlock-in input{flex:1;padding:10px 12px;border-radius:8px;border:1px solid #56503f;background:#2a251d;color:#f2ead9;font-size:14px}
+.faq{margin:40px 0 70px}
+.faq h2{font-family:'Cormorant Garamond',serif;font-size:30px;margin-bottom:18px;text-align:center}
+.qa{border-bottom:1px solid var(--line);padding:16px 0}
+.qa b{display:block;margin-bottom:6px}
+.qa p{color:var(--muted);font-size:14.5px}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;color:var(--muted);font-size:13px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:12px 22px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.3s;z-index:60}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="brand">Kanji Name Atelier</div>
+  <h1>Your name, reborn as <span class="jp">漢字</span> art</h1>
+  <p class="sub">Type your name. We craft it into Japanese kanji — and <b>you choose the meaning</b> behind every character: love, dreams, strength, light. Then download it as elegant calligraphy art. Free.</p>
+</header>
+
+<main class="wrap">
+  <div class="app">
+    <div class="panel">
+      <label for="nameIn">Your name (any language, in Latin letters)</label>
+      <input type="text" id="nameIn" placeholder="e.g. Emma, Michael, Lucas…" autocomplete="off">
+      <div class="row">
+        <button class="btn btn-red" id="goBtn">Create my kanji ✦</button>
+        <button class="btn btn-ghost" id="luckyBtn">Surprise me</button>
+      </div>
+      <div class="syl-area" id="sylArea" style="display:none">
+        <label>Your kanji — tap any character to choose a different meaning</label>
+        <div class="chips" id="chips"></div>
+        <div class="hint">Kanji are chosen phonetically (ateji, 当て字) — the traditional Japanese art of writing foreign names with meaningful characters. If the sound feels off, tap a chip and pick another reading.</div>
+        <div class="styles" id="styleRow">
+          <button class="style-b on" data-style="classic">Classic Scroll</button>
+          <button class="style-b" data-style="night">Midnight Ink</button>
+          <button class="style-b" data-style="blossom">Blossom</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel canvas-holder">
+      <canvas id="art" width="1200" height="1800"></canvas>
+      <div class="dl-row">
+        <button class="btn btn-red" id="dlBtn">Download PNG (free)</button>
+        <button class="btn btn-ghost" id="shareBtn">Copy share text</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="premium" id="premium">
+    <div>
+      <h2>The Premium Pack</h2>
+      <ul>
+        <li>Ultra high-resolution 4K art — perfect for printing &amp; framing</li>
+        <li>No credit line — clean, gallery-ready artwork</li>
+        <li>All art styles + exclusive <i>Gold Leaf</i> &amp; <i>Sumi Storm</i> styles</li>
+        <li>A meaning certificate: your kanji, readings &amp; meanings explained</li>
+      </ul>
+      <div class="unlock-in">
+        <input type="text" id="codeIn" placeholder="Already purchased? Enter unlock code">
+        <button class="btn btn-ghost" id="codeBtn" style="border-color:#56503f;color:#f2ead9">Unlock</button>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <div class="price">$9 <small>one-time</small></div>
+      <a class="btn btn-red" id="buyBtn" href="#" style="margin-top:12px" target="_blank" rel="noopener">Get the Premium Pack</a>
+      <p style="font-size:12px;color:#bfb49c;margin-top:10px">Instant unlock code by email · lifetime access</p>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2>About kanji names</h2>
+    <div class="qa"><b>Is this a real Japanese translation of my name?</b><p>Foreign names have no single "correct" kanji. Japanese tradition uses <i>ateji</i> (当て字): kanji chosen for their sound, whose meanings you select yourself. Your name becomes both phonetic and poetic — that's the art.</p></div>
+    <div class="qa"><b>Can I use it for a tattoo?</b><p>Many people do! We recommend the Premium meaning certificate so your artist gets the exact characters, stroke-accurate and explained.</p></div>
+    <div class="qa"><b>Is the free download really free?</b><p>Yes — full-size 1200×1800 PNG with a small credit line. The Premium Pack adds 4K, clean edition, and exclusive styles.</p></div>
+  </section>
+</main>
+
+<footer class="wrap">Kanji Name Atelier · handcrafted with 愛 · <span id="year"></span></footer>
+<div class="picker" id="picker"><div class="picker-card" id="pickerCard"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== CONFIG =====
+const GUMROAD_URL = "https://gumroad.com/"; // TODO: replace with real product URL
+const PREMIUM_HASH = "953a15837393227855699fc84109ae2720c772ef70ee3026ea4c249c025e581b"; // sha256 of unlock code
+const CREDIT = "kanji-name-atelier";
+
+// ===== ATEJI DATA: syllable -> [kanji, meaning] options (positive meanings first) =====
+const ATEJI = {
+ a:[["愛","love"],["亜","Asia · next"],["安","peace"]],
+ i:[["衣","garment"],["意","mind · heart"],["伊","that beauty"]],
+ u:[["宇","universe"],["羽","wings"],["卯","rabbit"]],
+ e:[["恵","blessing"],["絵","art · painting"],["江","calm river"]],
+ o:[["央","center"],["王","king"],["緒","bond · thread"]],
+ ka:[["花","flower"],["佳","excellent"],["香","fragrance"],["加","to add · grow"]],
+ ki:[["希","hope"],["輝","radiance"],["樹","great tree"],["貴","noble"]],
+ ku:[["久","everlasting"],["空","sky"],["玖","black jewel"]],
+ ke:[["慶","joy · celebration"],["恵","blessing"],["圭","precious gem"]],
+ ko:[["幸","happiness"],["湖","lake"],["瑚","coral"]],
+ sa:[["咲","to bloom"],["沙","sand · shore"],["紗","silk gauze"]],
+ shi:[["志","ambition"],["詩","poetry"],["士","noble warrior"],["紫","purple"]],
+ su:[["寿","long life"],["澄","clear · pure"],["洲","sandbar · continent"]],
+ se:[["世","world"],["聖","holy"],["瀬","rapids"]],
+ so:[["蒼","deep blue"],["想","thought · feeling"],["奏","to play music"]],
+ ta:[["太","great · bold"],["多","abundant"],["汰","chosen"]],
+ chi:[["智","wisdom"],["千","thousand"],["地","earth"]],
+ tsu:[["津","harbor"],["都","capital city"],["鶴","crane"]],
+ te:[["天","heaven"],["照","to shine"],["帝","emperor"]],
+ to:[["斗","Big Dipper"],["都","capital city"],["登","to ascend"]],
+ na:[["奈","graceful"],["菜","blossom greens"],["那","elegant"]],
+ ni:[["仁","benevolence"],["虹","rainbow"],["丹","vermilion"]],
+ nu:[["布","fine cloth"],["温","warmth"]],
+ ne:[["音","sound"],["寧","peaceful"],["根","strong roots"]],
+ no:[["乃","poetic 'of'"],["望","hope · wish"],["野","open field"]],
+ ha:[["波","wave"],["羽","wings"],["覇","supremacy"]],
+ hi:[["陽","sunshine"],["飛","to fly"],["姫","princess"]],
+ fu:[["風","wind"],["富","wealth"],["芙","lotus"]],
+ he:[["平","peace"],["碧","jade blue"]],
+ ho:[["帆","sail"],["穂","ear of grain"],["保","to protect"]],
+ ma:[["真","truth"],["舞","dance"],["磨","polished"],["麻","linen"]],
+ mi:[["美","beauty"],["海","sea"],["実","sincerity · fruit"]],
+ mu:[["夢","dream"],["武","warrior"],["霧","mist"]],
+ me:[["芽","new sprout"],["明","bright"],["女","woman"]],
+ mo:[["望","hope"],["茂","flourish"],["百","hundred"]],
+ ya:[["弥","ever more"],["矢","arrow"],["夜","night"]],
+ yu:[["優","gentle · superior"],["悠","eternal calm"],["結","to unite"],["由","freedom · reason"]],
+ yo:[["陽","sunshine"],["世","world"],["葉","leaf"]],
+ ra:[["良","goodness"],["楽","joy"],["羅","fine silk"]],
+ ri:[["莉","jasmine"],["理","reason · truth"],["里","homeland"],["璃","lapis lazuli"]],
+ ru:[["瑠","lapis lazuli"],["流","flowing"],["留","to stay"]],
+ re:[["麗","lovely"],["玲","jewel's chime"],["礼","grace · courtesy"]],
+ ro:[["路","road · journey"],["呂","melody"],["露","morning dew"]],
+ wa:[["和","harmony"],["環","circle · ring"],["輪","wheel · ring"]],
+ n:[["音","sound"],["恩","gratitude"],["運","fortune"]],
+ ga:[["雅","elegance"],["賀","celebration"]],
+ gi:[["義","righteousness"],["伎","artistry"]],
+ gu:[["遇","fateful meeting"],["具","completeness"]],
+ ge:[["芸","fine art"],["夏","summer"]],
+ go:[["悟","enlightenment"],["吾","oneself"],["五","five"]],
+ za:[["座","constellation seat"]],
+ ji:[["慈","mercy"],["侍","samurai"],["治","to heal"]],
+ zu:[["瑞","auspicious"],["図","vision · plan"]],
+ ze:[["是","righteous"]],
+ zo:[["蔵","treasure house"],["想","feeling"]],
+ da:[["大","great"],["陀","steep peak"]],
+ de:[["出","to rise forth"],["天","heaven"]],
+ do:[["道","the Way"],["土","earth"],["童","child spirit"]],
+ ba:[["馬","horse"],["芭","banana leaf"],["場","place"]],
+ bi:[["美","beauty"],["琵","lute"]],
+ bu:[["武","warrior"],["舞","dance"]],
+ be:[["辺","horizon"],["紅","crimson"]],
+ bo:[["望","hope"],["慕","adoration"],["帽","hat"]].slice(0,2),
+ kya:[["伽","temple night"]],kyu:[["宮","palace"],["究","mastery"]],kyo:[["京","capital"],["恭","respect"]],
+ sha:[["紗","silk gauze"],["射","to shoot"]],shu:[["珠","pearl"],["秀","excellence"],["朱","vermilion"]],
+ sho:[["翔","to soar"],["昇","to rise"],["祥","auspicious"]],
+ cha:[["茶","tea"]],chu:[["宙","outer space"],["忠","loyalty"]],cho:[["蝶","butterfly"],["長","leader"]],
+ ju:[["樹","great tree"],["寿","long life"],["珠","pearl"]],jo:[["城","castle"],["助","to help"]],ja:[["蛇","serpent"],["麝","musk deer"]].slice(1),
+ ryu:[["龍","dragon"],["琉","lapis"]],ryo:[["涼","cool breeze"],["良","goodness"],["遼","vast"]],rya:[["略","strategy"]],
+ gyo:[["暁","dawn"]],gya:[["伽","temple night"]],
+ // merged -n syllables (nicer single kanji)
+ ken:[["健","health · strength"],["賢","wisdom"],["剣","sword"]],
+ kan:[["感","feeling"],["冠","crown"],["歓","delight"]],
+ kin:[["金","gold"],["錦","brocade"]],
+ kon:[["魂","soul"],["紺","deep blue"]],
+ kun:[["薫","fragrant"]],
+ shin:[["心","heart"],["真","truth"],["信","trust"]],
+ san:[["燦","brilliant"],["山","mountain"],["賛","praise"]],
+ sen:[["千","thousand"],["仙","sage"],["泉","spring water"]],
+ son:[["尊","revered"]],
+ sun:[["寸","precise measure"]],
+ tan:[["丹","vermilion"],["旦","daybreak"]],
+ ten:[["天","heaven"],["展","to unfold"]],
+ ton:[["富","wealth"]],
+ nan:[["南","south"]],nen:[["念","devotion"]],non:[["暖","warmth"]],
+ han:[["帆","sail"],["繁","prosperity"]],hin:[["品","dignity"]],hon:[["本","origin · true"]],
+ man:[["万","ten thousand"],["満","fullness"]],min:[["民","the people"],["眠","gentle sleep"]],mon:[["門","gate"],["紋","crest"]],
+ yun:[["柚","yuzu citrus"]],
+ ran:[["蘭","orchid"],["藍","indigo"]],rin:[["凛","dignified"],["鈴","bell"],["林","forest"]],ren:[["蓮","lotus"],["恋","romance"],["連","connection"]],ron:[["論","philosophy"]],run:[["倫","ethics"]],
+ gan:[["岩","great rock"],["願","wish"]],gen:[["元","origin"],["絃","string melody"]],gin:[["銀","silver"]],gon:[["厳","majesty"]],
+ zen:[["善","goodness"],["禅","zen"]],zan:[["斬","bold cut"]],jin:[["仁","benevolence"],["迅","swift"]],jun:[["純","purity"],["順","harmony"]],
+ dan:[["暖","warmth"],["団","togetherness"]],den:[["伝","legacy"]],don:[["曇","soft clouds"]],
+ ban:[["晩","evening"],["万","ten thousand"]],bin:[["敏","cleverness"]],bon:[["凡","humility"]],ben:[["勉","diligence"]],
+ an:[["安","peace"],["杏","apricot"],["庵","hermitage"]],in:[["韻","rhyme · echo"],["印","seal"]],un:[["運","fortune"],["雲","cloud"]],en:[["縁","destiny bond"],["円","circle"],["宴","banquet"]],on:[["恩","gratitude"],["温","warmth"]]
+};
+// p-row aliases to h-row (ateji tradition)
+["pa","ha"].forEach(()=>{}); ATEJI.pa=ATEJI.ha;ATEJI.pi=ATEJI.hi;ATEJI.pu=ATEJI.fu;ATEJI.pe=ATEJI.he;ATEJI.po=ATEJI.ho;
+ATEJI.nu=[["布","fine cloth"],["温","warmth"]];
+
+// common name pronunciations
+const NAME_DICT={michael:"maikeru",john:"jon",jon:"jon",david:"deibido",sarah:"sera",sara:"sara",emma:"ema",olivia:"oribia",liam:"riamu",noah:"noa",james:"jeimuzu",william:"uiriamu",sophia:"sofia",sofia:"sofia",isabella:"izabera",alex:"arekusu",alexander:"arekusandā",chris:"kurisu",christopher:"kurisutofā",maria:"maria",anna:"anna",kevin:"kebin",tom:"tomu",thomas:"tōmasu",mary:"meari",robert:"robāto",lucas:"rūkasu",luke:"rūku",mia:"mia",charlotte:"shārotto",amelia:"ameria",harry:"harī",jack:"jaku",george:"jōji",oliver:"oribā",emily:"emirī",jessica:"jeshika",daniel:"danieru",matthew:"mashū",andrew:"andoryū",ryan:"raian",laura:"rōra",julia:"juria",sophie:"sofī",leo:"reo",max:"makusu",ben:"ben",sam:"samu",kate:"keito",lily:"rirī",grace:"gureisu",chloe:"kuroe",zoe:"zoe",ethan:"īsan",mason:"meison",logan:"rōgan",lucy:"rūshī",hannah:"hana",ava:"eiba",ella:"era",nina:"nīna",carlos:"karurosu",jose:"hose",juan:"fan",pedro:"pedoro",ana:"ana",luis:"ruisu",diego:"diego",pablo:"paburo",marco:"maruko",luca:"ruka",giulia:"juria",pierre:"piēru",marie:"marī",hans:"hansu",felix:"ferikusu",ahmed:"amedo",mohammed:"mohamedo",fatima:"fatima",wei:"uei",li:"rī",chen:"chen",kim:"kimu",lee:"rī",park:"paku",raj:"raju",priya:"puria",ivan:"iban",olga:"oruga",dmitri:"dimitori",elena:"erena"};
+
+// ===== ROMAJI CONVERSION =====
+function toRomaji(name){
+  let s=name.toLowerCase().trim().replace(/[^a-zāīūēō]/g,"");
+  if(NAME_DICT[s])return NAME_DICT[s];
+  s=s.replace(/ā/g,"a").replace(/ī/g,"i").replace(/ū/g,"u").replace(/ē/g,"e").replace(/ō/g,"o");
+  s=s.replace(/ph/g,"f").replace(/th/g,"s").replace(/ch(?=[aiueo])/g,"ch").replace(/sh(?=[aiueo])/g,"sh");
+  s=s.replace(/ck/g,"k").replace(/cc/g,"k").replace(/qu/g,"ku").replace(/x/g,"kusu");
+  s=s.replace(/c(?=[eiy])/g,"s").replace(/c/g,"k").replace(/l/g,"r").replace(/v/g,"b").replace(/q/g,"k");
+  s=s.replace(/([bcdfghjkmprstwyz])\1/g,"$1"); // geminates → single
+  s=s.replace(/y(?![aiueo])/g,"i");
+  s=s.replace(/w(?![aiueo])/g,"u");
+  // insert vowels into consonant clusters / trailing consonants (n survives)
+  let out="";
+  for(let i=0;i<s.length;i++){
+    const ch=s[i],next=s[i+1]||"";
+    out+=ch;
+    if(/[aiueon]/.test(ch))continue;
+    const isDigraphStart=(ch==="s"&&next==="h")||(ch==="c"&&next==="h")||(ch==="t"&&next==="s");
+    if(isDigraphStart)continue;
+    if(!/[aiueo]/.test(next)&&!(next==="h"&&/[sc]/.test(ch))){
+      out+=(ch==="t"||ch==="d")?"o":"u";
+    }
+  }
+  out=out.replace(/nn/g,"n");
+  return out;
+}
+// tokenize romaji into known syllables (greedy, prefers merged -n forms)
+function tokenize(r){
+  const keys=Object.keys(ATEJI).sort((a,b)=>b.length-a.length);
+  const toks=[];let i=0;
+  while(i<r.length){
+    let hit=null;
+    for(const k of keys){ if(r.startsWith(k,i)){
+      if(k.endsWith("n")&&k.length>1){ // only merge -n if next char isn't a vowel (real syllabic n)
+        const after=r[i+k.length]||""; if(/[aiueoy]/.test(after))continue;
+      }
+      hit=k;break; } }
+    if(hit){toks.push(hit);i+=hit.length;}
+    else i++; // skip unknown char
+  }
+  return toks;
+}
+
+// ===== STATE =====
+let syls=[],choices=[],currentStyle="classic",premium=false;
+try{premium=localStorage.getItem("kna_premium")==="1"}catch(e){}
+
+const STYLES={
+ classic:{bg1:"#f7f2e6",bg2:"#ece2cb",ink:"#26221c",accent:"#b3402e",frame:"#c8b98f",romaji:"#8a7f6a"},
+ night:{bg1:"#191c22",bg2:"#0e1015",ink:"#f0ead8",accent:"#d4553c",frame:"#5a5344",romaji:"#9a917c"},
+ blossom:{bg1:"#fdf3f1",bg2:"#f6e0dc",ink:"#3d2b2b",accent:"#c04a58",frame:"#e0b7ae",romaji:"#a58a84"},
+ gold:{bg1:"#20180a",bg2:"#0f0a03",ink:"#e8c96a",accent:"#f2ead9",frame:"#8a6d2f",romaji:"#b39b55"},
+ storm:{bg1:"#e8e6e1",bg2:"#c9c5bc",ink:"#14120f",accent:"#8a1c0e",frame:"#6b675e",romaji:"#5d594f"}
+};
+
+// ===== RENDER =====
+const canvas=document.getElementById("art"),ctx=canvas.getContext("2d");
+function draw(hiRes){
+  const scale=hiRes?2:1,W=1200*scale,H=1800*scale;
+  const c=hiRes?document.createElement("canvas"):canvas;
+  c.width=W;c.height=H;
+  const x=c.getContext("2d"),st=STYLES[currentStyle];
+  // background wash
+  const g=x.createRadialGradient(W*.35,H*.25,80*scale,W*.5,H*.5,H*.85);
+  g.addColorStop(0,st.bg1);g.addColorStop(1,st.bg2);
+  x.fillStyle=g;x.fillRect(0,0,W,H);
+  // paper texture
+  x.globalAlpha=.05;
+  for(let i=0;i<900;i++){x.fillStyle=Math.random()>.5?"#000":"#fff";x.fillRect(Math.random()*W,Math.random()*H,scale,scale*(1+Math.random()*2));}
+  x.globalAlpha=1;
+  // frame
+  x.strokeStyle=st.frame;x.lineWidth=3*scale;
+  x.strokeRect(46*scale,46*scale,W-92*scale,H-92*scale);
+  x.lineWidth=1*scale;x.strokeRect(58*scale,58*scale,W-116*scale,H-116*scale);
+  const kanji=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]);
+  const n=kanji.length||1;
+  // vertical kanji column
+  const avail=H-460*scale;
+  const size=Math.min(300*scale,avail/n*0.86);
+  const startY=(H-140*scale-(size*1.12*n))/2+size*.85;
+  x.textAlign="center";x.fillStyle=st.ink;
+  x.font=`${size}px 'Yuji Syuku','Shippori Mincho',serif`;
+  x.shadowColor="rgba(0,0,0,.18)";x.shadowBlur=8*scale;x.shadowOffsetY=4*scale;
+  kanji.forEach((k,i)=>x.fillText(k,W/2,startY+i*size*1.12));
+  x.shadowColor="transparent";
+  // hanko seal
+  const sz=104*scale,sx=W-190*scale,sy=H-330*scale;
+  x.fillStyle=st.accent;
+  x.beginPath();x.roundRect(sx,sy,sz,sz,14*scale);x.fill();
+  x.fillStyle=currentStyle==="night"||currentStyle==="gold"?"#14120f":"#fdf6ea";
+  x.font=`${sz*.62}px 'Yuji Syuku',serif`;
+  x.fillText(kanji[0]||"印",sx+sz/2,sy+sz*.72);
+  // romaji name + meanings
+  const nm=document.getElementById("nameIn").value.trim();
+  x.fillStyle=st.romaji;
+  x.font=`${34*scale}px 'Cormorant Garamond',serif`;
+  x.fillText(nm.toUpperCase().split("").join(" "),W/2,H-210*scale);
+  const meanings=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][1]).join("  ·  ");
+  x.font=`italic ${25*scale}px 'Cormorant Garamond',serif`;
+  x.fillText(meanings,W/2,H-158*scale);
+  // credit (free only)
+  if(!premium||!hiRes){x.font=`${18*scale}px 'Inter',sans-serif`;x.globalAlpha=.55;x.fillText(CREDIT,W/2,H-92*scale);x.globalAlpha=1;}
+  return c;
+}
+
+function renderChips(){
+  const el=document.getElementById("chips");el.innerHTML="";
+  choices.forEach((ci,idx)=>{
+    const[k,m]=ATEJI[syls[ci.s]][ci.o];
+    const d=document.createElement("div");d.className="chip";
+    d.innerHTML=`<span class="s">${syls[ci.s]}</span><span class="k">${k}</span><span class="m">${m}</span>`;
+    d.onclick=()=>openPicker(idx);
+    el.appendChild(d);
+  });
+  document.getElementById("sylArea").style.display="block";
+}
+function openPicker(idx){
+  const ci=choices[idx],opts=ATEJI[syls[ci.s]];
+  const card=document.getElementById("pickerCard");
+  card.innerHTML=`<h3>Choose a meaning for “${syls[ci.s]}”</h3><p>Each kanji sounds the same — pick the meaning that feels like you.</p>`;
+  opts.forEach(([k,m],o)=>{
+    const d=document.createElement("div");d.className="opt";
+    d.innerHTML=`<span class="k">${k}</span><span class="m"><b>${m}</b><br><small style="color:var(--muted)">read as “${syls[ci.s]}”</small></span>`;
+    d.onclick=()=>{choices[idx].o=o;document.getElementById("picker").classList.remove("open");renderChips();draw(false);};
+    card.appendChild(d);
+  });
+  document.getElementById("picker").classList.add("open");
+}
+document.getElementById("picker").onclick=e=>{if(e.target.id==="picker")e.target.classList.remove("open")};
+
+function generate(rand){
+  const nm=document.getElementById("nameIn").value.trim();
+  if(!nm){toast("Type your name first ✦");return;}
+  const r=toRomaji(nm),toks=tokenize(r);
+  if(!toks.length){toast("Hmm — try a simpler spelling of your name");return;}
+  syls=toks;
+  choices=toks.map((t,i)=>({s:i,o:rand?Math.floor(Math.random()*ATEJI[t].length):0}));
+  renderChips();draw(false);
+  history.replaceState(null,"","#"+encodeURIComponent(nm));
+}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600);}
+
+// ===== EVENTS =====
+document.getElementById("goBtn").onclick=()=>generate(false);
+document.getElementById("luckyBtn").onclick=()=>generate(true);
+document.getElementById("nameIn").addEventListener("keydown",e=>{if(e.key==="Enter")generate(false)});
+document.getElementById("styleRow").addEventListener("click",e=>{
+  const b=e.target.closest(".style-b");if(!b)return;
+  const s=b.dataset.style;
+  if((s==="gold"||s==="storm")&&!premium){toast("Gold Leaf & Sumi Storm are Premium styles ✦");return;}
+  document.querySelectorAll(".style-b").forEach(x=>x.classList.toggle("on",x===b));
+  currentStyle=s;draw(false);
+});
+document.getElementById("dlBtn").onclick=async()=>{
+  if(!choices.length){toast("Create your kanji first ✦");return;}
+  await document.fonts.ready;
+  const c=draw(premium);
+  const a=document.createElement("a");
+  a.download=`kanji-name-${(document.getElementById("nameIn").value||"art").toLowerCase()}.png`;
+  a.href=c.toDataURL("image/png");a.click();
+  toast(premium?"4K art downloaded ✦":"Downloaded! Upgrade for 4K & clean edition ✦");
+};
+document.getElementById("shareBtn").onclick=()=>{
+  const nm=document.getElementById("nameIn").value.trim()||"my name";
+  const kanji=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]).join("");
+  navigator.clipboard.writeText(`My name "${nm}" in kanji is ${kanji} — made at ${location.origin+location.pathname}`).then(()=>toast("Copied! Share it anywhere ✦"));
+};
+document.getElementById("buyBtn").href=GUMROAD_URL;
+document.getElementById("codeBtn").onclick=async()=>{
+  const v=document.getElementById("codeIn").value.trim();
+  const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));
+  const hex=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("");
+  if(hex===PREMIUM_HASH){premium=true;try{localStorage.setItem("kna_premium","1")}catch(e){}
+    unlockUI();toast("Premium unlocked — welcome to the atelier ✦");}
+  else toast("That code doesn't match — check your receipt email");
+};
+function unlockUI(){
+  const row=document.getElementById("styleRow");
+  if(!row.querySelector('[data-style="gold"]')){
+    const g=document.createElement("button");g.className="style-b";g.dataset.style="gold";g.textContent="Gold Leaf ✦";row.appendChild(g);
+    const s2=document.createElement("button");s2.className="style-b";s2.dataset.style="storm";s2.textContent="Sumi Storm ✦";row.appendChild(s2);
+  }
+}
+if(premium)unlockUI();
+document.getElementById("year").textContent=new Date().getFullYear();
+// init from hash or default demo
+window.addEventListener("load",async()=>{
+  await document.fonts.ready;
+  const h=decodeURIComponent(location.hash.slice(1));
+  document.getElementById("nameIn").value=h||"Emma";
+  generate(false);
+});
+</script>
+</body>
+</html>
