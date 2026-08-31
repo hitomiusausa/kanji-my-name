@@ -8,15 +8,20 @@
 //   session:<cs_...>  -> <CODE>            (makes /claim idempotent)
 // Secrets: STRIPE_SECRET_KEY (restricted key, read-only on Checkout Sessions is enough)
 
-const ALLOWED_ORIGIN = "https://hitomiusausa.github.io";
+const ALLOWED_ORIGINS = [
+  "https://hitomiusausa.github.io",
+  "https://kanji-my-name.pages.dev",
+];
 
 export default {
   async fetch(req, env) {
     const url = new URL(req.url);
+    const origin = req.headers.get("Origin");
     const cors = {
-      "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
+      "Access-Control-Allow-Origin": ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
       "Access-Control-Allow-Methods": "GET,OPTIONS",
       "Access-Control-Max-Age": "86400",
+      Vary: "Origin",
     };
     if (req.method === "OPTIONS") return new Response(null, { headers: cors });
     const json = (o, s = 200) =>

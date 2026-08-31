@@ -3,15 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kanji My Name — Kanji Name Art Generator</title>
-<meta name="description" content="Turn your name into Japanese kanji name art — choose the meaning of every character, pick a calligraphy font, and download tattoo-ready, gift-worthy kanji art in seconds. Free, and your name never leaves your browser.">
-<meta property="og:title" content="Kanji My Name — Kanji Name Art Generator">
-<meta property="og:description" content="Your name as kanji art — tattoo designs, gifts, wall art. You choose the meaning behind every character.">
+<title>Kanji Name Generator — Create Japanese Kanji Name Art | Kanji My Name</title>
+<meta name="description" content="Create Japanese kanji name art from any name. Explore sound-based ateji characters and their meanings, choose a calligraphy style, then download a free PNG — privately in your browser.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<link rel="canonical" href="https://kanji-my-name.pages.dev/">
+<meta property="og:url" content="https://kanji-my-name.pages.dev/">
+<meta property="og:title" content="Kanji Name Generator — Create Japanese Kanji Name Art">
+<meta property="og:description" content="Explore the meanings behind sound-based Japanese kanji for your name, then turn your favourite combination into calligraphy art.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛩️</text></svg>">
+<meta property="og:site_name" content="Kanji My Name">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kanji-my-name.pages.dev/image/kanji%20my%20name-favicon.png">
+<meta property="og:image:width" content="1254">
+<meta property="og:image:height" content="1254">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kanji Name Generator — Create Japanese Kanji Name Art">
+<meta name="twitter:description" content="Create private, sound-based Japanese kanji name art and choose the meaning of every character.">
+<link rel="icon" type="image/png" href="image/kanji%20my%20name-favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Yuji+Syuku&family=Yuji+Boku&family=Yuji+Mai&family=Zen+Maru+Gothic:wght@500&family=Hina+Mincho&family=New+Tegomin&family=Kaisei+Decol&family=Kiwi+Maru:wght@500&family=Dela+Gothic+One&family=Klee+One:wght@600&family=Zen+Antique&family=Zen+Old+Mincho:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://kanji-my-name.pages.dev/#website","url":"https://kanji-my-name.pages.dev/","name":"Kanji My Name","alternateName":"Kanji Name Generator","inLanguage":"en"},{"@type":"WebApplication","@id":"https://kanji-my-name.pages.dev/#app","name":"Kanji My Name","url":"https://kanji-my-name.pages.dev/","applicationCategory":"DesignApplication","applicationSubCategory":"Kanji name art generator","operatingSystem":"Web","browserRequirements":"Requires a modern web browser with JavaScript enabled.","isAccessibleForFree":true,"inLanguage":"en","description":"A browser-based generator for creating Japanese kanji name art from sound-based ateji choices and character meanings."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this a real Japanese translation of my name?","acceptedAnswer":{"@type":"Answer","text":"Foreign names have no single correct kanji. Japanese tradition uses ateji: kanji chosen for their sound, whose meanings you select yourself."}},{"@type":"Question","name":"Can I use it for a tattoo?","acceptedAnswer":{"@type":"Answer","text":"Many people use name art as a tattoo reference. The Premium 4K clean edition provides the exact characters in a high-resolution image for an artist to review."}},{"@type":"Question","name":"Is the free download really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. The free download is a full-size PNG with a small credit line. The Premium Pack adds 4K, a clean edition, all 12 fonts, and exclusive styles."}},{"@type":"Question","name":"Is my name sent anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Kanji matching, art generation, and downloads happen in the browser. Names are not sent to a server, stored, or tracked."}}]}]}
+</script>
 <style>
 :root{
   --bg:#131310; --panel:#1a1a16; --panel2:#15150f; --line:#35332a;
@@ -31,7 +45,7 @@ body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opac
  background:radial-gradient(ellipse 90% 30% at 50% 45%,transparent 40%,rgba(9,9,7,.5))}
 .bgk{position:fixed;right:4%;top:6%;writing-mode:vertical-rl;font-family:'Yuji Syuku',serif;font-size:clamp(110px,16vw,210px);line-height:1;color:rgba(233,225,205,.05);user-select:none;pointer-events:none;z-index:0;transition:opacity .8s}
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
-header{padding:64px 0 8px}
+header.wrap{padding:64px 20px 34px}
 .brand{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:12px}
 .brand::before{content:"印";font-family:'Yuji Syuku',serif;font-size:13px;color:#fdf6ea;background:var(--seal);width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(3deg);letter-spacing:0}
 h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(38px,6vw,62px);line-height:1.25;letter-spacing:.02em;margin:26px 0 0;color:var(--head)}
@@ -79,6 +93,8 @@ canvas{max-width:100%;height:auto;box-shadow:0 0 80px rgba(184,146,80,.14),0 30p
 .thump{animation:thump .3s ease}
 @keyframes thump{0%{transform:scale(1)}35%{transform:scale(.984)}100%{transform:scale(1)}}
 .dl-row{margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.share-status{min-height:20px;margin:9px 0 0;color:var(--seal);font-size:13px;font-weight:600;opacity:0;transition:opacity .2s}
+.share-status.show{opacity:1}
 .picker{position:fixed;inset:0;background:rgba(8,9,12,.72);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
 .picker.open{display:flex}
 .picker-card{background:var(--panel);border:1px solid var(--line);padding:28px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto}
@@ -150,7 +166,7 @@ body.fxshake main,body.fxshake header{animation:shakeA .34s linear}
  body.fxshake main,body.fxshake header{animation:none}
  #cutTop.slip,#cutBot.slip,#gapline.on{animation:none}
 }
-.premium{margin:0 0 60px;background:var(--panel2);border:1px solid rgba(184,146,80,.5);background-image:var(--fiber);padding:44px;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;position:relative}
+.premium{margin:0 0 60px;background:var(--panel2);border:1px solid rgba(184,146,80,.5);background-image:var(--fiber);padding:44px;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;position:relative;scroll-margin-top:14vh}
 .premium::before{content:"";position:absolute;inset:7px;border:1px solid rgba(184,146,80,.22);pointer-events:none}
 .premium.pulse{animation:premGlow 1.6s ease}
 @keyframes premGlow{0%{box-shadow:0 0 0 rgba(184,146,80,0)}25%{box-shadow:0 0 70px rgba(184,146,80,.35)}100%{box-shadow:0 0 0 rgba(184,146,80,0)}}
@@ -158,7 +174,7 @@ body.fxshake main,body.fxshake header{animation:shakeA .34s linear}
 .divider::before,.divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line))}
 .divider::after{background:linear-gradient(90deg,var(--line),transparent)}
 .divider span{font-family:'Shippori Mincho',serif;font-size:14px;letter-spacing:.5em;color:var(--gold)}
-@media(max-width:820px){.premium{grid-template-columns:1fr;padding:32px}}
+@media(max-width:820px){.premium{grid-template-columns:1fr;padding:32px;scroll-margin-top:10vh}}
 .premium h2{font-family:'Shippori Mincho',serif;font-size:32px;color:var(--head);margin-bottom:10px}
 .premium ul{list-style:none;margin:14px 0}
 .premium li{padding:5px 0 5px 26px;position:relative;font-size:15px}
@@ -173,7 +189,7 @@ body.fxshake main,body.fxshake header{animation:shakeA .34s linear}
 .qa{border-bottom:1px solid var(--line);padding:16px 0}
 .qa b{display:block;margin-bottom:6px;color:var(--head)}
 .qa p{color:var(--muted);font-size:14.5px}
-footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;color:var(--muted);font-size:13px}
+footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 40px;text-align:center;color:var(--muted);font-size:13px}
 .upsell-note{margin-top:12px;text-align:center;font-size:12px;color:var(--muted)}
 .upsell-note b{color:var(--gold);font-weight:600}
 .upsell-note a{color:var(--gold)}
@@ -211,10 +227,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
         <label style="margin-top:18px">Calligraphy font</label>
         <div class="styles" id="fontRow" style="margin-top:4px"></div>
         <label style="margin-top:18px">Layout</label>
-        <div class="styles" id="orientRow" style="margin-top:4px">
-          <button class="style-b on" data-orient="v">Vertical 縦</button>
-          <button class="style-b" data-orient="h">Horizontal 横</button>
-        </div>
+        <div class="styles" id="orientRow" style="margin-top:4px"></div>
         <label style="margin-top:18px">Hanko seal 朱印</label>
         <div class="styles" id="sealRow" style="margin-top:4px"></div>
         <label style="margin-top:18px">Meanings line 意</label>
@@ -226,9 +239,11 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
       <canvas id="art" width="1200" height="1800"></canvas>
       <div class="dl-row">
         <button class="btn btn-red" id="dlBtn">Download PNG (free)</button>
-        <button class="btn btn-ghost" id="shareBtn">Copy share text</button>
+        <button class="btn btn-ghost" id="shareImageBtn">Share image</button>
+        <button class="btn btn-ghost" id="shareLinkBtn">Copy share link</button>
       </div>
-      <div class="upsell-note">Free = full-size PNG with credit line · <b>Premium = 4K, clean, all 12 fonts — <a href="#premium">see the Pack ✦</a></b></div>
+      <p class="share-status" id="shareStatus" role="status" aria-live="polite"></p>
+      <div class="upsell-note">Free download includes a small credit line. <b>Premium unlocks high-resolution, clean artwork, all 12 fonts and exclusive styles — <a href="#premium">explore the Pack ✦</a></b></div>
     </div>
   </div>
 
@@ -243,6 +258,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
         <li>Exclusive <i>Gold Leaf</i>, <i>Sumi Storm</i>, <i>Indigo Wave</i>, <i>Ensō</i> &amp; <i>Pure White</i> art styles</li>
         <li>Seal-free edition — remove the hanko for a pure look</li>
         <li>Meanings on or off — keep the poetry, or let the kanji speak alone</li>
+        <li>Square canvas — choose vertical or horizontal kanji for social posts and prints</li>
       </ul>
       <div class="unlock-in">
         <input type="text" id="codeIn" placeholder="Already purchased? Enter unlock code">
@@ -260,13 +276,13 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
   <section class="faq">
     <h2>About kanji names</h2>
     <div class="qa"><b>Is this a real Japanese translation of my name?</b><p>Foreign names have no single "correct" kanji. Japanese tradition uses <i>ateji</i> (当て字): kanji chosen for their sound, whose meanings you select yourself. Your name becomes both phonetic and poetic — that's the art.</p></div>
-    <div class="qa"><b>Can I use it for a tattoo?</b><p>Many people do! We recommend the Premium 4K clean edition so your artist gets the exact characters, crisp and stroke-accurate.</p></div>
+    <div class="qa"><b>Can I use it for a tattoo?</b><p>Many people do! The Premium 4K clean edition gives your artist the exact characters in a high-resolution image to review.</p></div>
     <div class="qa"><b>Is the free download really free?</b><p>Yes — full-size PNG with a small credit line. The Premium Pack adds 4K, the clean edition, all 12 fonts, and exclusive styles — one small payment, lifetime access.</p></div>
     <div class="qa"><b>Is my name sent anywhere?</b><p>Never. Everything — the kanji matching, the art, the download — happens entirely in your browser. Your name is not sent to any server, stored, or tracked.</p></div>
   </section>
 </main>
 
-<footer class="wrap">Kanji My Name · handcrafted with 愛 · <span id="year"></span></footer>
+<footer class="wrap">Kanji My Name · handcrafted with 愛 · <span id="year"></span> · <a href="names/" style="color:var(--gold)">Browse names in kanji →</a></footer>
 <div class="picker" id="picker"><div class="picker-card" id="pickerCard"></div></div>
 <div id="fxA" aria-hidden="true">
   <div id="fxDim"></div>
@@ -492,6 +508,22 @@ function renderMeanRow(){
     row.appendChild(b);
   });
 }
+function renderOrientRow(){
+  const row=document.getElementById("orientRow");row.innerHTML="";
+  [
+    {id:"v",label:"Vertical 縦",free:true},
+    {id:"h",label:"Horizontal 横",free:true},
+    {id:"sv",label:"Square · Vertical 縦",free:false},
+    {id:"sh",label:"Square · Horizontal 横",free:false}
+  ].forEach(o=>{
+    const b=document.createElement("button");
+    b.className="style-b"+(o.id===currentOrient?" on":"");
+    b.dataset.orient=o.id;
+    b.textContent=o.free?o.label:o.label+" ✦";
+    if(!o.free){if(premium)b.classList.add("prem");else b.classList.add("sealed");}
+    row.appendChild(b);
+  });
+}
 
 // One font is applied to the WHOLE name — never mixed per character
 const FONTS=[
@@ -641,8 +673,8 @@ function decor(x,W,H,scale){
   }
 }
 function draw(hiRes){
-  const scale=hiRes?2:1,portrait=currentOrient==="v";
-  const W=(portrait?1200:1800)*scale,H=(portrait?1800:1200)*scale;
+  const scale=hiRes?2:1,square=currentOrient==="sv"||currentOrient==="sh",portrait=currentOrient==="v"||currentOrient==="sv";
+  const W=(square?1800:(portrait?1200:1800))*scale,H=(square?1800:(portrait?1800:1200))*scale;
   const c=hiRes?document.createElement("canvas"):canvas;
   c.width=W;c.height=H;
   const x=c.getContext("2d"),st=STYLES[currentStyle];
@@ -687,13 +719,13 @@ function draw(hiRes){
     }
     x.textBaseline="alphabetic";
   }else if(portrait){
-    const avail=H-460*scale;
+    const avail=H-(square?500:460)*scale;
     const size=Math.min(300*scale,avail/n*0.86);
     const startY=(H-140*scale-(size*1.12*n))/2+size*.85;
     x.font=fontFor(size);
     kanji.forEach((k,i)=>x.fillText(k,W/2,startY+i*size*1.12));
   }else{
-    const avail=W-520*scale;
+    const avail=W-(square?440:520)*scale;
     const size=Math.min(320*scale,avail/n*0.9);
     const step=size*1.12,startX=W/2-step*(n-1)/2;
     x.font=fontFor(size);
@@ -707,7 +739,7 @@ function draw(hiRes){
   }
   // romaji name + meanings
   const nm=document.getElementById("nameIn").value.trim();
-  const baseY=portrait?H-210*scale:H-190*scale;
+  const baseY=portrait?H-210*scale:H-(square?220:190)*scale;
   x.fillStyle=st.romaji;
   x.font=`${34*scale}px 'Cormorant Garamond',serif`;
   x.fillText(nm.toUpperCase().split("").join(" "),W/2,baseY);
@@ -906,6 +938,7 @@ zoomEl.addEventListener("click",()=>zoomEl.classList.remove("open"));
 document.addEventListener("keydown",e=>{if(e.key==="Escape")zoomEl.classList.remove("open");});
 document.getElementById("orientRow").addEventListener("click",e=>{
   const b=e.target.closest(".style-b");if(!b)return;
+  if((b.dataset.orient==="sv"||b.dataset.orient==="sh")&&!premium){sealedNudge(`Square canvases are sealed — the Premium Pack opens them (${PRICE})`);return;}
   currentOrient=b.dataset.orient;
   document.querySelectorAll("#orientRow .style-b").forEach(x=>x.classList.toggle("on",x===b));
   render();
@@ -914,14 +947,52 @@ document.getElementById("dlBtn").onclick=async()=>{
   if(!choices.length){toast("Create your kanji first ✦");return;}
   const c=await render(premium);
   const a=document.createElement("a");
-  a.download=`kanji-name-${(document.getElementById("nameIn").value||"art").toLowerCase()}.png`;
+  a.download=artFilename();
   a.href=c.toDataURL("image/png");a.click();
   toast(premium?"4K art downloaded ✦":"Downloaded! Upgrade for 4K & clean edition ✦");
 };
-document.getElementById("shareBtn").onclick=()=>{
+function artFilename(){return `kanji-name-${(document.getElementById("nameIn").value||"art").trim().toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"art"}.png`;}
+function shareUrl(){
+  const nm=document.getElementById("nameIn").value.trim();
+  return location.origin+location.pathname+(nm?"#"+encodeURIComponent(nm):"");
+}
+function shareText(){
   const nm=document.getElementById("nameIn").value.trim()||"my name";
   const kanji=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]).join("");
-  navigator.clipboard.writeText(`My name "${nm}" in kanji is ${kanji} — made at ${location.origin+location.pathname}`).then(()=>toast("Copied! Share it anywhere ✦"));
+  return `My name "${nm}" in kanji is ${kanji} — made at ${shareUrl()}`;
+}
+async function artworkFile(){
+  const c=await render(premium);
+  const blob=await new Promise(resolve=>c.toBlob(resolve,"image/png"));
+  return blob?new File([blob],artFilename(),{type:"image/png"}):null;
+}
+function downloadFile(file){
+  const a=document.createElement("a");a.download=file.name;a.href=URL.createObjectURL(file);a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+function shareNotice(message){
+  const status=document.getElementById("shareStatus");
+  status.textContent=message;status.classList.add("show");
+}
+document.getElementById("shareImageBtn").onclick=async()=>{
+  if(!choices.length){toast("Create your kanji first ✦");return;}
+  shareNotice("Preparing image…");
+  const file=await artworkFile();
+  if(!file){shareNotice("Couldn’t prepare the PNG — please try again");return;}
+  const data={title:"Kanji My Name",text:shareText(),url:shareUrl(),files:[file]};
+  if(navigator.share&&(!navigator.canShare||navigator.canShare({files:[file]}))){
+    shareNotice("Image ready to share");
+    try{await navigator.share(data);shareNotice("Image ready to share");}
+    catch(e){if(e.name!=="AbortError"){downloadFile(file);shareNotice("PNG downloaded — share it from Photos or Files");}}
+  }else{downloadFile(file);shareNotice("PNG downloaded — share it from Photos or Files");}
+};
+document.getElementById("shareLinkBtn").onclick=async()=>{
+  const text=shareText();
+  try{await navigator.clipboard.writeText(text);shareNotice("Share link copied");}
+  catch(e){
+    const t=document.createElement("textarea");t.value=text;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();
+    try{document.execCommand("copy");shareNotice("Share link copied");}finally{t.remove();}
+  }
 };
 document.getElementById("buyBtn").href=STRIPE_URL;
 document.getElementById("priceVal").textContent=PRICE;
@@ -991,8 +1062,8 @@ class UnlockFX{
 }
 const FX=new UnlockFX();
 
-function unlockUI(){renderStyleRow();renderFontRow();renderSealRow();renderMeanRow();}
-renderStyleRow();renderFontRow();renderSealRow();renderMeanRow();
+function unlockUI(){renderStyleRow();renderFontRow();renderOrientRow();renderSealRow();renderMeanRow();}
+renderStyleRow();renderFontRow();renderOrientRow();renderSealRow();renderMeanRow();
 document.getElementById("year").textContent=new Date().getFullYear();
 // init from hash or default demo
 window.addEventListener("load",async()=>{

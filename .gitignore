@@ -1,6 +1,9 @@
 _local/
 design-compare.html
 *.png
+.playwright-cli/
+.wrangler/
+worker/.wrangler/
 CLAUDE.md
 DECISIONS.md
 HANDOVER.md

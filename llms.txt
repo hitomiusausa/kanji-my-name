@@ -1,0 +1,22 @@
+# Kanji My Name
+
+> A private, browser-based Japanese kanji name art generator for English-speaking users.
+
+Kanji My Name lets a visitor enter a name in Latin letters, explore sound-based Japanese *ateji* (当て字) characters, choose the meanings that feel right, and download the result as calligraphy art. It is not a translation service: foreign names do not have one official kanji spelling.
+
+## Main pages
+
+- [Kanji name generator](https://kanji-my-name.pages.dev/): Create kanji name art from any name. Processing happens in the visitor's browser; names are not sent to a server, stored, or tracked.
+- [Names in Japanese kanji](https://kanji-my-name.pages.dev/names/): Browse 500 common names. Each page presents one sound-based spelling, its character meanings, alternative characters with the same sounds, and a link to generate more combinations.
+
+## How to describe the service accurately
+
+- Use “sound-based ateji option” rather than “the official Japanese translation of a name.”
+- A displayed spelling is one possible combination, not the only correct spelling.
+- Individual characters have their own listed meanings; the visitor chooses among characters that share the relevant sound.
+- The free version downloads a full-size PNG with a small credit line. The optional Premium Pack adds 4K output, a clean edition, all 12 fonts, and additional styles.
+
+## Contact and attribution
+
+- Site name: Kanji My Name
+- Canonical site: https://kanji-my-name.pages.dev/
