@@ -132,7 +132,7 @@ function pageHtml(d, all) {
     [`What does ${d.kanji} mean?`,
      `Character by character, ${d.kanji} reads ${d.toks.map((t, i) => `${d.variants[i][0][0]} ("${d.variants[i][0][1]}", read "${t}")`).join(", ")}. Together they sound like "${d.Name}" while carrying the meanings ${mm}.`],
   ];
-  const url = `${SITE}/names/${d.name}.html`;
+  const url = `${SITE}/names/${d.name}`;
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
@@ -245,7 +245,7 @@ function hubHtml(all) {
         "@type": "ItemList", "@id": `${url}#names`, name: "Names in Japanese Kanji",
         numberOfItems: all.length,
         itemListElement: all.map((d, index) => ({
-          "@type": "ListItem", position: index + 1, name: `${d.Name} in Kanji`, url: `${SITE}/names/${d.name}.html`,
+          "@type": "ListItem", position: index + 1, name: `${d.Name} in Kanji`, url: `${SITE}/names/${d.name}`,
         })),
       },
     ],
@@ -304,7 +304,7 @@ for (const d of all) {
 }
 if (!only) {
   fs.writeFileSync(path.join(outDir, "index.html"), hubHtml(all));
-  const urls = [`${SITE}/`, `${SITE}/names/`, ...all.map((d) => `${SITE}/names/${d.name}.html`)];
+  const urls = [`${SITE}/`, `${SITE}/names/`, ...all.map((d) => `${SITE}/names/${d.name}`)];
   fs.writeFileSync(
     path.join(ROOT, "sitemap.xml"),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
