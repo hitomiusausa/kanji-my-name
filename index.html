@@ -103,14 +103,15 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
     <div class="panel">
       <label for="nameIn">Your name (any language, in Latin letters)</label>
       <input type="text" id="nameIn" placeholder="e.g. Emma, Michael, Lucas…" autocomplete="off">
+      <div class="hint" style="margin-top:8px">Writing two names? Separate them with a space — e.g. “Emma Rose”.</div>
       <div class="row">
         <button class="btn btn-red" id="goBtn">Create my kanji ✦</button>
         <button class="btn btn-ghost" id="luckyBtn">Surprise me</button>
       </div>
       <div class="syl-area" id="sylArea" style="display:none">
-        <label>Your kanji — tap any character to choose a different meaning</label>
+        <label>Your kanji — tap a character to see your choices</label>
         <div class="chips" id="chips"></div>
-        <div class="hint">Kanji are chosen phonetically (ateji, 当て字) — the traditional Japanese art of writing foreign names with meaningful characters. If the sound feels off, tap a chip and pick another reading.</div>
+        <div class="hint">Tap any kanji above ▾ — other characters with the same sound will appear, each with a different meaning. Pick your favorite. This is <i>ateji</i> (当て字), the traditional Japanese art of writing foreign names with meaningful characters.</div>
         <div class="styles" id="styleRow">
           <button class="style-b on" data-style="classic">Classic Scroll</button>
           <button class="style-b" data-style="night">Midnight Ink</button>
@@ -353,15 +354,65 @@ async function render(hiRes){
 }
 
 const STYLES={
- classic:{bg1:"#f7f2e6",bg2:"#ece2cb",ink:"#26221c",accent:"#b3402e",frame:"#c8b98f",romaji:"#8a7f6a"},
- night:{bg1:"#191c22",bg2:"#0e1015",ink:"#f0ead8",accent:"#d4553c",frame:"#5a5344",romaji:"#9a917c"},
- blossom:{bg1:"#fdf3f1",bg2:"#f6e0dc",ink:"#3d2b2b",accent:"#c04a58",frame:"#e0b7ae",romaji:"#a58a84"},
- gold:{bg1:"#20180a",bg2:"#0f0a03",ink:"#e8c96a",accent:"#f2ead9",frame:"#8a6d2f",romaji:"#b39b55"},
- storm:{bg1:"#e8e6e1",bg2:"#c9c5bc",ink:"#14120f",accent:"#8a1c0e",frame:"#6b675e",romaji:"#5d594f"}
+ classic:{bg1:"#f8f1e2",bg2:"#e9dcc0",ink:"#26221c",accent:"#b3402e",frame:"#c3b184",romaji:"#8a7f6a"},
+ night:{bg1:"#1b1f28",bg2:"#0b0d12",ink:"#f0ead8",accent:"#d4553c",frame:"#5a5344",romaji:"#9a917c"},
+ blossom:{bg1:"#fdf1ee",bg2:"#f0d3d0",ink:"#43282e",accent:"#c04a58",frame:"#d9a89f",romaji:"#a5848a"},
+ gold:{bg1:"#221a0b",bg2:"#0e0902",ink:"#e8c96a",accent:"#f2ead9",frame:"#8a6d2f",romaji:"#b39b55"},
+ storm:{bg1:"#e9e7e2",bg2:"#c6c2b9",ink:"#14120f",accent:"#8a1c0e",frame:"#6b675e",romaji:"#5d594f"}
 };
 
 // ===== RENDER =====
 const canvas=document.getElementById("art"),ctx=canvas.getContext("2d");
+function petal(x,s){
+  x.beginPath();
+  x.moveTo(0,-s);
+  x.bezierCurveTo(s*.75,-s*.55,s*.6,s*.55,0,s*.9);
+  x.bezierCurveTo(-s*.6,s*.55,-s*.75,-s*.55,0,-s);
+  x.fill();
+}
+function decor(x,W,H,scale){
+  const R=(a,b)=>a+Math.random()*(b-a);
+  if(currentStyle==="blossom"){
+    for(let i=0;i<24;i++){
+      const corner=Math.random()<.62;
+      const cx=corner?W-R(0,W*.42):R(0,W*.36);
+      const cy=corner?R(0,H*.38):H-R(0,H*.34);
+      x.save();x.translate(cx,cy);x.rotate(R(0,Math.PI*2));
+      x.globalAlpha=R(.12,.3);
+      x.fillStyle=Math.random()<.45?"#d17f92":(Math.random()<.5?"#c05a72":"#e0a3b2");
+      petal(x,R(14,52)*scale);
+      x.restore();
+    }
+    x.globalAlpha=1;
+  }else if(currentStyle==="night"){
+    x.globalAlpha=.055;x.fillStyle="#f0ead8";
+    x.beginPath();x.arc(W*.72,H*.26,Math.min(W,H)*.24,0,7);x.fill();
+    for(let i=0;i<46;i++){x.globalAlpha=R(.06,.18);x.fillStyle="#cfd6e6";
+      x.beginPath();x.arc(R(70*scale,W-70*scale),R(70*scale,H-70*scale),R(.8,2.2)*scale,0,7);x.fill();}
+    x.globalAlpha=1;
+  }else if(currentStyle==="classic"){
+    x.globalAlpha=.045;x.strokeStyle="#8a744c";x.lineWidth=scale;
+    for(let i=0;i<60;i++){const y=R(70*scale,H-70*scale);
+      x.beginPath();x.moveTo(R(60*scale,W*.35),y);x.lineTo(R(W*.65,W-60*scale),y);x.stroke();}
+    x.globalAlpha=1;
+  }else if(currentStyle==="gold"){
+    for(let i=0;i<130;i++){x.globalAlpha=R(.07,.28);
+      x.fillStyle=Math.random()<.7?"#e8c96a":"#f6e3a1";
+      const s=R(1,4.5)*scale;
+      x.save();x.translate(R(60*scale,W-60*scale),R(60*scale,H-60*scale));x.rotate(R(0,Math.PI));x.fillRect(-s/2,-s/2,s,s);x.restore();}
+    x.globalAlpha=1;
+  }else if(currentStyle==="storm"){
+    x.save();x.translate(W/2,H/2);x.rotate(-.42);
+    x.globalAlpha=.05;x.fillStyle="#14120f";
+    x.beginPath();x.ellipse(0,0,Math.max(W,H)*.62,H*.15,0,0,7);x.fill();
+    x.globalAlpha=.035;
+    x.beginPath();x.ellipse(W*.06,H*.05,Math.max(W,H)*.5,H*.09,0,0,7);x.fill();
+    x.restore();
+    for(let i=0;i<70;i++){x.globalAlpha=R(.05,.16);x.fillStyle="#14120f";
+      x.beginPath();x.arc(Math.random()*W,Math.random()*H,R(.8,2.4)*scale,0,7);x.fill();}
+    x.globalAlpha=1;
+  }
+}
 function draw(hiRes){
   const scale=hiRes?2:1,portrait=currentOrient==="v";
   const W=(portrait?1200:1800)*scale,H=(portrait?1800:1200)*scale;
@@ -372,10 +423,15 @@ function draw(hiRes){
   const g=x.createRadialGradient(W*.35,H*.25,80*scale,W*.5,H*.5,Math.max(W,H)*.85);
   g.addColorStop(0,st.bg1);g.addColorStop(1,st.bg2);
   x.fillStyle=g;x.fillRect(0,0,W,H);
+  decor(x,W,H,scale);
   // paper texture
-  x.globalAlpha=.05;
-  for(let i=0;i<900;i++){x.fillStyle=Math.random()>.5?"#000":"#fff";x.fillRect(Math.random()*W,Math.random()*H,scale,scale*(1+Math.random()*2));}
+  x.globalAlpha=.04;
+  for(let i=0;i<700;i++){x.fillStyle=Math.random()>.5?"#000":"#fff";x.fillRect(Math.random()*W,Math.random()*H,scale,scale*(1+Math.random()*2));}
   x.globalAlpha=1;
+  // edge vignette
+  const vg=x.createRadialGradient(W/2,H/2,Math.min(W,H)*.38,W/2,H/2,Math.max(W,H)*.72);
+  vg.addColorStop(0,"rgba(0,0,0,0)");vg.addColorStop(1,"rgba(35,26,12,.09)");
+  x.fillStyle=vg;x.fillRect(0,0,W,H);
   // frame
   x.strokeStyle=st.frame;x.lineWidth=3*scale;
   x.strokeRect(46*scale,46*scale,W-92*scale,H-92*scale);
@@ -396,7 +452,7 @@ function draw(hiRes){
     const size=Math.min(320*scale,avail/n*0.9);
     const step=size*1.12,startX=W/2-step*(n-1)/2;
     x.font=`${size}px ${fam}`;
-    kanji.forEach((k,i)=>x.fillText(k,startX+i*step,H*.42+size*.35));
+    kanji.forEach((k,i)=>x.fillText(k,startX+i*step,H*.5+size*.35));
   }
   x.shadowColor="transparent";
   // hanko seal
@@ -437,7 +493,7 @@ function renderChips(){
     const[k,m]=ATEJI[syls[ci.s]][ci.o];
     const d=document.createElement("div");d.className="chip";
     d.style.animationDelay=(idx*70)+"ms"; // hanko stamp-in, one press per character
-    d.innerHTML=`<span class="s">${syls[ci.s]}</span><span class="k">${k}</span><span class="m">${m}</span>`;
+    d.innerHTML=`<span class="s">${syls[ci.s]}</span><span class="k">${k}</span><span class="m">${m} ▾</span>`;
     d.onclick=()=>openPicker(idx);
     el.appendChild(d);
   });
@@ -461,7 +517,8 @@ document.getElementById("picker").onclick=e=>{if(e.target.id==="picker")e.target
 function generate(rand){
   const nm=document.getElementById("nameIn").value.trim();
   if(!nm){toast("Type your name first ✦");return;}
-  const r=toRomaji(nm),toks=tokenize(r);
+  const words=nm.split(/\s+/).filter(Boolean);
+  const toks=words.flatMap(w=>tokenize(toRomaji(w)));
   if(!toks.length){toast("Hmm — try a simpler spelling of your name");return;}
   syls=toks;
   choices=toks.map((t,i)=>({s:i,o:rand?Math.floor(Math.random()*ATEJI[t].length):0}));
