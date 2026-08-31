@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 // Cloudflare Pages is the public, indexable site. Keep every generated
 // canonical URL and the sitemap on this one host.
-const SITE = "https://kanji-my-name.pages.dev";
+const SITE = "https://kanji.kugainc.com";
 const src = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
 
 // ---- 本体からロジック抽出（単一ソース原則）----

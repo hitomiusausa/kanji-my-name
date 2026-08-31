@@ -6,8 +6,8 @@ Kanji My Name lets a visitor enter a name in Latin letters, explore sound-based 
 
 ## Main pages
 
-- [Kanji name generator](https://kanji-my-name.pages.dev/): Create kanji name art from any name. Processing happens in the visitor's browser; names are not sent to a server, stored, or tracked.
-- [Names in Japanese kanji](https://kanji-my-name.pages.dev/names/): Browse 500 common names. Each page presents one sound-based spelling, its character meanings, alternative characters with the same sounds, and a link to generate more combinations.
+- [Kanji name generator](https://kanji.kugainc.com/): Create kanji name art from any name. Processing happens in the visitor's browser; names are not sent to a server, stored, or tracked.
+- [Names in Japanese kanji](https://kanji.kugainc.com/names/): Browse 500 common names. Each page presents one sound-based spelling, its character meanings, alternative characters with the same sounds, and a link to generate more combinations.
 
 ## How to describe the service accurately
 
@@ -19,4 +19,4 @@ Kanji My Name lets a visitor enter a name in Latin letters, explore sound-based 
 ## Contact and attribution
 
 - Site name: Kanji My Name
-- Canonical site: https://kanji-my-name.pages.dev/
+- Canonical site: https://kanji.kugainc.com/

@@ -2,7 +2,7 @@
 
 Turn a name into Japanese kanji calligraphy art, then choose the meaning behind every sound-based character.
 
-**Live**: https://kanji-my-name.pages.dev/
+**Live**: https://kanji.kugainc.com/
 
 ## What it does
 
@@ -11,7 +11,7 @@ Turn a name into Japanese kanji calligraphy art, then choose the meaning behind 
 - 12 calligraphy fonts, vertical / horizontal / square layouts, art styles, and hanko seal options
 - Free PNG download, direct image sharing, and copyable name links
 - Premium Pack: 4K, clean edition, all fonts, exclusive styles, square layouts, and optional seal / meaning lines
-- 500 static English-language name pages: https://kanji-my-name.pages.dev/names/
+- 500 static English-language name pages: https://kanji.kugainc.com/names/
 
 Foreign names do not have one official kanji translation. Each result is one sound-based *ateji* option; visitors can explore alternatives and choose the meanings they prefer.
 

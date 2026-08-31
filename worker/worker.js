@@ -11,6 +11,7 @@
 const ALLOWED_ORIGINS = [
   "https://hitomiusausa.github.io",
   "https://kanji-my-name.pages.dev",
+  "https://kanji.kugainc.com",
 ];
 
 export default {
