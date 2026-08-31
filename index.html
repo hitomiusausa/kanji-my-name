@@ -11,37 +11,56 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛩️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Yuji+Syuku&family=Zen+Maru+Gothic:wght@500&family=Dela+Gothic+One&family=Klee+One:wght@600&family=Zen+Antique&family=Reggae+One&family=Shippori+Mincho+B1:wght@800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Yuji+Syuku&family=Yuji+Boku&family=Yuji+Mai&family=Zen+Maru+Gothic:wght@500&family=Hina+Mincho&family=New+Tegomin&family=Kaisei+Decol&family=Kiwi+Maru:wght@500&family=Dela+Gothic+One&family=Klee+One:wght@600&family=Zen+Antique&family=Zen+Old+Mincho:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#111318; --panel:#181b21; --panel2:#14171c; --line:#33363f;
+  --bg:#131310; --panel:#1a1a16; --panel2:#15150f; --line:#35332a;
   --ink:#e8e2d5; --head:#f0ead9; --gold:#b89250; --muted:#8f897b; --seal:#c73e2c;
+  --washi:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 .9 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  --fiber:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='turbulence' baseFrequency='.008 .12' numOctaves='3' seed='8'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .95 0 0 0 0 .8 0 0 0 .035 0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23f)'/%3E%3C/svg%3E");
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6}
-.bgk{position:fixed;right:4%;top:6%;writing-mode:vertical-rl;font-family:'Yuji Syuku',serif;font-size:clamp(110px,16vw,210px);line-height:1;color:rgba(233,225,205,.045);user-select:none;pointer-events:none;z-index:0;transition:opacity .8s}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;position:relative}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+ background:
+  radial-gradient(ellipse 60% 40% at 78% 8%,rgba(232,226,213,.045),transparent 70%),
+  radial-gradient(ellipse 80% 55% at 12% 88%,rgba(20,18,10,.7),transparent 70%),
+  radial-gradient(ellipse 45% 35% at 30% 20%,rgba(184,146,80,.03),transparent 70%),
+  var(--washi)}
+body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.6;
+ background:radial-gradient(ellipse 90% 30% at 50% 45%,transparent 40%,rgba(9,9,7,.5))}
+.bgk{position:fixed;right:4%;top:6%;writing-mode:vertical-rl;font-family:'Yuji Syuku',serif;font-size:clamp(110px,16vw,210px);line-height:1;color:rgba(233,225,205,.05);user-select:none;pointer-events:none;z-index:0;transition:opacity .8s}
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
 header{padding:64px 0 8px}
-.brand{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold)}
-h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(38px,6vw,64px);line-height:1.2;margin:20px 0 0;color:var(--head)}
+.brand{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:12px}
+.brand::before{content:"印";font-family:'Yuji Syuku',serif;font-size:13px;color:#fdf6ea;background:var(--seal);width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(3deg);letter-spacing:0}
+h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(38px,6vw,62px);line-height:1.25;letter-spacing:.02em;margin:26px 0 0;color:var(--head)}
 h1 em{font-style:normal;color:var(--gold)}
-.goldline{width:64px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:24px 0 18px}
-.sub{color:var(--muted);max-width:520px;font-size:15px;line-height:1.8}
+.goldline{width:72px;height:1px;background:linear-gradient(90deg,var(--gold) 30%,rgba(184,146,80,.2) 60%,transparent);margin:28px 0 20px;position:relative}
+.goldline::after{content:"";position:absolute;left:0;top:-2px;width:5px;height:5px;background:var(--seal);transform:rotate(45deg)}
+.sub{color:var(--muted);max-width:520px;font-size:15px;line-height:2}
 .app{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin:44px 0 30px;align-items:start}
 @media(max-width:820px){.app{grid-template-columns:1fr}}
-.panel{background:var(--panel);border:1px solid var(--line);padding:28px}
-label{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
-input[type=text]{width:100%;font-size:20px;font-family:'Shippori Mincho',serif;padding:14px 16px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);outline:none}
+.panel{background:var(--panel);border:1px solid var(--line);padding:28px;position:relative;background-image:var(--fiber);box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.panel::before{content:"";position:absolute;inset:7px;border:1px solid rgba(232,226,213,.06);pointer-events:none;z-index:0}
+.panel>*{position:relative;z-index:1}
+label{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;margin-bottom:8px}
+label::before{content:"";width:4px;height:4px;background:var(--seal);transform:rotate(45deg);flex:none}
+input[type=text]{width:100%;font-size:20px;font-family:'Shippori Mincho',serif;padding:14px 16px;border:1px solid var(--line);border-bottom-color:rgba(184,146,80,.4);background:var(--panel2);color:var(--ink);outline:none}
 input[type=text]:focus{border-color:var(--gold)}
 .btn{display:inline-block;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:14px 24px;transition:.2s}
-.btn-red{background:var(--gold);color:#111318}
-.btn-red:hover{background:#cca768}
+.btn-red{background:#15150f;color:var(--gold);border:1px solid var(--gold);position:relative;overflow:hidden;z-index:0}
+.btn-red::before{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.3,0,.2,1);z-index:-1}
+.btn-red:hover{color:#131310}
+.btn-red:hover::before{transform:scaleX(1)}
+.btn-red:active{transform:translateY(1px)}
+@media(prefers-reduced-motion:reduce){.btn-red::before{transition:none}}
 .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
 .btn-ghost:hover{border-color:var(--gold)}
 .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
 .syl-area{margin-top:24px}
 .chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{background:transparent;border:1px solid var(--line);padding:10px 12px;text-align:center;cursor:pointer;min-width:78px;transition:border-color .15s, transform .15s;user-select:none;animation:stampIn .32s cubic-bezier(.2,.8,.3,1.15) backwards}
+.chip{background:rgba(21,21,15,.6);border:1px solid var(--line);padding:10px 12px;text-align:center;cursor:pointer;min-width:78px;transition:border-color .15s, transform .15s;user-select:none;animation:stampIn .32s cubic-bezier(.2,.8,.3,1.15) backwards}
 .chip:hover{border-color:var(--gold);transform:translateY(-2px)}
 .chip .k{font-family:'Yuji Syuku','Shippori Mincho',serif;font-size:30px;line-height:1.25;display:block;color:var(--head)}
 .chip .s{font-size:10.5px;color:var(--muted);letter-spacing:.08em}
@@ -63,29 +82,75 @@ canvas{max-width:100%;height:auto;box-shadow:0 0 80px rgba(184,146,80,.14),0 30p
 .opt .k{font-family:'Yuji Syuku','Shippori Mincho',serif;font-size:36px;color:var(--head)}
 .opt .m{font-size:14px}.opt .m b{color:var(--gold)}
 .styles{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
-.style-b{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.04em;padding:8px 14px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:.15s}
+.style-b{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.04em;padding:8px 14px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:.15s;white-space:nowrap}
 .style-b:hover{border-color:var(--gold);color:var(--ink)}
-.style-b.on{background:var(--gold);color:#111318;border-color:var(--gold);font-weight:700}
+.style-b.on{background:var(--gold);color:#131310;border-color:var(--gold);font-weight:700}
+/* ロック中：朱の封印 */
+.style-b.sealed{position:relative;border-style:dashed;border-color:rgba(199,62,44,.4);padding-left:30px;opacity:1!important}
+.style-b.sealed::before{content:"封";position:absolute;left:7px;top:50%;transform:translateY(-50%) rotate(-6deg);font-family:'Yuji Syuku',serif;font-size:11px;color:#fdf6ea;background:var(--seal);width:16px;height:16px;display:flex;align-items:center;justify-content:center;border-radius:2px;letter-spacing:0}
+.style-b.sealed:hover{border-color:rgba(199,62,44,.8);color:var(--ink)}
+.seal-legend{font-size:12px;color:var(--muted);margin-top:10px;display:flex;align-items:center;gap:8px}
+.seal-legend i{font-style:normal;font-family:'Yuji Syuku',serif;font-size:11px;color:#fdf6ea;background:var(--seal);width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;border-radius:2px;transform:rotate(-6deg);flex:none}
+.seal-legend b{color:var(--gold);font-weight:600}
 .style-b.prem{border-color:rgba(184,146,80,.55);color:var(--ink)}
 .style-b.prem:hover{border-color:var(--gold)}
 .style-b.flash-gold{animation:goldPulse .9s ease-out 1 backwards}
 @keyframes goldPulse{0%{box-shadow:0 0 0 0 rgba(184,146,80,.85);border-color:var(--gold)}100%{box-shadow:0 0 0 14px rgba(184,146,80,0)}}
-#slash{position:fixed;inset:0;z-index:100;pointer-events:none;overflow:hidden;display:none}
-#slash.go{display:block}
-#slash .flash{position:absolute;inset:0;background:#fff;opacity:0}
-#slash.go .flash{animation:slashFlash .55s ease-out forwards}
-@keyframes slashFlash{0%,22%{opacity:0}32%{opacity:.2}100%{opacity:0}}
-#slash .blade{position:absolute;top:50%;left:50%;width:190vmax;height:4px;margin-left:-95vmax;
- background:linear-gradient(90deg,transparent 0%,#fff 35%,#ffe9b8 50%,#fff 65%,transparent 100%);
- box-shadow:0 0 24px rgba(246,227,161,.95),0 0 70px rgba(246,227,161,.5);opacity:0}
-#slash.go .blade{animation:slashMove .55s cubic-bezier(.7,0,.3,1) forwards}
-@keyframes slashMove{
- 0%{transform:rotate(-24deg) translateY(-52vmax) scaleX(.2);opacity:0}
- 16%{opacity:1}
- 100%{transform:rotate(-24deg) translateY(52vmax) scaleX(1);opacity:0}}
-@media(prefers-reduced-motion:reduce){#slash.go .blade,#slash.go .flash,.style-b.flash-gold{animation:none}}
-.premium{margin:60px 0;background:var(--panel2);border:1px solid var(--gold);padding:44px;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;position:relative}
-.premium::before{content:"";position:absolute;inset:6px;border:1px solid rgba(184,146,80,.25);pointer-events:none}
+/* ===== アンロック演出 案A: 抜刀→一閃→落款「解」 ===== */
+#fxA{position:fixed;inset:0;z-index:200;pointer-events:none;display:none;overflow:hidden}
+#fxA.go{display:block}
+#fxDim{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(5,6,9,.78),rgba(3,4,6,.92));opacity:0}
+#fxA.go #fxDim{animation:dimIn 1.9s ease forwards}
+@keyframes dimIn{0%{opacity:0}9%{opacity:1}62%{opacity:1}100%{opacity:0}}
+#fxA .blade{position:absolute;top:50%;left:50%;width:210vmax;height:3px;margin-left:-105vmax;opacity:0;
+ background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0) 20%,#fff 46%,#fff8e6 50%,#fff 54%,rgba(255,255,255,0) 80%,transparent 100%);
+ box-shadow:0 0 18px #fff,0 0 60px rgba(246,227,161,.9),0 0 130px rgba(246,227,161,.45)}
+#fxA.go .blade{animation:bladeA .34s cubic-bezier(.85,0,.2,1) .12s forwards}
+@keyframes bladeA{0%{transform:rotate(-24deg) translateY(-55vmax);opacity:0}12%{opacity:1}88%{opacity:1}100%{transform:rotate(-24deg) translateY(55vmax);opacity:0}}
+#fxA .ghost{position:absolute;top:50%;left:50%;width:210vmax;height:1px;margin-left:-105vmax;transform:rotate(-24deg);opacity:0;
+ background:linear-gradient(90deg,transparent,rgba(246,227,161,.9) 40%,#fff 50%,rgba(246,227,161,.9) 60%,transparent)}
+#fxA.go .ghost{animation:ghostA 1s ease-out .4s forwards}
+@keyframes ghostA{0%{opacity:.95;box-shadow:0 0 26px rgba(246,227,161,.8)}100%{opacity:0;box-shadow:0 0 0 rgba(246,227,161,0)}}
+#fxSparks{position:absolute;inset:0}
+#fxA .kaiseal{position:absolute;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;opacity:0;
+ background:var(--seal);border-radius:10px;display:flex;align-items:center;justify-content:center;
+ filter:url(#roughA);box-shadow:0 18px 60px rgba(0,0,0,.6),0 0 90px rgba(199,62,44,.35)}
+#fxA .kaiseal::before{content:"";position:absolute;inset:9px;border:3px solid rgba(253,246,234,.92);border-radius:5px}
+#fxA .kaiseal span{font-family:'Yuji Syuku',serif;font-size:92px;color:#fdf6ea;transform:rotate(.035rad)}
+#fxA.go .kaiseal{animation:stampA 1.15s cubic-bezier(.16,1.2,.3,1) .72s forwards}
+@keyframes stampA{0%{opacity:0;transform:scale(3.1) rotate(-8deg)}14%{opacity:1;transform:scale(.94) rotate(1.5deg)}22%{transform:scale(1.03) rotate(0)}30%{transform:scale(1)}72%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.6) translateY(-30px)}}
+#fxA .ring{position:absolute;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:14px;border:2px solid rgba(199,62,44,.8);opacity:0}
+#fxA.go .ring{animation:ringA .7s ease-out .86s forwards}
+@keyframes ringA{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(2.4)}}
+.cuthalf{position:fixed;inset:0;z-index:150;pointer-events:none;display:none;background:var(--bg)}
+.cuthalf.on{display:block}
+#cutTop{clip-path:polygon(0 0,100% 0,100% 28%,0 72%)}
+#cutBot{clip-path:polygon(0 72%,100% 28%,100% 100%,0 100%)}
+#cutTop.slip{animation:slipT .5s cubic-bezier(.2,.9,.25,1) forwards}
+#cutBot.slip{animation:slipB .5s cubic-bezier(.2,.9,.25,1) forwards}
+@keyframes slipT{0%{transform:translate(0,0)}30%{transform:translate(-14px,-9px)}100%{transform:translate(0,0)}}
+@keyframes slipB{0%{transform:translate(0,0)}30%{transform:translate(12px,8px)}100%{transform:translate(0,0)}}
+#gapline{position:fixed;top:50%;left:50%;width:210vmax;height:2px;margin-left:-105vmax;transform:rotate(-24deg);z-index:160;pointer-events:none;opacity:0;
+ background:linear-gradient(90deg,transparent,var(--gold) 35%,#f6e3a1 50%,var(--gold) 65%,transparent)}
+#gapline.on{animation:gapA .55s ease-out forwards}
+@keyframes gapA{0%{opacity:1;box-shadow:0 0 30px rgba(246,227,161,.9)}100%{opacity:0;box-shadow:0 0 0 transparent}}
+body.fxshake main,body.fxshake header{animation:shakeA .34s linear}
+@keyframes shakeA{0%,100%{transform:translate(0,0)}20%{transform:translate(-5px,4px)}40%{transform:translate(4px,-4px)}60%{transform:translate(-3px,2px)}80%{transform:translate(2px,-2px)}}
+@media(prefers-reduced-motion:reduce){
+ #fxA.go *{animation:none!important}
+ #fxA.go #fxDim{animation:dimRM 1.4s ease forwards!important}
+ @keyframes dimRM{0%{opacity:0}30%{opacity:.85}70%{opacity:.85}100%{opacity:0}}
+ body.fxshake main,body.fxshake header{animation:none}
+ #cutTop.slip,#cutBot.slip,#gapline.on{animation:none}
+}
+.premium{margin:0 0 60px;background:var(--panel2);border:1px solid rgba(184,146,80,.5);background-image:var(--fiber);padding:44px;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;position:relative}
+.premium::before{content:"";position:absolute;inset:7px;border:1px solid rgba(184,146,80,.22);pointer-events:none}
+.premium.pulse{animation:premGlow 1.6s ease}
+@keyframes premGlow{0%{box-shadow:0 0 0 rgba(184,146,80,0)}25%{box-shadow:0 0 70px rgba(184,146,80,.35)}100%{box-shadow:0 0 0 rgba(184,146,80,0)}}
+.divider{display:flex;align-items:center;gap:16px;margin:56px 0;color:var(--muted)}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line))}
+.divider::after{background:linear-gradient(90deg,var(--line),transparent)}
+.divider span{font-family:'Shippori Mincho',serif;font-size:14px;letter-spacing:.5em;color:var(--gold)}
 @media(max-width:820px){.premium{grid-template-columns:1fr;padding:32px}}
 .premium h2{font-family:'Shippori Mincho',serif;font-size:32px;color:var(--head);margin-bottom:10px}
 .premium ul{list-style:none;margin:14px 0}
@@ -102,8 +167,12 @@ canvas{max-width:100%;height:auto;box-shadow:0 0 80px rgba(184,146,80,.14),0 30p
 .qa b{display:block;margin-bottom:6px;color:var(--head)}
 .qa p{color:var(--muted);font-size:14.5px}
 footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;color:var(--muted);font-size:13px}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#111318;padding:12px 22px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.3s;z-index:60}
-.toast.show{opacity:1}
+.upsell-note{margin-top:12px;text-align:center;font-size:12px;color:var(--muted)}
+.upsell-note b{color:var(--gold);font-weight:600}
+.upsell-note a{color:var(--gold)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#131310;padding:12px 22px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.3s;z-index:60}
+.toast a{color:var(--seal);font-weight:600}
+.toast.show{opacity:1;pointer-events:auto}
 @media(prefers-reduced-motion:reduce){.chip,.thump{animation:none}}
 </style>
 </head>
@@ -141,6 +210,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
         </div>
         <label style="margin-top:18px">Hanko seal 朱印</label>
         <div class="styles" id="sealRow" style="margin-top:4px"></div>
+        <div class="seal-legend" id="sealLegend"><i>封</i><span><b>封 = “sealed”</b> — these options open with the Premium Pack. Tap one to peek.</span></div>
       </div>
     </div>
     <div class="panel canvas-holder">
@@ -149,17 +219,19 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
         <button class="btn btn-red" id="dlBtn">Download PNG (free)</button>
         <button class="btn btn-ghost" id="shareBtn">Copy share text</button>
       </div>
+      <div class="upsell-note">Free = full-size PNG with credit line · <b>Premium = 4K, clean, all 12 fonts — <a href="#premium">see the Pack ✦</a></b></div>
     </div>
   </div>
 
+  <div class="divider"><span>特別頒布</span></div>
   <section class="premium" id="premium">
     <div>
       <h2>The Premium Pack</h2>
       <ul>
         <li>Ultra high-resolution 4K art — perfect for printing &amp; framing</li>
         <li>No credit line — clean, gallery-ready artwork</li>
-        <li>All 8 calligraphy fonts (5 premium-only)</li>
-        <li>Exclusive <i>Gold Leaf</i> &amp; <i>Sumi Storm</i> art styles</li>
+        <li>All 12 calligraphy fonts (9 premium-only)</li>
+        <li>Exclusive <i>Gold Leaf</i>, <i>Sumi Storm</i>, <i>Indigo Wave</i>, <i>Ensō</i> &amp; <i>Pure White</i> art styles</li>
         <li>Seal-free edition — remove the hanko for a pure look</li>
       </ul>
       <div class="unlock-in">
@@ -179,14 +251,24 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
     <h2>About kanji names</h2>
     <div class="qa"><b>Is this a real Japanese translation of my name?</b><p>Foreign names have no single "correct" kanji. Japanese tradition uses <i>ateji</i> (当て字): kanji chosen for their sound, whose meanings you select yourself. Your name becomes both phonetic and poetic — that's the art.</p></div>
     <div class="qa"><b>Can I use it for a tattoo?</b><p>Many people do! We recommend the Premium 4K clean edition so your artist gets the exact characters, crisp and stroke-accurate.</p></div>
-    <div class="qa"><b>Is the free download really free?</b><p>Yes — full-size PNG with a small credit line. The Premium Pack adds 4K, the clean edition, all 8 fonts, and exclusive styles — one small payment, lifetime access.</p></div>
+    <div class="qa"><b>Is the free download really free?</b><p>Yes — full-size PNG with a small credit line. The Premium Pack adds 4K, the clean edition, all 12 fonts, and exclusive styles — one small payment, lifetime access.</p></div>
     <div class="qa"><b>Is my name sent anywhere?</b><p>Never. Everything — the kanji matching, the art, the download — happens entirely in your browser. Your name is not sent to any server, stored, or tracked.</p></div>
   </section>
 </main>
 
 <footer class="wrap">Kanji My Name · handcrafted with 愛 · <span id="year"></span></footer>
 <div class="picker" id="picker"><div class="picker-card" id="pickerCard"></div></div>
-<div id="slash" aria-hidden="true"><div class="flash"></div><div class="blade"></div></div>
+<div id="fxA" aria-hidden="true">
+  <div id="fxDim"></div>
+  <div class="blade"></div>
+  <div class="ghost"></div>
+  <canvas id="fxSparks"></canvas>
+  <div class="ring"></div>
+  <div class="kaiseal"><span>解</span></div>
+</div>
+<div class="cuthalf" id="cutTop"></div><div class="cuthalf" id="cutBot"></div>
+<div id="gapline"></div>
+<svg width="0" height="0" style="position:absolute"><filter id="roughA"><feTurbulence type="fractalNoise" baseFrequency=".055" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7"/></filter></svg>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -361,7 +443,10 @@ const STYLE_LIST=[
  {id:"night",  label:"Midnight Ink", free:true},
  {id:"blossom",label:"Blossom",      free:true},
  {id:"gold",   label:"Gold Leaf",    free:false},
- {id:"storm",  label:"Sumi Storm",   free:false}
+ {id:"storm",  label:"Sumi Storm",   free:false},
+ {id:"indigo", label:"Indigo Wave",  free:false},
+ {id:"enso",   label:"Ensō",         free:false},
+ {id:"shiro",  label:"Pure White",   free:false}
 ];
 function renderStyleRow(){
   const row=document.getElementById("styleRow");row.innerHTML="";
@@ -370,7 +455,7 @@ function renderStyleRow(){
     b.className="style-b"+(s.id===currentStyle?" on":"");
     b.dataset.style=s.id;
     b.textContent=s.free?s.label:s.label+" ✦";
-    if(!s.free){if(premium)b.classList.add("prem");else b.style.opacity=".55";}
+    if(!s.free){if(premium)b.classList.add("prem");else b.classList.add("sealed");}
     row.appendChild(b);
   });
 }
@@ -381,7 +466,7 @@ function renderSealRow(){
     b.className="style-b"+((o.v==="on")===sealOn?" on":"");
     b.dataset.seal=o.v;
     b.textContent=o.free?o.label:o.label+" ✦";
-    if(!o.free){if(premium)b.classList.add("prem");else b.style.opacity=".55";}
+    if(!o.free){if(premium)b.classList.add("prem");else b.classList.add("sealed");}
     row.appendChild(b);
   });
 }
@@ -391,17 +476,22 @@ const FONTS=[
  {id:"yuji",  label:"Brush 筆",    css:"'Yuji Syuku',serif",        free:true},
  {id:"mincho",label:"Mincho 雅",   css:"'Shippori Mincho',serif",   free:true},
  {id:"maru",  label:"Round 丸",    css:"'Zen Maru Gothic',sans-serif",free:true},
- {id:"dela",  label:"Urban 塊",       css:"'Dela Gothic One',cursive",   free:false},
- {id:"klee",  label:"Pen 心",         css:"'Klee One',cursive", w:"600", free:false},
- {id:"antique",label:"Antique 刻",    css:"'Zen Antique',serif",         free:false},
- {id:"impact",label:"Impact 豪",      css:"'Reggae One',cursive",        free:false},
- {id:"heavy", label:"Heavy Mincho 極",css:"'Shippori Mincho B1',serif",  free:false}
+ {id:"boku",  label:"Bold Brush 墨",css:"'Yuji Boku',serif",         free:false},
+ {id:"mai",   label:"Dancing Brush 舞",css:"'Yuji Mai',serif",       free:false},
+ {id:"hina",  label:"Heirloom 雛",  css:"'Hina Mincho',serif",       free:false},
+ {id:"tegomin",label:"Folk 民",     css:"'New Tegomin',serif",       free:false},
+ {id:"decol", label:"Charm 彩",     css:"'Kaisei Decol',serif",      free:false},
+ {id:"kiwi",  label:"Sweet 莓",     css:"'Kiwi Maru',serif", w:"500",free:false},
+ {id:"klee",  label:"Pen 心",       css:"'Klee One',cursive", w:"600",free:false},
+ {id:"oldmincho",label:"Antique 刻",css:"'Zen Old Mincho',serif", w:"700",free:false},
+ {id:"dela",  label:"Urban 塊",     css:"'Dela Gothic One',cursive", free:false}
 ];
 const fontCss=()=>FONTS.find(f=>f.id===currentFont).css;
 const fontFor=px=>{const f=FONTS.find(f=>f.id===currentFont);return `${f.w?f.w+" ":""}${px}px ${f.css}`;};
 async function ensureFont(){
   const chars=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]).join("")||"永漢名";
   try{await document.fonts.load(fontFor(80),chars);}catch(e){}
+  try{await document.fonts.load("80px 'Zen Antique'",chars[0]||"印");}catch(e){} // 篦刻印用
 }
 async function render(hiRes){
   await ensureFont();
@@ -412,10 +502,13 @@ async function render(hiRes){
 
 const STYLES={
  classic:{bg1:"#f8f1e2",bg2:"#e9dcc0",ink:"#26221c",accent:"#b3402e",frame:"#c3b184",romaji:"#8a7f6a"},
- night:{bg1:"#1b1f28",bg2:"#0b0d12",ink:"#f0ead8",accent:"#d4553c",frame:"#5a5344",romaji:"#9a917c"},
+ night:{bg1:"#1b2030",bg2:"#0a0c14",ink:"#f0ead8",accent:"#d4553c",frame:"#4a4f63",romaji:"#9aa1b8"},
  blossom:{bg1:"#fdf1ee",bg2:"#f0d3d0",ink:"#43282e",accent:"#c04a58",frame:"#d9a89f",romaji:"#a5848a"},
- gold:{bg1:"#221a0b",bg2:"#0e0902",ink:"#e8c96a",accent:"#f2ead9",frame:"#8a6d2f",romaji:"#b39b55"},
- storm:{bg1:"#e9e7e2",bg2:"#c6c2b9",ink:"#14120f",accent:"#8a1c0e",frame:"#6b675e",romaji:"#5d594f"}
+ gold:{bg1:"#1c1507",bg2:"#0a0701",ink:"#e8c96a",accent:"#c73e2c",frame:"#8a6d2f",romaji:"#b39b55"},
+ storm:{bg1:"#ece9e2",bg2:"#c9c5bb",ink:"#14120f",accent:"#8a1c0e",frame:"#6b675e",romaji:"#5d594f"},
+ indigo:{bg1:"#1a2c4a",bg2:"#0c1524",ink:"#e9eef7",accent:"#d4553c",frame:"#3d5a7a",romaji:"#8fa5c4"},
+ enso:{bg1:"#f4efe4",bg2:"#e2dbc9",ink:"#26221c",accent:"#b3402e",frame:"#c9c2b2",romaji:"#8a7f6a"},
+ shiro:{bg1:"#faf7f0",bg2:"#efeadf",ink:"#1c1915",accent:"#b3402e",frame:"#c9c2b2",romaji:"#a09a8c"}
 };
 
 // ===== RENDER =====
@@ -442,10 +535,38 @@ function decor(x,W,H,scale){
     }
     x.globalAlpha=1;
   }else if(currentStyle==="night"){
-    x.globalAlpha=.055;x.fillStyle="#f0ead8";
-    x.beginPath();x.arc(W*.72,H*.26,Math.min(W,H)*.24,0,7);x.fill();
-    for(let i=0;i<46;i++){x.globalAlpha=R(.06,.18);x.fillStyle="#cfd6e6";
-      x.beginPath();x.arc(R(70*scale,W-70*scale),R(70*scale,H-70*scale),R(.8,2.2)*scale,0,7);x.fill();}
+    const mx=W*.72,my=H*.19,mr=Math.min(W,H)*.075,u=W/360/scale*scale; // u: プロト(360px)基準の倍率
+    let g=x.createRadialGradient(mx,my,mr,mx,my,mr*4.2);
+    g.addColorStop(0,"rgba(240,234,216,.16)");g.addColorStop(.4,"rgba(200,210,235,.06)");g.addColorStop(1,"transparent");
+    x.fillStyle=g;x.beginPath();x.arc(mx,my,mr*4.2,0,7);x.fill();
+    g=x.createRadialGradient(mx,my,mr*.8,mx,my,mr*1.9);
+    g.addColorStop(0,"rgba(240,234,216,.28)");g.addColorStop(1,"transparent");
+    x.fillStyle=g;x.beginPath();x.arc(mx,my,mr*1.9,0,7);x.fill();
+    g=x.createRadialGradient(mx-mr*.35,my-mr*.35,mr*.07,mx,my,mr);
+    g.addColorStop(0,"#f6f1e2");g.addColorStop(1,"#ded6c0");
+    x.fillStyle=g;x.beginPath();x.arc(mx,my,mr,0,7);x.fill();
+    x.save();x.beginPath();x.arc(mx,my,mr,0,7);x.clip();
+    for(let i=0;i<9;i++){const ox=R(-.6,.6)*mr,oy=R(-.6,.6)*mr,r=R(.2,.5)*mr;
+      const sh=x.createRadialGradient(mx+ox,my+oy,0,mx+ox,my+oy,r);
+      sh.addColorStop(0,`rgba(165,155,132,${R(.05,.11)})`);sh.addColorStop(1,"transparent");
+      x.fillStyle=sh;x.beginPath();x.arc(mx+ox,my+oy,r,0,7);x.fill();}
+    const lim=x.createRadialGradient(mx-mr*.3,my-mr*.3,mr*.2,mx,my,mr);
+    lim.addColorStop(0,"transparent");lim.addColorStop(1,"rgba(150,140,118,.22)");
+    x.fillStyle=lim;x.beginPath();x.arc(mx,my,mr,0,7);x.fill();
+    x.restore();
+    const cloud=(cy0,len,al)=>{let px=W*.5+R(-len*.5,len*.2)-len/2,py=cy0;
+      const segs=Math.round(len/(W*.055));
+      for(let i=0;i<segs;i++){const t=i/segs,edge=Math.sin(t*Math.PI);
+        const g2=x.createRadialGradient(px,py,0,px,py,R(W*.04,W*.072));
+        g2.addColorStop(0,`rgba(16,20,32,${al*edge*R(.5,1)})`);g2.addColorStop(1,"transparent");
+        x.fillStyle=g2;x.beginPath();x.arc(px,py,W*.072,0,7);x.fill();
+        px+=R(W*.039,W*.072);py+=R(-H*.0065,H*.0065);}};
+    cloud(my+mr*.15,W*.5,.34);cloud(my-mr*1.5,W*.34,.2);cloud(my+mr*1.9,W*.42,.24);cloud(H*.36,W*.3,.16);
+    for(let i=0;i<34;i++){x.globalAlpha=R(.1,.5);x.fillStyle="#cfd6e6";
+      x.beginPath();x.arc(R(30*scale,W-30*scale),R(30*scale,H-30*scale),R(.4,1.3)*W/360,0,7);x.fill();}
+    for(let i=0;i<3;i++){const sx0=R(W*.1,W*.9),sy0=R(H*.07,H*.5);x.globalAlpha=R(.3,.5);x.strokeStyle="#e6ebf6";x.lineWidth=.7*W/360;
+      const a=W*.011;
+      x.beginPath();x.moveTo(sx0-a,sy0);x.lineTo(sx0+a,sy0);x.moveTo(sx0,sy0-a);x.lineTo(sx0,sy0+a);x.stroke();}
     x.globalAlpha=1;
   }else if(currentStyle==="classic"){
     x.globalAlpha=.045;x.strokeStyle="#8a744c";x.lineWidth=scale;
@@ -453,21 +574,48 @@ function decor(x,W,H,scale){
       x.beginPath();x.moveTo(R(60*scale,W*.35),y);x.lineTo(R(W*.65,W-60*scale),y);x.stroke();}
     x.globalAlpha=1;
   }else if(currentStyle==="gold"){
-    for(let i=0;i<130;i++){x.globalAlpha=R(.07,.28);
-      x.fillStyle=Math.random()<.7?"#e8c96a":"#f6e3a1";
-      const s=R(1,4.5)*scale;
-      x.save();x.translate(R(60*scale,W-60*scale),R(60*scale,H-60*scale));x.rotate(R(0,Math.PI));x.fillRect(-s/2,-s/2,s,s);x.restore();}
+    // 金粉のみ：対角の流れ（右上密→左下疎）、文字周りは疎
+    for(let i=0;i<300;i++){
+      const t=Math.pow(Math.random(),1.6);
+      const px=W-t*W*R(.8,1.1)+R(-W*.083,W*.083),py=t*H*R(.75,1.05)+R(-H*.055,H*.055);
+      if(px<W*.04||px>W*.96||py<H*.026||py>H*.974)continue;
+      const d=Math.hypot(px-W*.5,py-H*.42);
+      if(d<Math.min(W,H)*.36&&Math.random()<.8)continue;
+      x.globalAlpha=R(.25,.85)*(1-t*.45);
+      x.fillStyle=Math.random()<.55?"#e8c96a":(Math.random()<.5?"#f6e3a1":"#b89250");
+      x.beginPath();x.arc(px,py,R(.4,1.7)*W/360,0,7);x.fill();
+    }
     x.globalAlpha=1;
   }else if(currentStyle==="storm"){
-    x.save();x.translate(W/2,H/2);x.rotate(-.42);
-    x.globalAlpha=.05;x.fillStyle="#14120f";
-    x.beginPath();x.ellipse(0,0,Math.max(W,H)*.62,H*.15,0,0,7);x.fill();
-    x.globalAlpha=.035;
-    x.beginPath();x.ellipse(W*.06,H*.05,Math.max(W,H)*.5,H*.09,0,0,7);x.fill();
-    x.restore();
-    for(let i=0;i<70;i++){x.globalAlpha=R(.05,.16);x.fillStyle="#14120f";
-      x.beginPath();x.arc(Math.random()*W,Math.random()*H,R(.8,2.4)*scale,0,7);x.fill();}
+    // 薄墨のシュッとした払い筆：曲線に沿って先細り
+    const u=W/360;
+    function bstroke(x0,y0,cx0,cy0,x1,y1,w0,alpha){
+      const N=60;
+      for(let i=0;i<N;i++){const t=i/N,uu=1-t;
+        const px=uu*uu*x0+2*uu*t*cx0+t*t*x1,py=uu*uu*y0+2*uu*t*cy0+t*t*y1;
+        const w=w0*(1-t*.92)*(1+Math.sin(t*30)*.06);
+        x.globalAlpha=alpha*(1-t*.35);x.fillStyle="#3a362e";
+        x.beginPath();x.arc(px,py,w,0,7);x.fill();}
+      for(let i=0;i<5;i++){const t=.75+i*.05,uu=1-t;
+        const px=uu*uu*x0+2*uu*t*cx0+t*t*x1,py=uu*uu*y0+2*uu*t*cy0+t*t*y1;
+        x.globalAlpha=alpha*.5;x.fillRect(px+R(-2,2)*u,py+R(-6,6)*u,R(10,26)*u,R(.6,1.6)*u);}
+    }
+    bstroke(-20*u,H*.2,W*.45,H*.05,W+10*u,H*.32,15*u,.14);
+    bstroke(W*.15,H+10*u,W*.4,H*.75,W*.9,H*.62,11*u,.11);
+    bstroke(W*.86,H*.18,W*.8,H*.3,W*.6,H*.5,5*u,.13);
+    for(let i=0;i<16;i++){x.globalAlpha=R(.08,.25);x.fillStyle="#3a362e";x.beginPath();x.arc(R(0,W),R(0,H),R(.7,2.6)*u,0,7);x.fill();}
     x.globalAlpha=1;
+  }else if(currentStyle==="indigo"){
+    // 青海波：下半分に半円の重なり
+    const unit=W*.156,rowH=unit*.464,rad0=unit*.43,step=unit*.125;
+    x.strokeStyle="rgba(130,170,220,.28)";x.lineWidth=1.5*W/360;
+    const rows=Math.ceil(H*.55/rowH);
+    for(let row=0;row<rows;row++){
+      for(let col=-1;col<Math.ceil(W/unit)+1;col++){
+        const px=col*unit+(row%2?unit/2:0),py=H-H*.074-row*rowH;
+        for(let r=rad0;r>step*.6;r-=step){x.beginPath();x.arc(px,py,r,Math.PI,0);x.stroke();}
+      }
+    }
   }
 }
 function draw(hiRes){
@@ -489,16 +637,34 @@ function draw(hiRes){
   const vg=x.createRadialGradient(W/2,H/2,Math.min(W,H)*.38,W/2,H/2,Math.max(W,H)*.72);
   vg.addColorStop(0,"rgba(0,0,0,0)");vg.addColorStop(1,"rgba(35,26,12,.09)");
   x.fillStyle=vg;x.fillRect(0,0,W,H);
-  // frame
-  x.strokeStyle=st.frame;x.lineWidth=3*scale;
-  x.strokeRect(46*scale,46*scale,W-92*scale,H-92*scale);
-  x.lineWidth=1*scale;x.strokeRect(58*scale,58*scale,W-116*scale,H-116*scale);
+  // frame（enso/shiroは無地のためなし）
+  if(currentStyle!=="enso"&&currentStyle!=="shiro"){
+    x.strokeStyle=st.frame;x.lineWidth=3*scale;
+    x.strokeRect(46*scale,46*scale,W-92*scale,H-92*scale);
+    x.lineWidth=1*scale;x.strokeRect(58*scale,58*scale,W-116*scale,H-116*scale);
+  }
   const kanji=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]);
   const n=kanji.length||1;
   // one font for the whole name — never mixed (fontFor)
   x.textAlign="center";x.fillStyle=st.ink;
   x.shadowColor="rgba(0,0,0,.18)";x.shadowBlur=8*scale;x.shadowOffsetY=4*scale;
-  if(portrait){
+  if(currentStyle==="enso"){
+    // 円相：掛すれた一筆の円の真中に文字列（5字以上は縦書き2列・右列先行）
+    const rad=Math.min(W,H)*.37,ccx=W/2,ccy=H*.47;
+    ensoCircle(x,ccx,ccy,rad);
+    x.fillStyle=st.ink;
+    const cols=n>4?2:1,rows=Math.ceil(n/cols);
+    const size=Math.min(300*scale,(rad*2*.68)/rows,cols>1?rad*.82:300*scale);
+    const lh=size*1.06,colW=size*1.14;
+    x.font=fontFor(size);x.textBaseline="middle";
+    for(let ci=0;ci<cols;ci++){
+      const colChars=kanji.slice(ci*rows,(ci+1)*rows);
+      const cx0=ccx+(cols>1?(cols-1)/2*colW-ci*colW:0);
+      const startY=ccy-lh*(colChars.length-1)/2;
+      colChars.forEach((k,i)=>x.fillText(k,cx0,startY+i*lh));
+    }
+    x.textBaseline="alphabetic";
+  }else if(portrait){
     const avail=H-460*scale;
     const size=Math.min(300*scale,avail/n*0.86);
     const startY=(H-140*scale-(size*1.12*n))/2+size*.85;
@@ -512,27 +678,10 @@ function draw(hiRes){
     kanji.forEach((k,i)=>x.fillText(k,startX+i*step,H*.5+size*.35));
   }
   x.shadowColor="transparent";
-  // hanko seal — tilted, double-bordered, with stamped-ink texture
+  // hanko seal — 篦刻風・白文（外周の欠け・インクのむらを手続き的に生成）
   if(sealOn){
-    const sz=108*scale,sx=W-190*scale,sy=portrait?H-330*scale:H-260*scale;
-    const pc=currentStyle==="night"||currentStyle==="gold"?"#14120f":"#fdf6ea";
-    x.save();
-    x.translate(sx+sz/2,sy+sz/2);x.rotate(.06);
-    x.fillStyle=st.accent;
-    x.globalAlpha=.94;
-    x.beginPath();x.roundRect(-sz/2,-sz/2,sz,sz,9*scale);x.fill();
-    x.globalAlpha=.45; // second pass: uneven ink build-up
-    x.beginPath();x.roundRect(-sz/2+2*scale,-sz/2+2*scale,sz-4*scale,sz-4*scale,8*scale);x.fill();
-    x.globalAlpha=1;
-    x.strokeStyle=pc;x.lineWidth=2.2*scale;
-    x.beginPath();x.roundRect(-sz/2+7*scale,-sz/2+7*scale,sz-14*scale,sz-14*scale,5*scale);x.stroke();
-    x.fillStyle=pc;x.font=fontFor(sz*.5);
-    x.fillText(kanji[0]||"印",0,sz*.18);
-    for(let i=0;i<30;i++){ // stamped texture: paper eats into the ink
-      x.globalAlpha=Math.random()*.22;x.fillStyle=st.bg1;
-      x.beginPath();x.arc((Math.random()-.5)*sz*.96,(Math.random()-.5)*sz*.96,Math.random()*2.4*scale,0,7);x.fill();
-    }
-    x.globalAlpha=1;x.restore();
+    const sz=118*scale,sx=W-190*scale,sy=portrait?H-330*scale:H-260*scale;
+    drawSeal(x,sx+sz/2,sy+sz/2,sz,kanji[0]||"印",st);
   }
   // romaji name + meanings
   const nm=document.getElementById("nameIn").value.trim();
@@ -547,6 +696,88 @@ function draw(hiRes){
   if(!premium||!hiRes){x.font=`${18*scale}px 'Inter',sans-serif`;x.globalAlpha=.55;x.fillText(CREDIT,W/2,H-92*scale);x.globalAlpha=1;}
   return c;
 }
+// ===== 篦刻風 落款（白文）— オフスクリーンで生成して合成 =====
+function drawSeal(x,cx,cy,size,ch,st){
+  const R=(a,b)=>a+Math.random()*(b-a);
+  const s=Math.round(size),h=s/2;
+  const off=document.createElement("canvas");off.width=off.height=s;
+  const o=off.getContext("2d");
+  const red=st.accent,red2="#a93524";
+  const jit=s*.018,seg=14;
+  function roughRect(ctx,inset){
+    const a=inset,b=s-inset,pts=[];
+    for(let i=0;i<=seg;i++)pts.push([a+(b-a)*i/seg+R(-jit,jit),a+R(-jit,jit)]);
+    for(let i=1;i<=seg;i++)pts.push([b+R(-jit,jit),a+(b-a)*i/seg+R(-jit,jit)]);
+    for(let i=1;i<=seg;i++)pts.push([b-(b-a)*i/seg+R(-jit,jit),b+R(-jit,jit)]);
+    for(let i=1;i<seg;i++)pts.push([a+R(-jit,jit),b-(b-a)*i/seg+R(-jit,jit)]);
+    ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);
+    pts.forEach(p=>ctx.lineTo(p[0],p[1]));ctx.closePath();
+  }
+  // 朱の地（2度押しでむら）
+  o.fillStyle=red;roughRect(o,s*.045);o.fill();
+  o.globalAlpha=.5;o.fillStyle=red2;roughRect(o,s*.06);o.fill();o.globalAlpha=1;
+  // 文字を白抜き
+  o.globalCompositeOperation="destination-out";
+  o.font=`${s*.62}px 'Zen Antique',serif`;
+  o.textAlign="center";o.textBaseline="middle";
+  o.fillText(ch,h,h*1.04);
+  o.globalAlpha=.55;o.fillText(ch,h+s*.008,h*1.04+s*.006);o.globalAlpha=1;
+  // 内側の白細枠
+  o.lineWidth=s*.02;o.strokeStyle="#000";
+  roughRect(o,s*.10);o.stroke();
+  // 外周の欠け
+  const chips=Math.round(R(5,9));
+  for(let i=0;i<chips;i++){
+    const edge=Math.floor(R(0,4)),t=R(.1,.9);
+    const px=edge===0?s*t:edge===1?s*.96:edge===2?s*t:s*.04;
+    const py=edge===0?s*.04:edge===1?s*t:edge===2?s*.96:s*t;
+    o.beginPath();o.arc(px,py,R(s*.015,s*.05),0,7);o.fill();
+  }
+  // 紙が朱を食う白点
+  for(let i=0;i<s*.9;i++){
+    o.globalAlpha=R(.05,.3);
+    o.beginPath();o.arc(R(0,s),R(0,s),R(.4,s*.006),0,7);o.fill();
+  }
+  o.globalCompositeOperation="source-over";
+  // 朱の飛沫
+  o.fillStyle=red;
+  for(let i=0;i<10;i++){
+    o.globalAlpha=R(.15,.4);
+    o.beginPath();o.arc(R(-s*.02,s*1.02),R(-s*.02,s*1.02),R(.5,s*.008),0,7);o.fill();
+  }
+  o.globalAlpha=1;
+  x.save();x.translate(cx,cy);x.rotate(R(.03,.07));
+  x.drawImage(off,-h,-h,s,s);
+  x.restore();
+}
+
+// 円相：フィラメントを重ねた掛すれの一筆（入筆・抜筆で先細り、終盤はばらける）
+function ensoCircle(x,cx,cy,rad){
+  const R=(a,b)=>a+Math.random()*(b-a);
+  const k=rad/132;
+  x.save();x.shadowColor="transparent";x.translate(cx,cy);
+  const a0=-2.25,a1=3.95;
+  for(let f=0;f<16;f++){
+    const rOff=R(-6,6)*k*(f/16+.25),wBase=R(.4,1.5)*k;
+    x.strokeStyle="#211d17";
+    const N=90;
+    for(let i=0;i<N;i++){
+      const t=i/N,a=a0+(a1-a0)*t;
+      const taper=t<.08?t/.08:(t>.8?Math.max(0,1-(t-.8)/.22):1);
+      if(taper<=0)continue;
+      if(Math.random()<.22)continue;
+      const scatter=t>.72?(t-.72)*R(0,26)*k:0;
+      x.globalAlpha=(.30-f*.013)*taper*(t>.75?R(.3,1):1);
+      x.lineWidth=Math.max(.5,wBase*(1+(1-t)*1.8)*taper);
+      x.beginPath();x.arc(0,0,rad+rOff+scatter*R(-1,1),a,a+.075);x.stroke();
+    }
+  }
+  for(let i=0;i<8;i++){x.globalAlpha=R(.15,.4);x.fillStyle="#211d17";
+    const a=R(3.4,4.1),r0=rad+R(-14,20)*k;
+    x.beginPath();x.arc(Math.cos(a)*r0+R(-8,8)*k,Math.sin(a)*r0+R(-8,8)*k,R(.5,2)*k,0,7);x.fill();}
+  x.restore();x.globalAlpha=1;
+}
+
 function renderFontRow(){
   const row=document.getElementById("fontRow");row.innerHTML="";
   FONTS.forEach(f=>{
@@ -554,7 +785,7 @@ function renderFontRow(){
     b.className="style-b"+(f.id===currentFont?" on":"");
     b.dataset.font=f.id;
     b.textContent=f.free?f.label:f.label+" ✦";
-    if(!f.free){if(premium)b.classList.add("prem");else b.style.opacity=".55";}
+    if(!f.free){if(premium)b.classList.add("prem");else b.classList.add("sealed");}
     row.appendChild(b);
   });
 }
@@ -598,6 +829,14 @@ function generate(rand){
   history.replaceState(null,"","#"+encodeURIComponent(nm));
 }
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600);}
+// ロック項目タップ → Premiumセクションへ誘導（スムーズスクロール＋一瞬ハイライト）
+function sealedNudge(msg){
+  toast(msg);
+  const p=document.getElementById("premium");
+  const y=p.getBoundingClientRect().top+window.scrollY-40;
+  window.scrollTo({top:y,behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"});
+  p.classList.remove("pulse");void p.offsetWidth;p.classList.add("pulse");
+}
 
 // ===== EVENTS =====
 document.getElementById("goBtn").onclick=()=>generate(false);
@@ -606,13 +845,13 @@ document.getElementById("nameIn").addEventListener("keydown",e=>{if(e.key==="Ent
 document.getElementById("styleRow").addEventListener("click",e=>{
   const b=e.target.closest(".style-b");if(!b)return;
   const s=b.dataset.style,meta=STYLE_LIST.find(o=>o.id===s);
-  if(!meta.free&&!premium){toast(`“${meta.label}” is a Premium style ✦ Unlock everything for ${PRICE}`);return;}
+  if(!meta.free&&!premium){sealedNudge(`“${meta.label}” is sealed — the Premium Pack opens it (${PRICE})`);return;}
   document.querySelectorAll("#styleRow .style-b").forEach(x=>x.classList.toggle("on",x===b));
   currentStyle=s;render();
 });
 document.getElementById("sealRow").addEventListener("click",e=>{
   const b=e.target.closest(".style-b");if(!b)return;
-  if(b.dataset.seal==="off"&&!premium){toast(`Removing the seal is a Premium option ✦ Unlock for ${PRICE}`);return;}
+  if(b.dataset.seal==="off"&&!premium){sealedNudge(`Removing the seal is sealed — the Premium Pack opens it (${PRICE})`);return;}
   sealOn=b.dataset.seal==="on";
   document.querySelectorAll("#sealRow .style-b").forEach(x=>x.classList.toggle("on",x===b));
   render();
@@ -620,7 +859,7 @@ document.getElementById("sealRow").addEventListener("click",e=>{
 document.getElementById("fontRow").addEventListener("click",e=>{
   const b=e.target.closest(".style-b");if(!b)return;
   const f=FONTS.find(f=>f.id===b.dataset.font);
-  if(!f.free&&!premium){toast(`“${f.label}” is a Premium font ✦ Unlock all 8 for ${PRICE}`);return;}
+  if(!f.free&&!premium){sealedNudge(`“${f.label}” is sealed — the Premium Pack opens it (${PRICE})`);return;}
   currentFont=f.id;
   document.querySelectorAll("#fontRow .style-b").forEach(x=>x.classList.toggle("on",x.dataset.font===f.id));
   render();
@@ -661,16 +900,57 @@ document.getElementById("codeBtn").onclick=async()=>{
     ok=PREMIUM_HASHES.includes(hex);
   }
   if(ok){premium=true;try{localStorage.setItem("kna_premium","1")}catch(e){}
-    const sl=document.getElementById("slash");
-    sl.classList.remove("go");void sl.offsetWidth;sl.classList.add("go");
-    setTimeout(()=>{ // the blade passes, the locks fall away
+    FX.play(()=>{
       unlockUI();
       document.querySelectorAll(".style-b.prem").forEach((b,i)=>{b.style.animationDelay=(i*60)+"ms";b.classList.add("flash-gold");});
       toast("Premium unlocked — welcome to the atelier ✦");
-    },300);
-    setTimeout(()=>sl.classList.remove("go"),700);}
+    });}
   else toast("That code doesn't match — check your unlock page after checkout");
 };
+// ===== アンロック演出（案A）— 自己完結クラス =====
+class UnlockFX{
+  constructor(){this.fx=document.getElementById("fxA");this.cv=document.getElementById("fxSparks");this.reduced=matchMedia("(prefers-reduced-motion:reduce)").matches;}
+  play(done){
+    const fx=this.fx;
+    fx.classList.remove("go");void fx.offsetWidth;fx.classList.add("go");
+    if(this.reduced){setTimeout(()=>{done&&done();},900);setTimeout(()=>fx.classList.remove("go"),1500);return;}
+    const top=document.getElementById("cutTop"),bot=document.getElementById("cutBot"),gap=document.getElementById("gapline");
+    setTimeout(()=>{
+      top.classList.add("on","slip");bot.classList.add("on","slip");gap.classList.add("on");
+      this.sparks();
+    },430);
+    setTimeout(()=>{
+      top.classList.remove("on","slip");bot.classList.remove("on","slip");gap.classList.remove("on");
+      document.body.classList.remove("fxshake");void document.body.offsetWidth;document.body.classList.add("fxshake");
+    },940);
+    setTimeout(()=>{done&&done();},1150);
+    setTimeout(()=>{fx.classList.remove("go");document.body.classList.remove("fxshake");},2100);
+  }
+  sparks(){
+    const cv=this.cv,x=cv.getContext("2d");
+    cv.width=innerWidth;cv.height=innerHeight;
+    const cx=innerWidth/2,cy=innerHeight/2,ang=-24*Math.PI/180,P=[];
+    for(let i=0;i<90;i++){
+      const d=(Math.random()-.5)*Math.max(innerWidth,innerHeight)*1.1;
+      P.push({x:cx+Math.cos(ang)*d,y:cy+Math.sin(ang)*d,vx:(Math.random()-.5)*3.2,vy:-Math.random()*2.6-.4,r:Math.random()*2+.6,a:1,g:Math.random()<.75});
+    }
+    let t0=null;
+    const step=ts=>{
+      if(!t0)t0=ts;const el=ts-t0;
+      x.clearRect(0,0,cv.width,cv.height);
+      P.forEach(p=>{
+        p.x+=p.vx;p.y+=p.vy;p.vy+=.025;p.a-=.011;
+        if(p.a<=0)return;
+        x.globalAlpha=p.a;x.fillStyle=p.g?(Math.random()<.5?"#f6e3a1":"#b89250"):"#fff";
+        x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill();
+      });
+      if(el<1500)requestAnimationFrame(step);else x.clearRect(0,0,cv.width,cv.height);
+    };
+    requestAnimationFrame(step);
+  }
+}
+const FX=new UnlockFX();
+
 function unlockUI(){renderStyleRow();renderFontRow();renderSealRow();}
 renderStyleRow();renderFontRow();renderSealRow();
 document.getElementById("year").textContent=new Date().getFullYear();
