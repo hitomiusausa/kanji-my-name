@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Thank you! — Kanji My Name</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛩️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500&family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1c1a17;--paper:#f6f1e7;--red:#b3402e;--gold:#a08339;--muted:#6f675a;--line:#d9cfba}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background-image:radial-gradient(circle at 20% 10%,#fbf7ee 0%,transparent 50%),radial-gradient(circle at 90% 90%,#ece2cd 0%,transparent 40%)}
+.card{background:#fffdf8;border:1px solid var(--line);border-radius:18px;padding:44px 36px;max-width:520px;width:100%;text-align:center;box-shadow:0 14px 40px rgba(60,45,20,.12)}
+.jp{font-family:'Shippori Mincho',serif;font-size:52px;color:var(--red)}
+h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:34px;margin:10px 0 6px}
+p{color:var(--muted);font-size:15px}
+.code-box{margin:26px 0 8px;background:var(--paper);border:2px dashed var(--gold);border-radius:12px;padding:18px;font-family:monospace;font-size:24px;letter-spacing:.08em;cursor:pointer;user-select:all}
+.tip{font-size:12.5px;color:var(--muted)}
+ol{text-align:left;margin:22px auto 0;max-width:380px;color:var(--muted);font-size:14.5px;padding-left:22px}
+ol li{margin:6px 0}
+.btn{display:inline-block;margin-top:26px;background:var(--red);color:#fff;text-decoration:none;font-weight:600;font-size:15px;border-radius:10px;padding:13px 26px}
+.btn:hover{background:#96331f}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:12px 22px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.3s}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="jp">感謝</div>
+  <h1>Thank you!</h1>
+  <p>Your Premium Pack is ready. Here is your unlock code — keep it safe, it's yours for life.</p>
+  <div class="code-box" id="code" title="Click to copy">KNA-GOLD-21868594</div>
+  <div class="tip">Click the code to copy it</div>
+  <ol>
+    <li>Go back to <b>Kanji My Name</b></li>
+    <li>Scroll to <b>The Premium Pack</b> and paste the code</li>
+    <li>Press <b>Unlock</b> — enjoy 4K art, all 8 fonts &amp; exclusive styles ✦</li>
+  </ol>
+  <a class="btn" href="./">Back to Kanji My Name →</a>
+</div>
+<div class="toast" id="toast">Copied! ✦</div>
+<script>
+document.getElementById("code").onclick=()=>{
+  navigator.clipboard.writeText(document.getElementById("code").textContent.trim()).then(()=>{
+    const t=document.getElementById("toast");t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2000);
+  });
+};
+</script>
+</body>
+</html>

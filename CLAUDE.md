@@ -6,7 +6,7 @@
 - **URL**: https://hitomiusausa.github.io/kanji-my-name/
 - **リポジトリ**: hitomiusausa/kanji-my-name（GitHub Pages配信）
 - **構成**: `index.html` 1ファイル完結。サーバー・DB・ビルド一切なし
-- **収益モデル**: 無料DL（クレジット入り）→ Premium Pack **$1**（Gumroadで解放コード販売、クライアントサイドでSHA-256照合してアンロック）
+- **収益モデル**: 無料DL（クレジット入り）→ Premium Pack **$1**（Stripe Payment Link決済 → 非公開 `unlock-80b9aa.html` で解放コード表示 → クライアントサイドでSHA-256照合してアンロック）
 
 ## 機能
 - 当て字変換＋意味ピッカー（チップをタップして漢字の意味を選択）

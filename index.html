@@ -140,7 +140,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
     <div style="text-align:center">
       <div class="price">$1 <small>one-time</small></div>
       <a class="btn btn-red" id="buyBtn" href="#" style="margin-top:12px" target="_blank" rel="noopener">Get the Premium Pack</a>
-      <p style="font-size:12px;color:#bfb49c;margin-top:10px">Instant unlock code by email · lifetime access</p>
+      <p style="font-size:12px;color:#bfb49c;margin-top:10px">Unlock code revealed right after checkout · lifetime access</p>
     </div>
   </section>
 
@@ -158,7 +158,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
 
 <script>
 // ===== CONFIG =====
-const GUMROAD_URL = "https://gumroad.com/"; // TODO: replace with real product URL
+const STRIPE_URL = "#"; // TODO: replace with Stripe Payment Link (set its after-payment redirect to unlock-80b9aa.html)
 const PREMIUM_HASH = "953a15837393227855699fc84109ae2720c772ef70ee3026ea4c249c025e581b"; // sha256 of unlock code
 const CREDIT = "kanji-my-name";
 
@@ -490,14 +490,15 @@ document.getElementById("shareBtn").onclick=()=>{
   const kanji=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]).join("");
   navigator.clipboard.writeText(`My name "${nm}" in kanji is ${kanji} — made at ${location.origin+location.pathname}`).then(()=>toast("Copied! Share it anywhere ✦"));
 };
-document.getElementById("buyBtn").href=GUMROAD_URL;
+document.getElementById("buyBtn").href=STRIPE_URL;
+if(STRIPE_URL==="#")document.getElementById("buyBtn").onclick=e=>{e.preventDefault();toast("Premium launches in a few days — the free version is all yours ✦");};
 document.getElementById("codeBtn").onclick=async()=>{
   const v=document.getElementById("codeIn").value.trim();
   const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));
   const hex=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("");
   if(hex===PREMIUM_HASH){premium=true;try{localStorage.setItem("kna_premium","1")}catch(e){}
     unlockUI();toast("Premium unlocked — welcome to the atelier ✦");}
-  else toast("That code doesn't match — check your receipt email");
+  else toast("That code doesn't match — check your unlock page after checkout");
 };
 function unlockUI(){
   const row=document.getElementById("styleRow");
