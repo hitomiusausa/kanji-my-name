@@ -69,6 +69,13 @@ input[type=text]:focus{border-color:var(--gold)}
 .hint{font-size:12.5px;color:var(--muted);margin-top:12px}
 .canvas-holder{position:relative;text-align:center}
 canvas{max-width:100%;height:auto;box-shadow:0 0 80px rgba(184,146,80,.14),0 30px 60px rgba(0,0,0,.5)}
+#art{cursor:zoom-in}
+#zoom{position:fixed;inset:0;background:rgba(8,9,12,.9);display:none;align-items:center;justify-content:center;z-index:70;padding:22px;cursor:zoom-out}
+#zoom.open{display:flex}
+#zoom img{max-width:min(94vw,920px);max-height:92vh;box-shadow:0 0 90px rgba(184,146,80,.18),0 34px 70px rgba(0,0,0,.6);animation:zoomIn .22s ease-out}
+#zoom .zhint{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+@keyframes zoomIn{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+@media(prefers-reduced-motion:reduce){#zoom img{animation:none}}
 .thump{animation:thump .3s ease}
 @keyframes thump{0%{transform:scale(1)}35%{transform:scale(.984)}100%{transform:scale(1)}}
 .dl-row{margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
@@ -210,6 +217,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
         </div>
         <label style="margin-top:18px">Hanko seal 朱印</label>
         <div class="styles" id="sealRow" style="margin-top:4px"></div>
+        <label style="margin-top:18px">Meanings line 意</label>
+        <div class="styles" id="meanRow" style="margin-top:4px"></div>
         <div class="seal-legend" id="sealLegend"><i>封</i><span><b>封 = “sealed”</b> — these options open with the Premium Pack. Tap one to peek.</span></div>
       </div>
     </div>
@@ -233,6 +242,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
         <li>All 12 calligraphy fonts (9 premium-only)</li>
         <li>Exclusive <i>Gold Leaf</i>, <i>Sumi Storm</i>, <i>Indigo Wave</i>, <i>Ensō</i> &amp; <i>Pure White</i> art styles</li>
         <li>Seal-free edition — remove the hanko for a pure look</li>
+        <li>Meanings on or off — keep the poetry, or let the kanji speak alone</li>
       </ul>
       <div class="unlock-in">
         <input type="text" id="codeIn" placeholder="Already purchased? Enter unlock code">
@@ -269,6 +279,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
 <div class="cuthalf" id="cutTop"></div><div class="cuthalf" id="cutBot"></div>
 <div id="gapline"></div>
 <svg width="0" height="0" style="position:absolute"><filter id="roughA"><feTurbulence type="fractalNoise" baseFrequency=".055" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7"/></filter></svg>
+<div id="zoom" aria-hidden="true"><img alt="Enlarged kanji art preview"><div class="zhint">Tap anywhere to close</div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -435,7 +446,7 @@ function tokenize(r){
 }
 
 // ===== STATE =====
-let syls=[],choices=[],currentStyle="classic",currentFont="yuji",currentOrient="v",sealOn=true,premium=false;
+let syls=[],choices=[],currentStyle="classic",currentFont="yuji",currentOrient="v",sealOn=true,meaningsOn=true,premium=false;
 try{premium=localStorage.getItem("kna_premium")==="1"}catch(e){}
 
 const STYLE_LIST=[
@@ -465,6 +476,17 @@ function renderSealRow(){
     const b=document.createElement("button");
     b.className="style-b"+((o.v==="on")===sealOn?" on":"");
     b.dataset.seal=o.v;
+    b.textContent=o.free?o.label:o.label+" ✦";
+    if(!o.free){if(premium)b.classList.add("prem");else b.classList.add("sealed");}
+    row.appendChild(b);
+  });
+}
+function renderMeanRow(){
+  const row=document.getElementById("meanRow");row.innerHTML="";
+  [{v:"on",label:"With meanings 意",free:true},{v:"off",label:"No meanings",free:false}].forEach(o=>{
+    const b=document.createElement("button");
+    b.className="style-b"+((o.v==="on")===meaningsOn?" on":"");
+    b.dataset.mean=o.v;
     b.textContent=o.free?o.label:o.label+" ✦";
     if(!o.free){if(premium)b.classList.add("prem");else b.classList.add("sealed");}
     row.appendChild(b);
@@ -689,11 +711,13 @@ function draw(hiRes){
   x.fillStyle=st.romaji;
   x.font=`${34*scale}px 'Cormorant Garamond',serif`;
   x.fillText(nm.toUpperCase().split("").join(" "),W/2,baseY);
-  const meanings=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][1]).join("  ·  ");
-  x.font=`italic ${25*scale}px 'Cormorant Garamond',serif`;
-  x.fillText(meanings,W/2,baseY+52*scale);
-  // credit (free only)
-  if(!premium||!hiRes){x.font=`${18*scale}px 'Inter',sans-serif`;x.globalAlpha=.55;x.fillText(CREDIT,W/2,H-92*scale);x.globalAlpha=1;}
+  if(meaningsOn){
+    const meanings=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][1]).join("  ·  ");
+    x.font=`italic ${25*scale}px 'Cormorant Garamond',serif`;
+    x.fillText(meanings,W/2,baseY+52*scale);
+  }
+  // credit (free users only — premium hides it everywhere, preview included)
+  if(!premium){x.font=`${18*scale}px 'Inter',sans-serif`;x.globalAlpha=.55;x.fillText(CREDIT,W/2,H-92*scale);x.globalAlpha=1;}
   return c;
 }
 // ===== 篦刻風 落款（白文）— オフスクリーンで生成して合成 =====
@@ -856,6 +880,13 @@ document.getElementById("sealRow").addEventListener("click",e=>{
   document.querySelectorAll("#sealRow .style-b").forEach(x=>x.classList.toggle("on",x===b));
   render();
 });
+document.getElementById("meanRow").addEventListener("click",e=>{
+  const b=e.target.closest(".style-b");if(!b)return;
+  if(b.dataset.mean==="off"&&!premium){sealedNudge(`Hiding the meanings is sealed — the Premium Pack opens it (${PRICE})`);return;}
+  meaningsOn=b.dataset.mean==="on";
+  document.querySelectorAll("#meanRow .style-b").forEach(x=>x.classList.toggle("on",x===b));
+  render();
+});
 document.getElementById("fontRow").addEventListener("click",e=>{
   const b=e.target.closest(".style-b");if(!b)return;
   const f=FONTS.find(f=>f.id===b.dataset.font);
@@ -864,6 +895,15 @@ document.getElementById("fontRow").addEventListener("click",e=>{
   document.querySelectorAll("#fontRow .style-b").forEach(x=>x.classList.toggle("on",x.dataset.font===f.id));
   render();
 });
+// preview lightbox — tap the art to see it big
+const zoomEl=document.getElementById("zoom");
+document.getElementById("art").addEventListener("click",()=>{
+  if(!syls.length)return;
+  zoomEl.querySelector("img").src=document.getElementById("art").toDataURL("image/png");
+  zoomEl.classList.add("open");
+});
+zoomEl.addEventListener("click",()=>zoomEl.classList.remove("open"));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")zoomEl.classList.remove("open");});
 document.getElementById("orientRow").addEventListener("click",e=>{
   const b=e.target.closest(".style-b");if(!b)return;
   currentOrient=b.dataset.orient;
@@ -951,8 +991,8 @@ class UnlockFX{
 }
 const FX=new UnlockFX();
 
-function unlockUI(){renderStyleRow();renderFontRow();renderSealRow();}
-renderStyleRow();renderFontRow();renderSealRow();
+function unlockUI(){renderStyleRow();renderFontRow();renderSealRow();renderMeanRow();}
+renderStyleRow();renderFontRow();renderSealRow();renderMeanRow();
 document.getElementById("year").textContent=new Date().getFullYear();
 // init from hash or default demo
 window.addEventListener("load",async()=>{
