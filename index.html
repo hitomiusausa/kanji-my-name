@@ -168,7 +168,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
       </div>
     </div>
     <div style="text-align:center">
-      <div class="price"><span id="priceVal">$1</span> <small>one-time</small></div>
+      <div class="price"><span id="priceVal">$4.99</span> <small>one-time</small></div>
       <a class="btn btn-red" id="buyBtn" href="#" style="margin-top:12px" target="_blank" rel="noopener">Get the Premium Pack</a>
       <p style="font-size:12px;color:#8f897b;margin-top:10px">Unlock code revealed right after checkout · lifetime access</p>
       <p id="lostCode" style="font-size:12px;color:#8f897b;margin-top:6px;display:none">Lost your code? <a href="#" style="color:#b89250">Email us</a> with your Stripe receipt — we’ll resend it.</p>
@@ -191,7 +191,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
 <script>
 // ===== CONFIG =====
 const STRIPE_URL = "#"; // TODO: replace with Stripe Payment Link (set its after-payment redirect to unlock-80b9aa.html)
-const PRICE = "$1"; // shown everywhere; change together with the Stripe Payment Link
+const PRICE = "$4.99"; // regular $4.99 / campaign $2.99 — change together with the Stripe Payment Link
 const SUPPORT_EMAIL = ""; // lost-code contact; leave empty to hide the "Lost your code?" line
 const PREMIUM_HASHES = [ // sha256 of each valid unlock code — add new codes here, remove only a leaked one
   "953a15837393227855699fc84109ae2720c772ef70ee3026ea4c249c025e581b"
