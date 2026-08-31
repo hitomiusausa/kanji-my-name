@@ -11,7 +11,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛩️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Yuji+Syuku&family=Zen+Maru+Gothic:wght@500&family=Hina+Mincho&family=Kaisei+Decol&family=Yusei+Magic&family=Hachi+Maru+Pop&family=DotGothic16&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Yuji+Syuku&family=Zen+Maru+Gothic:wght@500&family=Yuji+Boku&family=Yuji+Mai&family=Zen+Antique&family=Reggae+One&family=Shippori+Mincho+B1:wght@800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#111318; --panel:#181b21; --panel2:#14171c; --line:#33363f;
@@ -66,6 +66,24 @@ canvas{max-width:100%;height:auto;box-shadow:0 0 80px rgba(184,146,80,.14),0 30p
 .style-b{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.04em;padding:8px 14px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:.15s}
 .style-b:hover{border-color:var(--gold);color:var(--ink)}
 .style-b.on{background:var(--gold);color:#111318;border-color:var(--gold);font-weight:700}
+.style-b.prem{border-color:rgba(184,146,80,.55);color:var(--ink)}
+.style-b.prem:hover{border-color:var(--gold)}
+.style-b.flash-gold{animation:goldPulse .9s ease-out 1 backwards}
+@keyframes goldPulse{0%{box-shadow:0 0 0 0 rgba(184,146,80,.85);border-color:var(--gold)}100%{box-shadow:0 0 0 14px rgba(184,146,80,0)}}
+#slash{position:fixed;inset:0;z-index:100;pointer-events:none;overflow:hidden;display:none}
+#slash.go{display:block}
+#slash .flash{position:absolute;inset:0;background:#fff;opacity:0}
+#slash.go .flash{animation:slashFlash .55s ease-out forwards}
+@keyframes slashFlash{0%,22%{opacity:0}32%{opacity:.2}100%{opacity:0}}
+#slash .blade{position:absolute;top:50%;left:50%;width:190vmax;height:4px;margin-left:-95vmax;
+ background:linear-gradient(90deg,transparent 0%,#fff 35%,#ffe9b8 50%,#fff 65%,transparent 100%);
+ box-shadow:0 0 24px rgba(246,227,161,.95),0 0 70px rgba(246,227,161,.5);opacity:0}
+#slash.go .blade{animation:slashMove .55s cubic-bezier(.7,0,.3,1) forwards}
+@keyframes slashMove{
+ 0%{transform:rotate(-24deg) translateY(-52vmax) scaleX(.2);opacity:0}
+ 16%{opacity:1}
+ 100%{transform:rotate(-24deg) translateY(52vmax) scaleX(1);opacity:0}}
+@media(prefers-reduced-motion:reduce){#slash.go .blade,#slash.go .flash,.style-b.flash-gold{animation:none}}
 .premium{margin:60px 0;background:var(--panel2);border:1px solid var(--gold);padding:44px;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;position:relative}
 .premium::before{content:"";position:absolute;inset:6px;border:1px solid rgba(184,146,80,.25);pointer-events:none}
 @media(max-width:820px){.premium{grid-template-columns:1fr;padding:32px}}
@@ -166,6 +184,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
 
 <footer class="wrap">Kanji My Name · handcrafted with 愛 · <span id="year"></span></footer>
 <div class="picker" id="picker"><div class="picker-card" id="pickerCard"></div></div>
+<div id="slash" aria-hidden="true"><div class="flash"></div><div class="blade"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -343,8 +362,8 @@ function renderStyleRow(){
     const b=document.createElement("button");
     b.className="style-b"+(s.id===currentStyle?" on":"");
     b.dataset.style=s.id;
-    b.textContent=s.free||premium?s.label:s.label+" ✦";
-    if(!s.free&&!premium)b.style.opacity=".55";
+    b.textContent=s.free?s.label:s.label+" ✦";
+    if(!s.free){if(premium)b.classList.add("prem");else b.style.opacity=".55";}
     row.appendChild(b);
   });
 }
@@ -354,8 +373,8 @@ function renderSealRow(){
     const b=document.createElement("button");
     b.className="style-b"+((o.v==="on")===sealOn?" on":"");
     b.dataset.seal=o.v;
-    b.textContent=o.free||premium?o.label:o.label+" ✦";
-    if(!o.free&&!premium)b.style.opacity=".55";
+    b.textContent=o.free?o.label:o.label+" ✦";
+    if(!o.free){if(premium)b.classList.add("prem");else b.style.opacity=".55";}
     row.appendChild(b);
   });
 }
@@ -365,11 +384,11 @@ const FONTS=[
  {id:"yuji",  label:"Brush 筆",    css:"'Yuji Syuku',serif",        free:true},
  {id:"mincho",label:"Mincho 雅",   css:"'Shippori Mincho',serif",   free:true},
  {id:"maru",  label:"Round 丸",    css:"'Zen Maru Gothic',sans-serif",free:true},
- {id:"hina",  label:"Antique 古",  css:"'Hina Mincho',serif",       free:false},
- {id:"decol", label:"Decor 飾",    css:"'Kaisei Decol',serif",      free:false},
- {id:"yusei", label:"Marker 手",   css:"'Yusei Magic',sans-serif",  free:false},
- {id:"pop",   label:"Kawaii 花",   css:"'Hachi Maru Pop',cursive",  free:false},
- {id:"dot",   label:"Pixel 点",    css:"'DotGothic16',sans-serif",  free:false}
+ {id:"boku",  label:"Wild Brush 荒",  css:"'Yuji Boku',serif",           free:false},
+ {id:"mai",   label:"Grace Brush 舞", css:"'Yuji Mai',serif",            free:false},
+ {id:"antique",label:"Antique 刻",    css:"'Zen Antique',serif",         free:false},
+ {id:"impact",label:"Impact 豪",      css:"'Reggae One',cursive",        free:false},
+ {id:"heavy", label:"Heavy Mincho 極",css:"'Shippori Mincho B1',serif",  free:false}
 ];
 const fontCss=()=>FONTS.find(f=>f.id===currentFont).css;
 async function ensureFont(){
@@ -526,8 +545,8 @@ function renderFontRow(){
     const b=document.createElement("button");
     b.className="style-b"+(f.id===currentFont?" on":"");
     b.dataset.font=f.id;
-    b.textContent=f.free||premium?f.label:f.label+" ✦";
-    if(!f.free&&!premium)b.style.opacity=".55";
+    b.textContent=f.free?f.label:f.label+" ✦";
+    if(!f.free){if(premium)b.classList.add("prem");else b.style.opacity=".55";}
     row.appendChild(b);
   });
 }
@@ -624,7 +643,14 @@ document.getElementById("codeBtn").onclick=async()=>{
   const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));
   const hex=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("");
   if(hex===PREMIUM_HASH){premium=true;try{localStorage.setItem("kna_premium","1")}catch(e){}
-    unlockUI();toast("Premium unlocked — welcome to the atelier ✦");}
+    const sl=document.getElementById("slash");
+    sl.classList.remove("go");void sl.offsetWidth;sl.classList.add("go");
+    setTimeout(()=>{ // the blade passes, the locks fall away
+      unlockUI();
+      document.querySelectorAll(".style-b.prem").forEach((b,i)=>{b.style.animationDelay=(i*60)+"ms";b.classList.add("flash-gold");});
+      toast("Premium unlocked — welcome to the atelier ✦");
+    },300);
+    setTimeout(()=>sl.classList.remove("go"),700);}
   else toast("That code doesn't match — check your unlock page after checkout");
 };
 function unlockUI(){renderStyleRow();renderFontRow();renderSealRow();}
