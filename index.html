@@ -11,7 +11,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛩️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Yuji+Syuku&family=Zen+Maru+Gothic:wght@500&family=Yuji+Boku&family=Yuji+Mai&family=Zen+Antique&family=Reggae+One&family=Shippori+Mincho+B1:wght@800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Yuji+Syuku&family=Zen+Maru+Gothic:wght@500&family=Dela+Gothic+One&family=Klee+One:wght@600&family=Zen+Antique&family=Reggae+One&family=Shippori+Mincho+B1:wght@800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#111318; --panel:#181b21; --panel2:#14171c; --line:#33363f;
@@ -384,16 +384,17 @@ const FONTS=[
  {id:"yuji",  label:"Brush 筆",    css:"'Yuji Syuku',serif",        free:true},
  {id:"mincho",label:"Mincho 雅",   css:"'Shippori Mincho',serif",   free:true},
  {id:"maru",  label:"Round 丸",    css:"'Zen Maru Gothic',sans-serif",free:true},
- {id:"boku",  label:"Wild Brush 荒",  css:"'Yuji Boku',serif",           free:false},
- {id:"mai",   label:"Grace Brush 舞", css:"'Yuji Mai',serif",            free:false},
+ {id:"dela",  label:"Urban 塊",       css:"'Dela Gothic One',cursive",   free:false},
+ {id:"klee",  label:"Pen 心",         css:"'Klee One',cursive", w:"600", free:false},
  {id:"antique",label:"Antique 刻",    css:"'Zen Antique',serif",         free:false},
  {id:"impact",label:"Impact 豪",      css:"'Reggae One',cursive",        free:false},
  {id:"heavy", label:"Heavy Mincho 極",css:"'Shippori Mincho B1',serif",  free:false}
 ];
 const fontCss=()=>FONTS.find(f=>f.id===currentFont).css;
+const fontFor=px=>{const f=FONTS.find(f=>f.id===currentFont);return `${f.w?f.w+" ":""}${px}px ${f.css}`;};
 async function ensureFont(){
   const chars=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]).join("")||"永漢名";
-  try{await document.fonts.load(`80px ${fontCss()}`,chars);}catch(e){}
+  try{await document.fonts.load(fontFor(80),chars);}catch(e){}
 }
 async function render(hiRes){
   await ensureFont();
@@ -487,20 +488,20 @@ function draw(hiRes){
   x.lineWidth=1*scale;x.strokeRect(58*scale,58*scale,W-116*scale,H-116*scale);
   const kanji=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]);
   const n=kanji.length||1;
-  const fam=fontCss(); // single font for the whole name — never mixed
+  // one font for the whole name — never mixed (fontFor)
   x.textAlign="center";x.fillStyle=st.ink;
   x.shadowColor="rgba(0,0,0,.18)";x.shadowBlur=8*scale;x.shadowOffsetY=4*scale;
   if(portrait){
     const avail=H-460*scale;
     const size=Math.min(300*scale,avail/n*0.86);
     const startY=(H-140*scale-(size*1.12*n))/2+size*.85;
-    x.font=`${size}px ${fam}`;
+    x.font=fontFor(size);
     kanji.forEach((k,i)=>x.fillText(k,W/2,startY+i*size*1.12));
   }else{
     const avail=W-520*scale;
     const size=Math.min(320*scale,avail/n*0.9);
     const step=size*1.12,startX=W/2-step*(n-1)/2;
-    x.font=`${size}px ${fam}`;
+    x.font=fontFor(size);
     kanji.forEach((k,i)=>x.fillText(k,startX+i*step,H*.5+size*.35));
   }
   x.shadowColor="transparent";
@@ -518,7 +519,7 @@ function draw(hiRes){
     x.globalAlpha=1;
     x.strokeStyle=pc;x.lineWidth=2.2*scale;
     x.beginPath();x.roundRect(-sz/2+7*scale,-sz/2+7*scale,sz-14*scale,sz-14*scale,5*scale);x.stroke();
-    x.fillStyle=pc;x.font=`${sz*.5}px ${fam}`;
+    x.fillStyle=pc;x.font=fontFor(sz*.5);
     x.fillText(kanji[0]||"印",0,sz*.18);
     for(let i=0;i<30;i++){ // stamped texture: paper eats into the ink
       x.globalAlpha=Math.random()*.22;x.fillStyle=st.bg1;
