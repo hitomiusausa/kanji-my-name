@@ -112,11 +112,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
         <label>Your kanji — tap a character to see your choices</label>
         <div class="chips" id="chips"></div>
         <div class="hint">Tap any kanji above ▾ — other characters with the same sound will appear, each with a different meaning. Pick your favorite. This is <i>ateji</i> (当て字), the traditional Japanese art of writing foreign names with meaningful characters.</div>
-        <div class="styles" id="styleRow">
-          <button class="style-b on" data-style="classic">Classic Scroll</button>
-          <button class="style-b" data-style="night">Midnight Ink</button>
-          <button class="style-b" data-style="blossom">Blossom</button>
-        </div>
+        <label style="margin-top:18px">Art style</label>
+        <div class="styles" id="styleRow" style="margin-top:4px"></div>
         <label style="margin-top:18px">Calligraphy font</label>
         <div class="styles" id="fontRow" style="margin-top:4px"></div>
         <label style="margin-top:18px">Layout</label>
@@ -124,6 +121,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
           <button class="style-b on" data-orient="v">Vertical 縦</button>
           <button class="style-b" data-orient="h">Horizontal 横</button>
         </div>
+        <label style="margin-top:18px">Hanko seal 朱印</label>
+        <div class="styles" id="sealRow" style="margin-top:4px"></div>
       </div>
     </div>
     <div class="panel canvas-holder">
@@ -143,6 +142,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
         <li>No credit line — clean, gallery-ready artwork</li>
         <li>All 8 calligraphy fonts (5 premium-only)</li>
         <li>Exclusive <i>Gold Leaf</i> &amp; <i>Sumi Storm</i> art styles</li>
+        <li>Seal-free edition — remove the hanko for a pure look</li>
       </ul>
       <div class="unlock-in">
         <input type="text" id="codeIn" placeholder="Already purchased? Enter unlock code">
@@ -327,8 +327,38 @@ function tokenize(r){
 }
 
 // ===== STATE =====
-let syls=[],choices=[],currentStyle="classic",currentFont="yuji",currentOrient="v",premium=false;
+let syls=[],choices=[],currentStyle="classic",currentFont="yuji",currentOrient="v",sealOn=true,premium=false;
 try{premium=localStorage.getItem("kna_premium")==="1"}catch(e){}
+
+const STYLE_LIST=[
+ {id:"classic",label:"Classic Scroll",free:true},
+ {id:"night",  label:"Midnight Ink", free:true},
+ {id:"blossom",label:"Blossom",      free:true},
+ {id:"gold",   label:"Gold Leaf",    free:false},
+ {id:"storm",  label:"Sumi Storm",   free:false}
+];
+function renderStyleRow(){
+  const row=document.getElementById("styleRow");row.innerHTML="";
+  STYLE_LIST.forEach(s=>{
+    const b=document.createElement("button");
+    b.className="style-b"+(s.id===currentStyle?" on":"");
+    b.dataset.style=s.id;
+    b.textContent=s.free||premium?s.label:s.label+" ✦";
+    if(!s.free&&!premium)b.style.opacity=".55";
+    row.appendChild(b);
+  });
+}
+function renderSealRow(){
+  const row=document.getElementById("sealRow");row.innerHTML="";
+  [{v:"on",label:"With seal 朱",free:true},{v:"off",label:"No seal",free:false}].forEach(o=>{
+    const b=document.createElement("button");
+    b.className="style-b"+((o.v==="on")===sealOn?" on":"");
+    b.dataset.seal=o.v;
+    b.textContent=o.free||premium?o.label:o.label+" ✦";
+    if(!o.free&&!premium)b.style.opacity=".55";
+    row.appendChild(b);
+  });
+}
 
 // One font is applied to the WHOLE name — never mixed per character
 const FONTS=[
@@ -455,13 +485,28 @@ function draw(hiRes){
     kanji.forEach((k,i)=>x.fillText(k,startX+i*step,H*.5+size*.35));
   }
   x.shadowColor="transparent";
-  // hanko seal
-  const sz=104*scale,sx=W-190*scale,sy=portrait?H-330*scale:H-260*scale;
-  x.fillStyle=st.accent;
-  x.beginPath();x.roundRect(sx,sy,sz,sz,14*scale);x.fill();
-  x.fillStyle=currentStyle==="night"||currentStyle==="gold"?"#14120f":"#fdf6ea";
-  x.font=`${sz*.62}px ${fam}`;
-  x.fillText(kanji[0]||"印",sx+sz/2,sy+sz*.72);
+  // hanko seal — tilted, double-bordered, with stamped-ink texture
+  if(sealOn){
+    const sz=108*scale,sx=W-190*scale,sy=portrait?H-330*scale:H-260*scale;
+    const pc=currentStyle==="night"||currentStyle==="gold"?"#14120f":"#fdf6ea";
+    x.save();
+    x.translate(sx+sz/2,sy+sz/2);x.rotate(.06);
+    x.fillStyle=st.accent;
+    x.globalAlpha=.94;
+    x.beginPath();x.roundRect(-sz/2,-sz/2,sz,sz,9*scale);x.fill();
+    x.globalAlpha=.45; // second pass: uneven ink build-up
+    x.beginPath();x.roundRect(-sz/2+2*scale,-sz/2+2*scale,sz-4*scale,sz-4*scale,8*scale);x.fill();
+    x.globalAlpha=1;
+    x.strokeStyle=pc;x.lineWidth=2.2*scale;
+    x.beginPath();x.roundRect(-sz/2+7*scale,-sz/2+7*scale,sz-14*scale,sz-14*scale,5*scale);x.stroke();
+    x.fillStyle=pc;x.font=`${sz*.5}px ${fam}`;
+    x.fillText(kanji[0]||"印",0,sz*.18);
+    for(let i=0;i<30;i++){ // stamped texture: paper eats into the ink
+      x.globalAlpha=Math.random()*.22;x.fillStyle=st.bg1;
+      x.beginPath();x.arc((Math.random()-.5)*sz*.96,(Math.random()-.5)*sz*.96,Math.random()*2.4*scale,0,7);x.fill();
+    }
+    x.globalAlpha=1;x.restore();
+  }
   // romaji name + meanings
   const nm=document.getElementById("nameIn").value.trim();
   const baseY=portrait?H-210*scale:H-190*scale;
@@ -533,10 +578,17 @@ document.getElementById("luckyBtn").onclick=()=>generate(true);
 document.getElementById("nameIn").addEventListener("keydown",e=>{if(e.key==="Enter")generate(false)});
 document.getElementById("styleRow").addEventListener("click",e=>{
   const b=e.target.closest(".style-b");if(!b)return;
-  const s=b.dataset.style;
-  if((s==="gold"||s==="storm")&&!premium){toast("Gold Leaf & Sumi Storm are Premium styles ✦");return;}
+  const s=b.dataset.style,meta=STYLE_LIST.find(o=>o.id===s);
+  if(!meta.free&&!premium){toast(`“${meta.label}” is a Premium style ✦ Unlock everything for $1`);return;}
   document.querySelectorAll("#styleRow .style-b").forEach(x=>x.classList.toggle("on",x===b));
   currentStyle=s;render();
+});
+document.getElementById("sealRow").addEventListener("click",e=>{
+  const b=e.target.closest(".style-b");if(!b)return;
+  if(b.dataset.seal==="off"&&!premium){toast("Removing the seal is a Premium option ✦ Unlock for $1");return;}
+  sealOn=b.dataset.seal==="on";
+  document.querySelectorAll("#sealRow .style-b").forEach(x=>x.classList.toggle("on",x===b));
+  render();
 });
 document.getElementById("fontRow").addEventListener("click",e=>{
   const b=e.target.closest(".style-b");if(!b)return;
@@ -575,16 +627,8 @@ document.getElementById("codeBtn").onclick=async()=>{
     unlockUI();toast("Premium unlocked — welcome to the atelier ✦");}
   else toast("That code doesn't match — check your unlock page after checkout");
 };
-function unlockUI(){
-  const row=document.getElementById("styleRow");
-  if(!row.querySelector('[data-style="gold"]')){
-    const g=document.createElement("button");g.className="style-b";g.dataset.style="gold";g.textContent="Gold Leaf ✦";row.appendChild(g);
-    const s2=document.createElement("button");s2.className="style-b";s2.dataset.style="storm";s2.textContent="Sumi Storm ✦";row.appendChild(s2);
-  }
-  renderFontRow();
-}
-if(premium)unlockUI();
-renderFontRow();
+function unlockUI(){renderStyleRow();renderFontRow();renderSealRow();}
+renderStyleRow();renderFontRow();renderSealRow();
 document.getElementById("year").textContent=new Date().getFullYear();
 // init from hash or default demo
 window.addEventListener("load",async()=>{
