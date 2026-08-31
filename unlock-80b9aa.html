@@ -34,7 +34,7 @@ ol b{color:var(--ink)}
   <div class="jp">感謝</div>
   <h1>Thank you!</h1>
   <p>Your Premium Pack is ready. Here is your unlock code — keep it safe, it's yours for life.</p>
-  <div class="code-box" id="code" title="Click to copy">KNA-GOLD-21868594</div>
+  <div class="code-box" id="code" title="Click to copy">·  ·  ·  ·</div>
   <div class="tip">Click the code to copy it · <b>Save it somewhere safe</b> — bookmark this page or write it down. It works on any device, forever.</div>
   <ol>
     <li>Go back to <b>Kanji My Name</b></li>
@@ -45,9 +45,28 @@ ol b{color:var(--ink)}
 </div>
 <div class="toast" id="toast">Copied! ✦</div>
 <script>
-document.getElementById("code").onclick=()=>{
-  navigator.clipboard.writeText(document.getElementById("code").textContent.trim()).then(()=>{
-    const t=document.getElementById("toast");t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2000);
+const WORKER_URL=""; // set after deploying worker/ — same value as in index.html
+const codeEl=document.getElementById("code");
+const sid=new URLSearchParams(location.search).get("session_id");
+async function loadCode(){
+  if(!sid||!WORKER_URL){
+    codeEl.textContent="Open this page from your checkout confirmation — your personal code appears here.";
+    codeEl.style.fontSize="15px";return;
+  }
+  codeEl.textContent="Preparing your code…";
+  try{
+    const r=await fetch(WORKER_URL+"/claim?session_id="+encodeURIComponent(sid));
+    const d=await r.json();
+    if(d.ok){codeEl.textContent=d.code;}
+    else{codeEl.textContent="We couldn't fetch your code — please email us with your Stripe receipt.";codeEl.style.fontSize="15px";}
+  }catch(e){codeEl.textContent="Network hiccup — please reload this page.";codeEl.style.fontSize="15px";}
+}
+loadCode();
+codeEl.onclick=()=>{
+  const t=codeEl.textContent.trim();
+  if(!/^KMN-/.test(t)&&!/^KNA-/.test(t))return;
+  navigator.clipboard.writeText(t).then(()=>{
+    const el=document.getElementById("toast");el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2000);
   });
 };
 </script>

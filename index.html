@@ -190,7 +190,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
 
 <script>
 // ===== CONFIG =====
-const STRIPE_URL = "#"; // TODO: replace with Stripe Payment Link (set its after-payment redirect to unlock-80b9aa.html)
+const STRIPE_URL = "#"; // TODO: replace with Stripe Payment Link (after-payment redirect: unlock-80b9aa.html?session_id={CHECKOUT_SESSION_ID})
+const WORKER_URL = ""; // TODO: set after deploying worker/ (e.g. https://kanji-my-name-codes.xxx.workers.dev) — empty = local hash check only
 const PRICE = "$4.99"; // regular $4.99 / campaign $2.99 — change together with the Stripe Payment Link
 const SUPPORT_EMAIL = ""; // lost-code contact; leave empty to hide the "Lost your code?" line
 const PREMIUM_HASHES = [ // sha256 of each valid unlock code — add new codes here, remove only a leaked one
@@ -648,9 +649,17 @@ if(SUPPORT_EMAIL){const lc=document.getElementById("lostCode");lc.style.display=
 if(STRIPE_URL==="#")document.getElementById("buyBtn").onclick=e=>{e.preventDefault();toast("Premium launches in a few days — the free version is all yours ✦");};
 document.getElementById("codeBtn").onclick=async()=>{
   const v=document.getElementById("codeIn").value.trim();
-  const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));
-  const hex=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("");
-  if(PREMIUM_HASHES.includes(hex)){premium=true;try{localStorage.setItem("kna_premium","1")}catch(e){}
+  if(!v){toast("Enter your unlock code first ✦");return;}
+  let ok=false;
+  if(WORKER_URL){ // per-purchase codes live in the worker's KV
+    try{const r=await fetch(WORKER_URL+"/verify?code="+encodeURIComponent(v));ok=(await r.json()).ok;}catch(e){}
+  }
+  if(!ok){ // fallback: local master codes (owner testing / worker outage)
+    const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(v));
+    const hex=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("");
+    ok=PREMIUM_HASHES.includes(hex);
+  }
+  if(ok){premium=true;try{localStorage.setItem("kna_premium","1")}catch(e){}
     const sl=document.getElementById("slash");
     sl.classList.remove("go");void sl.offsetWidth;sl.classList.add("go");
     setTimeout(()=>{ // the blade passes, the locks fall away
