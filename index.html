@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kanji Name Atelier — Your Name in Kanji, as Art</title>
+<title>Kanji My Name — Your Name in Kanji, as Art</title>
 <meta name="description" content="Turn your name into beautiful Japanese kanji calligraphy art. Choose kanji by meaning — love, strength, dreams — and download your personalized vertical kanji name art for free.">
-<meta property="og:title" content="Kanji Name Atelier — Your Name in Kanji, as Art">
+<meta property="og:title" content="Kanji My Name — Your Name in Kanji, as Art">
 <meta property="og:description" content="Turn your name into beautiful kanji art. Every kanji carries a meaning you choose.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛩️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Yuji+Syuku&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Yuji+Syuku&family=Zen+Maru+Gothic:wght@500&family=Hina+Mincho&family=Kaisei+Decol&family=Yusei+Magic&family=Hachi+Maru+Pop&family=DotGothic16&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#1c1a17; --paper:#f6f1e7; --paper2:#efe7d7; --red:#b3402e; --gold:#a08339;
@@ -82,7 +82,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
 </head>
 <body>
 <header class="wrap">
-  <div class="brand">Kanji Name Atelier</div>
+  <div class="brand">Kanji My Name</div>
   <h1>Your name, reborn as <span class="jp">漢字</span> art</h1>
   <p class="sub">Type your name. We craft it into Japanese kanji — and <b>you choose the meaning</b> behind every character: love, dreams, strength, light. Then download it as elegant calligraphy art. Free.</p>
 </header>
@@ -105,6 +105,13 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
           <button class="style-b" data-style="night">Midnight Ink</button>
           <button class="style-b" data-style="blossom">Blossom</button>
         </div>
+        <label style="margin-top:18px">Calligraphy font</label>
+        <div class="styles" id="fontRow" style="margin-top:4px"></div>
+        <label style="margin-top:18px">Layout</label>
+        <div class="styles" id="orientRow" style="margin-top:4px">
+          <button class="style-b on" data-orient="v">Vertical 縦</button>
+          <button class="style-b" data-orient="h">Horizontal 横</button>
+        </div>
       </div>
     </div>
     <div class="panel canvas-holder">
@@ -122,8 +129,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
       <ul>
         <li>Ultra high-resolution 4K art — perfect for printing &amp; framing</li>
         <li>No credit line — clean, gallery-ready artwork</li>
-        <li>All art styles + exclusive <i>Gold Leaf</i> &amp; <i>Sumi Storm</i> styles</li>
-        <li>A meaning certificate: your kanji, readings &amp; meanings explained</li>
+        <li>All 8 calligraphy fonts (5 premium-only)</li>
+        <li>Exclusive <i>Gold Leaf</i> &amp; <i>Sumi Storm</i> art styles</li>
       </ul>
       <div class="unlock-in">
         <input type="text" id="codeIn" placeholder="Already purchased? Enter unlock code">
@@ -131,7 +138,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
       </div>
     </div>
     <div style="text-align:center">
-      <div class="price">$9 <small>one-time</small></div>
+      <div class="price">$1 <small>one-time</small></div>
       <a class="btn btn-red" id="buyBtn" href="#" style="margin-top:12px" target="_blank" rel="noopener">Get the Premium Pack</a>
       <p style="font-size:12px;color:#bfb49c;margin-top:10px">Instant unlock code by email · lifetime access</p>
     </div>
@@ -140,12 +147,12 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
   <section class="faq">
     <h2>About kanji names</h2>
     <div class="qa"><b>Is this a real Japanese translation of my name?</b><p>Foreign names have no single "correct" kanji. Japanese tradition uses <i>ateji</i> (当て字): kanji chosen for their sound, whose meanings you select yourself. Your name becomes both phonetic and poetic — that's the art.</p></div>
-    <div class="qa"><b>Can I use it for a tattoo?</b><p>Many people do! We recommend the Premium meaning certificate so your artist gets the exact characters, stroke-accurate and explained.</p></div>
-    <div class="qa"><b>Is the free download really free?</b><p>Yes — full-size 1200×1800 PNG with a small credit line. The Premium Pack adds 4K, clean edition, and exclusive styles.</p></div>
+    <div class="qa"><b>Can I use it for a tattoo?</b><p>Many people do! We recommend the Premium 4K clean edition so your artist gets the exact characters, crisp and stroke-accurate.</p></div>
+    <div class="qa"><b>Is the free download really free?</b><p>Yes — full-size PNG with a small credit line. The Premium Pack ($1) adds 4K, the clean edition, all 8 fonts, and exclusive styles.</p></div>
   </section>
 </main>
 
-<footer class="wrap">Kanji Name Atelier · handcrafted with 愛 · <span id="year"></span></footer>
+<footer class="wrap">Kanji My Name · handcrafted with 愛 · <span id="year"></span></footer>
 <div class="picker" id="picker"><div class="picker-card" id="pickerCard"></div></div>
 <div class="toast" id="toast"></div>
 
@@ -153,7 +160,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
 // ===== CONFIG =====
 const GUMROAD_URL = "https://gumroad.com/"; // TODO: replace with real product URL
 const PREMIUM_HASH = "953a15837393227855699fc84109ae2720c772ef70ee3026ea4c249c025e581b"; // sha256 of unlock code
-const CREDIT = "kanji-name-atelier";
+const CREDIT = "kanji-my-name";
 
 // ===== ATEJI DATA: syllable -> [kanji, meaning] options (positive meanings first) =====
 const ATEJI = {
@@ -308,8 +315,26 @@ function tokenize(r){
 }
 
 // ===== STATE =====
-let syls=[],choices=[],currentStyle="classic",premium=false;
+let syls=[],choices=[],currentStyle="classic",currentFont="yuji",currentOrient="v",premium=false;
 try{premium=localStorage.getItem("kna_premium")==="1"}catch(e){}
+
+// One font is applied to the WHOLE name — never mixed per character
+const FONTS=[
+ {id:"yuji",  label:"Brush 筆",    css:"'Yuji Syuku',serif",        free:true},
+ {id:"mincho",label:"Mincho 雅",   css:"'Shippori Mincho',serif",   free:true},
+ {id:"maru",  label:"Round 丸",    css:"'Zen Maru Gothic',sans-serif",free:true},
+ {id:"hina",  label:"Antique 古",  css:"'Hina Mincho',serif",       free:false},
+ {id:"decol", label:"Decor 飾",    css:"'Kaisei Decol',serif",      free:false},
+ {id:"yusei", label:"Marker 手",   css:"'Yusei Magic',sans-serif",  free:false},
+ {id:"pop",   label:"Kawaii 花",   css:"'Hachi Maru Pop',cursive",  free:false},
+ {id:"dot",   label:"Pixel 点",    css:"'DotGothic16',sans-serif",  free:false}
+];
+const fontCss=()=>FONTS.find(f=>f.id===currentFont).css;
+async function ensureFont(){
+  const chars=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]).join("")||"永漢名";
+  try{await document.fonts.load(`80px ${fontCss()}`,chars);}catch(e){}
+}
+async function render(hiRes){await ensureFont();return draw(!!hiRes);}
 
 const STYLES={
  classic:{bg1:"#f7f2e6",bg2:"#ece2cb",ink:"#26221c",accent:"#b3402e",frame:"#c8b98f",romaji:"#8a7f6a"},
@@ -322,12 +347,13 @@ const STYLES={
 // ===== RENDER =====
 const canvas=document.getElementById("art"),ctx=canvas.getContext("2d");
 function draw(hiRes){
-  const scale=hiRes?2:1,W=1200*scale,H=1800*scale;
+  const scale=hiRes?2:1,portrait=currentOrient==="v";
+  const W=(portrait?1200:1800)*scale,H=(portrait?1800:1200)*scale;
   const c=hiRes?document.createElement("canvas"):canvas;
   c.width=W;c.height=H;
   const x=c.getContext("2d"),st=STYLES[currentStyle];
   // background wash
-  const g=x.createRadialGradient(W*.35,H*.25,80*scale,W*.5,H*.5,H*.85);
+  const g=x.createRadialGradient(W*.35,H*.25,80*scale,W*.5,H*.5,Math.max(W,H)*.85);
   g.addColorStop(0,st.bg1);g.addColorStop(1,st.bg2);
   x.fillStyle=g;x.fillRect(0,0,W,H);
   // paper texture
@@ -340,33 +366,53 @@ function draw(hiRes){
   x.lineWidth=1*scale;x.strokeRect(58*scale,58*scale,W-116*scale,H-116*scale);
   const kanji=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]);
   const n=kanji.length||1;
-  // vertical kanji column
-  const avail=H-460*scale;
-  const size=Math.min(300*scale,avail/n*0.86);
-  const startY=(H-140*scale-(size*1.12*n))/2+size*.85;
+  const fam=fontCss(); // single font for the whole name — never mixed
   x.textAlign="center";x.fillStyle=st.ink;
-  x.font=`${size}px 'Yuji Syuku','Shippori Mincho',serif`;
   x.shadowColor="rgba(0,0,0,.18)";x.shadowBlur=8*scale;x.shadowOffsetY=4*scale;
-  kanji.forEach((k,i)=>x.fillText(k,W/2,startY+i*size*1.12));
+  if(portrait){
+    const avail=H-460*scale;
+    const size=Math.min(300*scale,avail/n*0.86);
+    const startY=(H-140*scale-(size*1.12*n))/2+size*.85;
+    x.font=`${size}px ${fam}`;
+    kanji.forEach((k,i)=>x.fillText(k,W/2,startY+i*size*1.12));
+  }else{
+    const avail=W-520*scale;
+    const size=Math.min(320*scale,avail/n*0.9);
+    const step=size*1.12,startX=W/2-step*(n-1)/2;
+    x.font=`${size}px ${fam}`;
+    kanji.forEach((k,i)=>x.fillText(k,startX+i*step,H*.42+size*.35));
+  }
   x.shadowColor="transparent";
   // hanko seal
-  const sz=104*scale,sx=W-190*scale,sy=H-330*scale;
+  const sz=104*scale,sx=W-190*scale,sy=portrait?H-330*scale:H-260*scale;
   x.fillStyle=st.accent;
   x.beginPath();x.roundRect(sx,sy,sz,sz,14*scale);x.fill();
   x.fillStyle=currentStyle==="night"||currentStyle==="gold"?"#14120f":"#fdf6ea";
-  x.font=`${sz*.62}px 'Yuji Syuku',serif`;
+  x.font=`${sz*.62}px ${fam}`;
   x.fillText(kanji[0]||"印",sx+sz/2,sy+sz*.72);
   // romaji name + meanings
   const nm=document.getElementById("nameIn").value.trim();
+  const baseY=portrait?H-210*scale:H-190*scale;
   x.fillStyle=st.romaji;
   x.font=`${34*scale}px 'Cormorant Garamond',serif`;
-  x.fillText(nm.toUpperCase().split("").join(" "),W/2,H-210*scale);
+  x.fillText(nm.toUpperCase().split("").join(" "),W/2,baseY);
   const meanings=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][1]).join("  ·  ");
   x.font=`italic ${25*scale}px 'Cormorant Garamond',serif`;
-  x.fillText(meanings,W/2,H-158*scale);
+  x.fillText(meanings,W/2,baseY+52*scale);
   // credit (free only)
   if(!premium||!hiRes){x.font=`${18*scale}px 'Inter',sans-serif`;x.globalAlpha=.55;x.fillText(CREDIT,W/2,H-92*scale);x.globalAlpha=1;}
   return c;
+}
+function renderFontRow(){
+  const row=document.getElementById("fontRow");row.innerHTML="";
+  FONTS.forEach(f=>{
+    const b=document.createElement("button");
+    b.className="style-b"+(f.id===currentFont?" on":"");
+    b.dataset.font=f.id;
+    b.textContent=f.free||premium?f.label:f.label+" ✦";
+    if(!f.free&&!premium)b.style.opacity=".55";
+    row.appendChild(b);
+  });
 }
 
 function renderChips(){
@@ -387,7 +433,7 @@ function openPicker(idx){
   opts.forEach(([k,m],o)=>{
     const d=document.createElement("div");d.className="opt";
     d.innerHTML=`<span class="k">${k}</span><span class="m"><b>${m}</b><br><small style="color:var(--muted)">read as “${syls[ci.s]}”</small></span>`;
-    d.onclick=()=>{choices[idx].o=o;document.getElementById("picker").classList.remove("open");renderChips();draw(false);};
+    d.onclick=()=>{choices[idx].o=o;document.getElementById("picker").classList.remove("open");renderChips();render();};
     card.appendChild(d);
   });
   document.getElementById("picker").classList.add("open");
@@ -401,7 +447,7 @@ function generate(rand){
   if(!toks.length){toast("Hmm — try a simpler spelling of your name");return;}
   syls=toks;
   choices=toks.map((t,i)=>({s:i,o:rand?Math.floor(Math.random()*ATEJI[t].length):0}));
-  renderChips();draw(false);
+  renderChips();render();
   history.replaceState(null,"","#"+encodeURIComponent(nm));
 }
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600);}
@@ -414,13 +460,26 @@ document.getElementById("styleRow").addEventListener("click",e=>{
   const b=e.target.closest(".style-b");if(!b)return;
   const s=b.dataset.style;
   if((s==="gold"||s==="storm")&&!premium){toast("Gold Leaf & Sumi Storm are Premium styles ✦");return;}
-  document.querySelectorAll(".style-b").forEach(x=>x.classList.toggle("on",x===b));
-  currentStyle=s;draw(false);
+  document.querySelectorAll("#styleRow .style-b").forEach(x=>x.classList.toggle("on",x===b));
+  currentStyle=s;render();
+});
+document.getElementById("fontRow").addEventListener("click",e=>{
+  const b=e.target.closest(".style-b");if(!b)return;
+  const f=FONTS.find(f=>f.id===b.dataset.font);
+  if(!f.free&&!premium){toast(`“${f.label}” is a Premium font ✦ Unlock all 8 for $1`);return;}
+  currentFont=f.id;
+  document.querySelectorAll("#fontRow .style-b").forEach(x=>x.classList.toggle("on",x.dataset.font===f.id));
+  render();
+});
+document.getElementById("orientRow").addEventListener("click",e=>{
+  const b=e.target.closest(".style-b");if(!b)return;
+  currentOrient=b.dataset.orient;
+  document.querySelectorAll("#orientRow .style-b").forEach(x=>x.classList.toggle("on",x===b));
+  render();
 });
 document.getElementById("dlBtn").onclick=async()=>{
   if(!choices.length){toast("Create your kanji first ✦");return;}
-  await document.fonts.ready;
-  const c=draw(premium);
+  const c=await render(premium);
   const a=document.createElement("a");
   a.download=`kanji-name-${(document.getElementById("nameIn").value||"art").toLowerCase()}.png`;
   a.href=c.toDataURL("image/png");a.click();
@@ -446,8 +505,10 @@ function unlockUI(){
     const g=document.createElement("button");g.className="style-b";g.dataset.style="gold";g.textContent="Gold Leaf ✦";row.appendChild(g);
     const s2=document.createElement("button");s2.className="style-b";s2.dataset.style="storm";s2.textContent="Sumi Storm ✦";row.appendChild(s2);
   }
+  renderFontRow();
 }
 if(premium)unlockUI();
+renderFontRow();
 document.getElementById("year").textContent=new Date().getFullYear();
 // init from hash or default demo
 window.addEventListener("load",async()=>{
