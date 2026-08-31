@@ -10,20 +10,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500&family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#1c1a17;--paper:#f6f1e7;--red:#b3402e;--gold:#a08339;--muted:#6f675a;--line:#d9cfba}
+:root{--bg:#111318;--panel:#181b21;--panel2:#14171c;--line:#33363f;--ink:#e8e2d5;--head:#f0ead9;--gold:#b89250;--muted:#8f897b;--seal:#c73e2c}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background-image:radial-gradient(circle at 20% 10%,#fbf7ee 0%,transparent 50%),radial-gradient(circle at 90% 90%,#ece2cd 0%,transparent 40%)}
-.card{background:#fffdf8;border:1px solid var(--line);border-radius:18px;padding:44px 36px;max-width:520px;width:100%;text-align:center;box-shadow:0 14px 40px rgba(60,45,20,.12)}
-.jp{font-family:'Shippori Mincho',serif;font-size:52px;color:var(--red)}
-h1{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:34px;margin:10px 0 6px}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{background:var(--panel);border:1px solid var(--gold);padding:46px 38px;max-width:520px;width:100%;text-align:center;position:relative;box-shadow:0 0 80px rgba(184,146,80,.12),0 30px 60px rgba(0,0,0,.5)}
+.card::before{content:"";position:absolute;inset:6px;border:1px solid rgba(184,146,80,.25);pointer-events:none}
+.jp{font-family:'Shippori Mincho',serif;font-size:52px;color:var(--gold)}
+h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:32px;color:var(--head);margin:10px 0 6px}
 p{color:var(--muted);font-size:15px}
-.code-box{margin:26px 0 8px;background:var(--paper);border:2px dashed var(--gold);border-radius:12px;padding:18px;font-family:monospace;font-size:24px;letter-spacing:.08em;cursor:pointer;user-select:all}
+.code-box{margin:26px 0 8px;background:var(--panel2);border:2px dashed var(--gold);padding:18px;font-family:monospace;font-size:24px;letter-spacing:.08em;color:var(--head);cursor:pointer;user-select:all}
 .tip{font-size:12.5px;color:var(--muted)}
 ol{text-align:left;margin:22px auto 0;max-width:380px;color:var(--muted);font-size:14.5px;padding-left:22px}
 ol li{margin:6px 0}
-.btn{display:inline-block;margin-top:26px;background:var(--red);color:#fff;text-decoration:none;font-weight:600;font-size:15px;border-radius:10px;padding:13px 26px}
-.btn:hover{background:#96331f}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:12px 22px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.3s}
+ol b{color:var(--ink)}
+.btn{display:inline-block;margin-top:26px;background:var(--gold);color:#111318;text-decoration:none;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:14px 26px}
+.btn:hover{background:#cca768}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#111318;padding:12px 22px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.3s}
 .toast.show{opacity:1}
 </style>
 </head>
