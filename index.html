@@ -191,7 +191,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;text-align:center;co
 <script>
 // ===== CONFIG =====
 const STRIPE_URL = "#"; // TODO: replace with Stripe Payment Link (after-payment redirect: unlock-80b9aa.html?session_id={CHECKOUT_SESSION_ID})
-const WORKER_URL = ""; // TODO: set after deploying worker/ (e.g. https://kanji-my-name-codes.xxx.workers.dev) — empty = local hash check only
+const WORKER_URL = "https://kanji-my-name-codes.hitomiusausa.workers.dev";
 const PRICE = "$4.99"; // regular $4.99 / campaign $2.99 — change together with the Stripe Payment Link
 const SUPPORT_EMAIL = ""; // lost-code contact; leave empty to hide the "Lost your code?" line
 const PREMIUM_HASHES = [ // sha256 of each valid unlock code — add new codes here, remove only a leaked one

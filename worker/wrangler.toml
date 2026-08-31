@@ -6,7 +6,7 @@ compatibility_date = "2026-08-01"
 #   npx wrangler kv namespace create CODES
 [[kv_namespaces]]
 binding = "CODES"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
+id = "ec256a0562e24a488e59f3bbab5a80c3"
 
 # Secret (set once):
 #   npx wrangler secret put STRIPE_SECRET_KEY
