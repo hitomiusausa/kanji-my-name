@@ -8,6 +8,7 @@
 <meta property="og:title" content="Kanji Name Atelier — Your Name in Kanji, as Art">
 <meta property="og:description" content="Turn your name into beautiful kanji art. Every kanji carries a meaning you choose.">
 <meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛩️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Yuji+Syuku&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -254,16 +255,21 @@ const ATEJI = {
 // p-row aliases to h-row (ateji tradition)
 ["pa","ha"].forEach(()=>{}); ATEJI.pa=ATEJI.ha;ATEJI.pi=ATEJI.hi;ATEJI.pu=ATEJI.fu;ATEJI.pe=ATEJI.he;ATEJI.po=ATEJI.ho;
 ATEJI.nu=[["布","fine cloth"],["温","warmth"]];
+// spelling-variant & foreign-sound aliases
+ATEJI.si=ATEJI.shi;ATEJI.zi=ATEJI.ji;ATEJI.ti=ATEJI.chi;ATEJI.tu=ATEJI.tsu;ATEJI.hu=ATEJI.fu;
+ATEJI.di=ATEJI.ji;ATEJI.du=ATEJI.zu;ATEJI.fa=ATEJI.ha;ATEJI.fi=ATEJI.hi;ATEJI.fe=ATEJI.he;ATEJI.fo=ATEJI.ho;
+ATEJI.wi=ATEJI.i;ATEJI.we=ATEJI.e;ATEJI.wo=ATEJI.o;ATEJI.je=ATEJI.ji;ATEJI.ye=ATEJI.e;
 
 // common name pronunciations
 const NAME_DICT={michael:"maikeru",john:"jon",jon:"jon",david:"deibido",sarah:"sera",sara:"sara",emma:"ema",olivia:"oribia",liam:"riamu",noah:"noa",james:"jeimuzu",william:"uiriamu",sophia:"sofia",sofia:"sofia",isabella:"izabera",alex:"arekusu",alexander:"arekusandā",chris:"kurisu",christopher:"kurisutofā",maria:"maria",anna:"anna",kevin:"kebin",tom:"tomu",thomas:"tōmasu",mary:"meari",robert:"robāto",lucas:"rūkasu",luke:"rūku",mia:"mia",charlotte:"shārotto",amelia:"ameria",harry:"harī",jack:"jaku",george:"jōji",oliver:"oribā",emily:"emirī",jessica:"jeshika",daniel:"danieru",matthew:"mashū",andrew:"andoryū",ryan:"raian",laura:"rōra",julia:"juria",sophie:"sofī",leo:"reo",max:"makusu",ben:"ben",sam:"samu",kate:"keito",lily:"rirī",grace:"gureisu",chloe:"kuroe",zoe:"zoe",ethan:"īsan",mason:"meison",logan:"rōgan",lucy:"rūshī",hannah:"hana",ava:"eiba",ella:"era",nina:"nīna",carlos:"karurosu",jose:"hose",juan:"fan",pedro:"pedoro",ana:"ana",luis:"ruisu",diego:"diego",pablo:"paburo",marco:"maruko",luca:"ruka",giulia:"juria",pierre:"piēru",marie:"marī",hans:"hansu",felix:"ferikusu",ahmed:"amedo",mohammed:"mohamedo",fatima:"fatima",wei:"uei",li:"rī",chen:"chen",kim:"kimu",lee:"rī",park:"paku",raj:"raju",priya:"puria",ivan:"iban",olga:"oruga",dmitri:"dimitori",elena:"erena"};
 
 // ===== ROMAJI CONVERSION =====
 function toRomaji(name){
+  const norm=t=>t.replace(/ā/g,"a").replace(/ī/g,"i").replace(/ū/g,"u").replace(/ē/g,"e").replace(/ō/g,"o").replace(/([bcdfghjkmprstwyz])\1/g,"$1");
   let s=name.toLowerCase().trim().replace(/[^a-zāīūēō]/g,"");
-  if(NAME_DICT[s])return NAME_DICT[s];
-  s=s.replace(/ā/g,"a").replace(/ī/g,"i").replace(/ū/g,"u").replace(/ē/g,"e").replace(/ō/g,"o");
-  s=s.replace(/ph/g,"f").replace(/th/g,"s").replace(/ch(?=[aiueo])/g,"ch").replace(/sh(?=[aiueo])/g,"sh");
+  if(NAME_DICT[s])return norm(NAME_DICT[s]);
+  s=norm(s);
+  s=s.replace(/ph/g,"f").replace(/th/g,"s").replace(/ch(?![aiueo])/g,"k").replace(/sh(?![aiueo])/g,"s");
   s=s.replace(/ck/g,"k").replace(/cc/g,"k").replace(/qu/g,"ku").replace(/x/g,"kusu");
   s=s.replace(/c(?=[eiy])/g,"s").replace(/c/g,"k").replace(/l/g,"r").replace(/v/g,"b").replace(/q/g,"k");
   s=s.replace(/([bcdfghjkmprstwyz])\1/g,"$1"); // geminates → single
