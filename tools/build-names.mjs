@@ -26,13 +26,15 @@ const code = [
   extract(/const ATEJI\s*=\s*\{[\s\S]*?ATEJI\.ye=ATEJI\.e;/, "ATEJI + aliases"),
   extract(/function nameVariants\([^)]*\)\{[\s\S]*?\n\}/, "nameVariants"),
   extract(/function toRomaji\(name[^)]*\)\{[\s\S]*?\n\}/, "toRomaji"),
+  extract(/const KANA_MAP=\{[\s\S]*?\};/, "KANA_MAP"),
+  extract(/function toKatakana\([^)]*\)\{[\s\S]*?\n\}/, "toKatakana"),
   extract(/function tokenize\(r\)\{[\s\S]*?\n\}/, "tokenize"),
   extract(/const APPROX_SYL=\{.*?\};/s, "APPROX_SYL"),
   extract(/function trueSound\([^\n]*\}/, "trueSound"),
   extract(/function pickDefaults\([\s\S]*?\n\}/, "pickDefaults"),
 ].join("\n");
-const { ATEJI, toRomaji, tokenize, NAME_SAY, nameVariants, trueSound, pickDefaults } = new Function(
-  code + "\nreturn {ATEJI,toRomaji,tokenize,NAME_SAY,nameVariants,trueSound,pickDefaults};"
+const { ATEJI, toRomaji, tokenize, NAME_SAY, nameVariants, toKatakana, trueSound, pickDefaults } = new Function(
+  code + "\nreturn {ATEJI,toRomaji,tokenize,NAME_SAY,nameVariants,toKatakana,trueSound,pickDefaults};"
 )();
 
 // ---- 名前リスト ----
@@ -138,6 +140,13 @@ p{margin:10px 0}
 .say-b.on{background:var(--gold);color:#131310;border-color:var(--gold);font-weight:700}
 .say-b .ss{display:block;font-size:10px;letter-spacing:.08em;opacity:.72;margin-top:2px;font-weight:400}
 .vgrp[hidden]{display:none}
+.an{margin:22px 0 0;padding-top:16px;border-top:1px solid var(--line);text-align:left}
+.an p{margin:0}
+.an-l1{font-size:13.5px;line-height:1.75;color:var(--ink)}
+.an-lbl{font-family:'Space Grotesk',sans-serif;color:rgba(232,226,213,.6)}
+.an-kana{font-family:'Shippori Mincho',serif;font-size:17px;color:var(--ink);margin:0 .3em;white-space:nowrap}
+.an-romaji{font-family:'Inter',sans-serif;color:rgba(232,226,213,.6)}
+.an-l2,.an-l3{font-family:'Inter',sans-serif;font-size:12.5px;color:rgba(232,226,213,.55);line-height:1.75;margin-top:6px}
 `;
 
 // The name index has its own quiet, asymmetric background composition.
@@ -174,6 +183,22 @@ function pageHtml(d, all) {
        return `${e[0]} ("${e[1]}", read "${ts}"${ts !== t ? `, used for the "${t}" sound` : ""})`;
      }).join(", ")}. Together they sound like "${d.Name}" while carrying the meanings ${mm}.`],
   ];
+  // Task B: same practical-katakana + ateji note as the generator, right under the H1
+  // summary. One per reading, reusing the page's existing .vgrp toggle (sayScript) so it
+  // tracks the "How do you say it?" picker for names with more than one pronunciation.
+  const noteBlock = (r, i) => {
+    const raw = (nameVariants(d.name)[i]) || toRomaji(d.name, 0);
+    const kk = toKatakana(raw);
+    const l1 = kk
+      ? `<p class="an-l1"><span class="an-lbl">In Japanese, ${esc(d.Name)} is usually written</span> <span class="an-kana">${esc(kk)}</span> <span class="an-romaji">(${esc(raw)})</span></p>`
+      : "";
+    return `<div class="an vgrp" data-v="${i}"${i > 0 ? " hidden" : ""}>
+    ${l1}
+    <p class="an-l2">${esc(r.kanji)} is an artistic ateji — chosen for sound and meaning, not an official spelling.</p>
+    <p class="an-l3">For anything permanent, have a native speaker check it.</p>
+  </div>`;
+  };
+  const artNotes = d.readings.map(noteBlock).join("\n  ");
   const url = `${SITE}/names/${d.name}`;
   const ld = {
     "@context": "https://schema.org",
@@ -281,6 +306,7 @@ ${FONTS_LINK}
   <div class="brand"><a href="../">Kanji My Name</a></div>
   <h1>${esc(d.Name)} in Japanese Kanji</h1>
   <p class="sub"><b>${esc(d.Name)} in kanji: ${esc(d.kanji)}</b> — one way to write ${esc(d.Name)}, with meanings you choose yourself, in the Japanese <i>ateji</i> (当て字) tradition.${hasApprox ? ` Some sounds have no exact kanji; ateji tradition uses the closest reading — marked ≈ below (e.g. ヴァ → ba, フィ → hi).` : ""}</p>
+  ${artNotes}
   ${sayPicker}
   ${d.readings.map(readingBlock).join("\n")}
 

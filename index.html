@@ -242,6 +242,14 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
 .upsell-note{margin-top:12px;text-align:center;font-size:12px;color:var(--muted)}
 .upsell-note b{color:var(--gold);font-weight:600}
 .upsell-note a{color:var(--gold)}
+/* Task B: practical katakana + ateji note, directly under the artwork card */
+.art-note{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);text-align:left}
+.art-note p{margin:0}
+.art-note .an-l1{font-size:13.5px;line-height:1.75}
+.art-note .an-lbl{font-family:'Space Grotesk',sans-serif;color:rgba(232,226,213,.6)}
+.art-note .an-kana{font-family:'Shippori Mincho',serif;font-size:17px;color:var(--ink);margin:0 .3em;white-space:nowrap}
+.art-note .an-romaji{font-family:'Inter',sans-serif;color:rgba(232,226,213,.6)}
+.art-note .an-l2,.art-note .an-l3{font-family:'Inter',sans-serif;font-size:12.5px;color:rgba(232,226,213,.55);line-height:1.75;margin-top:6px}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#131310;padding:12px 22px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.3s;z-index:60}
 .toast a{color:var(--seal);font-weight:600}
 .toast.show{opacity:1;pointer-events:auto}
@@ -293,6 +301,11 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
     </div>
     <div class="panel canvas-holder">
       <canvas id="art" width="1200" height="1800"></canvas>
+      <div class="art-note" id="artNote" hidden>
+        <p class="an-l1" id="anL1"><span class="an-lbl">In Japanese, <span id="anName"></span> is usually written</span> <span class="an-kana" id="anKana"></span> <span class="an-romaji">(<span id="anRomaji"></span>)</span></p>
+        <p class="an-l2"><span id="anKanji"></span> is an artistic ateji — chosen for sound and meaning, not an official spelling.</p>
+        <p class="an-l3">For anything permanent, have a native speaker check it.</p>
+      </div>
       <div class="dl-row">
         <button class="btn btn-red" id="dlBtn">Download PNG</button>
         <button class="btn btn-4k" id="dl4kBtn">Download 4K ✦</button>
@@ -493,7 +506,7 @@ const APPROX_SYL={si:"shi",ti:"chi",tu:"tsu",zi:"ji",du:"zu",fa:"ha",fi:"hi",fe:
 function trueSound(tok,entry){return (entry&&entry[2])||APPROX_SYL[tok]||tok;}
 
 // common name pronunciations
-const NAME_DICT={michael:"maikeru",john:"jon",jon:"jon",david:"deibido",sarah:"sera",sara:"sara",emma:"ema",olivia:"oribia",liam:"riamu",noah:"noa",james:"jeimuzu",william:"uiriamu",sophia:"sofia",sofia:"sofia",isabella:"izabera",alex:"arekusu",alexander:"arekusandā",chris:"kurisu",christopher:"kurisutofā",maria:"maria",anna:"anna",kevin:"kebin",tom:"tomu",thomas:"tōmasu",mary:"meari",robert:"robāto",lucas:"rūkasu",luke:"rūku",mia:"mia",charlotte:"shārotto",amelia:"ameria",harry:"harī",jack:"jaku",george:"jōji",oliver:"oribā",emily:"emirī",jessica:"jeshika",daniel:"danieru",matthew:"mashū",andrew:"andoryū",ryan:"raian",laura:"rōra",julia:"juria",sophie:"sofī",leo:"reo",max:"makusu",ben:"ben",sam:"samu",kate:"keito",lily:"rirī",grace:"gureisu",chloe:"kuroe",zoe:"zoe",ethan:"īsan",mason:"meison",logan:"rōgan",lucy:"rūshī",hannah:"hana",ava:"eiba",ella:"era",nina:"nīna",carlos:"karurosu",jose:"hose",juan:"fan",pedro:"pedoro",ana:"ana",luis:"ruisu",diego:"diego",pablo:"paburo",marco:"maruko",luca:"ruka",giulia:"juria",pierre:"piēru",marie:"marī",hans:"hansu",felix:"ferikusu",ahmed:"amedo",mohammed:"mohamedo",fatima:"fatima",wei:"uei",li:"rī",chen:"chen",kim:"kimu",lee:"rī",park:"paku",raj:"raju",priya:"puria",ivan:"iban",olga:"oruga",dmitri:"dimitori",elena:"erena",abel:"eiberu|aberu",theodore:"seodoa",elijah:"iraija",eleanor:"erenoa",levi:"rībai|rebi",violet:"baioreto",elias:"iraiasu|eriasu",aurora:"ōrora",harper:"hāpā",sebastian:"sebasuchan|sebasutian",hudson:"hadoson",hazel:"heizeru",ellie:"erī",cooper:"kūpā",isla:"aira",asher:"ashā",lainey:"reinī",gianna:"jiana|jana",layla:"reira",avery:"eiburī",wyatt:"waiato",ivy:"aibī",jacob:"jeikobu",willow:"wirō",miles:"mairuzu",carter:"kātā",isaac:"aizaku",riley:"rairī",charles:"chāruzu",eloise:"eroīzu",sadie:"seidi",thiago:"tiago",delilah:"deraira",wesley:"wesurī",josephine:"josefin",josiah:"josaia",waylon:"weiron",isaiah:"aizaia",leah:"ria",caleb:"keirebu|karebu",adeline:"aderain|aderin",beau:"bō",iris:"airisu",aiden:"eiden",nathan:"neisan",brooks:"burukusu",alice:"arisu",genesis:"jeneshisu",paisley:"peizurī",angel:"enjeru|anheru",claire:"kurea",zoey:"zōi",lincoln:"rinkān",jayden:"jeiden",silas:"sairasu",millie:"mirī",adrian:"eidorian|adorian",daisy:"deijī",maeve:"meibu",cameron:"kyameron",walker:"wōkā",axel:"akuseru",lyla:"raira",madeline:"maderin|maderain",august:"ōgasuto",josie:"joshī",audrey:"ōdorī",arthur:"āsā",autumn:"ōtamu",jeremiah:"jeremaia",natalie:"natarī",micah:"maika",everly:"ebārī",kinsley:"kinzurī",jade:"jeido",caroline:"kyarorain",christian:"kurisuchan",eithan:"īsan",archer:"āchā",georgia:"jōjia",juniper:"junipā",myles:"mairuzu",aaliyah:"arīya",margot:"māgo",parker:"pākā",hailey:"heirī",eli:"īrai",xavier:"zeibia|eguzeibia",athena:"atena|ashina",juliette:"jurieto",easton:"īsuton",river:"ribā",margaret:"māgareto",nicholas:"nikorasu",austin:"ōsutin",rose:"rōzu",jace:"jeisu",eliza:"iraiza",jaxon:"jakuson",raelynn:"reirin",brooklyn:"burukurin",callum:"karamu",esther:"esutā",milo:"mairo",hallie:"harī",graham:"gureamu|gurahamu",hadley:"hadorī",emerson:"emāson",sawyer:"sōyā",elsie:"erushī",giovanni:"jobani",carson:"kāson",dean:"dīn",scottie:"sukoti",valerie:"barerī",jonah:"jona",jasper:"jasupā",hunter:"hantā",jordan:"jōdan",charlie:"chārī",ryder:"raidā",malachi:"marakai",savannah:"sabana",kayden:"keiden",stetson:"sutetoson",rylee:"rairī",jameson:"jeimuson",emersyn:"emāshin",sloane:"surōn",melanie:"meranī",zion:"zaion",brielle:"burieru",dawson:"dōson",aubrey:"ōburī",evangeline:"ebanjerin",genevieve:"jenebību",kehlani:"kerāni",june:"jūn",summer:"samā",oaklynn:"ōkurin",ember:"enbā",piper:"paipā",jude:"jūdo",oakley:"ōkurī",jaxson:"jakuson",phoebe:"fībī",colter:"korutā",arya:"āria",wrenley:"renrī",sage:"seiji",hayden:"heiden",hayes:"heizu",ashley:"ashurī",ace:"ēsu",nevaeh:"nebeia",jason:"jeison",isabelle:"izaberu",connor:"konā",skylar:"sukairā",jayce:"jeisu",beckham:"bekamu",blair:"burea",gemma:"jema",rosalie:"rōzarī",vivienne:"bibienu",jesus:"hesusu|jizasu",callie:"kyarī",freya:"fureiya",isabel:"izaberu",judah:"jūda",lilah:"raira",sutton:"saton",tucker:"takā",annie:"anī",cole:"kōru",ximena:"himena",ryker:"raikā",jesse:"jeshī",katherine:"kyasarin",lila:"raira",peter:"pītā",rhett:"reto",tatum:"teitamu",haven:"heibun",blakely:"bureikurī",reese:"rīsu",chase:"cheisu",legend:"rejendo",everleigh:"ebārī",tate:"teito",alejandro:"arehandoro",knox:"nokusu",olive:"orību",ashton:"ashuton",mabel:"meiberu",caden:"keiden",noelle:"noeru",stevie:"sutībī",timothy:"timoshī",kylie:"kairī",celine:"serīnu",messiah:"mesaia",adaline:"adarain|adarin",bailey:"beirī",abraham:"eiburahamu|aburahamu",myla:"maira",victor:"bikutā|bikutoru",miguel:"migeru",zayden:"zeiden",dahlia:"daria",bentley:"bentorē",selah:"sera",zachary:"zakarī",saylor:"seirā",baker:"beikā",tyler:"tairā",jane:"jēn",elise:"erīsu|erīze",oscar:"osukā",alaina:"areina",presley:"puresurī",cohen:"kōen",gracie:"gureishī",callahan:"kyarahan",mackenzie:"makenjī",brayden:"bureiden",simon:"saimon",wren:"ren",palmer:"pāmā",maisie:"meijī",justin:"jasutin",richard:"richādo",nyla:"naira",alexandra:"arekusandora",kaiden:"keiden|kaiden",ada:"eida",eden:"īden|eden",lucia:"rusia|ruchia"};
+const NAME_DICT={michael:"maikeru",john:"jon",jon:"jon",david:"deibiddo",sarah:"sera",sara:"sara",emma:"ema",olivia:"oribia",liam:"riamu",noah:"noa",james:"jeimuzu",william:"uiriamu",sophia:"sofia",sofia:"sofia",isabella:"izabera",alex:"arekusu",alexander:"arekusandā",chris:"kurisu",christopher:"kurisutofā",maria:"maria",anna:"anna",kevin:"kebin",tom:"tomu",thomas:"tōmasu",mary:"meari",robert:"robāto",lucas:"rūkasu",luke:"rūku",mia:"mia",charlotte:"shārotto",amelia:"ameria",harry:"harī",jack:"jaku",george:"jōji",oliver:"oribā",emily:"emirī",jessica:"jeshika",daniel:"danieru",matthew:"mashū",andrew:"andoryū",ryan:"raian",laura:"rōra",julia:"juria",sophie:"sofī",leo:"reo",max:"makusu",ben:"ben",sam:"samu",kate:"keito",lily:"rirī",grace:"gureisu",chloe:"kuroe",zoe:"zoe",ethan:"īsan",mason:"meison",logan:"rōgan",lucy:"rūshī",hannah:"hana",ava:"eiba",ella:"era",nina:"nīna",carlos:"karurosu",jose:"hose",juan:"fan",pedro:"pedoro",ana:"ana",luis:"ruisu",diego:"diego",pablo:"paburo",marco:"maruko",luca:"ruka",giulia:"juria",pierre:"piēru",marie:"marī",hans:"hansu",felix:"ferikusu",ahmed:"amedo",mohammed:"mohamedo",fatima:"fatima",wei:"uei",li:"rī",chen:"chen",kim:"kimu",lee:"rī",park:"paku",raj:"raju",priya:"puria",ivan:"iban",olga:"oruga",dmitri:"dimitori",elena:"erena",abel:"eiberu|aberu",theodore:"seodoa",elijah:"iraija",eleanor:"erenoa",levi:"rībai|rebi",violet:"baioreto",elias:"iraiasu|eriasu",aurora:"ōrora",harper:"hāpā",sebastian:"sebasuchan|sebasutian",hudson:"hadoson",hazel:"heizeru",ellie:"erī",cooper:"kūpā",isla:"aira",asher:"ashā",lainey:"reinī",gianna:"jiana|jana",layla:"reira",avery:"eiburī",wyatt:"waiato",ivy:"aibī",jacob:"jeikobu",willow:"wirō",miles:"mairuzu",carter:"kātā",isaac:"aizaku",riley:"rairī",charles:"chāruzu",eloise:"eroīzu",sadie:"seidi",thiago:"tiago",delilah:"deraira",wesley:"wesurī",josephine:"josefin",josiah:"josaia",waylon:"weiron",isaiah:"aizaia",leah:"ria",caleb:"keirebu|karebu",adeline:"aderain|aderin",beau:"bō",iris:"airisu",aiden:"eiden",nathan:"neisan",brooks:"burukusu",alice:"arisu",genesis:"jeneshisu",paisley:"peizurī",angel:"enjeru|anheru",claire:"kurea",zoey:"zōi",lincoln:"rinkān",jayden:"jeiden",silas:"sairasu",millie:"mirī",adrian:"eidorian|adorian",daisy:"deijī",maeve:"meibu",cameron:"kyameron",walker:"wōkā",axel:"akuseru",lyla:"raira",madeline:"maderin|maderain",august:"ōgasuto",josie:"joshī",audrey:"ōdorī",arthur:"āsā",autumn:"ōtamu",jeremiah:"jeremaia",natalie:"natarī",micah:"maika",everly:"ebārī",kinsley:"kinzurī",jade:"jeido",caroline:"kyarorain",christian:"kurisuchan",eithan:"īsan",archer:"āchā",georgia:"jōjia",juniper:"junipā",myles:"mairuzu",aaliyah:"arīya",margot:"māgo",parker:"pākā",hailey:"heirī",eli:"īrai",xavier:"zeibia|eguzeibia",athena:"atena|ashina",juliette:"jurieto",easton:"īsuton",river:"ribā",margaret:"māgareto",nicholas:"nikorasu",austin:"ōsutin",rose:"rōzu",jace:"jeisu",eliza:"iraiza",jaxon:"jakuson",raelynn:"reirin",brooklyn:"burukurin",callum:"karamu",esther:"esutā",milo:"mairo",hallie:"harī",graham:"gureamu|gurahamu",hadley:"hadorī",emerson:"emāson",sawyer:"sōyā",elsie:"erushī",giovanni:"jobani",carson:"kāson",dean:"dīn",scottie:"sukoti",valerie:"barerī",jonah:"jona",jasper:"jasupā",hunter:"hantā",jordan:"jōdan",charlie:"chārī",ryder:"raidā",malachi:"marakai",savannah:"sabana",kayden:"keiden",stetson:"sutetoson",rylee:"rairī",jameson:"jeimuson",emersyn:"emāshin",sloane:"surōn",melanie:"meranī",zion:"zaion",brielle:"burieru",dawson:"dōson",aubrey:"ōburī",evangeline:"ebanjerin",genevieve:"jenebību",kehlani:"kerāni",june:"jūn",summer:"samā",oaklynn:"ōkurin",ember:"enbā",piper:"paipā",jude:"jūdo",oakley:"ōkurī",jaxson:"jakuson",phoebe:"fībī",colter:"korutā",arya:"āria",wrenley:"renrī",sage:"seiji",hayden:"heiden",hayes:"heizu",ashley:"ashurī",ace:"ēsu",nevaeh:"nebeia",jason:"jeison",isabelle:"izaberu",connor:"konā",skylar:"sukairā",jayce:"jeisu",beckham:"bekamu",blair:"burea",gemma:"jema",rosalie:"rōzarī",vivienne:"bibienu",jesus:"hesusu|jizasu",callie:"kyarī",freya:"fureiya",isabel:"izaberu",judah:"jūda",lilah:"raira",sutton:"saton",tucker:"takā",annie:"anī",cole:"kōru",ximena:"himena",ryker:"raikā",jesse:"jeshī",katherine:"kyasarin",lila:"raira",peter:"pītā",rhett:"reto",tatum:"teitamu",haven:"heibun",blakely:"bureikurī",reese:"rīsu",chase:"cheisu",legend:"rejendo",everleigh:"ebārī",tate:"teito",alejandro:"arehandoro",knox:"nokusu",olive:"orību",ashton:"ashuton",mabel:"meiberu",caden:"keiden",noelle:"noeru",stevie:"sutībī",timothy:"timoshī",kylie:"kairī",celine:"serīnu",messiah:"mesaia",adaline:"adarain|adarin",bailey:"beirī",abraham:"eiburahamu|aburahamu",myla:"maira",victor:"bikutā|bikutoru",miguel:"migeru",zayden:"zeiden",dahlia:"daria",bentley:"bentorē",selah:"sera",zachary:"zakarī",saylor:"seirā",baker:"beikā",tyler:"tairā",jane:"jēn",elise:"erīsu|erīze",oscar:"osukā",alaina:"areina",presley:"puresurī",cohen:"kōen",gracie:"gureishī",callahan:"kyarahan",mackenzie:"makenjī",brayden:"bureiden",simon:"saimon",wren:"ren",palmer:"pāmā",maisie:"meijī",justin:"jasutin",richard:"richādo",nyla:"naira",alexandra:"arekusandora",kaiden:"keiden|kaiden",ada:"eida",eden:"īden|eden",lucia:"rusia|ruchia"};
 // pronunciation labels for names with multiple readings ("|" in NAME_DICT). Same order as variants.
 const NAME_SAY={abel:["AY-bel","AH-bel"],levi:["LEE-vy","LEH-vee"],elias:["eye-LY-us","eh-LEE-as"],sebastian:["suh-BAS-chun","seh-BAS-tee-an"],gianna:["jee-AH-nah","JAH-nah"],caleb:["KAY-leb","KAH-leb"],adeline:["AD-uh-line","AD-uh-lin"],angel:["AIN-jel","AHN-hel"],adrian:["AY-dree-un","AH-dree-ahn"],madeline:["MAD-uh-lin","MAD-uh-line"],xavier:["ZAY-vee-er","ig-ZAY-vee-er"],athena:["ah-TEH-nah","uh-THEE-nuh"],graham:["GRAY-um","GRAH-ham"],jesus:["hay-SOOS","JEE-zus"],adaline:["AD-uh-line","AD-uh-lin"],abraham:["AY-bruh-ham","AH-brah-ham"],victor:["VIK-ter","VEEK-tor"],elise:["uh-LEES","ay-LEE-zuh"],kaiden:["KAY-den","KY-den"],eden:["EE-den","EH-den"],lucia:["loo-SEE-ah","LOO-chah"]};
 
@@ -529,6 +542,47 @@ function toRomaji(name,variant){
   }
   out=out.replace(/nn/g,"n");
   out=out.replace(/kusu$/,"ku"); // 語尾クス(x/ks)は久1字に圧縮 (Rex=麗久)。語中のクスは保持 (Braxton)
+  return out;
+}
+// ===== KATAKANA (practical reading, separate from the ateji sound layer) =====
+// Reverse-converts the same mora romaji NAME_DICT already stores (see nameVariants — the
+// raw "|"-split value, before toRomaji's norm() strips macrons) into natural loanword
+// katakana: chōon (ー) for macron long vowels, small tsu (ッ) for doubled consonants,
+// extended kana (ティ/ディ/ファ/ウィ/ジェ…) for foreign sounds. Independent of
+// ATEJI/APPROX_SYL, which intentionally simplify sounds toward available kanji readings.
+const KANA_MAP={
+ kya:"キャ",kyu:"キュ",kyo:"キョ",sha:"シャ",shu:"シュ",sho:"ショ",cha:"チャ",chu:"チュ",cho:"チョ",
+ nya:"ニャ",nyu:"ニュ",nyo:"ニョ",hya:"ヒャ",hyu:"ヒュ",hyo:"ヒョ",mya:"ミャ",myu:"ミュ",myo:"ミョ",
+ rya:"リャ",ryu:"リュ",ryo:"リョ",gya:"ギャ",gyu:"ギュ",gyo:"ギョ",bya:"ビャ",byu:"ビュ",byo:"ビョ",
+ pya:"ピャ",pyu:"ピュ",pyo:"ピョ",shi:"シ",chi:"チ",tsu:"ツ",she:"シェ",che:"チェ",
+ ka:"カ",ki:"キ",ku:"ク",ke:"ケ",ko:"コ",sa:"サ",su:"ス",se:"セ",so:"ソ",
+ ta:"タ",te:"テ",to:"ト",na:"ナ",ni:"ニ",nu:"ヌ",ne:"ネ",no:"ノ",
+ ha:"ハ",hi:"ヒ",fu:"フ",he:"ヘ",ho:"ホ",ma:"マ",mi:"ミ",mu:"ム",me:"メ",mo:"モ",
+ ya:"ヤ",yu:"ユ",yo:"ヨ",ra:"ラ",ri:"リ",ru:"ル",re:"レ",ro:"ロ",wa:"ワ",
+ ga:"ガ",gi:"ギ",gu:"グ",ge:"ゲ",go:"ゴ",za:"ザ",ji:"ジ",zu:"ズ",ze:"ゼ",zo:"ゾ",
+ da:"ダ",de:"デ",do:"ド",ba:"バ",bi:"ビ",bu:"ブ",be:"ベ",bo:"ボ",pa:"パ",pi:"ピ",pu:"プ",pe:"ペ",po:"ポ",
+ ja:"ジャ",ju:"ジュ",jo:"ジョ",je:"ジェ",
+ ti:"ティ",tu:"トゥ",di:"ディ",du:"ドゥ",fa:"ファ",fi:"フィ",fe:"フェ",fo:"フォ",
+ wi:"ウィ",we:"ウェ",wo:"ウォ",ye:"イェ",si:"シ",zi:"ジ",
+ a:"ア",i:"イ",u:"ウ",e:"エ",o:"オ",n:"ン"
+};
+function toKatakana(raw){
+  if(!raw)return null;
+  const s=raw.toLowerCase().replace(/ā/g,"aa").replace(/ī/g,"ii").replace(/ū/g,"uu").replace(/ē/g,"ee").replace(/ō/g,"oo");
+  const keys=Object.keys(KANA_MAP).sort((a,b)=>b.length-a.length);
+  const GEM="bcdfghjkmprstwyz"; // matches toRomaji's geminate-collapse set (n excluded: っ vs ん differ)
+  let out="",i=0;
+  while(i<s.length){
+    const c=s[i];
+    if(GEM.includes(c)&&s[i+1]===c){out+="ッ";i++;continue;} // doubled consonant → small tsu, then re-read it as a normal mora
+    let hit=null;
+    for(const k of keys){if(s.startsWith(k,i)){hit=k;break;}}
+    if(!hit)return null; // unmappable char → caller hides the katakana line rather than guess
+    out+=KANA_MAP[hit];
+    const v=hit[hit.length-1];
+    i+=hit.length;
+    if("aiueo".includes(v)&&s[i]===v){out+="ー";i++;} // same vowel repeats right after (from a macron) → chōon mark
+  }
   return out;
 }
 // tokenize romaji into known syllables (greedy, prefers merged -n forms)
@@ -667,6 +721,7 @@ async function ensureFont(){
 async function render(hiRes){
   await ensureFont();
   const c=draw(!!hiRes);
+  renderArtNote(); // Task B: katakana + ateji note tracks whatever render() just drew
   if(!hiRes){
     const h=document.querySelector(".canvas-holder");h.classList.remove("thump");void h.offsetWidth;h.classList.add("thump");
     const mb=document.getElementById("miniBar");if(mb&&!mb.hidden)updateMini(); // Task 6: 表示中のミニプレビューへ即反映
@@ -1050,6 +1105,40 @@ document.getElementById("sayRows").addEventListener("click",e=>{
   variantSel[b.dataset.word]=+b.dataset.variant;
   generate(false);
 });
+
+// Task B: "In Japanese, Emily is usually written エミリー (emirī) / 蒼陽愛 is an artistic
+// ateji…" note directly under the artwork. Called from render() so it tracks pronunciation
+// picks, meaning-chip swaps and new names alike. Line 1 hides itself (not the whole note)
+// when a syllable can't be katakana'd — never show a guessed reading.
+function renderArtNote(){
+  const box=document.getElementById("artNote");
+  if(!box)return;
+  if(!syls.length){box.hidden=true;return;}
+  box.hidden=false;
+  const nm=document.getElementById("nameIn").value.trim();
+  const words=nm.split(/\s+/).filter(Boolean);
+  const kanaParts=[],romajiParts=[];
+  let kanaOk=words.length>0;
+  words.forEach(w=>{
+    const vs=nameVariants(w),vi=varOf(w);
+    const raw=vs.length?vs[vi]:toRomaji(w,0); // dict path keeps the macron'd raw reading; rule path has none to keep
+    const kk=toKatakana(raw);
+    if(!kk)kanaOk=false;
+    kanaParts.push(kk||"");
+    romajiParts.push(raw);
+  });
+  const l1=document.getElementById("anL1");
+  if(kanaOk){
+    const cap=w=>w?w[0].toUpperCase()+w.slice(1).toLowerCase():w;
+    document.getElementById("anName").textContent=words.map(cap).join(" ");
+    document.getElementById("anKana").textContent=kanaParts.join("・");
+    document.getElementById("anRomaji").textContent=romajiParts.join(" ");
+    l1.hidden=false;
+  }else{
+    l1.hidden=true;
+  }
+  document.getElementById("anKanji").textContent=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]).join("");
+}
 
 function generate(rand){
   const nm=document.getElementById("nameIn").value.trim();
