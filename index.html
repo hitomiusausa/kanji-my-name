@@ -243,7 +243,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
       <div class="syl-area" id="sylArea" style="display:none">
         <label>Your kanji — tap a character to see your choices</label>
         <div class="chips" id="chips"></div>
-        <div class="hint">Tap any kanji above ▾ — other characters with the same sound will appear, each with a different meaning. Pick your favorite. This is <i>ateji</i> (当て字), the traditional Japanese art of writing foreign names with meaningful characters.</div>
+        <div class="hint">Tap any kanji above ▴ — other characters with the same sound will appear below it, each with a different meaning. Pick your favorite. This is <i>ateji</i> (当て字), the traditional Japanese art of writing foreign names with meaningful characters.</div>
         <label style="margin-top:18px">Art style</label>
         <div class="styles" id="styleRow" style="margin-top:4px"></div>
         <label style="margin-top:18px">Calligraphy font</label>
@@ -286,9 +286,17 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
         <li>Meanings on or off — keep the poetry, or let the kanji speak alone</li>
         <li>Square canvas — choose vertical or horizontal kanji for social posts and prints</li>
       </ul>
-      <div class="unlock-in">
+      <div class="unlock-in" id="unlockIn">
         <input type="text" id="codeIn" placeholder="Already purchased? Enter unlock code">
         <button class="btn btn-ghost" id="codeBtn">Unlock</button>
+      </div>
+      <div id="myCode" style="display:none;margin-top:14px;font-size:13px;color:var(--muted)">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span>Your unlock code:</span>
+          <code id="myCodeVal" style="border:1px dashed var(--gold);padding:6px 12px;color:var(--head);letter-spacing:.06em"></code>
+          <button class="btn btn-ghost" id="copyCodeBtn" style="padding:8px 16px;font-size:11px">Copy</button>
+        </div>
+        <p id="myCodeNote" style="margin-top:8px">✍️ Jot this code down somewhere safe — it's your lifetime key and unlocks Premium on any device.</p>
       </div>
     </div>
     <div style="text-align:center">
@@ -1140,13 +1148,32 @@ document.getElementById("codeBtn").onclick=async()=>{
     const hex=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("");
     ok=PREMIUM_HASHES.includes(hex);
   }
-  if(ok){premium=true;try{localStorage.setItem("kna_premium","1")}catch(e){}
+  if(ok){premium=true;try{localStorage.setItem("kna_premium","1");localStorage.setItem("kna_code",v)}catch(e){}
     FX.play(()=>{
-      unlockUI();
+      unlockUI();renderMyCode();
       document.querySelectorAll(".style-b.prem").forEach((b,i)=>{b.style.animationDelay=(i*60)+"ms";b.classList.add("flash-gold");});
       toast("Premium unlocked — welcome to the atelier ✦");
     });}
   else toast("That code doesn't match — check your unlock page after checkout");
+};
+// premium時はコード入力欄の代わりに「あなたのコード」＋メモ喚起を表示
+function renderMyCode(){
+  if(!premium)return;
+  document.getElementById("unlockIn").style.display="none";
+  const box=document.getElementById("myCode");box.style.display="block";
+  let code="";try{code=localStorage.getItem("kna_code")||""}catch(e){}
+  if(code){document.getElementById("myCodeVal").textContent=code;}
+  else{ // 旧解錠・別端末などでコード未保存
+    document.getElementById("myCodeVal").style.display="none";
+    document.getElementById("copyCodeBtn").style.display="none";
+    document.getElementById("myCodeNote").textContent="✍️ Premium is active on this device. Keep the unlock code from your purchase page noted somewhere safe — it works on any device, forever.";
+  }
+}
+renderMyCode();
+document.getElementById("copyCodeBtn").onclick=()=>{
+  const code=document.getElementById("myCodeVal").textContent.trim();
+  if(!code)return;
+  navigator.clipboard.writeText(code).then(()=>toast("Code copied — keep it somewhere safe!"));
 };
 // ===== アンロック演出（案A）— 自己完結クラス =====
 class UnlockFX{
