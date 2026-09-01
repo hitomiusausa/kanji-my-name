@@ -293,7 +293,7 @@ ${FONTS_LINK}
   <h2>More names in kanji</h2>
   <div class="rel">${rel.map((w) => `<a href="${w.name}">${esc(w.Name)} ${esc(w.kanji)}</a>`).join("")}<a href="./">All names →</a></div>
 
-  <footer><a href="../" class="flogo" aria-label="Kanji My Name — home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../">Try your own name →</a> · <a href="../terms">Terms</a></div></footer>
+  <footer><a href="../" class="flogo" aria-label="Kanji My Name — home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../">Try your own name →</a> · <a href="../terms">Terms</a> · <a href="../tokushoho">Legal Notice</a></div></footer>
 </div>
 ${sayScript}
 </body>
@@ -354,7 +354,7 @@ ${FONTS_LINK}
   <h1>Names in Japanese Kanji</h1>
   <p class="sub">${all.length} names · ${totalCombos} possible kanji spellings. Each kanji shown here is one sound-based <i>ateji</i> option — open a name to explore other combinations, or <a style="color:var(--gold)" href="../">create your own →</a></p>
   ${Object.keys(groups).sort().map((L) => `<h2>${L}</h2><div class="rel">${groups[L].map((d) => `<a href="${d.name}">${esc(d.Name)} ${esc(d.kanji)}</a>`).join("")}</div>`).join("\n  ")}
-  <footer><a href="../" class="flogo" aria-label="Kanji My Name — home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../">Try your own name →</a> · <a href="../terms">Terms</a></div></footer>
+  <footer><a href="../" class="flogo" aria-label="Kanji My Name — home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../">Try your own name →</a> · <a href="../terms">Terms</a> · <a href="../tokushoho">Legal Notice</a></div></footer>
 </div>
 </body>
 </html>
@@ -378,7 +378,7 @@ for (const d of all) {
 }
 if (!only) {
   fs.writeFileSync(path.join(outDir, "index.html"), hubHtml(all));
-  const urls = [`${SITE}/`, `${SITE}/terms`, `${SITE}/names/`, ...all.map((d) => `${SITE}/names/${d.name}`)];
+  const urls = [`${SITE}/`, `${SITE}/terms`, `${SITE}/tokushoho`, `${SITE}/names/`, ...all.map((d) => `${SITE}/names/${d.name}`)];
   fs.writeFileSync(
     path.join(ROOT, "sitemap.xml"),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
