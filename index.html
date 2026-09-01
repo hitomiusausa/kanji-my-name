@@ -82,6 +82,7 @@ input[type=text]:focus{border-color:var(--gold)}
 .btn-ghost:hover{border-color:var(--gold)}
 .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
 .syl-area{margin-top:24px}
+.app>.syl-area{margin-top:0}/* SPでグリッド直下に移動した際はgapに任せる */
 .chips{display:flex;flex-wrap:wrap;gap:10px}
 .chip{background:rgba(21,21,15,.6);border:1px solid var(--line);padding:10px 12px;text-align:center;cursor:pointer;min-width:78px;transition:border-color .15s, transform .15s;user-select:none;animation:stampIn .32s cubic-bezier(.2,.8,.3,1.15) backwards}
 .chip:hover{border-color:var(--gold);transform:translateY(-2px)}
@@ -991,6 +992,7 @@ function generate(rand){
   choices=toks.map((t,i)=>({s:i,o:rand?Math.floor(Math.random()*ATEJI[t].length):0}));
   renderChips();render();
   history.replaceState(null,"","#"+encodeURIComponent(hashName()));
+  return true;
 }
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600);}
 // ロック項目タップ → Premiumセクションへ誘導（スムーズスクロール＋一瞬ハイライト）
@@ -1003,9 +1005,22 @@ function sealedNudge(msg){
 }
 
 // ===== EVENTS =====
-document.getElementById("goBtn").onclick=()=>generate(false);
-document.getElementById("luckyBtn").onclick=()=>generate(true);
-document.getElementById("nameIn").addEventListener("keydown",e=>{if(e.key==="Enter")generate(false)});
+// SP(1カラム)ではプレビューを入力直下へ移動し、コントロール群を独立パネルとして後ろに置く。PCはDOMを元に戻すのでレイアウト不変
+const mqSP=matchMedia("(max-width:820px)");
+const sylHome=document.getElementById("sylArea").parentElement;
+function placeControls(){
+  const syl=document.getElementById("sylArea");
+  if(mqSP.matches){document.querySelector(".canvas-holder").after(syl);syl.classList.add("panel");}
+  else if(syl.parentElement!==sylHome){sylHome.appendChild(syl);syl.classList.remove("panel");}
+}
+mqSP.addEventListener("change",placeControls);placeControls();
+function scrollToArt(){
+  if(!mqSP.matches)return;
+  document.getElementById("art").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"center"});
+}
+document.getElementById("goBtn").onclick=()=>{if(generate(false))scrollToArt();};
+document.getElementById("luckyBtn").onclick=()=>{if(generate(true))scrollToArt();};
+document.getElementById("nameIn").addEventListener("keydown",e=>{if(e.key==="Enter"&&generate(false))scrollToArt()});
 document.getElementById("styleRow").addEventListener("click",e=>{
   const b=e.target.closest(".style-b");if(!b)return;
   const s=b.dataset.style,meta=STYLE_LIST.find(o=>o.id===s);
