@@ -14,14 +14,23 @@ function extract(re, label) {
   if (!m) throw new Error("extract failed: " + label);
   return m[0];
 }
+function extractOpt(re) {
+  const m = src.match(re);
+  return m ? m[0] : "";
+}
 const code = [
   extract(/const NAME_DICT=\{.*?\};/s, "NAME_DICT"),
+  extractOpt(/const NAME_SAY=\{.*?\};/s),
   extract(/const ATEJI\s*=\s*\{[\s\S]*?ATEJI\.ye=ATEJI\.e;/, "ATEJI + aliases"),
-  extract(/function toRomaji\(name\)\{[\s\S]*?\n\}/, "toRomaji"),
+  extract(/function toRomaji\(name[^)]*\)\{[\s\S]*?\n\}/, "toRomaji"),
+  extractOpt(/function nameVariants\([^)]*\)\{[\s\S]*?\n\}/),
   extract(/function tokenize\(r\)\{[\s\S]*?\n\}/, "tokenize"),
 ].join("\n");
-const { ATEJI, toRomaji, tokenize } = new Function(
-  code + "\nreturn {ATEJI,toRomaji,tokenize};"
+const { ATEJI, toRomaji, tokenize, NAME_SAY, nameVariants } = new Function(
+  code +
+    "\nreturn {ATEJI,toRomaji,tokenize," +
+    "NAME_SAY:typeof NAME_SAY==='undefined'?null:NAME_SAY," +
+    "nameVariants:typeof nameVariants==='undefined'?null:nameVariants};"
 )();
 
 let pass = 0, fail = 0;
@@ -61,6 +70,35 @@ for (const name of ["charles", "charlie", "richard", "chase", "nicholas", "malac
 // che/she エイリアス（je=ji と同じ近似音の前例）
 ok(ATEJI.che === ATEJI.chi, "ATEJI.che alias exists");
 ok(ATEJI.she === ATEJI.shi, "ATEJI.she alias exists");
+
+// ---- 発音バリアント（2026-09-01設計・NAME_DICT パイプ区切り）----
+ok(typeof nameVariants === "function", "nameVariants() exists");
+if (nameVariants) {
+  eq(nameVariants("abel"), ["eiberu", "aberu"], "abel has two variants");
+  eq(nameVariants("Abel "), ["eiberu", "aberu"], "nameVariants normalizes input");
+  eq(nameVariants("emma"), ["ema"], "single-reading dict name -> one variant");
+  eq(nameVariants("zzznotaname"), [], "unknown name -> no variants");
+}
+eq(toRomaji("abel"), "eiberu", "variant default = first (US-majority reading)");
+eq(toRomaji("abel", 1), "aberu", "variant 1 selects second reading");
+eq(toRomaji("abel", 99), "eiberu", "out-of-range variant falls back to default");
+ok(NAME_SAY && Array.isArray(NAME_SAY.abel) && NAME_SAY.abel.length === 2,
+  "NAME_SAY has labels for every multi-variant name (abel)");
+if (nameVariants && NAME_SAY) {
+  // 全バリアント名の整合性: ラベル数=読み数、全読みが完全分解できる
+  for (const [n, say] of Object.entries(NAME_SAY)) {
+    const vs = nameVariants(n);
+    ok(vs.length === say.length, `NAME_SAY/${n}: labels match variant count`, `${vs.length} vs ${say.length}`);
+  }
+  const piped = Object.keys(NAME_SAY);
+  for (const n of piped) {
+    nameVariants(n).forEach((v, i) => {
+      const r = toRomaji(n, i);
+      const toks = tokenize(r);
+      ok(toks.length > 0 && toks.join("") === r, `variant tokenizes fully: ${n}[${i}]`, `got ${JSON.stringify(toks)} from ${r}`);
+    });
+  }
+}
 
 // ---- 全名前スモーク: names.txt 全員がトークン化でき、全トークンがATEJIに存在 ----
 const list = fs

@@ -20,14 +20,16 @@ function extract(re, label) {
 }
 const code = [
   extract(/const NAME_DICT=\{.*?\};/s, "NAME_DICT"),
+  extract(/const NAME_SAY=\{.*?\};/s, "NAME_SAY"),
   // Include the aliases immediately following the main dictionary too (for
   // example fi → hi). They are part of the generator's token vocabulary.
   extract(/const ATEJI\s*=\s*\{[\s\S]*?ATEJI\.ye=ATEJI\.e;/, "ATEJI + aliases"),
-  extract(/function toRomaji\(name\)\{[\s\S]*?\n\}/, "toRomaji"),
+  extract(/function nameVariants\([^)]*\)\{[\s\S]*?\n\}/, "nameVariants"),
+  extract(/function toRomaji\(name[^)]*\)\{[\s\S]*?\n\}/, "toRomaji"),
   extract(/function tokenize\(r\)\{[\s\S]*?\n\}/, "tokenize"),
 ].join("\n");
-const { ATEJI, toRomaji, tokenize } = new Function(
-  code + "\nreturn {ATEJI,toRomaji,tokenize};"
+const { ATEJI, toRomaji, tokenize, NAME_SAY, nameVariants } = new Function(
+  code + "\nreturn {ATEJI,toRomaji,tokenize,NAME_SAY,nameVariants};"
 )();
 
 // ---- 名前リスト ----

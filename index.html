@@ -118,6 +118,9 @@ canvas{max-width:100%;height:auto;box-shadow:0 0 80px rgba(184,146,80,.14),0 30p
 .style-b.prem{border-color:rgba(184,146,80,.55);color:var(--ink)}
 .style-b.prem:hover{border-color:var(--gold)}
 .style-b.flash-gold{animation:goldPulse .9s ease-out 1 backwards}
+.say-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:4px}
+.say-word{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--muted);min-width:64px}
+.style-b .say-syl{display:block;font-size:10px;letter-spacing:.08em;opacity:.72;margin-top:2px;font-weight:400}
 @keyframes goldPulse{0%{box-shadow:0 0 0 0 rgba(184,146,80,.85);border-color:var(--gold)}100%{box-shadow:0 0 0 14px rgba(184,146,80,0)}}
 /* ===== アンロック演出 案A: 抜刀→一閃→落款「解」 ===== */
 #fxA{position:fixed;inset:0;z-index:200;pointer-events:none;display:none;overflow:hidden}
@@ -217,6 +220,10 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
       <div class="row">
         <button class="btn btn-red" id="goBtn">Create my kanji ✦</button>
         <button class="btn btn-ghost" id="luckyBtn">Surprise me</button>
+      </div>
+      <div class="say-area" id="sayArea" style="display:none">
+        <label style="margin-top:18px">How do you say it? — pick the closest sound</label>
+        <div id="sayRows"></div>
       </div>
       <div class="syl-area" id="sylArea" style="display:none">
         <label>Your kanji — tap a character to see your choices</label>
@@ -415,13 +422,20 @@ ATEJI.di=ATEJI.ji;ATEJI.du=ATEJI.zu;ATEJI.fa=ATEJI.ha;ATEJI.fi=ATEJI.hi;ATEJI.fe
 ATEJI.wi=ATEJI.i;ATEJI.we=ATEJI.e;ATEJI.wo=ATEJI.o;ATEJI.je=ATEJI.ji;ATEJI.che=ATEJI.chi;ATEJI.she=ATEJI.shi;ATEJI.ye=ATEJI.e;
 
 // common name pronunciations
-const NAME_DICT={michael:"maikeru",john:"jon",jon:"jon",david:"deibido",sarah:"sera",sara:"sara",emma:"ema",olivia:"oribia",liam:"riamu",noah:"noa",james:"jeimuzu",william:"uiriamu",sophia:"sofia",sofia:"sofia",isabella:"izabera",alex:"arekusu",alexander:"arekusandā",chris:"kurisu",christopher:"kurisutofā",maria:"maria",anna:"anna",kevin:"kebin",tom:"tomu",thomas:"tōmasu",mary:"meari",robert:"robāto",lucas:"rūkasu",luke:"rūku",mia:"mia",charlotte:"shārotto",amelia:"ameria",harry:"harī",jack:"jaku",george:"jōji",oliver:"oribā",emily:"emirī",jessica:"jeshika",daniel:"danieru",matthew:"mashū",andrew:"andoryū",ryan:"raian",laura:"rōra",julia:"juria",sophie:"sofī",leo:"reo",max:"makusu",ben:"ben",sam:"samu",kate:"keito",lily:"rirī",grace:"gureisu",chloe:"kuroe",zoe:"zoe",ethan:"īsan",mason:"meison",logan:"rōgan",lucy:"rūshī",hannah:"hana",ava:"eiba",ella:"era",nina:"nīna",carlos:"karurosu",jose:"hose",juan:"fan",pedro:"pedoro",ana:"ana",luis:"ruisu",diego:"diego",pablo:"paburo",marco:"maruko",luca:"ruka",giulia:"juria",pierre:"piēru",marie:"marī",hans:"hansu",felix:"ferikusu",ahmed:"amedo",mohammed:"mohamedo",fatima:"fatima",wei:"uei",li:"rī",chen:"chen",kim:"kimu",lee:"rī",park:"paku",raj:"raju",priya:"puria",ivan:"iban",olga:"oruga",dmitri:"dimitori",elena:"erena"};
+const NAME_DICT={michael:"maikeru",john:"jon",jon:"jon",david:"deibido",sarah:"sera",sara:"sara",emma:"ema",olivia:"oribia",liam:"riamu",noah:"noa",james:"jeimuzu",william:"uiriamu",sophia:"sofia",sofia:"sofia",isabella:"izabera",alex:"arekusu",alexander:"arekusandā",chris:"kurisu",christopher:"kurisutofā",maria:"maria",anna:"anna",kevin:"kebin",tom:"tomu",thomas:"tōmasu",mary:"meari",robert:"robāto",lucas:"rūkasu",luke:"rūku",mia:"mia",charlotte:"shārotto",amelia:"ameria",harry:"harī",jack:"jaku",george:"jōji",oliver:"oribā",emily:"emirī",jessica:"jeshika",daniel:"danieru",matthew:"mashū",andrew:"andoryū",ryan:"raian",laura:"rōra",julia:"juria",sophie:"sofī",leo:"reo",max:"makusu",ben:"ben",sam:"samu",kate:"keito",lily:"rirī",grace:"gureisu",chloe:"kuroe",zoe:"zoe",ethan:"īsan",mason:"meison",logan:"rōgan",lucy:"rūshī",hannah:"hana",ava:"eiba",ella:"era",nina:"nīna",carlos:"karurosu",jose:"hose",juan:"fan",pedro:"pedoro",ana:"ana",luis:"ruisu",diego:"diego",pablo:"paburo",marco:"maruko",luca:"ruka",giulia:"juria",pierre:"piēru",marie:"marī",hans:"hansu",felix:"ferikusu",ahmed:"amedo",mohammed:"mohamedo",fatima:"fatima",wei:"uei",li:"rī",chen:"chen",kim:"kimu",lee:"rī",park:"paku",raj:"raju",priya:"puria",ivan:"iban",olga:"oruga",dmitri:"dimitori",elena:"erena",abel:"eiberu|aberu"};
+// pronunciation labels for names with multiple readings ("|" in NAME_DICT). Same order as variants.
+const NAME_SAY={abel:["AY-bel","AH-bel"]};
 
 // ===== ROMAJI CONVERSION =====
-function toRomaji(name){
+// dictionary readings for a name ("|"-separated variants); [] if not in NAME_DICT
+function nameVariants(name){
+  const s=name.toLowerCase().trim().replace(/[^a-zāīūēō]/g,"");
+  return NAME_DICT[s]?NAME_DICT[s].split("|"):[];
+}
+function toRomaji(name,variant){
   const norm=t=>t.replace(/ā/g,"a").replace(/ī/g,"i").replace(/ū/g,"u").replace(/ē/g,"e").replace(/ō/g,"o").replace(/([bcdfghjkmprstwyz])\1/g,"$1");
   let s=name.toLowerCase().trim().replace(/[^a-zāīūēō]/g,"");
-  if(NAME_DICT[s])return norm(NAME_DICT[s]);
+  if(NAME_DICT[s]){const v=NAME_DICT[s].split("|");return norm(v[variant]||v[0]);}
   s=norm(s);
   s=s.replace(/ph/g,"f").replace(/th/g,"s").replace(/ch(?![aiueo])/g,"k").replace(/sh(?![aiueo])/g,"s");
   s=s.replace(/ck/g,"k").replace(/cc/g,"k").replace(/qu/g,"ku").replace(/x/g,"kusu");
@@ -873,16 +887,52 @@ function openPicker(idx){
 }
 document.getElementById("picker").onclick=e=>{if(e.target.id==="picker")e.target.classList.remove("open")};
 
+// ===== PRONUNCIATION VARIANTS =====
+// A name's reading belongs to its owner — when NAME_DICT has several, the user picks.
+let variantSel={}; // normalized word -> variant index
+const wordKey=w=>w.toLowerCase().trim().replace(/[^a-zāīūēō]/g,"");
+function varOf(w){const i=variantSel[wordKey(w)]||0;return i<nameVariants(w).length?i:0;}
+function hashName(){
+  const nm=document.getElementById("nameIn").value.trim();
+  return nm.split(/\s+/).filter(Boolean).map(w=>{const i=varOf(w);return i>0?w+"~"+(i+1):w;}).join(" ");
+}
+function renderSayArea(words){
+  const rows=document.getElementById("sayRows");rows.innerHTML="";
+  const seen=new Set();let any=false;
+  words.forEach(w=>{
+    const k=wordKey(w),vs=nameVariants(w);
+    if(vs.length<2||seen.has(k))return;seen.add(k);any=true;
+    const row=document.createElement("div");row.className="say-row";
+    if(words.length>1){const lb=document.createElement("span");lb.className="say-word";lb.textContent=w;row.appendChild(lb);}
+    const say=NAME_SAY[k]||[];
+    vs.forEach((v,i)=>{
+      const b=document.createElement("button");
+      b.className="style-b"+(varOf(w)===i?" on":"");
+      b.dataset.word=k;b.dataset.variant=i;
+      b.innerHTML=(say[i]||v)+'<span class="say-syl">'+tokenize(toRomaji(w,i)).join(" · ")+"</span>";
+      row.appendChild(b);
+    });
+    rows.appendChild(row);
+  });
+  document.getElementById("sayArea").style.display=any?"":"none";
+}
+document.getElementById("sayRows").addEventListener("click",e=>{
+  const b=e.target.closest(".style-b");if(!b)return;
+  variantSel[b.dataset.word]=+b.dataset.variant;
+  generate(false);
+});
+
 function generate(rand){
   const nm=document.getElementById("nameIn").value.trim();
   if(!nm){toast("Type your name first ✦");return;}
   const words=nm.split(/\s+/).filter(Boolean);
-  const toks=words.flatMap(w=>tokenize(toRomaji(w)));
+  renderSayArea(words);
+  const toks=words.flatMap(w=>tokenize(toRomaji(w,varOf(w))));
   if(!toks.length){toast("Hmm — try a simpler spelling of your name");return;}
   syls=toks;
   choices=toks.map((t,i)=>({s:i,o:rand?Math.floor(Math.random()*ATEJI[t].length):0}));
   renderChips();render();
-  history.replaceState(null,"","#"+encodeURIComponent(nm));
+  history.replaceState(null,"","#"+encodeURIComponent(hashName()));
 }
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600);}
 // ロック項目タップ → Premiumセクションへ誘導（スムーズスクロール＋一瞬ハイライト）
@@ -953,7 +1003,7 @@ document.getElementById("dlBtn").onclick=async()=>{
 };
 function artFilename(){return `kanji-name-${(document.getElementById("nameIn").value||"art").trim().toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"art"}.png`;}
 function shareUrl(){
-  const nm=document.getElementById("nameIn").value.trim();
+  const nm=hashName();
   return location.origin+location.pathname+(nm?"#"+encodeURIComponent(nm):"");
 }
 function shareText(){
@@ -1069,7 +1119,13 @@ document.getElementById("year").textContent=new Date().getFullYear();
 window.addEventListener("load",async()=>{
   await document.fonts.ready;
   const h=decodeURIComponent(location.hash.slice(1));
-  document.getElementById("nameIn").value=h||"Emma";
+  // hash may carry per-word reading picks: "Abel~2 Rose" -> variant 2 of Abel
+  const initName=(h||"Emma").split(/\s+/).map(w=>{
+    const m=w.match(/^(.+?)~(\d+)$/);
+    if(m){variantSel[wordKey(m[1])]=Math.max(0,+m[2]-1);return m[1];}
+    return w;
+  }).join(" ");
+  document.getElementById("nameIn").value=initName;
   generate(false);
 });
 </script>
