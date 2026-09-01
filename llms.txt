@@ -23,9 +23,18 @@ a native Japanese speaker and Japanese-language teacher. Full background: /about
   combinations. Also browsable A–Z at /names/a through /names/z.
 - [About](https://kanji.kugainc.com/about): Who makes this, and how the dictionary was
   built.
-- [Guides](https://kanji.kugainc.com/guide/): Deep-dive explainers — Japanese writing
-  systems, how names become kanji, what the ≈ (approximate reading) mark means, and
-  katakana vs. kanji for names.
+- [Why does Japanese have so many kinds of writing?](https://kanji.kugainc.com/guide/japanese-writing-systems):
+  Japanese uses four scripts at once — kanji, hiragana, katakana, and rōmaji. What each
+  is for, and why kanji is the one built for meaning, not sound.
+- [How does Kanji My Name turn a name into kanji?](https://kanji.kugainc.com/guide/how-names-become-kanji):
+  The three steps — sound, syllables, hand-picked kanji — that turn a name into an ateji
+  spelling.
+- [What does the ≈ mark mean?](https://kanji.kugainc.com/guide/what-does-approx-mean):
+  What it means when a kanji reading is only the closest available match, not an exact
+  one.
+- [Is this how a Japanese person would write my name?](https://kanji.kugainc.com/guide/katakana-vs-kanji-names):
+  No — Japanese people write foreign names in katakana. The kanji version here is ateji,
+  not a translation.
 
 ## How ateji works here (the site's naming policy)
 
