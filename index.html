@@ -114,8 +114,8 @@ canvas{max-width:100%;height:auto;box-shadow:0 0 80px rgba(184,146,80,.14),0 30p
 /* ---- SP: 編集の可視化 (D-30 Task 6) ---- */
 #spCustomize{display:none;margin-top:18px;text-align:left}
 @media(max-width:820px){#spCustomize{display:block}}
-#spCustLbl{background:none;border:none;color:var(--gold);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;padding:0 0 10px;display:inline-flex;align-items:center;gap:8px}
-.bob{display:inline-block;animation:bobY 1.6s ease-in-out infinite}
+#spCustLbl{background:none;border:none;color:var(--gold);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;padding:0 0 10px;display:block;width:100%;text-align:center}
+.bob{display:inline-block;margin-right:6px;animation:bobY 1.6s ease-in-out infinite}/* テキストと同じ行内に置く（flexだと2行折返し時に矢印だけ左端に浮く） */
 @keyframes bobY{0%,100%{transform:translateY(-2px)}50%{transform:translateY(2px)}}
 @media(prefers-reduced-motion:reduce){.bob{animation:none}}
 .styles.sp-strip{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
@@ -154,6 +154,7 @@ canvas{max-width:100%;height:auto;box-shadow:0 0 80px rgba(184,146,80,.14),0 30p
 .style-b.sealed::before{content:"封";position:absolute;left:7px;top:50%;transform:translateY(-50%) rotate(-6deg);font-family:'Yuji Syuku',serif;font-size:11px;color:#fdf6ea;background:var(--seal);width:16px;height:16px;display:flex;align-items:center;justify-content:center;border-radius:2px;letter-spacing:0}
 .style-b.sealed:hover{border-color:rgba(199,62,44,.8);color:var(--ink)}
 .seal-legend{font-size:12px;color:var(--muted);margin-top:10px;display:flex;align-items:center;gap:8px}
+#sealLegend{margin-top:20px}/* 凡例ブロックの先頭はコントロール群と少し離す */
 .seal-legend i{font-style:normal;font-family:'Yuji Syuku',serif;font-size:11px;color:#fdf6ea;background:var(--seal);width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;border-radius:2px;transform:rotate(-6deg);flex:none}
 .seal-legend i.seal-sel{color:var(--seal);background:#e8e2d5;border:1px solid var(--seal)}/* 選=封の色反転（.seal-legend i の朱地指定を上書き） */
 .seal-legend b{color:var(--gold);font-weight:600}
