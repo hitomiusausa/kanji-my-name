@@ -6,7 +6,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-PUBLIC_FILES=(index.html unlock-80b9aa.html robots.txt sitemap.xml llms.txt)
+PUBLIC_FILES=(index.html unlock-80b9aa.html terms.html robots.txt sitemap.xml llms.txt)
 PUBLIC_DIRS=(names image)
 
 DIST=".pages-dist"

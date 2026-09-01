@@ -289,7 +289,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
   </section>
 </main>
 
-<footer class="wrap">Kanji My Name · handcrafted with 愛 · <span id="year"></span> · <a href="names/" style="color:var(--gold)">Browse names in kanji →</a></footer>
+<footer class="wrap">Kanji My Name · handcrafted with 愛 · <span id="year"></span> · <a href="names/" style="color:var(--gold)">Browse names in kanji →</a> · <a href="terms.html" style="color:var(--gold)">Terms</a></footer>
 <div class="picker" id="picker"><div class="picker-card" id="pickerCard"></div></div>
 <div id="fxA" aria-hidden="true">
   <div id="fxDim"></div>
@@ -310,7 +310,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
 const STRIPE_URL = "#"; // TODO: replace with Stripe Payment Link (after-payment redirect: unlock-80b9aa.html?session_id={CHECKOUT_SESSION_ID})
 const WORKER_URL = "https://kanji-my-name-codes.hitomiusausa.workers.dev";
 const PRICE = "$4.99"; // regular $4.99 / campaign $2.99 — change together with the Stripe Payment Link
-const SUPPORT_EMAIL = ""; // lost-code contact; leave empty to hide the "Lost your code?" line
+const SUPPORT_EMAIL = "kanjimyname@gmail.com"; // lost-code contact; leave empty to hide the "Lost your code?" line
 const PREMIUM_HASHES = [ // sha256 of each valid unlock code — add new codes here, remove only a leaked one
   "953a15837393227855699fc84109ae2720c772ef70ee3026ea4c249c025e581b"
 ];
