@@ -101,6 +101,7 @@ canvas{max-width:100%;height:auto;box-shadow:0 0 80px rgba(184,146,80,.14),0 30p
 .thump{animation:thump .3s ease}
 @keyframes thump{0%{transform:scale(1)}35%{transform:scale(.984)}100%{transform:scale(1)}}
 .dl-row{margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+@media(max-width:480px){.dl-row .btn{width:100%;max-width:300px}}
 .share-status{min-height:20px;margin:9px 0 0;color:var(--seal);font-size:13px;font-weight:600;opacity:0;transition:opacity .2s}
 .share-status.show{opacity:1}
 .picker{position:fixed;inset:0;background:rgba(8,9,12,.72);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
