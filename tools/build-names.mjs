@@ -13,6 +13,13 @@ const SITE = "https://kanji.kugainc.com";
 // Task D: "Reviewed by Hitomi Kuga" line under the per-name ateji note.
 // Flip to true only after the ateji_diff review pass is complete.
 const SHOW_REVIEWED_BY = false;
+// Task G: Cloudflare Web Analytics beacon (cookie-free, page views only). Same
+// placeholder constant/gate as every hand-authored page (index.html, about.html,
+// terms.html, tokushoho.html, unlock-80b9aa.html, guide/*.html) — set the token
+// in all of them together once Web Analytics is enabled (see task-G-report.md).
+const CF_BEACON_TOKEN = "";
+const CF_BEACON_SNIPPET = `<!-- Cookie-free analytics (Cloudflare Web Analytics, page views only). Empty token = no beacon request. Task G setup: see .superpowers/sdd/CLAUDE_CODE_INSTRUCTIONS_review3_SEO/task-G-report.md -->
+<script>(function(){var CF_BEACON_TOKEN="${CF_BEACON_TOKEN}";if(!CF_BEACON_TOKEN)return;var s=document.createElement("script");s.type="module";s.src="https://static.cloudflareinsights.com/beacon.min.js";s.setAttribute("data-cf-beacon",JSON.stringify({token:CF_BEACON_TOKEN}));document.head.appendChild(s);})();</script>`;
 const src = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
 
 // ---- 本体からロジック抽出（単一ソース原則）----
@@ -330,6 +337,7 @@ ${ICON}
 ${FONTS_LINK}
 <style>${CSS}</style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
+${CF_BEACON_SNIPPET}
 </head>
 <body>
 <div class="wrap">
@@ -403,6 +411,7 @@ ${ICON}
 ${FONTS_LINK}
 <style>${CSS}${HUB_ART_CSS}</style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
+${CF_BEACON_SNIPPET}
 </head>
 <body class="names-index">
 <div class="list-watermark list-watermark-left" aria-hidden="true">名</div>
@@ -456,6 +465,7 @@ ${ICON}
 ${FONTS_LINK}
 <style>${CSS}</style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
+${CF_BEACON_SNIPPET}
 </head>
 <body>
 <div class="wrap">
