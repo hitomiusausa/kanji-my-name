@@ -41,6 +41,9 @@ b{color:var(--head)}
 .notice b{color:var(--gold)}
 footer{border-top:1px solid var(--line);margin-top:56px;padding:24px 0 40px;text-align:center;color:var(--muted);font-size:13px}
 footer a{color:var(--gold)}
+.flogo{display:inline-block;margin-bottom:12px}
+.flogo img{width:84px;height:84px;display:block;opacity:.92;transition:opacity .2s,transform .2s}
+.flogo:hover img{opacity:1;transform:rotate(-3deg)}
 </style>
 </head>
 <body>
@@ -99,7 +102,7 @@ footer a{color:var(--gold)}
     <p>Questions, code recovery, or commercial licensing: <a href="mailto:kanjimyname@gmail.com">kanjimyname@gmail.com</a></p>
   </section>
 
-  <footer>Kanji My Name · handcrafted with 愛 · <a href="./">Try your own name →</a> · <a href="names/">Browse names →</a></footer>
+  <footer><a href="./" class="flogo" aria-label="Kanji My Name — home"><img src="image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · handcrafted with 愛 · <a href="./">Try your own name →</a> · <a href="names/">Browse names →</a></div></footer>
 </div>
 </body>
 </html>

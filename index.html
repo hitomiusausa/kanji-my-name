@@ -193,6 +193,9 @@ body.fxshake main,body.fxshake header{animation:shakeA .34s linear}
 .qa b{display:block;margin-bottom:6px;color:var(--head)}
 .qa p{color:var(--muted);font-size:14.5px}
 footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 40px;text-align:center;color:var(--muted);font-size:13px}
+.flogo{display:inline-block;margin-bottom:12px}
+.flogo img{width:84px;height:84px;display:block;opacity:.92;transition:opacity .2s,transform .2s}
+.flogo:hover img{opacity:1;transform:rotate(-3deg)}
 .upsell-note{margin-top:12px;text-align:center;font-size:12px;color:var(--muted)}
 .upsell-note b{color:var(--gold);font-weight:600}
 .upsell-note a{color:var(--gold)}
@@ -289,7 +292,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
   </section>
 </main>
 
-<footer class="wrap">Kanji My Name · handcrafted with 愛 · <span id="year"></span> · <a href="names/" style="color:var(--gold)">Browse names in kanji →</a> · <a href="terms.html" style="color:var(--gold)">Terms</a></footer>
+<footer class="wrap"><a href="./" class="flogo" aria-label="Kanji My Name — home"><img src="image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · handcrafted with 愛 · <span id="year"></span> · <a href="names/" style="color:var(--gold)">Browse names in kanji →</a> · <a href="terms.html" style="color:var(--gold)">Terms</a></div></footer>
 <div class="picker" id="picker"><div class="picker-card" id="pickerCard"></div></div>
 <div id="fxA" aria-hidden="true">
   <div id="fxDim"></div>
