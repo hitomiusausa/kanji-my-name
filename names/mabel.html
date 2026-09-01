@@ -36,7 +36,7 @@ h2{font-family:'Shippori Mincho',serif;font-size:24px;color:var(--head);margin:4
 .card .r{font-family:'Cormorant Garamond',serif;letter-spacing:.4em;color:#7c7462;font-size:14px;margin-top:16px;text-transform:uppercase}
 .card .m{font-family:'Cormorant Garamond',serif;font-style:italic;color:#8d8570;font-size:13px;margin-top:4px}
 table{border-collapse:collapse;width:100%;font-size:15px}
-td,th{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+td,th{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:middle}
 th{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
 td .kj{font-family:'Yuji Syuku',serif;font-size:26px;color:var(--head)}
 .alts{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 4px}
@@ -44,7 +44,12 @@ td .kj{font-family:'Yuji Syuku',serif;font-size:26px;color:var(--head)}
 .alt .kj{font-family:'Yuji Syuku',serif;font-size:30px;color:var(--head);display:block}
 .alt .mm{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold)}
 .syl{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:22px 0 0}
-.cta{display:inline-block;background:linear-gradient(120deg,#a8823f,#cca768);color:#131310;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:16px 30px;text-decoration:none;margin:26px 0 8px}
+.cta{display:inline-block;background:#15150f;color:var(--gold);border:1px solid var(--gold);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:16px 30px;text-decoration:none;margin:26px 0 8px;position:relative;overflow:hidden;z-index:0;transition:.2s}
+.cta::before{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.3,0,.2,1);z-index:-1}
+.cta:hover{color:#131310}
+.cta:hover::before{transform:scaleX(1)}
+.cta:active{transform:translateY(1px)}
+@media(prefers-reduced-motion:reduce){.cta::before{transition:none}}
 .note{font-size:12.5px;color:var(--muted)}
 .qa{border-bottom:1px solid var(--line);padding:14px 0}
 .qa b{display:block;color:var(--head);margin-bottom:4px}
@@ -78,7 +83,7 @@ p{margin:10px 0}
     <div>
       <h2 style="margin-top:0">芽衣辺瑠 — “new sprout · garment · horizon · lapis lazuli”</h2>
       <p class="body-copy">Mabel sounds like <b>me · i · be · ru</b> in Japanese. Matching each sound to a kanji gives <b>芽衣辺瑠</b> — one of <b>54 possible kanji spellings</b> of Mabel. Every character below shares the sound but carries a different meaning, so the final choice is yours.</p>
-      <a class="cta" href="../#Mabel">Create your Mabel kanji art — free ✦</a>
+      <a class="cta" href="../#Mabel">Create your Mabel kanji art — free</a>
       <p class="note">Instant download · your name never leaves your browser</p>
     </div>
   </div>
