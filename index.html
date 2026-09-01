@@ -129,7 +129,9 @@ canvas{max-width:100%;height:auto;box-shadow:0 0 80px rgba(184,146,80,.14),0 30p
 @media(min-width:821px){#miniBar{display:none!important}}
 .picker{position:fixed;inset:0;background:rgba(8,9,12,.72);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
 .picker.open{display:flex}
-.picker-card{background:var(--panel);border:1px solid var(--line);padding:28px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto}
+.picker-card{position:relative;background:var(--panel);border:1px solid var(--line);padding:28px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto}
+.pk-x{position:absolute;top:12px;right:12px;background:none;border:1px solid var(--line);color:var(--muted);width:32px;height:32px;font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;padding:0}
+.pk-x:hover{border-color:var(--gold);color:var(--gold)}
 .picker-card h3{font-family:'Shippori Mincho',serif;font-size:24px;color:var(--head);margin-bottom:4px}
 .picker-card p{font-size:13px;color:var(--muted);margin-bottom:16px}
 .opt{position:relative;display:flex;align-items:center;gap:16px;padding:12px;border:1px solid var(--line);margin-bottom:10px;cursor:pointer;transition:.15s}
@@ -153,6 +155,7 @@ canvas{max-width:100%;height:auto;box-shadow:0 0 80px rgba(184,146,80,.14),0 30p
 .style-b.sealed:hover{border-color:rgba(199,62,44,.8);color:var(--ink)}
 .seal-legend{font-size:12px;color:var(--muted);margin-top:10px;display:flex;align-items:center;gap:8px}
 .seal-legend i{font-style:normal;font-family:'Yuji Syuku',serif;font-size:11px;color:#fdf6ea;background:var(--seal);width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;border-radius:2px;transform:rotate(-6deg);flex:none}
+.seal-legend i.seal-sel{color:var(--seal);background:#e8e2d5;border:1px solid var(--seal)}/* 選=封の色反転（.seal-legend i の朱地指定を上書き） */
 .seal-legend b{color:var(--gold);font-weight:600}
 .style-b.prem{border-color:rgba(184,146,80,.55);color:var(--ink)}
 .style-b.prem:hover{border-color:var(--gold)}
@@ -284,6 +287,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
         <label style="margin-top:18px">Background 紙</label>
         <div class="styles" id="bgRow" style="margin-top:4px"></div>
         <div class="seal-legend" id="sealLegend"><i>封</i><span><b>封 = “sealed”</b> — these options open with the Premium Pack. Tap one to peek.</span></div>
+        <div class="seal-legend"><i class="seal-sel" aria-hidden="true">選</i><span><b>選 = “selected”</b> — the kanji currently in your name art. Tap a kanji above to swap it.</span></div>
       </div>
     </div>
     <div class="panel canvas-holder">
@@ -996,12 +1000,13 @@ function renderChips(){
 function openPicker(idx){
   const ci=choices[idx],opts=ATEJI[syls[ci.s]];
   const card=document.getElementById("pickerCard");
-  card.innerHTML=`<h3>Choose a meaning for “${syls[ci.s]}”</h3><p>Each kanji sounds the same — pick the meaning that feels like you. Tap outside to close.</p>`;
+  card.innerHTML=`<button class="pk-x" type="button" aria-label="Close">×</button><h3>Choose a meaning for “${syls[ci.s]}”</h3><p>Each kanji sounds the same — pick the meaning that feels like you.</p>`;
+  card.querySelector(".pk-x").onclick=()=>document.getElementById("picker").classList.remove("open");
   const cards=[];
   opts.forEach((e,o)=>{
     const [k,m]=e,ts=trueSound(syls[ci.s],e);
     const d=document.createElement("div");d.className="opt"+(o===ci.o?" sel":"");
-    d.innerHTML=`<span class="k">${k}</span><span class="m"><b>${m}</b><br><small style="color:var(--muted)">read as “${ts}”${ts!==syls[ci.s]?` — used for “${syls[ci.s]}”`:""}</small></span><span class="selbadge"${o===ci.o?"":" hidden"}><i class="seal-sel" aria-label="Selected">選</i>Selected</span>`;
+    d.innerHTML=`<span class="k">${k}</span><span class="m"><b>${m}</b><br><small style="color:var(--muted)">read as “${ts}”${ts!==syls[ci.s]?` — used for “${syls[ci.s]}”`:""}</small></span><span class="selbadge"${o===ci.o?"":" hidden"}><i class="seal-sel" aria-label="Selected">選</i></span>`;
     // 選択してもモーダルは閉じない: 「選」印がその場で移動し、見比べながら切り替えられる（閉じる=枠外タップ）
     d.onclick=()=>{choices[idx].o=o;cards.forEach((c,i)=>{c.classList.toggle("sel",i===o);c.querySelector(".selbadge").hidden=i!==o;});renderChips();render();};
     cards.push(d);card.appendChild(d);
