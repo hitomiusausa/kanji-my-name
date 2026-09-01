@@ -121,6 +121,9 @@ td .kj{font-family:'Yuji Syuku',serif;font-size:26px;color:var(--head)}
 .rel a:hover{border-color:var(--gold)}
 footer{border-top:1px solid var(--line);margin-top:56px;padding:24px 0 40px;color:var(--muted);font-size:13px;text-align:center}
 footer a{color:var(--gold)}
+.flogo{display:inline-block;margin-bottom:12px}
+.flogo img{width:84px;height:84px;display:block;opacity:.92;transition:opacity .2s,transform .2s}
+.flogo:hover img{opacity:1;transform:rotate(-3deg)}
 p{margin:10px 0}
 .body-copy{color:var(--ink);max-width:720px}
 .say-pick{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 0}
@@ -255,8 +258,11 @@ document.addEventListener("click",function(e){
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Kanji My Name">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="${SOCIAL_IMAGE}">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="${SITE}/image/og/${d.name}.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE}/image/og/${d.name}.jpg">
 ${ICON}
 ${FONTS_LINK}
 <style>${CSS}</style>
@@ -266,7 +272,7 @@ ${FONTS_LINK}
 <div class="wrap">
   <div class="brand"><a href="../">Kanji My Name</a></div>
   <h1>${esc(d.Name)} in Japanese Kanji</h1>
-  <p class="sub">One way to write ${esc(d.Name)} in kanji — with meanings you choose yourself, in the Japanese <i>ateji</i> (当て字) tradition.${hasApprox ? ` Some sounds have no exact kanji; ateji tradition uses the closest reading — marked ≈ below (e.g. ヴァ → ba, フィ → hi).` : ""}</p>
+  <p class="sub"><b>${esc(d.Name)} in kanji: ${esc(d.kanji)}</b> — one way to write ${esc(d.Name)}, with meanings you choose yourself, in the Japanese <i>ateji</i> (当て字) tradition.${hasApprox ? ` Some sounds have no exact kanji; ateji tradition uses the closest reading — marked ≈ below (e.g. ヴァ → ba, フィ → hi).` : ""}</p>
   ${sayPicker}
   ${d.readings.map(readingBlock).join("\n")}
 
@@ -277,9 +283,9 @@ ${FONTS_LINK}
   ${faq.map(([q, a]) => `<div class="qa"><b>${esc(q)}</b><p>${esc(a)}</p></div>`).join("\n  ")}
 
   <h2>More names in kanji</h2>
-  <div class="rel">${rel.map((w) => `<a href="${w.name}.html">${esc(w.Name)} ${esc(w.kanji)}</a>`).join("")}<a href="index.html">All names →</a></div>
+  <div class="rel">${rel.map((w) => `<a href="${w.name}">${esc(w.Name)} ${esc(w.kanji)}</a>`).join("")}<a href="./">All names →</a></div>
 
-  <footer>Kanji My Name · handcrafted with 愛 · <a href="../">Try your own name →</a></footer>
+  <footer><a href="../" class="flogo" aria-label="Kanji My Name — home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../">Try your own name →</a> · <a href="../terms">Terms</a></div></footer>
 </div>
 ${sayScript}
 </body>
@@ -326,7 +332,7 @@ function hubHtml(all) {
 <meta property="og:site_name" content="Kanji My Name">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="${SOCIAL_IMAGE}">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 ${ICON}
 ${FONTS_LINK}
 <style>${CSS}${HUB_ART_CSS}</style>
@@ -339,8 +345,8 @@ ${FONTS_LINK}
   <div class="brand"><a href="../">Kanji My Name</a></div>
   <h1>Names in Japanese Kanji</h1>
   <p class="sub">${all.length} names · ${totalCombos} possible kanji spellings. Each kanji shown here is one sound-based <i>ateji</i> option — open a name to explore other combinations, or <a style="color:var(--gold)" href="../">create your own →</a></p>
-  ${Object.keys(groups).sort().map((L) => `<h2>${L}</h2><div class="rel">${groups[L].map((d) => `<a href="${d.name}.html">${esc(d.Name)} ${esc(d.kanji)}</a>`).join("")}</div>`).join("\n  ")}
-  <footer>Kanji My Name · handcrafted with 愛 · <a href="../">Try your own name →</a></footer>
+  ${Object.keys(groups).sort().map((L) => `<h2>${L}</h2><div class="rel">${groups[L].map((d) => `<a href="${d.name}">${esc(d.Name)} ${esc(d.kanji)}</a>`).join("")}</div>`).join("\n  ")}
+  <footer><a href="../" class="flogo" aria-label="Kanji My Name — home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../">Try your own name →</a> · <a href="../terms">Terms</a></div></footer>
 </div>
 </body>
 </html>

@@ -1,6 +1,9 @@
 _local/
 design-compare.html
 *.png
+image/og/
+node_modules/
+tools/og/package-lock.json
 .playwright-cli/
 .wrangler/
 worker/.wrangler/

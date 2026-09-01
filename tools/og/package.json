@@ -1,0 +1,8 @@
+{
+  "name": "kanji-my-name-og-tools",
+  "private": true,
+  "description": "playwright-core dep for tools/build-og.mjs",
+  "dependencies": {
+    "playwright-core": "^1.62.1"
+  }
+}
