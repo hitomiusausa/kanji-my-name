@@ -360,7 +360,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
           <code id="myCodeVal" style="border:1px dashed var(--gold);padding:6px 12px;color:var(--head);letter-spacing:.06em"></code>
           <button class="btn btn-ghost" id="copyCodeBtn" style="padding:8px 16px;font-size:11px">Copy</button>
         </div>
-        <p id="myCodeNote" style="margin-top:8px">✍️ Jot this code down somewhere safe — it's your lifetime key and unlocks Premium on any device.</p>
+        <p id="myCodeNote" style="margin-top:8px">Jot this code down somewhere safe — it's your lifetime key and unlocks Premium on any device.</p>
       </div>
     </div>
     <div style="text-align:center">
@@ -1406,7 +1406,7 @@ function renderMyCode(){
   else{ // 旧解錠・別端末などでコード未保存
     document.getElementById("myCodeVal").style.display="none";
     document.getElementById("copyCodeBtn").style.display="none";
-    document.getElementById("myCodeNote").textContent="✍️ Premium is active on this device. Keep the unlock code from your purchase page noted somewhere safe — it works on any device, forever.";
+    document.getElementById("myCodeNote").textContent="Premium is active on this device. Keep the unlock code from your purchase page noted somewhere safe — it works on any device, forever.";
   }
 }
 renderMyCode();
