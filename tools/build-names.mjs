@@ -149,8 +149,8 @@ const HUB_ART_CSS = `
 `;
 
 const FONTS_LINK = `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@700&family=Yuji+Syuku&family=Cormorant+Garamond:ital@0;1&family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">`;
-const ICON = `<link rel="icon" type="image/png" href="../image/kanjimyname-icon.png">`;
-const SOCIAL_IMAGE = `${SITE}/image/kanjimyname.png`;
+const ICON = `<link rel="icon" type="image/png" href="../image/kanjimyname-icon.png?v=2">`;
+const SOCIAL_IMAGE = `${SITE}/image/kanjimyname.png?v=2`;
 
 function pageHtml(d, all) {
   const mm = d.meanings.join(" · ");
