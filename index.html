@@ -72,6 +72,10 @@ input[type=text]:focus{border-color:var(--gold)}
 .btn-red:active{transform:translateY(1px)}
 @media(prefers-reduced-motion:reduce){.btn-red::before{transition:none}}
 .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn-4k{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+.btn-4k.open{background:var(--gold);color:#131310}
+.btn-4k.open:hover{background:#cca768}
+.btn .px{display:block;font-size:10px;letter-spacing:.1em;opacity:.7;margin-top:3px;font-weight:400}
 .btn-ghost:hover{border-color:var(--gold)}
 .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
 .syl-area{margin-top:24px}
@@ -254,7 +258,8 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
     <div class="panel canvas-holder">
       <canvas id="art" width="1200" height="1800"></canvas>
       <div class="dl-row">
-        <button class="btn btn-red" id="dlBtn">Download PNG (free)</button>
+        <button class="btn btn-red" id="dlBtn">Download PNG</button>
+        <button class="btn btn-4k" id="dl4kBtn">Download 4K ✦</button>
         <button class="btn btn-ghost" id="shareImageBtn">Share image</button>
         <button class="btn btn-ghost" id="shareLinkBtn">Copy share link</button>
       </div>
@@ -1039,17 +1044,39 @@ document.getElementById("orientRow").addEventListener("click",e=>{
   if((b.dataset.orient==="sv"||b.dataset.orient==="sh")&&!premium){sealedNudge(`Square canvases are sealed — the Premium Pack opens them (${PRICE})`);return;}
   currentOrient=b.dataset.orient;
   document.querySelectorAll("#orientRow .style-b").forEach(x=>x.classList.toggle("on",x===b));
+  updateDlButtons();
   render();
 });
+function dlSizes(){
+  const square=currentOrient==="sv"||currentOrient==="sh",portrait=currentOrient==="v"||currentOrient==="sv";
+  const W=square?1800:(portrait?1200:1800),H=square?1800:(portrait?1800:1200);
+  return {W,H};
+}
+function updateDlButtons(){
+  const {W,H}=dlSizes();
+  document.getElementById("dlBtn").innerHTML=`Download PNG<span class="px">${W} × ${H}px${premium?"":" · free"}</span>`;
+  const b4=document.getElementById("dl4kBtn");
+  b4.innerHTML=`${premium?"Download 4K":"Download 4K ✦"}<span class="px">${W*2} × ${H*2}px</span>`;
+  b4.classList.toggle("open",premium);
+}
 document.getElementById("dlBtn").onclick=async()=>{
   if(!choices.length){toast("Create your kanji first ✦");return;}
-  const c=await render(premium);
+  const c=await render(false);
   const a=document.createElement("a");
   a.download=artFilename();
   a.href=c.toDataURL("image/png");a.click();
-  toast(premium?"4K art downloaded ✦":"Downloaded! Upgrade for 4K & clean edition ✦");
+  toast(premium?"Downloaded!":"Downloaded! Upgrade for 4K & clean edition ✦");
 };
-function artFilename(){return `kanji-name-${(document.getElementById("nameIn").value||"art").trim().toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"art"}.png`;}
+document.getElementById("dl4kBtn").onclick=async()=>{
+  if(!premium){sealedNudge(`4K downloads are sealed — the Premium Pack opens them (${PRICE})`);return;}
+  if(!choices.length){toast("Create your kanji first ✦");return;}
+  const c=await render(true);
+  const a=document.createElement("a");
+  a.download=artFilename("-4k");
+  a.href=c.toDataURL("image/png");a.click();
+  toast("4K art downloaded ✦");
+};
+function artFilename(suffix=""){return `kanji-name-${(document.getElementById("nameIn").value||"art").trim().toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"art"}${suffix}.png`;}
 function shareUrl(){
   const nm=hashName();
   return location.origin+location.pathname+(nm?"#"+encodeURIComponent(nm):"");
@@ -1160,8 +1187,8 @@ class UnlockFX{
 }
 const FX=new UnlockFX();
 
-function unlockUI(){renderStyleRow();renderFontRow();renderOrientRow();renderSealRow();renderMeanRow();renderBgRow();}
-renderStyleRow();renderFontRow();renderOrientRow();renderSealRow();renderMeanRow();renderBgRow();
+function unlockUI(){renderStyleRow();renderFontRow();renderOrientRow();renderSealRow();renderMeanRow();renderBgRow();updateDlButtons();}
+renderStyleRow();renderFontRow();renderOrientRow();renderSealRow();renderMeanRow();renderBgRow();updateDlButtons();
 document.getElementById("year").textContent=new Date().getFullYear();
 // init from hash or default demo
 window.addEventListener("load",async()=>{
