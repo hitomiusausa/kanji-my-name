@@ -1337,7 +1337,7 @@ window.addEventListener("load",async()=>{
   await document.fonts.ready;
   const h=decodeURIComponent(location.hash.slice(1));
   // hash may carry per-word reading picks: "Abel~2 Rose" -> variant 2 of Abel
-  const initName=(h||"Emma").split(/\s+/).map(w=>{
+  const initName=(h||"Emily").split(/\s+/).map(w=>{
     const m=w.match(/^(.+?)~(\d+)$/);
     if(m){variantSel[wordKey(m[1])]=Math.max(0,+m[2]-1);return m[1];}
     return w;
