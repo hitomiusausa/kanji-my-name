@@ -412,7 +412,7 @@ ATEJI.nu=[["布","fine cloth"],["温","warmth"]];
 // spelling-variant & foreign-sound aliases
 ATEJI.si=ATEJI.shi;ATEJI.zi=ATEJI.ji;ATEJI.ti=ATEJI.chi;ATEJI.tu=ATEJI.tsu;ATEJI.hu=ATEJI.fu;
 ATEJI.di=ATEJI.ji;ATEJI.du=ATEJI.zu;ATEJI.fa=ATEJI.ha;ATEJI.fi=ATEJI.hi;ATEJI.fe=ATEJI.he;ATEJI.fo=ATEJI.ho;
-ATEJI.wi=ATEJI.i;ATEJI.we=ATEJI.e;ATEJI.wo=ATEJI.o;ATEJI.je=ATEJI.ji;ATEJI.ye=ATEJI.e;
+ATEJI.wi=ATEJI.i;ATEJI.we=ATEJI.e;ATEJI.wo=ATEJI.o;ATEJI.je=ATEJI.ji;ATEJI.che=ATEJI.chi;ATEJI.she=ATEJI.shi;ATEJI.ye=ATEJI.e;
 
 // common name pronunciations
 const NAME_DICT={michael:"maikeru",john:"jon",jon:"jon",david:"deibido",sarah:"sera",sara:"sara",emma:"ema",olivia:"oribia",liam:"riamu",noah:"noa",james:"jeimuzu",william:"uiriamu",sophia:"sofia",sofia:"sofia",isabella:"izabera",alex:"arekusu",alexander:"arekusandā",chris:"kurisu",christopher:"kurisutofā",maria:"maria",anna:"anna",kevin:"kebin",tom:"tomu",thomas:"tōmasu",mary:"meari",robert:"robāto",lucas:"rūkasu",luke:"rūku",mia:"mia",charlotte:"shārotto",amelia:"ameria",harry:"harī",jack:"jaku",george:"jōji",oliver:"oribā",emily:"emirī",jessica:"jeshika",daniel:"danieru",matthew:"mashū",andrew:"andoryū",ryan:"raian",laura:"rōra",julia:"juria",sophie:"sofī",leo:"reo",max:"makusu",ben:"ben",sam:"samu",kate:"keito",lily:"rirī",grace:"gureisu",chloe:"kuroe",zoe:"zoe",ethan:"īsan",mason:"meison",logan:"rōgan",lucy:"rūshī",hannah:"hana",ava:"eiba",ella:"era",nina:"nīna",carlos:"karurosu",jose:"hose",juan:"fan",pedro:"pedoro",ana:"ana",luis:"ruisu",diego:"diego",pablo:"paburo",marco:"maruko",luca:"ruka",giulia:"juria",pierre:"piēru",marie:"marī",hans:"hansu",felix:"ferikusu",ahmed:"amedo",mohammed:"mohamedo",fatima:"fatima",wei:"uei",li:"rī",chen:"chen",kim:"kimu",lee:"rī",park:"paku",raj:"raju",priya:"puria",ivan:"iban",olga:"oruga",dmitri:"dimitori",elena:"erena"};
@@ -425,7 +425,7 @@ function toRomaji(name){
   s=norm(s);
   s=s.replace(/ph/g,"f").replace(/th/g,"s").replace(/ch(?![aiueo])/g,"k").replace(/sh(?![aiueo])/g,"s");
   s=s.replace(/ck/g,"k").replace(/cc/g,"k").replace(/qu/g,"ku").replace(/x/g,"kusu");
-  s=s.replace(/c(?=[eiy])/g,"s").replace(/c/g,"k").replace(/l/g,"r").replace(/v/g,"b").replace(/q/g,"k");
+  s=s.replace(/c(?=[eiy])/g,"s").replace(/c(?!h)/g,"k").replace(/l/g,"r").replace(/v/g,"b").replace(/q/g,"k");
   s=s.replace(/([bcdfghjkmprstwyz])\1/g,"$1"); // geminates → single
   s=s.replace(/y(?![aiueo])/g,"i");
   s=s.replace(/w(?![aiueo])/g,"u");
