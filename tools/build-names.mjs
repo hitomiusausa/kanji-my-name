@@ -27,9 +27,12 @@ const code = [
   extract(/function nameVariants\([^)]*\)\{[\s\S]*?\n\}/, "nameVariants"),
   extract(/function toRomaji\(name[^)]*\)\{[\s\S]*?\n\}/, "toRomaji"),
   extract(/function tokenize\(r\)\{[\s\S]*?\n\}/, "tokenize"),
+  extract(/const APPROX_SYL=\{.*?\};/s, "APPROX_SYL"),
+  extract(/function trueSound\([^\n]*\}/, "trueSound"),
+  extract(/function pickDefaults\([\s\S]*?\n\}/, "pickDefaults"),
 ].join("\n");
-const { ATEJI, toRomaji, tokenize, NAME_SAY, nameVariants } = new Function(
-  code + "\nreturn {ATEJI,toRomaji,tokenize,NAME_SAY,nameVariants};"
+const { ATEJI, toRomaji, tokenize, NAME_SAY, nameVariants, trueSound, pickDefaults } = new Function(
+  code + "\nreturn {ATEJI,toRomaji,tokenize,NAME_SAY,nameVariants,trueSound,pickDefaults};"
 )();
 
 // ---- 名前リスト ----
@@ -49,7 +52,8 @@ const cap = (s) => s[0].toUpperCase() + s.slice(1);
 function analyzeReading(name, vi) {
   const toks = tokenize(toRomaji(name, vi));
   if (!toks.length) return null;
-  const def = toks.map((t) => ATEJI[t][0]);
+  const picks = pickDefaults(toks);
+  const def = toks.map((t, i) => ATEJI[t][picks[i]]);
   return {
     toks,
     kanji: def.map(([k]) => k).join(""),

@@ -347,7 +347,7 @@ const CREDIT = "kanji-my-name";
 // ===== ATEJI DATA: syllable -> [kanji, meaning] options (positive meanings first) =====
 const ATEJI = {
  a:[["愛","love"],["亜","Asia · next"],["安","peace"]],
- i:[["衣","garment"],["意","mind · heart"],["伊","that beauty"]],
+ i:[["衣","garment"],["唯","unique · only one"],["意","mind · heart"],["伊","that beauty"]],
  u:[["宇","universe"],["羽","wings"],["卯","rabbit"]],
  e:[["恵","blessing"],["絵","art · painting"],["江","calm river"]],
  o:[["央","center"],["王","king"],["緒","bond · thread"]],
@@ -388,38 +388,38 @@ const ATEJI = {
  ri:[["莉","jasmine"],["理","reason · truth"],["里","homeland"],["璃","lapis lazuli"]],
  ru:[["瑠","lapis lazuli"],["流","flowing"],["留","to stay"]],
  re:[["麗","lovely"],["玲","jewel's chime"],["礼","grace · courtesy"]],
- ro:[["路","road · journey"],["呂","melody"],["露","morning dew"]],
+ ro:[["路","road · journey"],["朗","cheerful · bright"],["呂","melody"],["露","morning dew"]],
  wa:[["和","harmony"],["環","circle · ring"],["輪","wheel · ring"]],
  n:[["音","sound"],["恩","gratitude"],["運","fortune"]],
  ga:[["雅","elegance"],["賀","celebration"]],
  gi:[["義","righteousness"],["伎","artistry"]],
- gu:[["遇","fateful meeting"],["具","completeness"]],
+ gu:[["弘","broad · vast"]],
  ge:[["芸","fine art"],["夏","summer"]],
  go:[["悟","enlightenment"],["吾","oneself"],["五","five"]],
- za:[["座","constellation seat"]],
+ za:[["紗","silk gauze","sa"],["沙","sand · shore","sa"]],
  ji:[["慈","mercy"],["侍","samurai"],["治","to heal"]],
  zu:[["瑞","auspicious"],["図","vision · plan"]],
- ze:[["是","righteous"]],
- zo:[["蔵","treasure house"],["想","feeling"]],
+ ze:[["瀬","rapids","se"],["世","world","se"]],
+ zo:[["蔵","treasure house"],["想","thought · feeling","so"],["奏","to play music","so"]],
  da:[["大","great"],["陀","steep peak"]],
- de:[["出","to rise forth"],["天","heaven"]],
+ de:[["天","heaven","te"],["出","to rise forth"]],
  do:[["道","the Way"],["土","earth"],["童","child spirit"]],
- ba:[["馬","horse"],["芭","banana leaf"],["場","place"]],
+ ba:[["葉","leaf"],["芭","fragrant plant"],["馬","horse"]],
  bi:[["美","beauty"],["琵","lute"]],
  bu:[["武","warrior"],["舞","dance"]],
- be:[["辺","horizon"],["紅","crimson"]],
+ be:[["紅","crimson","beni"],["部","clan · guild"]],
  bo:[["望","hope"],["慕","adoration"],["帽","hat"]].slice(0,2),
  kya:[["伽","temple night"]],kyu:[["宮","palace"],["究","mastery"]],kyo:[["京","capital"],["恭","respect"]],
  sha:[["紗","silk gauze"],["射","to shoot"]],shu:[["珠","pearl"],["秀","excellence"],["朱","vermilion"]],
  sho:[["翔","to soar"],["昇","to rise"],["祥","auspicious"]],
  cha:[["茶","tea"]],chu:[["宙","outer space"],["忠","loyalty"]],cho:[["蝶","butterfly"],["長","leader"]],
- ju:[["樹","great tree"],["寿","long life"],["珠","pearl"]],jo:[["城","castle"],["助","to help"]],ja:[["蛇","serpent"],["麝","musk deer"]].slice(1),
+ ju:[["樹","great tree"],["寿","long life"],["珠","pearl"]],jo:[["城","castle"],["助","to help"]],ja:[["若","youthful"],["紗","silk gauze","sha"]],
  ryu:[["龍","dragon"],["琉","lapis"]],ryo:[["涼","cool breeze"],["良","goodness"],["遼","vast"]],rya:[["略","strategy"]],
  gyo:[["暁","dawn"]],gya:[["伽","temple night"]],
  // merged -n syllables (nicer single kanji)
  ken:[["健","health · strength"],["賢","wisdom"],["剣","sword"]],
  kan:[["感","feeling"],["冠","crown"],["歓","delight"]],
- kin:[["金","gold"],["錦","brocade"]],
+ kin:[["金","gold"],["欣","joy"],["錦","brocade"]],
  kon:[["魂","soul"],["紺","deep blue"]],
  kun:[["薫","fragrant"]],
  shin:[["心","heart"],["真","truth"],["信","trust"]],
@@ -429,7 +429,7 @@ const ATEJI = {
  sun:[["寸","precise measure"]],
  tan:[["丹","vermilion"],["旦","daybreak"]],
  ten:[["天","heaven"],["展","to unfold"]],
- ton:[["富","wealth"]],
+ ton:[["敦","sincerity"],["富","wealth"]],
  nan:[["南","south"]],nen:[["念","devotion"]],non:[["暖","warmth"]],
  han:[["帆","sail"],["繁","prosperity"]],hin:[["品","dignity"]],hon:[["本","origin · true"]],
  man:[["万","ten thousand"],["満","fullness"]],min:[["民","the people"],["眠","gentle sleep"]],mon:[["門","gate"],["紋","crest"]],
@@ -437,8 +437,8 @@ const ATEJI = {
  ran:[["蘭","orchid"],["藍","indigo"]],rin:[["凛","dignified"],["鈴","bell"],["林","forest"]],ren:[["蓮","lotus"],["恋","romance"],["連","connection"]],ron:[["論","philosophy"]],run:[["倫","ethics"]],
  gan:[["岩","great rock"],["願","wish"]],gen:[["元","origin"],["絃","string melody"]],gin:[["銀","silver"]],gon:[["厳","majesty"]],
  zen:[["善","goodness"],["禅","zen"]],zan:[["斬","bold cut"]],jin:[["仁","benevolence"],["迅","swift"]],jun:[["純","purity"],["順","harmony"]],
- dan:[["暖","warmth"],["団","togetherness"]],den:[["伝","legacy"]],don:[["曇","soft clouds"]],
- ban:[["晩","evening"],["万","ten thousand"]],bin:[["敏","cleverness"]],bon:[["凡","humility"]],ben:[["勉","diligence"]],
+ dan:[["暖","warmth"],["団","togetherness"]],den:[["伝","legacy"]],don:[["暖","warmth"]],
+ ban:[["万","ten thousand"],["晩","evening"]],bin:[["敏","cleverness"]],bon:[["凡","humility"]],ben:[["勉","diligence"]],
  an:[["安","peace"],["杏","apricot"],["庵","hermitage"]],in:[["韻","rhyme · echo"],["印","seal"]],un:[["運","fortune"],["雲","cloud"]],en:[["縁","destiny bond"],["円","circle"],["宴","banquet"]],on:[["恩","gratitude"],["温","warmth"]]
 };
 // p-row aliases to h-row (ateji tradition)
@@ -446,8 +446,11 @@ const ATEJI = {
 ATEJI.nu=[["布","fine cloth"],["温","warmth"]];
 // spelling-variant & foreign-sound aliases
 ATEJI.si=ATEJI.shi;ATEJI.zi=ATEJI.ji;ATEJI.ti=ATEJI.chi;ATEJI.tu=ATEJI.tsu;ATEJI.hu=ATEJI.fu;
-ATEJI.di=ATEJI.ji;ATEJI.du=ATEJI.zu;ATEJI.fa=ATEJI.ha;ATEJI.fi=ATEJI.hi;ATEJI.fe=ATEJI.he;ATEJI.fo=ATEJI.ho;
+ATEJI.di=[["慈","mercy","ji"],["智","wisdom","chi"],["侍","samurai","ji"],["治","to heal","ji"]];ATEJI.du=ATEJI.zu;ATEJI.fa=ATEJI.ha;ATEJI.fi=ATEJI.hi;ATEJI.fe=ATEJI.he;ATEJI.fo=ATEJI.ho;
 ATEJI.wi=ATEJI.i;ATEJI.we=ATEJI.e;ATEJI.wo=ATEJI.o;ATEJI.je=ATEJI.ji;ATEJI.che=ATEJI.chi;ATEJI.she=ATEJI.shi;ATEJI.ye=ATEJI.e;
+// 近似音の音節 → その漢字行の本来の読み（当て字の伝統: 最も近い音で書く）。個別の字はATEJIエントリ第3要素が優先
+const APPROX_SYL={si:"shi",ti:"chi",tu:"tsu",zi:"ji",du:"zu",fa:"ha",fi:"hi",fe:"he",fo:"ho",pa:"ha",pi:"hi",pu:"fu",pe:"he",po:"ho",wi:"i",we:"e",wo:"o",je:"ji",che:"chi",she:"shi",ye:"e"};
+function trueSound(tok,entry){return (entry&&entry[2])||APPROX_SYL[tok]||tok;}
 
 // common name pronunciations
 const NAME_DICT={michael:"maikeru",john:"jon",jon:"jon",david:"deibido",sarah:"sera",sara:"sara",emma:"ema",olivia:"oribia",liam:"riamu",noah:"noa",james:"jeimuzu",william:"uiriamu",sophia:"sofia",sofia:"sofia",isabella:"izabera",alex:"arekusu",alexander:"arekusandā",chris:"kurisu",christopher:"kurisutofā",maria:"maria",anna:"anna",kevin:"kebin",tom:"tomu",thomas:"tōmasu",mary:"meari",robert:"robāto",lucas:"rūkasu",luke:"rūku",mia:"mia",charlotte:"shārotto",amelia:"ameria",harry:"harī",jack:"jaku",george:"jōji",oliver:"oribā",emily:"emirī",jessica:"jeshika",daniel:"danieru",matthew:"mashū",andrew:"andoryū",ryan:"raian",laura:"rōra",julia:"juria",sophie:"sofī",leo:"reo",max:"makusu",ben:"ben",sam:"samu",kate:"keito",lily:"rirī",grace:"gureisu",chloe:"kuroe",zoe:"zoe",ethan:"īsan",mason:"meison",logan:"rōgan",lucy:"rūshī",hannah:"hana",ava:"eiba",ella:"era",nina:"nīna",carlos:"karurosu",jose:"hose",juan:"fan",pedro:"pedoro",ana:"ana",luis:"ruisu",diego:"diego",pablo:"paburo",marco:"maruko",luca:"ruka",giulia:"juria",pierre:"piēru",marie:"marī",hans:"hansu",felix:"ferikusu",ahmed:"amedo",mohammed:"mohamedo",fatima:"fatima",wei:"uei",li:"rī",chen:"chen",kim:"kimu",lee:"rī",park:"paku",raj:"raju",priya:"puria",ivan:"iban",olga:"oruga",dmitri:"dimitori",elena:"erena",abel:"eiberu|aberu",theodore:"seodoa",elijah:"iraija",eleanor:"erenoa",levi:"rībai|rebi",violet:"baioreto",elias:"iraiasu|eriasu",aurora:"ōrora",harper:"hāpā",sebastian:"sebasuchan|sebasutian",hudson:"hadoson",hazel:"heizeru",ellie:"erī",cooper:"kūpā",isla:"aira",asher:"ashā",lainey:"reinī",gianna:"jiana|jana",layla:"reira",avery:"eiburī",wyatt:"waiato",ivy:"aibī",jacob:"jeikobu",willow:"wirō",miles:"mairuzu",carter:"kātā",isaac:"aizaku",riley:"rairī",charles:"chāruzu",eloise:"eroīzu",sadie:"seidi",thiago:"tiago",delilah:"deraira",wesley:"wesurī",josephine:"josefin",josiah:"josaia",waylon:"weiron",isaiah:"aizaia",leah:"ria",caleb:"keirebu|karebu",adeline:"aderain|aderin",beau:"bō",iris:"airisu",aiden:"eiden",nathan:"neisan",brooks:"burukusu",alice:"arisu",genesis:"jeneshisu",paisley:"peizurī",angel:"enjeru|anheru",claire:"kurea",zoey:"zōi",lincoln:"rinkān",jayden:"jeiden",silas:"sairasu",millie:"mirī",adrian:"eidorian|adorian",daisy:"deijī",maeve:"meibu",cameron:"kyameron",walker:"wōkā",axel:"akuseru",lyla:"raira",madeline:"maderin|maderain",august:"ōgasuto",josie:"joshī",audrey:"ōdorī",arthur:"āsā",autumn:"ōtamu",jeremiah:"jeremaia",natalie:"natarī",micah:"maika",everly:"ebārī",kinsley:"kinzurī",jade:"jeido",caroline:"kyarorain",christian:"kurisuchan",eithan:"īsan",archer:"āchā",georgia:"jōjia",juniper:"junipā",myles:"mairuzu",aaliyah:"arīya",margot:"māgo",parker:"pākā",hailey:"heirī",eli:"īrai",xavier:"zeibia|eguzeibia",athena:"atena|ashina",juliette:"jurieto",easton:"īsuton",river:"ribā",margaret:"māgareto",nicholas:"nikorasu",austin:"ōsutin",rose:"rōzu",jace:"jeisu",eliza:"iraiza",jaxon:"jakuson",raelynn:"reirin",brooklyn:"burukurin",callum:"karamu",esther:"esutā",milo:"mairo",hallie:"harī",graham:"gureamu|gurahamu",hadley:"hadorī",emerson:"emāson",sawyer:"sōyā",elsie:"erushī",giovanni:"jobani",carson:"kāson",dean:"dīn",scottie:"sukoti",valerie:"barerī",jonah:"jona",jasper:"jasupā",hunter:"hantā",jordan:"jōdan",charlie:"chārī",ryder:"raidā",malachi:"marakai",savannah:"sabana",kayden:"keiden",stetson:"sutetoson",rylee:"rairī",jameson:"jeimuson",emersyn:"emāshin",sloane:"surōn",melanie:"meranī",zion:"zaion",brielle:"burieru",dawson:"dōson",aubrey:"ōburī",evangeline:"ebanjerin",genevieve:"jenebību",kehlani:"kerāni",june:"jūn",summer:"samā",oaklynn:"ōkurin",ember:"enbā",piper:"paipā",jude:"jūdo",oakley:"ōkurī",jaxson:"jakuson",phoebe:"fībī",colter:"korutā",arya:"āria",wrenley:"renrī",sage:"seiji",hayden:"heiden",hayes:"heizu",ashley:"ashurī",ace:"ēsu",nevaeh:"nebeia",jason:"jeison",isabelle:"izaberu",connor:"konā",skylar:"sukairā",jayce:"jeisu",beckham:"bekamu",blair:"burea",gemma:"jema",rosalie:"rōzarī",vivienne:"bibienu",jesus:"hesusu|jizasu",callie:"kyarī",freya:"fureiya",isabel:"izaberu",judah:"jūda",lilah:"raira",sutton:"saton",tucker:"takā",annie:"anī",cole:"kōru",ximena:"himena",ryker:"raikā",jesse:"jeshī",katherine:"kyasarin",lila:"raira",peter:"pītā",rhett:"reto",tatum:"teitamu",haven:"heibun",blakely:"bureikurī",reese:"rīsu",chase:"cheisu",legend:"rejendo",everleigh:"ebārī",tate:"teito",alejandro:"arehandoro",knox:"nokusu",olive:"orību",ashton:"ashuton",mabel:"meiberu",caden:"keiden",noelle:"noeru",stevie:"sutībī",timothy:"timoshī",kylie:"kairī",celine:"serīnu",messiah:"mesaia",adaline:"adarain|adarin",bailey:"beirī",abraham:"eiburahamu|aburahamu",myla:"maira",victor:"bikutā|bikutoru",miguel:"migeru",zayden:"zeiden",dahlia:"daria",bentley:"bentorē",selah:"sera",zachary:"zakarī",saylor:"seirā",baker:"beikā",tyler:"tairā",jane:"jēn",elise:"erīsu|erīze",oscar:"osukā",alaina:"areina",presley:"puresurī",cohen:"kōen",gracie:"gureishī",callahan:"kyarahan",mackenzie:"makenjī",brayden:"bureiden",simon:"saimon",wren:"ren",palmer:"pāmā",maisie:"meijī",justin:"jasutin",richard:"richādo",nyla:"naira",alexandra:"arekusandora",kaiden:"keiden|kaiden",ada:"eida",eden:"īden|eden",lucia:"rusia|ruchia"};
@@ -465,6 +468,7 @@ function toRomaji(name,variant){
   let s=name.toLowerCase().trim().replace(/[^a-zāīūēō]/g,"");
   if(NAME_DICT[s]){const v=NAME_DICT[s].split("|");return norm(v[variant]||v[0]);}
   s=norm(s);
+  s=s.replace(/([aiueo])\1/g,"$1"); // 長母音の同字連続を圧縮 (Aaron: aa -> a)
   s=s.replace(/ph/g,"f").replace(/th/g,"s").replace(/ch(?![aiueo])/g,"k").replace(/sh(?![aiueo])/g,"s");
   s=s.replace(/ck/g,"k").replace(/cc/g,"k").replace(/qu/g,"ku").replace(/x/g,"kusu");
   s=s.replace(/c(?=[eiy])/g,"s").replace(/c(?!h)/g,"k").replace(/l/g,"r").replace(/v/g,"b").replace(/q/g,"k");
@@ -501,6 +505,19 @@ function tokenize(r){
     else i++; // skip unknown char
   }
   return toks;
+}
+// default kanji picks — no adjacent duplicate kanji across different syllables (波波 NG / 莉莉 = same syllable twice OK)
+function pickDefaults(toks,rand){
+  const picks=toks.map(t=>rand?Math.floor(Math.random()*ATEJI[t].length):0);
+  for(let i=1;i<picks.length;i++){
+    if(toks[i]===toks[i-1])continue;
+    const prev=ATEJI[toks[i-1]][picks[i-1]][0];
+    if(ATEJI[toks[i]][picks[i]][0]===prev){
+      const alt=ATEJI[toks[i]].findIndex(e=>e[0]!==prev);
+      if(alt>=0)picks[i]=alt;
+    }
+  }
+  return picks;
 }
 
 // ===== STATE =====
@@ -989,7 +1006,7 @@ function generate(rand){
   const toks=words.flatMap(w=>tokenize(toRomaji(w,varOf(w))));
   if(!toks.length){toast("Hmm — try a simpler spelling of your name");return;}
   syls=toks;
-  choices=toks.map((t,i)=>({s:i,o:rand?Math.floor(Math.random()*ATEJI[t].length):0}));
+  choices=pickDefaults(toks,rand).map((o,i)=>({s:i,o}));
   renderChips();render();
   history.replaceState(null,"","#"+encodeURIComponent(hashName()));
   return true;

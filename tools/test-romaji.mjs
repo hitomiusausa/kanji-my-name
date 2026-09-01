@@ -107,6 +107,10 @@ eq(toRomaji("caleb"), "keirebu", "caleb default = KAY-leb");
 eq(toRomaji("caleb", 1), "karebu", "caleb variant 1 = KAH-leb");
 eq(toRomaji("jesus"), "hesusu", "jesus default = hay-SOOS");
 
+// ---- Task 2（2026-09-01 レビュー反映）: 長母音の同字連続を規則パスで圧縮 ----
+eq(toRomaji("aaron"), "aron", "aa compresses to one vowel (Aaron != 愛愛…)");
+eq(toRomaji("brooke"), "buroke", "oo compresses to one vowel");
+
 // ---- 全名前スモーク: names.txt 全員がトークン化でき、全トークンがATEJIに存在 ----
 const list = fs
   .readFileSync(path.join(ROOT, "tools", "names.txt"), "utf8")
