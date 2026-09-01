@@ -10,6 +10,9 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 // Cloudflare Pages is the public, indexable site. Keep every generated
 // canonical URL and the sitemap on this one host.
 const SITE = "https://kanji.kugainc.com";
+// Task D: "Reviewed by Hitomi Kuga" line under the per-name ateji note.
+// Flip to true only after the ateji_diff review pass is complete.
+const SHOW_REVIEWED_BY = false;
 const src = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
 
 // ---- 本体からロジック抽出（単一ソース原則）----
@@ -196,6 +199,7 @@ function pageHtml(d, all) {
     ${l1}
     <p class="an-l2">${esc(r.kanji)} is an artistic ateji — chosen for sound and meaning, not an official spelling.</p>
     <p class="an-l3">For anything permanent, have a native speaker check it.</p>
+    ${SHOW_REVIEWED_BY ? `<p class="an-l3">Reviewed by Hitomi Kuga, Japanese-language teacher</p>` : ""}
   </div>`;
   };
   const artNotes = d.readings.map(noteBlock).join("\n  ");
@@ -319,7 +323,7 @@ ${FONTS_LINK}
   <h2>More names in kanji</h2>
   <div class="rel">${rel.map((w) => `<a href="${w.name}">${esc(w.Name)} ${esc(w.kanji)}</a>`).join("")}<a href="./">All names →</a></div>
 
-  <footer><a href="../" class="flogo" aria-label="Kanji My Name — home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../">Try your own name →</a> · <a href="../terms">Terms</a> · <a href="../tokushoho">Legal Notice</a></div></footer>
+  <footer><a href="../" class="flogo" aria-label="Kanji My Name — home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../">Try your own name →</a> · <a href="../about">About</a> · <a href="../terms">Terms</a> · <a href="../tokushoho">Legal Notice</a></div><div style="margin-top:6px">Made in Japan by a native speaker &amp; Japanese-language teacher</div></footer>
 </div>
 ${sayScript}
 </body>
@@ -380,7 +384,7 @@ ${FONTS_LINK}
   <h1>Names in Japanese Kanji</h1>
   <p class="sub">${all.length} names · ${totalCombos} possible kanji spellings. Each kanji shown here is one sound-based <i>ateji</i> option — open a name to explore other combinations, or <a style="color:var(--gold)" href="../">create your own →</a></p>
   ${Object.keys(groups).sort().map((L) => `<h2>${L}</h2><div class="rel">${groups[L].map((d) => `<a href="${d.name}">${esc(d.Name)} ${esc(d.kanji)}</a>`).join("")}</div>`).join("\n  ")}
-  <footer><a href="../" class="flogo" aria-label="Kanji My Name — home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../">Try your own name →</a> · <a href="../terms">Terms</a> · <a href="../tokushoho">Legal Notice</a></div></footer>
+  <footer><a href="../" class="flogo" aria-label="Kanji My Name — home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../">Try your own name →</a> · <a href="../about">About</a> · <a href="../terms">Terms</a> · <a href="../tokushoho">Legal Notice</a></div><div style="margin-top:6px">Made in Japan by a native speaker &amp; Japanese-language teacher</div></footer>
 </div>
 </body>
 </html>
@@ -404,7 +408,7 @@ for (const d of all) {
 }
 if (!only) {
   fs.writeFileSync(path.join(outDir, "index.html"), hubHtml(all));
-  const urls = [`${SITE}/`, `${SITE}/terms`, `${SITE}/tokushoho`, `${SITE}/names/`, ...all.map((d) => `${SITE}/names/${d.name}`)];
+  const urls = [`${SITE}/`, `${SITE}/about`, `${SITE}/terms`, `${SITE}/tokushoho`, `${SITE}/names/`, ...all.map((d) => `${SITE}/names/${d.name}`)];
   fs.writeFileSync(
     path.join(ROOT, "sitemap.xml"),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
