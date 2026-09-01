@@ -88,6 +88,7 @@ input[type=text]:focus{border-color:var(--gold)}
 .chip:hover{border-color:var(--gold);transform:translateY(-2px)}
 .chip .k{font-family:'Yuji Syuku','Shippori Mincho',serif;font-size:30px;line-height:1.25;display:block;color:var(--head)}
 .chip .s{font-size:10.5px;color:var(--muted);letter-spacing:.08em}
+.chip .apx{font-style:normal;opacity:.8}/* ≈ = closest-reading kanji (ateji tradition) */
 .chip .m{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);display:block;margin-top:3px}
 @keyframes stampIn{0%{transform:scale(1.5) rotate(-5deg);opacity:0}60%{transform:scale(.96) rotate(1deg);opacity:1}100%{transform:scale(1) rotate(0)}}
 .hint{font-size:12.5px;color:var(--muted);margin-top:12px}
@@ -939,10 +940,10 @@ function renderFontRow(){
 function renderChips(){
   const el=document.getElementById("chips");el.innerHTML="";
   choices.forEach((ci,idx)=>{
-    const[k,m]=ATEJI[syls[ci.s]][ci.o];
+    const tok=syls[ci.s],ent=ATEJI[tok][ci.o],[k,m]=ent,ts=trueSound(tok,ent);
     const d=document.createElement("div");d.className="chip";
     d.style.animationDelay=(idx*70)+"ms"; // hanko stamp-in, one press per character
-    d.innerHTML=`<span class="s">${syls[ci.s]}</span><span class="k">${k}</span><span class="m">${m} ▾</span>`;
+    d.innerHTML=`<span class="s">${tok}${ts!==tok?` <i class="apx">≈${ts}</i>`:""}</span><span class="k">${k}</span><span class="m">${m} ▾</span>`;
     d.onclick=()=>openPicker(idx);
     el.appendChild(d);
   });
@@ -953,9 +954,10 @@ function openPicker(idx){
   const ci=choices[idx],opts=ATEJI[syls[ci.s]];
   const card=document.getElementById("pickerCard");
   card.innerHTML=`<h3>Choose a meaning for “${syls[ci.s]}”</h3><p>Each kanji sounds the same — pick the meaning that feels like you.</p>`;
-  opts.forEach(([k,m],o)=>{
+  opts.forEach((e,o)=>{
+    const [k,m]=e,ts=trueSound(syls[ci.s],e);
     const d=document.createElement("div");d.className="opt";
-    d.innerHTML=`<span class="k">${k}</span><span class="m"><b>${m}</b><br><small style="color:var(--muted)">read as “${syls[ci.s]}”</small></span>`;
+    d.innerHTML=`<span class="k">${k}</span><span class="m"><b>${m}</b><br><small style="color:var(--muted)">read as “${ts}”${ts!==syls[ci.s]?` — used for “${syls[ci.s]}”`:""}</small></span>`;
     d.onclick=()=>{choices[idx].o=o;document.getElementById("picker").classList.remove("open");renderChips();render();};
     card.appendChild(d);
   });
