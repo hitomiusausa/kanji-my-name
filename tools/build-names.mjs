@@ -55,6 +55,7 @@ function analyzeReading(name, vi) {
   const picks = pickDefaults(toks);
   const def = toks.map((t, i) => ATEJI[t][picks[i]]);
   return {
+    picks,
     toks,
     kanji: def.map(([k]) => k).join(""),
     meanings: def.map(([, m]) => m),
@@ -113,6 +114,10 @@ td .kj{font-family:'Yuji Syuku',serif;font-size:26px;color:var(--head)}
 .note{font-size:12.5px;color:var(--muted)}
 .apx{color:var(--muted);font-size:.85em;letter-spacing:.04em}
 .alt .apx{display:block;font-size:10px;margin-top:2px}
+.alt{position:relative}
+.alt.sel{border:2px solid var(--gold);background:rgba(184,146,80,.08);padding:9px 13px}
+.seal-sel{font-style:normal;font-family:'Yuji Syuku',serif;font-size:11px;color:var(--seal);background:#e8e2d5;border:1px solid var(--seal);box-sizing:border-box;width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;border-radius:2px;transform:rotate(-6deg);position:absolute;top:6px;right:6px;letter-spacing:0}
+.selline{display:block;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:4px}
 .qa{border-bottom:1px solid var(--line);padding:14px 0}
 .qa b{display:block;color:var(--head);margin-bottom:4px}
 .qa p{color:var(--muted);font-size:14.5px}
@@ -165,7 +170,7 @@ function pageHtml(d, all) {
      `Yes — ${d.kanji} is a phonetic ateji spelling of ${d.Name}, and each character's meaning is listed on this page, so you know exactly what your tattoo says. For stroke-accurate line work, generate the free art below and bring the high-resolution version to your artist.`],
     [`What does ${d.kanji} mean?`,
      `Character by character, ${d.kanji} reads ${d.toks.map((t, i) => {
-       const e = d.variants[i][0], ts = trueSound(t, e);
+       const e = d.variants[i][d.picks[i]], ts = trueSound(t, e);
        return `${e[0]} ("${e[1]}", read "${ts}"${ts !== t ? `, used for the "${t}" sound` : ""})`;
      }).join(", ")}. Together they sound like "${d.Name}" while carrying the meanings ${mm}.`],
   ];
@@ -204,7 +209,10 @@ function pageHtml(d, all) {
   };
   const sylBlocks = (r) => r.toks
     .map((t, i) => `<p class="syl">“${esc(t)}” — ${r.variants[i].length} kanji to choose from</p>
-<div class="alts">${r.variants[i].map((e) => `<div class="alt"><span class="kj">${esc(e[0])}</span><span class="mm">${esc(e[1])}</span>${trueSound(t, e) !== t ? `<span class="apx">≈ ${esc(trueSound(t, e))}</span>` : ""}</div>`).join("")}</div>`)
+<div class="alts">${r.variants[i].map((e, o) => {
+      const sel = o === r.picks[i];
+      return `<div class="alt${sel ? " sel" : ""}">${sel ? `<i class="seal-sel" aria-label="Selected">選</i>` : ""}<span class="kj">${esc(e[0])}</span><span class="mm">${esc(e[1])}</span>${trueSound(t, e) !== t ? `<span class="apx">≈ ${esc(trueSound(t, e))}</span>` : ""}${sel ? `<span class="selline">In this spelling</span>` : ""}</div>`;
+    }).join("")}</div>`)
     .join("\n");
   // Per-reading content block. The generator link carries the pick as #Name~n.
   const genHash = (i) => encodeURIComponent(d.Name + (i > 0 ? `~${i + 1}` : ""));
@@ -224,7 +232,7 @@ function pageHtml(d, all) {
   <h2>How ${esc(d.Name)} becomes kanji</h2>
   <table>
     <tr><th>Sound</th><th>Kanji</th><th>Meaning</th></tr>
-    ${r.toks.map((t, j) => `<tr><td>${soundCell(t, r.variants[j][0])}</td><td><span class="kj">${esc(r.variants[j][0][0])}</span></td><td>${esc(r.variants[j][0][1])}</td></tr>`).join("\n    ")}
+    ${r.toks.map((t, j) => `<tr><td>${soundCell(t, r.variants[j][r.picks[j]])}</td><td><span class="kj">${esc(r.variants[j][r.picks[j]][0])}</span></td><td>${esc(r.variants[j][r.picks[j]][1])}</td></tr>`).join("\n    ")}
   </table>
 
   <h2>Every kanji choice for ${esc(d.Name)}</h2>

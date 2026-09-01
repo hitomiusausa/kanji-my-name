@@ -132,8 +132,15 @@ canvas{max-width:100%;height:auto;box-shadow:0 0 80px rgba(184,146,80,.14),0 30p
 .picker-card{background:var(--panel);border:1px solid var(--line);padding:28px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto}
 .picker-card h3{font-family:'Shippori Mincho',serif;font-size:24px;color:var(--head);margin-bottom:4px}
 .picker-card p{font-size:13px;color:var(--muted);margin-bottom:16px}
-.opt{display:flex;align-items:center;gap:16px;padding:12px;border:1px solid var(--line);margin-bottom:10px;cursor:pointer;transition:.15s}
+.opt{position:relative;display:flex;align-items:center;gap:16px;padding:12px;border:1px solid var(--line);margin-bottom:10px;cursor:pointer;transition:.15s}
 .opt:hover{border-color:var(--gold);background:var(--panel2)}
+@media(prefers-reduced-motion:reduce){.opt{transition:none}}
+/* 選択中カード (D-32 Fix4): ゴールド枠＋薄ゴールド地。border+2pxはpadding-1pxで相殺し位置固定 */
+.opt.sel{border:2px solid var(--gold);background:rgba(184,146,80,.08);padding:11px}
+/* 「選」印 = 「封」印の色反転兄弟: 紙地に朱文字・朱の細枠。サイズ/角丸/傾きは封(16px/2px/-6deg)と同一 */
+.seal-sel{font-style:normal;font-family:'Yuji Syuku',serif;font-size:11px;font-weight:400;color:var(--seal);background:#e8e2d5;border:1px solid var(--seal);box-sizing:border-box;width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;border-radius:2px;transform:rotate(-6deg);flex:none;letter-spacing:0}
+.selbadge{position:absolute;top:8px;right:10px;display:flex;align-items:center;gap:6px;font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.selbadge[hidden]{display:none}
 .opt .k{font-family:'Yuji Syuku','Shippori Mincho',serif;font-size:36px;color:var(--head)}
 .opt .m{font-size:14px}.opt .m b{color:var(--gold)}
 .styles{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
@@ -989,13 +996,15 @@ function renderChips(){
 function openPicker(idx){
   const ci=choices[idx],opts=ATEJI[syls[ci.s]];
   const card=document.getElementById("pickerCard");
-  card.innerHTML=`<h3>Choose a meaning for “${syls[ci.s]}”</h3><p>Each kanji sounds the same — pick the meaning that feels like you.</p>`;
+  card.innerHTML=`<h3>Choose a meaning for “${syls[ci.s]}”</h3><p>Each kanji sounds the same — pick the meaning that feels like you. Tap outside to close.</p>`;
+  const cards=[];
   opts.forEach((e,o)=>{
     const [k,m]=e,ts=trueSound(syls[ci.s],e);
-    const d=document.createElement("div");d.className="opt";
-    d.innerHTML=`<span class="k">${k}</span><span class="m"><b>${m}</b><br><small style="color:var(--muted)">read as “${ts}”${ts!==syls[ci.s]?` — used for “${syls[ci.s]}”`:""}</small></span>`;
-    d.onclick=()=>{choices[idx].o=o;document.getElementById("picker").classList.remove("open");renderChips();render();};
-    card.appendChild(d);
+    const d=document.createElement("div");d.className="opt"+(o===ci.o?" sel":"");
+    d.innerHTML=`<span class="k">${k}</span><span class="m"><b>${m}</b><br><small style="color:var(--muted)">read as “${ts}”${ts!==syls[ci.s]?` — used for “${syls[ci.s]}”`:""}</small></span><span class="selbadge"${o===ci.o?"":" hidden"}><i class="seal-sel" aria-label="Selected">選</i>Selected</span>`;
+    // 選択してもモーダルは閉じない: 「選」印がその場で移動し、見比べながら切り替えられる（閉じる=枠外タップ）
+    d.onclick=()=>{choices[idx].o=o;cards.forEach((c,i)=>{c.classList.toggle("sel",i===o);c.querySelector(".selbadge").hidden=i!==o;});renderChips();render();};
+    cards.push(d);card.appendChild(d);
   });
   document.getElementById("picker").classList.add("open");
 }
