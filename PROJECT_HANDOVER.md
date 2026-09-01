@@ -17,7 +17,7 @@ Last updated: 2026-09-01 (JST)
 - Users can choose alternative kanji with the same sound and select the meanings they prefer.
 - Free output is a full-size PNG with a small credit line. Premium offers 4K, a clean version, all fonts and exclusive styles, square layouts, plus optional seal / meaning lines.
 - `Share image` invokes native sharing when supported and falls back to a downloaded PNG. `Copy share link` copies a generator URL that recreates the chosen name.
-- The large favicon asset is `image/kanji my name-favicon.png`.
+- Brand image: `image/kanjimyname.png` (2000×2000, used as og:image); tab icon is the resized `image/kanjimyname-icon.png` (512×512).
 
 ## Names directory and SEO
 
