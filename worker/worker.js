@@ -22,6 +22,7 @@ const ALLOWED_ORIGINS = [
 
 const MAIL_FROM = "Kanji My Name <kanji@kugainc.com>";
 const MAIL_REPLY_TO = "kanjimyname@gmail.com";
+const MAIL_BCC = "kanjimyname@gmail.com"; // 販売控え兼・売れた通知
 const SITE_URL = "https://kanji.kugainc.com/";
 
 async function issueCode(env, sid, email) {
@@ -87,6 +88,7 @@ async function sendCodeEmail(env, to, code) {
     body: JSON.stringify({
       from: MAIL_FROM,
       to: [to],
+      bcc: [MAIL_BCC],
       reply_to: MAIL_REPLY_TO,
       subject: "Your Kanji My Name unlock code ✦",
       text, html,
