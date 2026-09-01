@@ -43,30 +43,29 @@ function ok(cond, label, detail = "") {
   else { fail++; console.error(`✗ ${label}${detail ? "  " + detail : ""}`); }
 }
 
-// ---- chバグ回帰（2026-09-01 Fix A）: 母音前の ch を汎用 c→k が壊していた ----
+// ---- chバグ回帰（2026-09-01 Fix A・辞書に無い綴りで規則パスを検査）----
 eq(toRomaji("chai"), "chai", "chai keeps ch (was kuhai)");
-eq(toRomaji("charles"), "charesu", "charles keeps ch");
-eq(toRomaji("charlie"), "charie", "charlie keeps ch");
-eq(toRomaji("richard"), "richarudo", "richard keeps ch");
-eq(toRomaji("chase"), "chase", "chase keeps ch");
-eq(toRomaji("nicholas"), "nichorasu", "nicholas keeps ch");
-eq(toRomaji("malachi"), "marachi", "malachi keeps ch");
-eq(toRomaji("zachary"), "zachari", "zachary keeps ch");
-eq(toRomaji("archer"), "arucheru", "archer keeps ch");
+eq(toRomaji("chira"), "chira", "ch before i keeps ch");
+eq(toRomaji("chose"), "chose", "ch before o keeps ch");
+eq(toRomaji("archie"), "aruchie", "mid-word ch keeps ch");
 
-// ---- 既存挙動が壊れていないこと ----
-eq(toRomaji("cameron"), "kameron", "generic c -> k still works");
+// ---- 既存挙動が壊れていないこと（規則パス）----
+eq(toRomaji("camron"), "kamuron", "generic c -> k still works");
 eq(toRomaji("cindy"), "sindi", "c before i -> s still works");
-eq(toRomaji("christian"), "kurisutian", "ch before consonant -> k still works");
+eq(toRomaji("christa"), "kurisuta", "ch before consonant -> k still works");
 eq(toRomaji("beck"), "beku", "ck -> k still works");
 eq(toRomaji("michael"), "maikeru", "NAME_DICT path untouched");
 eq(toRomaji("felix"), "ferikusu", "NAME_DICT + macron norm untouched");
 
-// ---- tokenize統合: ch+母音の名前は必ず ch系トークンを含む ----
-for (const name of ["charles", "charlie", "richard", "chase", "nicholas", "malachi", "zachary", "archer"]) {
-  const toks = tokenize(toRomaji(name));
-  ok(toks.some((t) => t.startsWith("ch")), `${name} tokens include ch-syllable`, `got ${JSON.stringify(toks)}`);
-}
+// ---- ch系の名前は辞書でカタカナ発音になっている（Fix Bで規則パスから卒業）----
+eq(toRomaji("charles"), "charuzu", "charles = チャールズ (dict)");
+eq(toRomaji("charlie"), "chari", "charlie = チャーリー (dict)");
+eq(toRomaji("richard"), "richado", "richard = リチャード (dict)");
+eq(toRomaji("archer"), "acha", "archer = アーチャー (dict)");
+eq(toRomaji("nicholas"), "nikorasu", "nicholas = ニコラス ch=k音 (dict)");
+eq(toRomaji("malachi"), "marakai", "malachi = マラカイ ch=k音 (dict)");
+eq(toRomaji("zachary"), "zakari", "zachary = ザカリー ch=k音 (dict)");
+eq(toRomaji("christian"), "kurisuchan", "christian = クリスチャン (dict)");
 // che/she エイリアス（je=ji と同じ近似音の前例）
 ok(ATEJI.che === ATEJI.chi, "ATEJI.che alias exists");
 ok(ATEJI.she === ATEJI.shi, "ATEJI.she alias exists");
@@ -99,6 +98,14 @@ if (nameVariants && NAME_SAY) {
     });
   }
 }
+
+// ---- Fix B マージ後のカナリア（2026-09-01・カタカナ発音由来辞書）----
+eq(toRomaji("autumn"), "otamu", "autumn = オータム (was a-u-tu-mu-n)");
+eq(toRomaji("tyler"), "taira", "tyler = タイラー (was chi-re-ru)");
+eq(toRomaji("chase"), "cheisu", "chase = チェイス");
+eq(toRomaji("caleb"), "keirebu", "caleb default = KAY-leb");
+eq(toRomaji("caleb", 1), "karebu", "caleb variant 1 = KAH-leb");
+eq(toRomaji("jesus"), "hesusu", "jesus default = hay-SOOS");
 
 // ---- 全名前スモーク: names.txt 全員がトークン化でき、全トークンがATEJIに存在 ----
 const list = fs
