@@ -14,7 +14,7 @@ Kanji My Name lets a visitor enter a name in Latin letters, explore sound-based 
 - Use “sound-based ateji option” rather than “the official Japanese translation of a name.”
 - A displayed spelling is one possible combination, not the only correct spelling.
 - Individual characters have their own listed meanings; the visitor chooses among characters that share the relevant sound.
-- The free version downloads a full-size PNG with a small credit line. The optional Premium Pack adds 4K output, a clean edition, all 12 fonts, and additional styles.
+- The free version downloads a full-size PNG with a small credit line. The optional Premium Pack adds 4K output, a clean edition, all 13 fonts, and additional styles.
 
 ## Contact and attribution
 

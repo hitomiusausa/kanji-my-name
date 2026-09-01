@@ -24,9 +24,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Yuji+Syuku&family=Reggae+One&family=Yusei+Magic&family=Zen+Maru+Gothic:wght@500&family=Hina+Mincho&family=New+Tegomin&family=Kaisei+Decol&family=Kiwi+Maru:wght@500&family=Dela+Gothic+One&family=Klee+One:wght@600&family=Zen+Antique&family=Zen+Old+Mincho:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://kanji.kugainc.com/#website","url":"https://kanji.kugainc.com/","name":"Kanji My Name","alternateName":"Kanji Name Generator","inLanguage":"en"},{"@type":"WebApplication","@id":"https://kanji.kugainc.com/#app","name":"Kanji My Name","url":"https://kanji.kugainc.com/","applicationCategory":"DesignApplication","applicationSubCategory":"Kanji name art generator","operatingSystem":"Web","browserRequirements":"Requires a modern web browser with JavaScript enabled.","isAccessibleForFree":true,"inLanguage":"en","description":"A browser-based generator for creating Japanese kanji name art from sound-based ateji choices and character meanings."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this a real Japanese translation of my name?","acceptedAnswer":{"@type":"Answer","text":"Foreign names have no single correct kanji. Japanese tradition uses ateji: kanji chosen for their sound, whose meanings you select yourself."}},{"@type":"Question","name":"Can I use it for a tattoo?","acceptedAnswer":{"@type":"Answer","text":"Many people use name art as a tattoo reference. The Premium 4K clean edition provides the exact characters in a high-resolution image for an artist to review."}},{"@type":"Question","name":"Is the free download really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. The free download is a full-size PNG with a small credit line. The Premium Pack adds 4K, a clean edition, all 12 fonts, and exclusive styles."}},{"@type":"Question","name":"Is my name sent anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Kanji matching, art generation, and downloads happen in the browser. Names are not sent to a server, stored, or tracked."}}]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://kanji.kugainc.com/#website","url":"https://kanji.kugainc.com/","name":"Kanji My Name","alternateName":"Kanji Name Generator","inLanguage":"en"},{"@type":"WebApplication","@id":"https://kanji.kugainc.com/#app","name":"Kanji My Name","url":"https://kanji.kugainc.com/","applicationCategory":"DesignApplication","applicationSubCategory":"Kanji name art generator","operatingSystem":"Web","browserRequirements":"Requires a modern web browser with JavaScript enabled.","isAccessibleForFree":true,"inLanguage":"en","description":"A browser-based generator for creating Japanese kanji name art from sound-based ateji choices and character meanings."},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is this a real Japanese translation of my name?","acceptedAnswer":{"@type":"Answer","text":"Foreign names have no single correct kanji. Japanese tradition uses ateji: kanji chosen for their sound, whose meanings you select yourself."}},{"@type":"Question","name":"Can I use it for a tattoo?","acceptedAnswer":{"@type":"Answer","text":"Many people use name art as a tattoo reference. The Premium 4K clean edition provides the exact characters in a high-resolution image for an artist to review."}},{"@type":"Question","name":"Is the free download really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. The free download is a full-size PNG with a small credit line. The Premium Pack adds 4K, a clean edition, all 13 fonts, and exclusive styles."}},{"@type":"Question","name":"Is my name sent anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Kanji matching, art generation, and downloads happen in the browser. Names are not sent to a server, stored, or tracked."}}]}]}
 </script>
 <style>
+@font-face{font-family:'Kouzan Gyousho';src:url('fonts/kouzan-gyosho-subset.woff2') format('woff2');font-display:swap}
 :root{
   --bg:#131310; --panel:#1a1a16; --panel2:#15150f; --line:#35332a;
   --ink:#e8e2d5; --head:#f0ead9; --gold:#b89250; --muted:#8f897b; --seal:#c73e2c;
@@ -254,7 +255,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
         <button class="btn btn-ghost" id="shareLinkBtn">Copy share link</button>
       </div>
       <p class="share-status" id="shareStatus" role="status" aria-live="polite"></p>
-      <div class="upsell-note">Free download includes a small credit line. <b>Premium unlocks high-resolution, clean artwork, all 12 fonts and exclusive styles — <a href="#premium">explore the Pack ✦</a></b></div>
+      <div class="upsell-note">Free download includes a small credit line. <b>Premium unlocks high-resolution, clean artwork, all 13 fonts and exclusive styles — <a href="#premium">explore the Pack ✦</a></b></div>
     </div>
   </div>
 
@@ -265,7 +266,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
       <ul>
         <li>Ultra high-resolution 4K art — perfect for printing &amp; framing</li>
         <li>No credit line — clean, gallery-ready artwork</li>
-        <li>All 12 calligraphy fonts (9 premium-only)</li>
+        <li>All 13 calligraphy fonts (10 premium-only)</li>
         <li>Exclusive <i>Gold Leaf</i>, <i>Sumi Storm</i>, <i>Indigo Wave</i>, <i>Ensō</i> &amp; <i>Pure White</i> art styles</li>
         <li>Seal-free edition — remove the hanko for a pure look</li>
         <li>Meanings on or off — keep the poetry, or let the kanji speak alone</li>
@@ -288,7 +289,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
     <h2>About kanji names</h2>
     <div class="qa"><b>Is this a real Japanese translation of my name?</b><p>Foreign names have no single "correct" kanji. Japanese tradition uses <i>ateji</i> (当て字): kanji chosen for their sound, whose meanings you select yourself. Your name becomes both phonetic and poetic — that's the art.</p></div>
     <div class="qa"><b>Can I use it for a tattoo?</b><p>Many people do! The Premium 4K clean edition gives your artist the exact characters in a high-resolution image to review.</p></div>
-    <div class="qa"><b>Is the free download really free?</b><p>Yes — full-size PNG with a small credit line. The Premium Pack adds 4K, the clean edition, all 12 fonts, and exclusive styles — one small payment, lifetime access.</p></div>
+    <div class="qa"><b>Is the free download really free?</b><p>Yes — full-size PNG with a small credit line. The Premium Pack adds 4K, the clean edition, all 13 fonts, and exclusive styles — one small payment, lifetime access.</p></div>
     <div class="qa"><b>Is my name sent anywhere?</b><p>Never. Everything — the kanji matching, the art, the download — happens entirely in your browser. Your name is not sent to any server, stored, or tracked.</p></div>
   </section>
 </main>
@@ -550,6 +551,7 @@ const FONTS=[
  {id:"maru",  label:"Round 丸",    css:"'Zen Maru Gothic',sans-serif",free:true},
  {id:"boku",  label:"Bold Brush 墨",css:"'Reggae One',cursive",      free:false},
  {id:"mai",   label:"Dancing Brush 舞",css:"'Yusei Magic',sans-serif",free:false},
+ {id:"gyosho",label:"Calligraphy 書",  css:"'Kouzan Gyousho',serif",  free:false},
  {id:"hina",  label:"Heirloom 雛",  css:"'Hina Mincho',serif",       free:false},
  {id:"tegomin",label:"Folk 民",     css:"'New Tegomin',serif",       free:false},
  {id:"decol", label:"Charm 彩",     css:"'Kaisei Decol',serif",      free:false},
