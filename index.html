@@ -75,6 +75,9 @@ input[type=text]:focus{border-color:var(--gold)}
 .btn-4k{background:transparent;border:1px solid var(--gold);color:var(--gold)}
 .btn-4k.open{background:var(--gold);color:#131310}
 .btn-4k.open:hover{background:#cca768}
+.btn-4k.sealed{position:relative;border-style:dashed;border-color:rgba(199,62,44,.55);padding-left:40px}
+.btn-4k.sealed::before{content:"封";position:absolute;left:13px;top:50%;transform:translateY(-50%) rotate(-6deg);font-family:'Yuji Syuku',serif;font-size:12px;font-weight:400;color:#fdf6ea;background:var(--seal);width:18px;height:18px;display:flex;align-items:center;justify-content:center;border-radius:2px;letter-spacing:0}
+.btn-4k.sealed:hover{border-color:rgba(199,62,44,.9)}
 .btn .px{display:block;font-size:10px;letter-spacing:.1em;opacity:.7;margin-top:3px;font-weight:400}
 .btn-ghost:hover{border-color:var(--gold)}
 .row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
@@ -305,7 +308,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
   </section>
 </main>
 
-<footer class="wrap"><a href="./" class="flogo" aria-label="Kanji My Name — home"><img src="image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · handcrafted with 愛 · <span id="year"></span> · <a href="names/" style="color:var(--gold)">Browse names in kanji →</a> · <a href="terms.html" style="color:var(--gold)">Terms</a></div></footer>
+<footer class="wrap"><a href="./" class="flogo" aria-label="Kanji My Name — home"><img src="image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener" style="color:var(--gold)">KUGA Inc.</a> · <a href="names/" style="color:var(--gold)">Browse names in kanji →</a> · <a href="terms.html" style="color:var(--gold)">Terms</a></div></footer>
 <div class="picker" id="picker"><div class="picker-card" id="pickerCard"></div></div>
 <div id="fxA" aria-hidden="true">
   <div id="fxDim"></div>
@@ -1059,6 +1062,7 @@ function updateDlButtons(){
   const b4=document.getElementById("dl4kBtn");
   b4.innerHTML=`${premium?"Download 4K":"Download 4K ✦"}<span class="px">${W*2} × ${H*2}px</span>`;
   b4.classList.toggle("open",premium);
+  b4.classList.toggle("sealed",!premium);
 }
 document.getElementById("dlBtn").onclick=async()=>{
   if(!choices.length){toast("Create your kanji first ✦");return;}
@@ -1190,7 +1194,6 @@ const FX=new UnlockFX();
 
 function unlockUI(){renderStyleRow();renderFontRow();renderOrientRow();renderSealRow();renderMeanRow();renderBgRow();updateDlButtons();}
 renderStyleRow();renderFontRow();renderOrientRow();renderSealRow();renderMeanRow();renderBgRow();updateDlButtons();
-document.getElementById("year").textContent=new Date().getFullYear();
 // init from hash or default demo
 window.addEventListener("load",async()=>{
   await document.fonts.ready;
