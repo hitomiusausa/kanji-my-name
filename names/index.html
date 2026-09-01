@@ -56,6 +56,13 @@ footer{border-top:1px solid var(--line);margin-top:56px;padding:24px 0 40px;colo
 footer a{color:var(--gold)}
 p{margin:10px 0}
 .body-copy{color:var(--ink);max-width:720px}
+.say-pick{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 0}
+.say-q{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.say-b{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.04em;padding:8px 14px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:.15s}
+.say-b:hover{border-color:var(--gold);color:var(--ink)}
+.say-b.on{background:var(--gold);color:#131310;border-color:var(--gold);font-weight:700}
+.say-b .ss{display:block;font-size:10px;letter-spacing:.08em;opacity:.72;margin-top:2px;font-weight:400}
+.vgrp[hidden]{display:none}
 
 .names-index::before{background:radial-gradient(ellipse 60% 40% at 78% 8%,rgba(232,226,213,.05),transparent 70%),radial-gradient(ellipse 46% 34% at -6% 86%,rgba(199,62,44,.05),transparent 72%),var(--washi)}
 .list-watermark{position:fixed;z-index:0;pointer-events:none;writing-mode:vertical-rl;font-family:'Yuji Syuku',serif;line-height:.82;letter-spacing:.1em;user-select:none}

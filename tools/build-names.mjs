@@ -46,19 +46,29 @@ const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const cap = (s) => s[0].toUpperCase() + s.slice(1);
 
-function analyze(name) {
-  const toks = tokenize(toRomaji(name));
+function analyzeReading(name, vi) {
+  const toks = tokenize(toRomaji(name, vi));
   if (!toks.length) return null;
   const def = toks.map((t) => ATEJI[t][0]);
   return {
-    name,
-    Name: cap(name),
     toks,
     kanji: def.map(([k]) => k).join(""),
     meanings: def.map(([, m]) => m),
     variants: toks.map((t) => ATEJI[t]),
     combos: toks.reduce((n, t) => n * ATEJI[t].length, 1),
   };
+}
+function analyze(name) {
+  // readings[0] (the most common pronunciation) is the page default; extra
+  // readings become a client-side toggle while meta/FAQ/schema stay on default.
+  const count = Math.max(1, nameVariants(name).length);
+  const readings = [];
+  for (let i = 0; i < count; i++) {
+    const r = analyzeReading(name, i);
+    if (r) readings.push(r);
+  }
+  if (!readings.length) return null;
+  return { name, Name: cap(name), say: NAME_SAY[name] || null, readings, ...readings[0] };
 }
 
 // ---- テンプレート（本体の和紙トーンを踏襲。本体CSSには触らない）----
@@ -102,6 +112,13 @@ footer{border-top:1px solid var(--line);margin-top:56px;padding:24px 0 40px;colo
 footer a{color:var(--gold)}
 p{margin:10px 0}
 .body-copy{color:var(--ink);max-width:720px}
+.say-pick{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 0}
+.say-q{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.say-b{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.04em;padding:8px 14px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:.15s}
+.say-b:hover{border-color:var(--gold);color:var(--ink)}
+.say-b.on{background:var(--gold);color:#131310;border-color:var(--gold);font-weight:700}
+.say-b .ss{display:block;font-size:10px;letter-spacing:.08em;opacity:.72;margin-top:2px;font-weight:400}
+.vgrp[hidden]{display:none}
 `;
 
 // The name index has its own quiet, asymmetric background composition.
@@ -162,10 +179,48 @@ function pageHtml(d, all) {
       },
     ],
   };
-  const sylBlocks = d.toks
-    .map((t, i) => `<p class="syl">“${esc(t)}” — ${d.variants[i].length} kanji to choose from</p>
-<div class="alts">${d.variants[i].map(([k, m]) => `<div class="alt"><span class="kj">${esc(k)}</span><span class="mm">${esc(m)}</span></div>`).join("")}</div>`)
+  const sylBlocks = (r) => r.toks
+    .map((t, i) => `<p class="syl">“${esc(t)}” — ${r.variants[i].length} kanji to choose from</p>
+<div class="alts">${r.variants[i].map(([k, m]) => `<div class="alt"><span class="kj">${esc(k)}</span><span class="mm">${esc(m)}</span></div>`).join("")}</div>`)
     .join("\n");
+  // Per-reading content block. The generator link carries the pick as #Name~n.
+  const genHash = (i) => encodeURIComponent(d.Name + (i > 0 ? `~${i + 1}` : ""));
+  const readingBlock = (r, i) => {
+    const rm = r.meanings.join(" · ");
+    return `<div class="vgrp" data-v="${i}"${i > 0 ? " hidden" : ""}>
+  <div class="hero">
+    <div class="card"><span class="k">${esc(r.kanji)}</span><div class="r">${esc(d.Name)}</div><div class="m">${esc(rm)}</div></div>
+    <div>
+      <h2 style="margin-top:0">${esc(r.kanji)} — “${esc(rm)}”</h2>
+      <p class="body-copy">${esc(d.Name)} sounds like <b>${esc(r.toks.join(" · "))}</b> in Japanese. Matching each sound to a kanji gives <b>${esc(r.kanji)}</b> — one of <b>${r.combos} possible kanji spellings</b> of ${esc(d.Name)}. Every character below shares the sound but carries a different meaning, so the final choice is yours.</p>
+      <a class="cta" href="../#${genHash(i)}">Create your ${esc(d.Name)} kanji art — free ✦</a>
+      <p class="note">Instant download · your name never leaves your browser</p>
+    </div>
+  </div>
+
+  <h2>How ${esc(d.Name)} becomes kanji</h2>
+  <table>
+    <tr><th>Sound</th><th>Kanji</th><th>Meaning</th></tr>
+    ${r.toks.map((t, j) => `<tr><td>${esc(t)}</td><td><span class="kj">${esc(r.variants[j][0][0])}</span></td><td>${esc(r.variants[j][0][1])}</td></tr>`).join("\n    ")}
+  </table>
+
+  <h2>Every kanji choice for ${esc(d.Name)}</h2>
+  <p class="body-copy">Pick a different character for any syllable — love, dreams, strength, light — and the art updates instantly in the <a style="color:var(--gold)" href="../#${genHash(i)}">generator</a>.</p>
+  ${sylBlocks(r)}
+</div>`;
+  };
+  const multi = d.readings.length > 1;
+  const sayPicker = !multi ? "" : `<div class="say-pick" aria-label="How do you say it?">
+    <span class="say-q">How do you say it?</span>
+    ${d.readings.map((r, i) => `<button class="say-b${i === 0 ? " on" : ""}" data-v="${i}">${esc((d.say && d.say[i]) || r.toks.join("-"))}<span class="ss">${esc(r.toks.join(" · "))}</span></button>`).join("\n    ")}
+  </div>`;
+  const sayScript = !multi ? "" : `<script>
+document.addEventListener("click",function(e){
+  var b=e.target.closest(".say-b");if(!b)return;
+  document.querySelectorAll(".say-b").forEach(function(x){x.classList.toggle("on",x===b)});
+  document.querySelectorAll(".vgrp").forEach(function(g){g.hidden=g.dataset.v!==b.dataset.v});
+});
+</script>`;
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -192,26 +247,8 @@ ${FONTS_LINK}
   <div class="brand"><a href="../">Kanji My Name</a></div>
   <h1>${esc(d.Name)} in Japanese Kanji</h1>
   <p class="sub">One way to write ${esc(d.Name)} in kanji — with meanings you choose yourself, in the Japanese <i>ateji</i> (当て字) tradition.</p>
-
-  <div class="hero">
-    <div class="card"><span class="k">${esc(d.kanji)}</span><div class="r">${esc(d.Name)}</div><div class="m">${esc(mm)}</div></div>
-    <div>
-      <h2 style="margin-top:0">${esc(d.kanji)} — “${esc(mm)}”</h2>
-      <p class="body-copy">${esc(d.Name)} sounds like <b>${esc(d.toks.join(" · "))}</b> in Japanese. Matching each sound to a kanji gives <b>${esc(d.kanji)}</b> — one of <b>${d.combos} possible kanji spellings</b> of ${esc(d.Name)}. Every character below shares the sound but carries a different meaning, so the final choice is yours.</p>
-      <a class="cta" href="../#${encodeURIComponent(d.Name)}">Create your ${esc(d.Name)} kanji art — free ✦</a>
-      <p class="note">Instant download · your name never leaves your browser</p>
-    </div>
-  </div>
-
-  <h2>How ${esc(d.Name)} becomes kanji</h2>
-  <table>
-    <tr><th>Sound</th><th>Kanji</th><th>Meaning</th></tr>
-    ${d.toks.map((t, i) => `<tr><td>${esc(t)}</td><td><span class="kj">${esc(d.variants[i][0][0])}</span></td><td>${esc(d.variants[i][0][1])}</td></tr>`).join("\n    ")}
-  </table>
-
-  <h2>Every kanji choice for ${esc(d.Name)}</h2>
-  <p class="body-copy">Pick a different character for any syllable — love, dreams, strength, light — and the art updates instantly in the <a style="color:var(--gold)" href="../#${encodeURIComponent(d.Name)}">generator</a>.</p>
-  ${sylBlocks}
+  ${sayPicker}
+  ${d.readings.map(readingBlock).join("\n")}
 
   <h2>Tattoo, gift &amp; wall art ideas</h2>
   <p class="body-copy">${esc(d.kanji)} makes striking vertical calligraphy — a popular choice for a <b>kanji name tattoo</b>, a personalised <b>Japanese name gift</b>, or framed <b>wall art</b>. Because you can read this page, you (and your tattoo artist) know exactly what each character means — no mystery kanji.</p>
@@ -224,6 +261,7 @@ ${FONTS_LINK}
 
   <footer>Kanji My Name · handcrafted with 愛 · <a href="../">Try your own name →</a></footer>
 </div>
+${sayScript}
 </body>
 </html>
 `;
