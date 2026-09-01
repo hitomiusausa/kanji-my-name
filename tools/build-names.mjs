@@ -155,6 +155,10 @@ footer a{color:var(--gold)}
 .flogo{display:inline-block;margin-bottom:12px}
 .flogo img{width:84px;height:84px;display:block;opacity:.92;transition:opacity .2s,transform .2s}
 .flogo:hover img{opacity:1;transform:rotate(-3deg)}
+.og-preview{display:block;width:100%;height:auto;margin:20px 0 0;box-shadow:0 0 60px rgba(184,146,80,.12),0 24px 48px rgba(0,0,0,.45)}
+.az-nav{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}
+.az-nav a{border:1px solid var(--line);color:var(--ink);text-decoration:none;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-family:'Shippori Mincho',serif;font-size:15px}
+.az-nav a:hover{border-color:var(--gold);color:var(--gold)}
 p{margin:10px 0}
 .body-copy{color:var(--ink);max-width:720px}
 .say-pick{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 0}
@@ -332,6 +336,7 @@ ${FONTS_LINK}
   <div class="brand"><a href="../">Kanji My Name</a></div>
   <h1>${esc(d.Name)} in Japanese Kanji</h1>
   <p class="sub"><b>${esc(d.Name)} in kanji: ${esc(d.kanji)}</b> — one way to write ${esc(d.Name)}, with meanings you choose yourself, in the Japanese <i>ateji</i> (当て字) tradition.${hasApprox ? ` Some sounds have no exact kanji; ateji tradition uses the closest reading — marked ≈ below (e.g. ヴァ → ba, フィ → hi).` : ""}</p>
+  <img class="og-preview" src="../image/og/${d.name}.jpg" alt="${esc(d.Name)} in kanji: ${esc(d.kanji)} (${esc(d.meanings.join(" · "))})" width="1200" height="630" loading="lazy">
   ${artNotes}
   ${sayPicker}
   ${d.readings.map(readingBlock).join("\n")}
@@ -377,6 +382,7 @@ function hubHtml(all) {
     ],
   };
   for (const d of all) (groups[d.Name[0]] ??= []).push(d);
+  const letters = Object.keys(groups).sort();
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -405,13 +411,97 @@ ${FONTS_LINK}
   <div class="brand"><a href="../">Kanji My Name</a></div>
   <h1>Names in Japanese Kanji</h1>
   <p class="sub">${all.length} names · ${totalCombos} possible kanji spellings. Each kanji shown here is one sound-based <i>ateji</i> option — open a name to explore other combinations, or <a style="color:var(--gold)" href="../">create your own →</a></p>
-  ${Object.keys(groups).sort().map((L) => `<h2>${L}</h2><div class="rel">${groups[L].map((d) => `<a href="${d.name}">${esc(d.Name)} ${esc(d.kanji)}</a>`).join("")}</div>`).join("\n  ")}
+  <div class="az-nav" aria-label="Browse by first letter">${letters.map((L) => `<a href="${L.toLowerCase()}">${L}</a>`).join("")}</div>
+  ${letters.map((L) => `<h2>${L}</h2><div class="rel">${groups[L].map((d) => `<a href="${d.name}">${esc(d.Name)} ${esc(d.kanji)}</a>`).join("")}</div>`).join("\n  ")}
   <footer><a href="../" class="flogo" aria-label="Kanji My Name — home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../">Try your own name →</a> · <a href="../about">About</a> · <a href="../terms">Terms</a> · <a href="../tokushoho">Legal Notice</a></div><div style="margin-top:6px">Made in Japan by a native speaker &amp; Japanese-language teacher</div></footer>
 </div>
 </body>
 </html>
 `;
 }
+
+// Task F: A-Z browse pages (/names/a … /names/z). Only letters with at least one
+// name get a page and a link — no empty pages, no dead links (see hubHtml's az-nav).
+function letterHtml(letter, items, all) {
+  const sorted = items.slice().sort((a, b) => a.Name.localeCompare(b.Name));
+  const url = `${SITE}/names/${letter.toLowerCase()}`;
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage", "@id": `${url}#webpage`, url,
+    name: `Names Starting with "${letter}" in Kanji`, inLanguage: "en",
+    description: `Browse ${sorted.length} names starting with "${letter}" and their Japanese kanji spellings.`,
+    isPartOf: { "@id": `${SITE}/#website` },
+    mainEntity: {
+      "@type": "ItemList", "@id": `${url}#names`, numberOfItems: sorted.length,
+      itemListElement: sorted.map((d, i) => ({ "@type": "ListItem", position: i + 1, name: `${d.Name} in Kanji`, url: `${SITE}/names/${d.name}` })),
+    },
+  };
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Names Starting with "${esc(letter)}" in Kanji — ${sorted.length} Names | Kanji My Name</title>
+<meta name="description" content="Browse ${sorted.length} names starting with &quot;${esc(letter)}&quot; and their Japanese kanji spellings, meanings, and free calligraphy name art.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<link rel="canonical" href="${url}">
+<meta property="og:url" content="${url}">
+<meta property="og:title" content="Names Starting with &quot;${esc(letter)}&quot; in Kanji">
+<meta property="og:description" content="Browse ${sorted.length} names starting with &quot;${esc(letter)}&quot; and their Japanese kanji spellings.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kanji My Name">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="${SOCIAL_IMAGE}">
+<meta name="twitter:card" content="summary_large_image">
+${ICON}
+${FONTS_LINK}
+<style>${CSS}</style>
+<script type="application/ld+json">${JSON.stringify(ld)}</script>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><a href="../">Kanji My Name</a></div>
+  <h1>Names Starting with "${esc(letter)}"</h1>
+  <p class="sub">${sorted.length} name${sorted.length === 1 ? "" : "s"} in kanji, starting with "${esc(letter)}". <a style="color:var(--gold)" href="./">All letters →</a></p>
+  <div class="rel">${sorted.map((d) => `<a href="${d.name}">${esc(d.Name)} ${esc(d.kanji)}</a>`).join("")}</div>
+  <footer><a href="../" class="flogo" aria-label="Kanji My Name — home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../">Try your own name →</a> · <a href="../about">About</a> · <a href="../terms">Terms</a> · <a href="../tokushoho">Legal Notice</a></div><div style="margin-top:6px">Made in Japan by a native speaker &amp; Japanese-language teacher</div></footer>
+</div>
+</body>
+</html>
+`;
+}
+
+// Task F: build & write tools/site-stats.json, then patch the two hand-authored
+// pages' stat spans in place. Numbers are always derived from `all` — never typed
+// by hand — so index.html/about.html stay in sync with the dictionary and names.txt.
+function writeStats(all) {
+  const stats = {
+    names: all.length,
+    combos: all.reduce((total, d) => total + d.combos, 0),
+    generatedAt: new Date().toISOString(),
+  };
+  fs.writeFileSync(path.join(ROOT, "tools", "site-stats.json"), JSON.stringify(stats, null, 2) + "\n");
+  const combosFmt = stats.combos.toLocaleString("en-US");
+  for (const file of ["index.html", "about.html"]) {
+    const p = path.join(ROOT, file);
+    let html = fs.readFileSync(p, "utf8");
+    html = html.replace(/(id="statNames">)[\d,]+(<)/, `$1${stats.names}$2`);
+    html = html.replace(/(id="statCombos">)[\d,]+(<)/, `$1${combosFmt}$2`);
+    fs.writeFileSync(p, html);
+  }
+  return stats;
+}
+
+// Task F: image sitemap. og:image files already exist (tools/build-og.mjs, not run
+// here) — this just references them, 500 <image:image> entries, one per name.
+function imagesSitemapXml(all) {
+  const entries = all.map((d) => {
+    const title = `${d.Name} in kanji: ${d.kanji}`;
+    const caption = d.meanings.join(" · ");
+    return `  <url>\n    <loc>${SITE}/names/${d.name}</loc>\n    <image:image>\n      <image:loc>${SITE}/image/og/${d.name}.jpg</image:loc>\n      <image:title>${escXml(title)}</image:title>\n      <image:caption>${escXml(caption)}</image:caption>\n    </image:image>\n  </url>`;
+  });
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${entries.join("\n")}\n</urlset>\n`;
+}
+const escXml = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 // ---- 生成 ----
 const all = [];
@@ -430,12 +520,44 @@ for (const d of all) {
 }
 if (!only) {
   fs.writeFileSync(path.join(outDir, "index.html"), hubHtml(all));
-  const urls = [`${SITE}/`, `${SITE}/about`, `${SITE}/terms`, `${SITE}/tokushoho`, ...GUIDE_SLUGS.map((s) => `${SITE}/guide/${s}`), `${SITE}/names/`, ...all.map((d) => `${SITE}/names/${d.name}`)];
+
+  // Task F: A-Z browse pages — one per letter that actually has names. No page,
+  // no link, no sitemap entry for a letter with zero names (e.g. currently U, Y).
+  const groups = {};
+  for (const d of all) (groups[d.Name[0]] ??= []).push(d);
+  const letters = Object.keys(groups).sort();
+  for (const L of letters) {
+    fs.writeFileSync(path.join(outDir, L.toLowerCase() + ".html"), letterHtml(L, groups[L], all));
+  }
+
+  // Task F: derived stats -> tools/site-stats.json + index.html/about.html spans.
+  const stats = writeStats(all);
+
+  // Task F: sitemap.xml is now a sitemap index over sitemap-pages.xml (every
+  // crawlable page, including the new A-Z pages) and sitemap-images.xml (the 500
+  // per-name OG images).
+  const urls = [
+    `${SITE}/`, `${SITE}/about`, `${SITE}/terms`, `${SITE}/tokushoho`,
+    ...GUIDE_SLUGS.map((s) => `${SITE}/guide/${s}`),
+    `${SITE}/names/`,
+    ...letters.map((L) => `${SITE}/names/${L.toLowerCase()}`),
+    ...all.map((d) => `${SITE}/names/${d.name}`),
+  ];
   fs.writeFileSync(
-    path.join(ROOT, "sitemap.xml"),
+    path.join(ROOT, "sitemap-pages.xml"),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
       urls.map((u) => `  <url><loc>${u}</loc></url>`).join("\n") +
       `\n</urlset>\n`
   );
+  fs.writeFileSync(path.join(ROOT, "sitemap-images.xml"), imagesSitemapXml(all));
+  fs.writeFileSync(
+    path.join(ROOT, "sitemap.xml"),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+      `  <sitemap><loc>${SITE}/sitemap-pages.xml</loc></sitemap>\n` +
+      `  <sitemap><loc>${SITE}/sitemap-images.xml</loc></sitemap>\n` +
+      `</sitemapindex>\n`
+  );
+  console.log(`names analyzed: ${all.length} / pages written: ${wrote} + index + ${letters.length} A-Z pages + sitemap index (stats: ${stats.names} names, ${stats.combos.toLocaleString("en-US")} combos)`);
+} else {
+  console.log(`names analyzed: ${all.length} / pages written: ${wrote} (--only ${only})`);
 }
-console.log(`names analyzed: ${all.length} / pages written: ${wrote}${only ? " (--only " + only + ")" : " + index + sitemap.xml"}`);

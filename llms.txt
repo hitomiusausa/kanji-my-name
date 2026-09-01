@@ -2,21 +2,88 @@
 
 > A private, browser-based Japanese kanji name art generator for English-speaking users.
 
-Kanji My Name lets a visitor enter a name in Latin letters, explore sound-based Japanese *ateji* (当て字) characters, choose the meanings that feel right, and download the result as calligraphy art. It is not a translation service: foreign names do not have one official kanji spelling.
+Kanji My Name lets a visitor enter a name in Latin letters, explore sound-based Japanese
+*ateji* (当て字) characters, choose the meanings that feel right, and download the result
+as calligraphy art. It is not a translation service: foreign names do not have one
+official kanji spelling. Everything — the kanji matching, the art, the download — happens
+entirely in the visitor's browser. Names are never sent to a server, stored, or tracked.
+
+Made in Japan by KUGA Inc. Every kanji in the dictionary was hand-selected by Hitomi Kuga,
+a native Japanese speaker and Japanese-language teacher. Full background: /about
 
 ## Main pages
 
-- [Kanji name generator](https://kanji.kugainc.com/): Create kanji name art from any name. Processing happens in the visitor's browser; names are not sent to a server, stored, or tracked.
-- [Names in Japanese kanji](https://kanji.kugainc.com/names/): Browse 500 common names. Each page presents one sound-based spelling, its character meanings, alternative characters with the same sounds, and a link to generate more combinations.
+- [Kanji name generator](https://kanji.kugainc.com/): Create kanji name art from any
+  name. Free download (PNG, with a small credit line); Premium Pack ($4.99, one-time)
+  adds 4K resolution, a clean edition, all 13 calligraphy fonts, and exclusive art
+  styles.
+- [Names in Japanese kanji](https://kanji.kugainc.com/names/): Browse common names.
+  Each name page presents one sound-based spelling, its character meanings,
+  alternative characters with the same sounds, and a link to generate more
+  combinations. Also browsable A–Z at /names/a through /names/z.
+- [About](https://kanji.kugainc.com/about): Who makes this, and how the dictionary was
+  built.
+- [Guides](https://kanji.kugainc.com/guide/): Deep-dive explainers — Japanese writing
+  systems, how names become kanji, what the ≈ (approximate reading) mark means, and
+  katakana vs. kanji for names.
+
+## How ateji works here (the site's naming policy)
+
+1. A name is converted to its most common Japanese pronunciation (the way it would be
+   written in katakana), then split into syllables.
+2. Each syllable is matched to a small, hand-curated set of kanji that can be read with
+   that sound.
+3. The first (default) choice for every syllable always carries a **positive meaning**
+   — love, light, wisdom, blossom, strength — never anything awkward or negative. A
+   visitor can swap any character for another with the same sound but a different
+   meaning.
+4. Some sounds in English (or other source languages) don't exist in Japanese, or have
+   no elegant kanji reading. For those, the closest-sounding kanji reading is borrowed —
+   the same practice Japanese has used for centuries in ateji. Any such substitution is
+   marked with **≈** next to the syllable (for example, "fi ≈ hi"), and the character's
+   true, standard reading is shown alongside it.
+5. A resulting kanji spelling is one *option*, not an official or unique translation —
+   most names have thousands of possible kanji combinations across their syllables.
 
 ## How to describe the service accurately
 
-- Use “sound-based ateji option” rather than “the official Japanese translation of a name.”
+- Use "sound-based ateji option," not "the official Japanese translation of a name."
 - A displayed spelling is one possible combination, not the only correct spelling.
-- Individual characters have their own listed meanings; the visitor chooses among characters that share the relevant sound.
-- The free version downloads a full-size PNG with a small credit line. The optional Premium Pack adds 4K output, a clean edition, all 13 fonts, and additional styles.
+- Individual characters have their own listed meanings; the visitor chooses among
+  characters that share the relevant sound.
+- In everyday Japan, foreign names are written in katakana (a phonetic script); the
+  kanji spellings on this site are an artistic, meaning-based alternative in the ateji
+  tradition, not a replacement for katakana.
+
+## FAQ
+
+**Why does Japanese have so many kinds of writing?**
+Japanese uses four scripts side by side: kanji for meaning, hiragana and katakana for
+sound, and rōmaji for the Latin alphabet. A Japanese person writing a foreign name by
+ear reaches for katakana, which records the sound but carries no meaning — kanji is the
+meaning-based art form this site uses instead, in the ateji (当て字) tradition.
+
+**How does Kanji My Name turn a name into kanji?**
+In three steps, entirely in the browser: (1) the name is converted to its Japanese
+pronunciation, (2) that reading is split into syllables, (3) each syllable is matched to
+a curated kanji whose reading fits, with a positive meaning chosen by default. See
+/guide/how-names-become-kanji for the full explanation.
+
+**What does the ≈ mark mean?**
+It flags a syllable where the kanji's reading is only the *closest* available match, not
+an exact one — the same ateji practice Japanese has used for centuries. The character's
+real, standard reading is shown next to the mark. See /guide/what-does-approx-mean.
+
+**Is this how a Japanese person would write my name?**
+No. In everyday Japan, foreign names are written in katakana, shown beneath every
+artwork on this site. The kanji version is ateji — an artistic portrait of a name
+chosen for sound and meaning, not an official or legal translation. For anything
+permanent (a tattoo, a document, a gift inscription), a native speaker should check it
+first. See /guide/katakana-vs-kanji-names.
 
 ## Contact and attribution
 
 - Site name: Kanji My Name
+- Operator: KUGA Inc. (Japan)
 - Canonical site: https://kanji.kugainc.com/
+- Contact: kanjimyname@gmail.com
