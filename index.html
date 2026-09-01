@@ -721,19 +721,35 @@ function draw(hiRes){
   x.textAlign="center";x.fillStyle=st.ink;
   x.shadowColor="rgba(0,0,0,.18)";x.shadowBlur=8*scale;x.shadowOffsetY=4*scale;
   if(currentStyle==="enso"){
-    // 円相：掛すれた一筆の円の真中に文字列（5字以上は縦書き2列・右列先行）
+    // 円相：掛すれた一筆の円の真中に文字列。縦横レイアウトに追従（5字以上は2列/2行に折り返し）
     const rad=Math.min(W,H)*.37,ccx=W/2,ccy=H*.47;
     ensoCircle(x,ccx,ccy,rad);
     x.fillStyle=st.ink;
-    const cols=n>4?2:1,rows=Math.ceil(n/cols);
-    const size=Math.min(300*scale,(rad*2*.68)/rows,cols>1?rad*.82:300*scale);
-    const lh=size*1.06,colW=size*1.14;
-    x.font=fontFor(size);x.textBaseline="middle";
-    for(let ci=0;ci<cols;ci++){
-      const colChars=kanji.slice(ci*rows,(ci+1)*rows);
-      const cx0=ccx+(cols>1?(cols-1)/2*colW-ci*colW:0);
-      const startY=ccy-lh*(colChars.length-1)/2;
-      colChars.forEach((k,i)=>x.fillText(k,cx0,startY+i*lh));
+    x.textBaseline="middle";
+    if(portrait){
+      // 縦書き（右列先行）
+      const cols=n>4?2:1,rows=Math.ceil(n/cols);
+      const size=Math.min(300*scale,(rad*2*.68)/rows,cols>1?rad*.82:300*scale);
+      const lh=size*1.06,colW=size*1.14;
+      x.font=fontFor(size);
+      for(let ci=0;ci<cols;ci++){
+        const colChars=kanji.slice(ci*rows,(ci+1)*rows);
+        const cx0=ccx+(cols>1?(cols-1)/2*colW-ci*colW:0);
+        const startY=ccy-lh*(colChars.length-1)/2;
+        colChars.forEach((k,i)=>x.fillText(k,cx0,startY+i*lh));
+      }
+    }else{
+      // 横書き（上段先行）
+      const rows=n>4?2:1,cols=Math.ceil(n/rows);
+      const size=Math.min(300*scale,(rad*2*.68)/cols,rows>1?rad*.82:300*scale);
+      const lw=size*1.06,rowH=size*1.14;
+      x.font=fontFor(size);
+      for(let ri=0;ri<rows;ri++){
+        const rowChars=kanji.slice(ri*cols,(ri+1)*cols);
+        const cy0=ccy-(rows>1?(rows-1)/2*rowH:0)+ri*rowH;
+        const startX=ccx-lw*(rowChars.length-1)/2;
+        rowChars.forEach((k,i)=>x.fillText(k,startX+i*lw,cy0));
+      }
     }
     x.textBaseline="alphabetic";
   }else if(portrait){
