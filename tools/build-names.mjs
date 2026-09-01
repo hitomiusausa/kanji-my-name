@@ -207,15 +207,17 @@ function pageHtml(d, all) {
       if (w && w.name !== d.name && !rel.includes(w) && rel.length < 8) rel.push(w);
     }
   }
+  // Fix 5: default-reading katakana for the tattoo FAQ (same source as the Task B note).
+  const kata0 = toKatakana(nameVariants(d.name)[0] || toRomaji(d.name, 0));
   const faq = [
     [`What is the kanji for ${d.Name}?`,
-     `There is no single official kanji for ${d.Name}. This is one sound-based ateji (当て字) option: ${d.kanji}, read "${d.toks.join("-")}", with the meanings "${mm}". You can swap a character for another with the same sound: ${d.Name} has ${d.combos} possible kanji spellings in this generator.`],
+     `There is no single official kanji for ${d.Name}. This is one sound-based ateji (当て字) option: ${d.kanji}, read as "${d.toks.join("-")}", with the meanings "${mm}". You can swap a character for another with the same or closest Japanese sound: ${d.Name} has ${d.combos} possible kanji spellings in this generator.`],
     [`Is ${d.kanji} suitable for a tattoo?`,
-     `Yes — ${d.kanji} is a phonetic ateji spelling of ${d.Name}, and each character's meaning is listed on this page, so you know exactly what your tattoo says. For stroke-accurate line work, generate the free art below and bring the high-resolution version to your artist.`],
+     `It can be a starting point for a tattoo design. Because tattoos are permanent, we recommend having both the katakana${kata0 ? ` (${kata0})` : ""} and the kanji checked by a native Japanese speaker before committing.`],
     [`What does ${d.kanji} mean?`,
      `Character by character, ${d.kanji} reads ${d.toks.map((t, i) => {
        const e = d.variants[i][d.picks[i]], ts = trueSound(t, e);
-       return `${e[0]} ("${e[1]}", read "${ts}"${ts !== t ? `, used for the "${t}" sound` : ""})`;
+       return `${e[0]} ("${e[1]}", read as "${ts}"${ts !== t ? `, used for the "${t}" sound` : ""})`;
      }).join(", ")}. Together they sound like "${d.Name}" while carrying the meanings ${mm}.`],
     ...SHARED_FAQ,
   ];
@@ -285,7 +287,7 @@ function pageHtml(d, all) {
     <div class="card"><span class="k">${esc(r.kanji)}</span><div class="r">${esc(d.Name)}</div><div class="m">${esc(rm)}</div></div>
     <div>
       <h2 style="margin-top:0">${esc(r.kanji)} — “${esc(rm)}”</h2>
-      <p class="body-copy">${esc(d.Name)} sounds like <b>${esc(r.toks.join(" · "))}</b> in Japanese. Matching each sound to a kanji gives <b>${esc(r.kanji)}</b> — one of <b>${r.combos} possible kanji spellings</b> of ${esc(d.Name)}. Every character below shares the sound but carries a different meaning, so the final choice is yours.</p>
+      <p class="body-copy">${esc(d.Name)} sounds like <b>${esc(r.toks.join(" · "))}</b> in Japanese. Matching each sound to a kanji gives <b>${esc(r.kanji)}</b> — one of <b>${r.combos} possible kanji spellings</b> of ${esc(d.Name)}. Every character below has the same or closest Japanese sound but a different meaning, so the final choice is yours.</p>
       <a class="cta" href="../#${genHash(i)}">Create your ${esc(d.Name)} kanji art — free</a>
       <p class="note">Instant download · your name never leaves your browser</p>
     </div>
@@ -319,7 +321,7 @@ document.addEventListener("click",function(e){
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(d.Name)} in Kanji (${esc(d.kanji)}) — Meaning &amp; Name Art | Kanji My Name</title>
-<meta name="description" content="${esc(`${d.Name} in Japanese kanji: ${d.kanji} ("${mm}"). See all ${d.combos} kanji spellings of ${d.Name} with meanings, and download free calligraphy name art — tattoo-ready, gift-worthy.`)}">
+<meta name="description" content="${esc(`${d.Name} in Japanese kanji: ${d.kanji} ("${mm}"). See all ${d.combos} kanji spellings of ${d.Name} with meanings, and download free calligraphy name art — for tattoo ideas, gifts, and wall art.`)}">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <link rel="canonical" href="${url}">
 <meta property="og:url" content="${url}">

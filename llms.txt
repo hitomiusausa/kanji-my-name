@@ -19,7 +19,7 @@ a native Japanese speaker and Japanese-language teacher. Full background: /about
   styles.
 - [Names in Japanese kanji](https://kanji.kugainc.com/names/): Browse common names.
   Each name page presents one sound-based spelling, its character meanings,
-  alternative characters with the same sounds, and a link to generate more
+  alternative characters with the same or closest Japanese sound, and a link to generate more
   combinations. Also browsable A–Z at /names/a through /names/z.
 - [About](https://kanji.kugainc.com/about): Who makes this, and how the dictionary was
   built.
@@ -40,12 +40,13 @@ a native Japanese speaker and Japanese-language teacher. Full background: /about
 
 1. A name is converted to its most common Japanese pronunciation (the way it would be
    written in katakana), then split into syllables.
-2. Each syllable is matched to a small, hand-curated set of kanji that can be read with
-   that sound.
+2. Each syllable is matched to a small, hand-curated set of kanji with the same or
+   closest Japanese sound. Long vowels are shortened (rī becomes ri), as they nearly
+   always are in ateji — the katakana keeps the full length.
 3. The first (default) choice for every syllable always carries a **positive meaning**
    — love, light, wisdom, blossom, strength — never anything awkward or negative. A
-   visitor can swap any character for another with the same sound but a different
-   meaning.
+   visitor can swap any character for another with the same or closest Japanese sound
+   but a different meaning.
 4. Some sounds in English (or other source languages) don't exist in Japanese, or have
    no elegant kanji reading. For those, the closest-sounding kanji reading is borrowed —
    the same practice Japanese has used for centuries in ateji. Any such substitution is
@@ -59,7 +60,7 @@ a native Japanese speaker and Japanese-language teacher. Full background: /about
 - Use "sound-based ateji option," not "the official Japanese translation of a name."
 - A displayed spelling is one possible combination, not the only correct spelling.
 - Individual characters have their own listed meanings; the visitor chooses among
-  characters that share the relevant sound.
+  characters with the same or closest Japanese sound.
 - In everyday Japan, foreign names are written in katakana (a phonetic script); the
   kanji spellings on this site are an artistic, meaning-based alternative in the ateji
   tradition, not a replacement for katakana.
