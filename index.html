@@ -70,6 +70,7 @@ input[type=text]:focus{border-color:var(--gold)}
 .btn-red:hover{color:#131310}
 .btn-red:hover::before{transform:scaleX(1)}
 .btn-red:active{transform:translateY(1px)}
+.btn-red.soon{opacity:.55;border-style:dashed;pointer-events:none;cursor:default}/* STRIPE_URL="#" の間のComing soon表示 */
 @media(prefers-reduced-motion:reduce){.btn-red::before{transition:none}}
 .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
 .btn-4k{background:transparent;border:1px solid var(--gold);color:var(--gold)}
@@ -303,9 +304,9 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
     </div>
     <div style="text-align:center">
       <div class="price"><span id="priceVal">$4.99</span> <small>one-time</small></div>
-      <a class="btn btn-red" id="buyBtn" href="#" style="margin-top:12px" target="_blank" rel="noopener">Get the Premium Pack</a>
+      <a class="btn btn-red" id="buyBtn" style="margin-top:12px" target="_blank" rel="noopener">Get the Premium Pack</a>
       <p style="font-size:12px;color:#8f897b;margin-top:10px">Unlock code revealed right after checkout · lifetime access</p>
-      <p id="lostCode" style="font-size:12px;color:#8f897b;margin-top:6px;display:none">Lost your code? <a href="#" style="color:#b89250">Email us</a> with your Stripe receipt — we’ll resend it.</p>
+      <p id="lostCode" style="font-size:12px;color:#8f897b;margin-top:6px;display:none">Lost your code? <a style="color:#b89250">Email us</a> with your Stripe receipt — we’ll resend it.</p>
     </div>
   </section>
 
@@ -1166,10 +1167,12 @@ document.getElementById("shareLinkBtn").onclick=async()=>{
     try{document.execCommand("copy");shareNotice("Share link copied");}finally{t.remove();}
   }
 };
-document.getElementById("buyBtn").href=STRIPE_URL;
+// STRIPE_URL未設定("#")の間はボタンをComing soon表示に自動切替（定数を入れるだけで復活する設計・D-30 Task 5）
+const buyBtn=document.getElementById("buyBtn");
+if(STRIPE_URL==="#"){buyBtn.classList.add("soon");buyBtn.setAttribute("aria-disabled","true");buyBtn.textContent="Coming soon — launching this week";}
+else buyBtn.href=STRIPE_URL;
 document.getElementById("priceVal").textContent=PRICE;
 if(SUPPORT_EMAIL){const lc=document.getElementById("lostCode");lc.style.display="block";lc.querySelector("a").href="mailto:"+SUPPORT_EMAIL+"?subject=Kanji%20My%20Name%20-%20lost%20unlock%20code";}
-if(STRIPE_URL==="#")document.getElementById("buyBtn").onclick=e=>{e.preventDefault();toast("Premium launches in a few days — the free version is all yours ✦");};
 document.getElementById("codeBtn").onclick=async()=>{
   const v=document.getElementById("codeIn").value.trim();
   if(!v){toast("Enter your unlock code first ✦");return;}
