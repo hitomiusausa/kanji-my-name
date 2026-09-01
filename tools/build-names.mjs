@@ -54,6 +54,25 @@ const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const cap = (s) => s[0].toUpperCase() + s.slice(1);
 
+// Task E: /guide/* pages (independent FAQ deep-dives, see doc/faq-4.md). Listed here so the
+// sitemap and every name page's shared FAQ 1/4 entries stay in sync with the guide slugs.
+const GUIDE_SLUGS = ["japanese-writing-systems", "how-names-become-kanji", "what-does-approx-mean", "katakana-vs-kanji-names"];
+// Shared, condensed versions of FAQ 1 and FAQ 4 from doc/faq-4.md, added to every name page
+// (kept short on purpose — full copy lives on the /guide/ pages and the index FAQ section).
+// Third element is the /guide/ slug this entry links out to.
+const SHARED_FAQ = [
+  [
+    "Why does Japanese have so many kinds of writing?",
+    `Japanese uses four scripts side by side: kanji for meaning, hiragana and katakana for sound, and rōmaji for the Latin alphabet. A Japanese person writing a foreign name by ear reaches for katakana, which records the sound but carries no meaning — kanji is the meaning-based art form this site uses instead, in the ateji (当て字) tradition.`,
+    "japanese-writing-systems",
+  ],
+  [
+    "Is this how a Japanese person would write my name?",
+    `No — in everyday Japan, foreign names are written in katakana, which is why it's shown beneath every artwork here. The kanji version is ateji (当て字): an artistic portrait of a name chosen for sound and meaning, not an official translation, so anything permanent should be checked by a native speaker first.`,
+    "katakana-vs-kanji-names",
+  ],
+];
+
 function analyzeReading(name, vi) {
   const toks = tokenize(toRomaji(name, vi));
   if (!toks.length) return null;
@@ -126,6 +145,8 @@ td .kj{font-family:'Yuji Syuku',serif;font-size:26px;color:var(--head)}
 .qa{border-bottom:1px solid var(--line);padding:14px 0}
 .qa b{display:block;color:var(--head);margin-bottom:4px}
 .qa p{color:var(--muted);font-size:14.5px}
+.qa-more{margin-top:6px;font-size:13px}
+.qa-more a{color:var(--gold)}
 .rel{display:flex;flex-wrap:wrap;gap:8px}
 .rel a{border:1px solid var(--line);color:var(--ink);text-decoration:none;padding:7px 14px;font-size:13px}
 .rel a:hover{border-color:var(--gold)}
@@ -185,6 +206,7 @@ function pageHtml(d, all) {
        const e = d.variants[i][d.picks[i]], ts = trueSound(t, e);
        return `${e[0]} ("${e[1]}", read "${ts}"${ts !== t ? `, used for the "${t}" sound` : ""})`;
      }).join(", ")}. Together they sound like "${d.Name}" while carrying the meanings ${mm}.`],
+    ...SHARED_FAQ,
   ];
   // Task B: same practical-katakana + ateji note as the generator, right under the H1
   // summary. One per reading, reusing the page's existing .vgrp toggle (sayScript) so it
@@ -318,7 +340,7 @@ ${FONTS_LINK}
   <p class="body-copy">${esc(d.kanji)} makes striking vertical calligraphy — a popular choice for a <b>kanji name tattoo</b>, a personalised <b>Japanese name gift</b>, or framed <b>wall art</b>. Because you can read this page, you (and your tattoo artist) know exactly what each character means — no mystery kanji.</p>
 
   <h2>Questions about ${esc(d.Name)} in kanji</h2>
-  ${faq.map(([q, a]) => `<div class="qa"><b>${esc(q)}</b><p>${esc(a)}</p></div>`).join("\n  ")}
+  ${faq.map(([q, a, guideSlug]) => `<div class="qa"><b>${esc(q)}</b><p>${esc(a)}</p>${guideSlug ? `<p class="qa-more"><a href="../guide/${guideSlug}">Read the full guide →</a></p>` : ""}</div>`).join("\n  ")}
 
   <h2>More names in kanji</h2>
   <div class="rel">${rel.map((w) => `<a href="${w.name}">${esc(w.Name)} ${esc(w.kanji)}</a>`).join("")}<a href="./">All names →</a></div>
@@ -408,7 +430,7 @@ for (const d of all) {
 }
 if (!only) {
   fs.writeFileSync(path.join(outDir, "index.html"), hubHtml(all));
-  const urls = [`${SITE}/`, `${SITE}/about`, `${SITE}/terms`, `${SITE}/tokushoho`, `${SITE}/names/`, ...all.map((d) => `${SITE}/names/${d.name}`)];
+  const urls = [`${SITE}/`, `${SITE}/about`, `${SITE}/terms`, `${SITE}/tokushoho`, ...GUIDE_SLUGS.map((s) => `${SITE}/guide/${s}`), `${SITE}/names/`, ...all.map((d) => `${SITE}/names/${d.name}`)];
   fs.writeFileSync(
     path.join(ROOT, "sitemap.xml"),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
