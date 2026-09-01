@@ -56,6 +56,7 @@ h1 em{font-style:normal;color:var(--gold)}
 .goldline::after{content:"";position:absolute;left:0;top:-2px;width:5px;height:5px;background:var(--seal);transform:rotate(45deg)}
 .sub{color:var(--muted);max-width:520px;font-size:15px;line-height:2}
 .app{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin:44px 0 30px;align-items:start}
+.app>*{min-width:0}/* nowrapな子(sp-strip)がgridトラックを押し広げるのを防ぐ */
 @media(max-width:820px){.app{grid-template-columns:1fr}}
 .panel{background:var(--panel);border:1px solid var(--line);padding:28px;position:relative;background-image:var(--fiber);box-shadow:0 24px 60px rgba(0,0,0,.35)}
 .panel::before{content:"";position:absolute;inset:7px;border:1px solid rgba(232,226,213,.06);pointer-events:none;z-index:0}
@@ -110,6 +111,22 @@ canvas{max-width:100%;height:auto;box-shadow:0 0 80px rgba(184,146,80,.14),0 30p
 @media(max-width:480px){.dl-row .btn{width:100%;max-width:300px}}
 .share-status{min-height:20px;margin:9px 0 0;color:var(--seal);font-size:13px;font-weight:600;opacity:0;transition:opacity .2s}
 .share-status.show{opacity:1}
+/* ---- SP: 編集の可視化 (D-30 Task 6) ---- */
+#spCustomize{display:none;margin-top:18px;text-align:left}
+@media(max-width:820px){#spCustomize{display:block}}
+#spCustLbl{background:none;border:none;color:var(--gold);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;padding:0 0 10px;display:inline-flex;align-items:center;gap:8px}
+.bob{display:inline-block;animation:bobY 1.6s ease-in-out infinite}
+@keyframes bobY{0%,100%{transform:translateY(-2px)}50%{transform:translateY(2px)}}
+@media(prefers-reduced-motion:reduce){.bob{animation:none}}
+.styles.sp-strip{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:8px;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.styles.sp-strip .style-b{flex:none;white-space:nowrap}
+#miniBar{position:fixed;top:0;left:0;right:0;z-index:60;height:96px;background:rgba(19,19,16,.97);border-bottom:1px solid var(--gold);display:flex;align-items:center;gap:14px;padding:8px 16px;cursor:pointer}
+#miniBar[hidden]{display:none}
+#miniBar img{height:80px;width:auto;box-shadow:0 4px 18px rgba(0,0,0,.5)}
+#miniBar .mt{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:1.8;min-width:0}
+#miniBar .mt b{display:block;color:var(--gold);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#miniBar .mup{margin-left:auto;color:var(--gold);font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+@media(min-width:821px){#miniBar{display:none!important}}
 .picker{position:fixed;inset:0;background:rgba(8,9,12,.72);display:none;align-items:center;justify-content:center;z-index:50;padding:20px}
 .picker.open{display:flex}
 .picker-card{background:var(--panel);border:1px solid var(--line);padding:28px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto}
@@ -272,7 +289,16 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
       </div>
       <p class="share-status" id="shareStatus" role="status" aria-live="polite"></p>
       <div class="upsell-note">Free download includes a small credit line. <b>Premium unlocks high-resolution, clean artwork, all 13 fonts and exclusive styles — <a href="#premium">explore the Pack ✦</a></b></div>
+      <div id="spCustomize"><!-- SPのみ: 編集できることの可視化 (D-30 Task 6A) -->
+        <button type="button" id="spCustLbl"><span class="bob" aria-hidden="true">▾</span> Customize — style, font, layout &amp; more</button>
+        <div class="styles sp-strip" id="spStyleRow"></div>
+      </div>
     </div>
+  </div>
+  <div id="miniBar" role="button" tabindex="0" aria-label="Back to your kanji art" hidden><!-- SPのみ: 大プレビュー画面外時のミニプレビュー (Task 6B) -->
+    <img id="miniImg" alt="">
+    <div class="mt"><b id="miniStyle"></b><span id="miniFont"></span></div>
+    <span class="mup" aria-hidden="true">▴ art</span>
   </div>
 
   <div class="divider"><span>特別頒布</span></div>
@@ -539,14 +565,18 @@ const STYLE_LIST=[
  {id:"shiro",  label:"Pure White",   free:false}
 ];
 function renderStyleRow(){
-  const row=document.getElementById("styleRow");row.innerHTML="";
-  STYLE_LIST.forEach(s=>{
-    const b=document.createElement("button");
-    b.className="style-b"+(s.id===currentStyle?" on":"");
-    b.dataset.style=s.id;
-    b.textContent=s.free?s.label:s.label+" ✦";
-    if(!s.free){if(premium)b.classList.add("prem");else b.classList.add("sealed");}
-    row.appendChild(b);
+  // #styleRow(コントロール欄)と#spStyleRow(SPアート直下の先出しストリップ・Task 6)の2箇所に同じチップを描く
+  ["styleRow","spStyleRow"].forEach(id=>{
+    const row=document.getElementById(id);if(!row)return;
+    row.innerHTML="";
+    STYLE_LIST.forEach(s=>{
+      const b=document.createElement("button");
+      b.className="style-b"+(s.id===currentStyle?" on":"");
+      b.dataset.style=s.id;
+      b.textContent=s.free?s.label:s.label+" ✦";
+      if(!s.free){if(premium)b.classList.add("prem");else b.classList.add("sealed");}
+      row.appendChild(b);
+    });
   });
 }
 function renderSealRow(){
@@ -625,7 +655,10 @@ async function ensureFont(){
 async function render(hiRes){
   await ensureFont();
   const c=draw(!!hiRes);
-  if(!hiRes){const h=document.querySelector(".canvas-holder");h.classList.remove("thump");void h.offsetWidth;h.classList.add("thump");}
+  if(!hiRes){
+    const h=document.querySelector(".canvas-holder");h.classList.remove("thump");void h.offsetWidth;h.classList.add("thump");
+    const mb=document.getElementById("miniBar");if(mb&&!mb.hidden)updateMini(); // Task 6: 表示中のミニプレビューへ即反映
+  }
   return c;
 }
 
@@ -1040,16 +1073,40 @@ function scrollToArt(){
   if(!mqSP.matches)return;
   document.getElementById("art").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"center"});
 }
+// Task 6: SPの「Customize」導線とミニプレビューバー
+document.getElementById("spCustLbl").onclick=()=>{
+  document.getElementById("sylArea").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"});
+};
+const miniBar=document.getElementById("miniBar");
+function updateMini(){
+  document.getElementById("miniImg").src=document.getElementById("art").toDataURL("image/jpeg",.6);
+  document.getElementById("miniStyle").textContent=STYLE_LIST.find(s=>s.id===currentStyle).label;
+  document.getElementById("miniFont").textContent=FONTS.find(f=>f.id===currentFont).label;
+}
+miniBar.onclick=()=>scrollToArt();
+miniBar.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();scrollToArt();}});
+// 大プレビューが「上に」画面外へ出た時だけ表示（ページ先頭で下に控えている時は出さない）
+// IntersectionObserverは非交差→非交差の瞬間ジャンプ(scrollIntoView等)で発火しないため、scroll時のrAFチェックを併用
+function miniCheck(){
+  const r=document.getElementById("art").getBoundingClientRect();
+  const show=mqSP.matches&&syls.length>0&&r.bottom<=0;
+  if(show&&miniBar.hidden){updateMini();miniBar.hidden=false;}
+  else if(!show&&!miniBar.hidden)miniBar.hidden=true;
+}
+new IntersectionObserver(miniCheck,{threshold:0}).observe(document.getElementById("art"));
+let miniTick=false;
+addEventListener("scroll",()=>{if(!miniTick){miniTick=true;requestAnimationFrame(()=>{miniTick=false;miniCheck();});}},{passive:true});
 document.getElementById("goBtn").onclick=()=>{if(generate(false))scrollToArt();};
 document.getElementById("luckyBtn").onclick=()=>{if(generate(true))scrollToArt();};
 document.getElementById("nameIn").addEventListener("keydown",e=>{if(e.key==="Enter"&&generate(false))scrollToArt()});
-document.getElementById("styleRow").addEventListener("click",e=>{
+function onStyleClick(e){
   const b=e.target.closest(".style-b");if(!b)return;
   const s=b.dataset.style,meta=STYLE_LIST.find(o=>o.id===s);
   if(!meta.free&&!premium){sealedNudge(`“${meta.label}” is sealed — the Premium Pack opens it (${PRICE})`);return;}
-  document.querySelectorAll("#styleRow .style-b").forEach(x=>x.classList.toggle("on",x===b));
-  currentStyle=s;render();
-});
+  currentStyle=s;renderStyleRow();render();
+}
+document.getElementById("styleRow").addEventListener("click",onStyleClick);
+document.getElementById("spStyleRow").addEventListener("click",onStyleClick);
 document.getElementById("sealRow").addEventListener("click",e=>{
   const b=e.target.closest(".style-b");if(!b)return;
   if(b.dataset.seal==="off"&&!premium){sealedNudge(`Removing the seal is sealed — the Premium Pack opens it (${PRICE})`);return;}
