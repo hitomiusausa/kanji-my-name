@@ -8,6 +8,8 @@ Last updated: 2026-09-01 (JST)
 - Name directory: https://kanji-my-name.pages.dev/names/
 - GitHub repository: https://github.com/hitomiusausa/kanji-my-name
 - Delivery: Cloudflare Pages project `kanji-my-name`, deployed from a staged public-assets directory.
+- **Deploying: `git push` alone does NOT update the Pages site.** Run `bash tools/deploy-pages.sh` after pushing — it stages only the public files (index, unlock page, names/, image/, robots, sitemap, llms.txt) and runs `wrangler pages deploy`. Never deploy the full repository directory.
+- Verification gotcha: `/index.html` redirects to `/` with an empty body on Pages — always check `curl -sL https://kanji.kugainc.com/` (clean URLs), not `/index.html`.
 
 ## Current product state
 

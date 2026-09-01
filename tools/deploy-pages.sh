@@ -1,0 +1,20 @@
+#!/bin/bash
+# deploy-pages.sh — Cloudflare Pages へ公開ファイルだけをデプロイする
+# 使い方: bash tools/deploy-pages.sh
+# 注意: リポジトリ丸ごとのデプロイは禁止（HANDOVER.md等の非公開ファイルを含むため）。
+#       公開対象を増やしたら下の PUBLIC_* に追記すること。
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+PUBLIC_FILES=(index.html unlock-80b9aa.html robots.txt sitemap.xml llms.txt)
+PUBLIC_DIRS=(names image)
+
+DIST=".pages-dist"
+rm -rf "$DIST"
+mkdir "$DIST"
+cp "${PUBLIC_FILES[@]}" "$DIST"/
+for d in "${PUBLIC_DIRS[@]}"; do cp -R "$d" "$DIST/$d"; done
+
+npx wrangler pages deploy "$DIST" --project-name kanji-my-name --branch main --commit-dirty=true
+rm -rf "$DIST"
+echo "✓ deployed. verify: https://kanji.kugainc.com/"
