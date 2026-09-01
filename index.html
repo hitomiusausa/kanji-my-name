@@ -84,6 +84,8 @@ input[type=text]:focus{border-color:var(--gold)}
 @keyframes stampIn{0%{transform:scale(1.5) rotate(-5deg);opacity:0}60%{transform:scale(.96) rotate(1deg);opacity:1}100%{transform:scale(1) rotate(0)}}
 .hint{font-size:12.5px;color:var(--muted);margin-top:12px}
 .canvas-holder{position:relative;text-align:center}
+@media(min-width:821px){.panel.canvas-holder{position:sticky;top:20px}}
+#art.transparent{background:repeating-conic-gradient(#ded8ca 0% 25%,#c9c3b4 0% 50%) 0 0/26px 26px}
 canvas{max-width:100%;height:auto;box-shadow:0 0 80px rgba(184,146,80,.14),0 30px 60px rgba(0,0,0,.5)}
 #art{cursor:zoom-in}
 #zoom{position:fixed;inset:0;background:rgba(8,9,12,.9);display:none;align-items:center;justify-content:center;z-index:70;padding:22px;cursor:zoom-out}
@@ -244,6 +246,8 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
         <div class="styles" id="sealRow" style="margin-top:4px"></div>
         <label style="margin-top:18px">Meanings line 意</label>
         <div class="styles" id="meanRow" style="margin-top:4px"></div>
+        <label style="margin-top:18px">Background 紙</label>
+        <div class="styles" id="bgRow" style="margin-top:4px"></div>
         <div class="seal-legend" id="sealLegend"><i>封</i><span><b>封 = “sealed”</b> — these options open with the Premium Pack. Tap one to peek.</span></div>
       </div>
     </div>
@@ -267,6 +271,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
         <li>Ultra high-resolution 4K art — perfect for printing &amp; framing</li>
         <li>No credit line — clean, gallery-ready artwork</li>
         <li>All 13 calligraphy fonts (10 premium-only)</li>
+        <li>Transparent-background PNG — perfect for shirts, stickers &amp; overlays</li>
         <li>Exclusive <i>Gold Leaf</i>, <i>Sumi Storm</i>, <i>Indigo Wave</i>, <i>Ensō</i> &amp; <i>Pure White</i> art styles</li>
         <li>Seal-free edition — remove the hanko for a pure look</li>
         <li>Meanings on or off — keep the poetry, or let the kanji speak alone</li>
@@ -481,7 +486,7 @@ function tokenize(r){
 }
 
 // ===== STATE =====
-let syls=[],choices=[],currentStyle="classic",currentFont="yuji",currentOrient="v",sealOn=true,meaningsOn=true,premium=false;
+let syls=[],choices=[],currentStyle="classic",currentFont="yuji",currentOrient="v",sealOn=true,meaningsOn=true,bgOn=true,premium=false;
 try{premium=localStorage.getItem("kna_premium")==="1"}catch(e){}
 
 const STYLE_LIST=[
@@ -527,6 +532,17 @@ function renderMeanRow(){
     row.appendChild(b);
   });
 }
+function renderBgRow(){
+  const row=document.getElementById("bgRow");row.innerHTML="";
+  [{v:"on",label:"Washi paper 紙",free:true},{v:"off",label:"Transparent",free:false}].forEach(o=>{
+    const b=document.createElement("button");
+    b.className="style-b"+((o.v==="on")===bgOn?" on":"");
+    b.dataset.bg=o.v;
+    b.textContent=o.free?o.label:o.label+" ✦";
+    if(!o.free){if(premium)b.classList.add("prem");else b.classList.add("sealed");}
+    row.appendChild(b);
+  });
+}
 function renderOrientRow(){
   const row=document.getElementById("orientRow");row.innerHTML="";
   [
@@ -550,8 +566,8 @@ const FONTS=[
  {id:"mincho",label:"Mincho 雅",   css:"'Shippori Mincho',serif",   free:true},
  {id:"maru",  label:"Round 丸",    css:"'Zen Maru Gothic',sans-serif",free:true},
  {id:"boku",  label:"Bold Brush 墨",css:"'Reggae One',cursive",      free:false},
- {id:"mai",   label:"Dancing Brush 舞",css:"'Yusei Magic',sans-serif",free:false},
  {id:"gyosho",label:"Calligraphy 書",  css:"'Kouzan Gyousho',serif",  free:false},
+ {id:"mai",   label:"Dancing Brush 舞",css:"'Yusei Magic',sans-serif",free:false},
  {id:"hina",  label:"Heirloom 雛",  css:"'Hina Mincho',serif",       free:false},
  {id:"tegomin",label:"Folk 民",     css:"'New Tegomin',serif",       free:false},
  {id:"decol", label:"Charm 彩",     css:"'Kaisei Decol',serif",      free:false},
@@ -698,25 +714,28 @@ function draw(hiRes){
   const c=hiRes?document.createElement("canvas"):canvas;
   c.width=W;c.height=H;
   const x=c.getContext("2d"),st=STYLES[currentStyle];
-  // background wash
-  const g=x.createRadialGradient(W*.35,H*.25,80*scale,W*.5,H*.5,Math.max(W,H)*.85);
-  g.addColorStop(0,st.bg1);g.addColorStop(1,st.bg2);
-  x.fillStyle=g;x.fillRect(0,0,W,H);
-  decor(x,W,H,scale);
-  // paper texture
-  x.globalAlpha=.04;
-  for(let i=0;i<700;i++){x.fillStyle=Math.random()>.5?"#000":"#fff";x.fillRect(Math.random()*W,Math.random()*H,scale,scale*(1+Math.random()*2));}
-  x.globalAlpha=1;
-  // edge vignette
-  const vg=x.createRadialGradient(W/2,H/2,Math.min(W,H)*.38,W/2,H/2,Math.max(W,H)*.72);
-  vg.addColorStop(0,"rgba(0,0,0,0)");vg.addColorStop(1,"rgba(35,26,12,.09)");
-  x.fillStyle=vg;x.fillRect(0,0,W,H);
-  // frame（enso/shiroは無地のためなし）
-  if(currentStyle!=="enso"&&currentStyle!=="shiro"){
-    x.strokeStyle=st.frame;x.lineWidth=3*scale;
-    x.strokeRect(46*scale,46*scale,W-92*scale,H-92*scale);
-    x.lineWidth=1*scale;x.strokeRect(58*scale,58*scale,W-116*scale,H-116*scale);
+  if(bgOn){
+    // background wash
+    const g=x.createRadialGradient(W*.35,H*.25,80*scale,W*.5,H*.5,Math.max(W,H)*.85);
+    g.addColorStop(0,st.bg1);g.addColorStop(1,st.bg2);
+    x.fillStyle=g;x.fillRect(0,0,W,H);
+    decor(x,W,H,scale);
+    // paper texture
+    x.globalAlpha=.04;
+    for(let i=0;i<700;i++){x.fillStyle=Math.random()>.5?"#000":"#fff";x.fillRect(Math.random()*W,Math.random()*H,scale,scale*(1+Math.random()*2));}
+    x.globalAlpha=1;
+    // edge vignette
+    const vg=x.createRadialGradient(W/2,H/2,Math.min(W,H)*.38,W/2,H/2,Math.max(W,H)*.72);
+    vg.addColorStop(0,"rgba(0,0,0,0)");vg.addColorStop(1,"rgba(35,26,12,.09)");
+    x.fillStyle=vg;x.fillRect(0,0,W,H);
+    // frame（enso/shiroは無地のためなし）
+    if(currentStyle!=="enso"&&currentStyle!=="shiro"){
+      x.strokeStyle=st.frame;x.lineWidth=3*scale;
+      x.strokeRect(46*scale,46*scale,W-92*scale,H-92*scale);
+      x.lineWidth=1*scale;x.strokeRect(58*scale,58*scale,W-116*scale,H-116*scale);
+    }
   }
+  if(!hiRes)c.classList.toggle("transparent",!bgOn);
   const kanji=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]);
   const n=kanji.length||1;
   // one font for the whole name — never mixed (fontFor)
@@ -991,6 +1010,13 @@ document.getElementById("meanRow").addEventListener("click",e=>{
   document.querySelectorAll("#meanRow .style-b").forEach(x=>x.classList.toggle("on",x===b));
   render();
 });
+document.getElementById("bgRow").addEventListener("click",e=>{
+  const b=e.target.closest(".style-b");if(!b)return;
+  if(b.dataset.bg==="off"&&!premium){sealedNudge(`The transparent background is sealed — the Premium Pack opens it (${PRICE})`);return;}
+  bgOn=b.dataset.bg==="on";
+  document.querySelectorAll("#bgRow .style-b").forEach(x=>x.classList.toggle("on",x===b));
+  render();
+});
 document.getElementById("fontRow").addEventListener("click",e=>{
   const b=e.target.closest(".style-b");if(!b)return;
   const f=FONTS.find(f=>f.id===b.dataset.font);
@@ -1134,8 +1160,8 @@ class UnlockFX{
 }
 const FX=new UnlockFX();
 
-function unlockUI(){renderStyleRow();renderFontRow();renderOrientRow();renderSealRow();renderMeanRow();}
-renderStyleRow();renderFontRow();renderOrientRow();renderSealRow();renderMeanRow();
+function unlockUI(){renderStyleRow();renderFontRow();renderOrientRow();renderSealRow();renderMeanRow();renderBgRow();}
+renderStyleRow();renderFontRow();renderOrientRow();renderSealRow();renderMeanRow();renderBgRow();
 document.getElementById("year").textContent=new Date().getFullYear();
 // init from hash or default demo
 window.addEventListener("load",async()=>{
