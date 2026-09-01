@@ -71,7 +71,7 @@ input[type=text]:focus{border-color:var(--gold)}
 .btn-red:hover{color:#131310}
 .btn-red:hover::before{transform:scaleX(1)}
 .btn-red:active{transform:translateY(1px)}
-.btn-red.soon{opacity:.55;border-style:dashed;pointer-events:none;cursor:default}/* STRIPE_URL="#" の間のComing soon表示 */
+.btn-red.soon{opacity:.55;border-style:dashed;pointer-events:none;cursor:default}/* Stripe未接続時のComing soon表示（定数はJS冒頭の1箇所のみ） */
 @media(prefers-reduced-motion:reduce){.btn-red::before{transition:none}}
 .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
 .btn-4k{background:transparent;border:1px solid var(--gold);color:var(--gold)}
@@ -979,7 +979,7 @@ function renderChips(){
     const tok=syls[ci.s],ent=ATEJI[tok][ci.o],[k,m]=ent,ts=trueSound(tok,ent);
     const d=document.createElement("div");d.className="chip";
     d.style.animationDelay=(idx*70)+"ms"; // hanko stamp-in, one press per character
-    d.innerHTML=`<span class="s">${tok}${ts!==tok?` <i class="apx">≈${ts}</i>`:""}</span><span class="k">${k}</span><span class="m">${m} ▾</span>`;
+    d.innerHTML=`<span class="s">${tok}${ts!==tok?` <i class="apx">≈ ${ts}</i>`:""}</span><span class="k">${k}</span><span class="m">${m} ▾</span>`;
     d.onclick=()=>openPicker(idx);
     el.appendChild(d);
   });
