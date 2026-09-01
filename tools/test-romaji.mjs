@@ -55,7 +55,7 @@ eq(toRomaji("cindy"), "sindi", "c before i -> s still works");
 eq(toRomaji("christa"), "kurisuta", "ch before consonant -> k still works");
 eq(toRomaji("beck"), "beku", "ck -> k still works");
 eq(toRomaji("michael"), "maikeru", "NAME_DICT path untouched");
-eq(toRomaji("felix"), "ferikusu", "NAME_DICT + macron norm untouched");
+eq(toRomaji("felix"), "feriku", "NAME_DICT + macron norm + final-kusu compression");
 
 // ---- ch系の名前は辞書でカタカナ発音になっている（Fix Bで規則パスから卒業）----
 eq(toRomaji("charles"), "charuzu", "charles = チャールズ (dict)");
@@ -110,6 +110,13 @@ eq(toRomaji("jesus"), "hesusu", "jesus default = hay-SOOS");
 // ---- Task 2（2026-09-01 レビュー反映）: 長母音の同字連続を規則パスで圧縮 ----
 eq(toRomaji("aaron"), "aron", "aa compresses to one vowel (Aaron != 愛愛…)");
 eq(toRomaji("brooke"), "buroke", "oo compresses to one vowel");
+
+// ---- x/ks→久 1字（2026-09-01 レビュー反映2: 語尾クスを圧縮・語中は保持）----
+eq(toRomaji("alex"), "areku", "dict final kusu -> ku (Alex)");
+eq(toRomaji("max"), "maku", "dict final kusu -> ku (Max)");
+eq(toRomaji("knox"), "noku", "dict final kusu -> ku (Knox)");
+eq(toRomaji("rex"), "reku", "rule-path final x -> ku");
+eq(toRomaji("braxton"), "burakusuton", "mid-word kusu kept (Braxton)");
 
 // ---- 全名前スモーク: names.txt 全員がトークン化でき、全トークンがATEJIに存在 ----
 const list = fs
