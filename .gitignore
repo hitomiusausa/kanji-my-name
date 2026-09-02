@@ -2,6 +2,7 @@ _local/
 design-compare.html
 *.png
 image/og/
+image/preview/
 node_modules/
 tools/og/package-lock.json
 .playwright-cli/

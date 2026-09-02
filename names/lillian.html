@@ -33,11 +33,8 @@ h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(30px,5vw,
 h2{font-family:'Shippori Mincho',serif;font-size:24px;color:var(--head);margin:40px 0 12px}
 .sub{color:var(--muted);max-width:640px;font-size:15px}
 .hero{display:grid;grid-template-columns:280px 1fr;gap:34px;margin:30px 0;align-items:center}
-@media(max-width:700px){.hero{grid-template-columns:1fr}}
-.card{background:linear-gradient(160deg,#f6efdd,#efe6cf);padding:34px 22px;text-align:center;box-shadow:0 0 60px rgba(184,146,80,.12),0 24px 48px rgba(0,0,0,.45)}
-.card .k{writing-mode:vertical-rl;font-family:'Yuji Syuku',serif;font-size:76px;line-height:1.15;color:#191713;margin:0 auto;display:inline-block}
-.card .r{font-family:'Cormorant Garamond',serif;letter-spacing:.4em;color:#7c7462;font-size:14px;margin-top:16px;text-transform:uppercase}
-.card .m{font-family:'Cormorant Garamond',serif;font-style:italic;color:#8d8570;font-size:13px;margin-top:4px}
+.art-preview{display:block;width:100%;height:auto;box-shadow:0 0 60px rgba(184,146,80,.12),0 24px 48px rgba(0,0,0,.45)}
+@media(max-width:700px){.hero{grid-template-columns:1fr}.art-preview{max-width:420px;margin-inline:auto}}
 table{border-collapse:collapse;width:100%;font-size:15px}
 td,th{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:middle}
 th{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
@@ -73,7 +70,6 @@ footer a{color:var(--gold)}
 .flogo{display:inline-block;margin-bottom:12px}
 .flogo img{width:84px;height:84px;display:block;opacity:.92;transition:opacity .2s,transform .2s}
 .flogo:hover img{opacity:1;transform:rotate(-3deg)}
-.og-preview{display:block;width:100%;height:auto;margin:20px 0 0;box-shadow:0 0 60px rgba(184,146,80,.12),0 24px 48px rgba(0,0,0,.45)}
 .az-nav{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}
 .az-nav a{border:1px solid var(--line);color:var(--ink);text-decoration:none;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-family:'Shippori Mincho',serif;font-size:15px}
 .az-nav a:hover{border-color:var(--gold);color:var(--gold)}
@@ -103,7 +99,6 @@ p{margin:10px 0}
   <div class="brand"><a href="../">Kanji My Name</a></div>
   <h1>Lillian in Japanese Kanji</h1>
   <p class="sub"><b>Lillian in kanji: 莉莉安</b> — one way to write Lillian, with meanings you choose yourself, in the Japanese <i>ateji</i> (当て字) tradition.</p>
-  <img class="og-preview" src="../image/og/lillian.jpg" alt="Lillian in kanji: 莉莉安 (jasmine · jasmine · peace)" width="1200" height="630" loading="lazy">
   <div class="an vgrp" data-v="0">
     <p class="an-l1"><span class="an-lbl">In Japanese, Lillian is usually written</span> <span class="an-kana">リリアン</span> <span class="an-romaji">(ririan)</span></p>
     <p class="an-l2">莉莉安 is an artistic ateji — chosen for sound and meaning, not an official spelling.</p>
@@ -113,7 +108,7 @@ p{margin:10px 0}
   
   <div class="vgrp" data-v="0">
   <div class="hero">
-    <div class="card"><span class="k">莉莉安</span><div class="r">Lillian</div><div class="m">jasmine · jasmine · peace</div></div>
+    <img class="art-preview" src="../image/preview/lillian.jpg" alt="Lillian in kanji: 莉莉安 — artistic ateji" width="800" height="1200" loading="lazy">
     <div>
       <h2 style="margin-top:0">莉莉安 — “jasmine · jasmine · peace”</h2>
       <p class="body-copy">Lillian sounds like <b>ri · ri · an</b> in Japanese. Matching each sound to a kanji gives <b>莉莉安</b> — one of <b>48 possible kanji spellings</b> of Lillian. Every character below has the same or closest Japanese sound but a different meaning, so the final choice is yours.</p>

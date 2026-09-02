@@ -122,11 +122,8 @@ h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(30px,5vw,
 h2{font-family:'Shippori Mincho',serif;font-size:24px;color:var(--head);margin:40px 0 12px}
 .sub{color:var(--muted);max-width:640px;font-size:15px}
 .hero{display:grid;grid-template-columns:280px 1fr;gap:34px;margin:30px 0;align-items:center}
-@media(max-width:700px){.hero{grid-template-columns:1fr}}
-.card{background:linear-gradient(160deg,#f6efdd,#efe6cf);padding:34px 22px;text-align:center;box-shadow:0 0 60px rgba(184,146,80,.12),0 24px 48px rgba(0,0,0,.45)}
-.card .k{writing-mode:vertical-rl;font-family:'Yuji Syuku',serif;font-size:76px;line-height:1.15;color:#191713;margin:0 auto;display:inline-block}
-.card .r{font-family:'Cormorant Garamond',serif;letter-spacing:.4em;color:#7c7462;font-size:14px;margin-top:16px;text-transform:uppercase}
-.card .m{font-family:'Cormorant Garamond',serif;font-style:italic;color:#8d8570;font-size:13px;margin-top:4px}
+.art-preview{display:block;width:100%;height:auto;box-shadow:0 0 60px rgba(184,146,80,.12),0 24px 48px rgba(0,0,0,.45)}
+@media(max-width:700px){.hero{grid-template-columns:1fr}.art-preview{max-width:420px;margin-inline:auto}}
 table{border-collapse:collapse;width:100%;font-size:15px}
 td,th{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:middle}
 th{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
@@ -162,7 +159,6 @@ footer a{color:var(--gold)}
 .flogo{display:inline-block;margin-bottom:12px}
 .flogo img{width:84px;height:84px;display:block;opacity:.92;transition:opacity .2s,transform .2s}
 .flogo:hover img{opacity:1;transform:rotate(-3deg)}
-.og-preview{display:block;width:100%;height:auto;margin:20px 0 0;box-shadow:0 0 60px rgba(184,146,80,.12),0 24px 48px rgba(0,0,0,.45)}
 .az-nav{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}
 .az-nav a{border:1px solid var(--line);color:var(--ink);text-decoration:none;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-family:'Shippori Mincho',serif;font-size:15px}
 .az-nav a:hover{border-color:var(--gold);color:var(--gold)}
@@ -282,9 +278,10 @@ function pageHtml(d, all) {
   const genHash = (i) => encodeURIComponent(d.Name + (i > 0 ? `~${i + 1}` : ""));
   const readingBlock = (r, i) => {
     const rm = r.meanings.join(" · ");
+    const previewFile = `${d.name}${i > 0 ? `--${i + 1}` : ""}.jpg`;
     return `<div class="vgrp" data-v="${i}"${i > 0 ? " hidden" : ""}>
   <div class="hero">
-    <div class="card"><span class="k">${esc(r.kanji)}</span><div class="r">${esc(d.Name)}</div><div class="m">${esc(rm)}</div></div>
+    <img class="art-preview" src="../image/preview/${previewFile}" alt="${esc(d.Name)} in kanji: ${esc(r.kanji)} — artistic ateji" width="800" height="1200" loading="lazy">
     <div>
       <h2 style="margin-top:0">${esc(r.kanji)} — “${esc(rm)}”</h2>
       <p class="body-copy">${esc(d.Name)} sounds like <b>${esc(r.toks.join(" · "))}</b> in Japanese. Matching each sound to a kanji gives <b>${esc(r.kanji)}</b> — one of <b>${r.combos} possible kanji spellings</b> of ${esc(d.Name)}. Every character below has the same or closest Japanese sound but a different meaning, so the final choice is yours.</p>
@@ -346,7 +343,6 @@ ${CF_BEACON_SNIPPET}
   <div class="brand"><a href="../">Kanji My Name</a></div>
   <h1>${esc(d.Name)} in Japanese Kanji</h1>
   <p class="sub"><b>${esc(d.Name)} in kanji: ${esc(d.kanji)}</b> — one way to write ${esc(d.Name)}, with meanings you choose yourself, in the Japanese <i>ateji</i> (当て字) tradition.${hasApprox ? ` Some sounds have no exact kanji; ateji tradition uses the closest reading — marked ≈ below (e.g. ヴァ → ba, フィ → hi).` : ""}</p>
-  <img class="og-preview" src="../image/og/${d.name}.jpg" alt="${esc(d.Name)} in kanji: ${esc(d.kanji)} (${esc(d.meanings.join(" · "))})" width="1200" height="630" loading="lazy">
   ${artNotes}
   ${sayPicker}
   ${d.readings.map(readingBlock).join("\n")}
