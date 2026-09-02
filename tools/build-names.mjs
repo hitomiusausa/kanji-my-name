@@ -30,6 +30,7 @@ function extract(re, label) {
 }
 const code = [
   extract(/const NAME_DICT=\{.*?\};/s, "NAME_DICT"),
+  extract(/Object\.assign\(NAME_DICT,\{.*?\}\);/, "NAME_DICT special readings"),
   extract(/const NAME_SAY=\{.*?\};/s, "NAME_SAY"),
   // Include the aliases immediately following the main dictionary too (for
   // example fi → hi). They are part of the generator's token vocabulary.

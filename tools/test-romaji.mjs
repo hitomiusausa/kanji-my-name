@@ -20,15 +20,18 @@ function extractOpt(re) {
 }
 const code = [
   extract(/const NAME_DICT=\{.*?\};/s, "NAME_DICT"),
+  extract(/Object\.assign\(NAME_DICT,\{.*?\}\);/, "NAME_DICT special readings"),
   extractOpt(/const NAME_SAY=\{.*?\};/s),
   extract(/const ATEJI\s*=\s*\{[\s\S]*?ATEJI\.ye=ATEJI\.e;/, "ATEJI + aliases"),
   extract(/function toRomaji\(name[^)]*\)\{[\s\S]*?\n\}/, "toRomaji"),
   extractOpt(/function nameVariants\([^)]*\)\{[\s\S]*?\n\}/),
+  extract(/const KANA_MAP=\{[\s\S]*?\};/, "KANA_MAP"),
+  extract(/function toKatakana\([^)]*\)\{[\s\S]*?\n\}/, "toKatakana"),
   extract(/function tokenize\(r\)\{[\s\S]*?\n\}/, "tokenize"),
 ].join("\n");
-const { ATEJI, toRomaji, tokenize, NAME_SAY, nameVariants } = new Function(
+const { ATEJI, toRomaji, toKatakana, tokenize, NAME_SAY, nameVariants } = new Function(
   code +
-    "\nreturn {ATEJI,toRomaji,tokenize," +
+    "\nreturn {ATEJI,toRomaji,toKatakana,tokenize," +
     "NAME_SAY:typeof NAME_SAY==='undefined'?null:NAME_SAY," +
     "nameVariants:typeof nameVariants==='undefined'?null:nameVariants};"
 )();
@@ -69,6 +72,25 @@ eq(toRomaji("christian"), "kurisuchan", "christian = クリスチャン (dict)")
 // che/she エイリアス（je=ji と同じ近似音の前例）
 ok(ATEJI.che === ATEJI.chi, "ATEJI.che alias exists");
 ok(ATEJI.she === ATEJI.shi, "ATEJI.she alias exists");
+
+// ---- 子音+h綴り（2026-09-03）----
+eq(toRomaji("jhon"), "jon", "Jhon = John-style jo+n");
+eq(toRomaji("jhonny"), "joni", "Jhonny art reading = jo+ni");
+eq(toRomaji("jhonatan"), "jonatan", "Jhonatan = jo-na-tan");
+eq(toRomaji("jha"), "ja", "generic jha normalizes to ja");
+eq(toRomaji("jhe"), "je", "generic jhe normalizes to je");
+eq(toRomaji("jhi"), "ji", "generic jhi normalizes to ji");
+eq(toRomaji("jho"), "jo", "generic jho normalizes to jo");
+eq(toRomaji("jhu"), "ju", "generic jhu normalizes to ju");
+eq(toRomaji("rhys"), "risu", "Rhys art reading = ri+su");
+eq(toRomaji("hannah"), "hanna", "Hannah keeps syllabic n");
+if (nameVariants) {
+  eq(nameVariants("rhys"), ["rīsu"], "Rhys preserves long vowel in raw dictionary reading");
+  eq(nameVariants("jhonny"), ["jonī"], "Jhonny preserves long vowel in raw dictionary reading");
+}
+eq(toKatakana(nameVariants("rhys")[0]), "リース", "Rhys practical katakana = リース");
+eq(toKatakana(nameVariants("jhonny")[0]), "ジョニー", "Jhonny practical katakana = ジョニー");
+eq(toKatakana(nameVariants("hannah")[0]), "ハンナ", "Hannah practical katakana = ハンナ");
 
 // ---- 発音バリアント（2026-09-01設計・NAME_DICT パイプ区切り）----
 ok(typeof nameVariants === "function", "nameVariants() exists");
