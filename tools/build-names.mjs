@@ -12,7 +12,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = "https://kanji.kugainc.com";
 // Task D: "Reviewed by Hitomi Kuga" line under the per-name ateji note.
 // Flip to true only after the ateji_diff review pass is complete.
-const SHOW_REVIEWED_BY = false;
+const SHOW_REVIEWED_BY = true;
 // Task G: Cloudflare Web Analytics beacon (cookie-free, page views only). Same
 // placeholder constant/gate as every hand-authored page (index.html, about.html,
 // terms.html, tokushoho.html, unlock-80b9aa.html, guide/*.html) — set the token
