@@ -258,8 +258,9 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
 .art-note .an-kana{font-family:'Shippori Mincho',serif;font-size:17px;color:var(--ink);margin:0 .3em;white-space:nowrap}
 .art-note .an-romaji{font-family:'Inter',sans-serif;color:rgba(232,226,213,.6)}
 .art-note .an-l2,.art-note .an-l3{font-family:'Inter',sans-serif;font-size:12.5px;color:rgba(232,226,213,.55);line-height:1.75;margin-top:6px}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:#131310;padding:12px 22px;border-radius:30px;font-size:14px;opacity:0;pointer-events:none;transition:.3s;z-index:60}
-.toast a{color:var(--seal);font-weight:600}
+/* トースト: 画面中央・差し色の朱（unlockページの Copied と統一・D-41） */
+.toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--seal);color:#fdf6ea;padding:14px 26px;border-radius:30px;font-size:14px;font-weight:600;letter-spacing:.03em;line-height:1.5;text-align:center;width:max-content;max-width:min(88vw,420px);box-shadow:0 8px 24px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:.3s;z-index:60}
+.toast a{color:inherit;font-weight:700;text-decoration:underline}
 .toast.show{opacity:1;pointer-events:auto}
 @media(prefers-reduced-motion:reduce){.chip,.thump{animation:none}}
 </style>
@@ -1228,19 +1229,20 @@ function renderArtNote(){
 
 function generate(rand){
   const nm=document.getElementById("nameIn").value.trim();
-  if(!nm){toast("Type your name first ✦");return;}
+  if(!nm){toast("Type your name first");return;}
   const words=nm.split(/\s+/).filter(Boolean);
   renderSayArea(words);
   const toks=words.flatMap(w=>tokenize(toRomaji(w,varOf(w))));
   if(!toks.length){toast("Hmm — try a simpler spelling of your name");return;}
-  if(toks.length>MAX_KANJI){toast(`Up to ${MAX_KANJI} kanji per artwork — try one name at a time ✦`);return;}
+  if(toks.length>MAX_KANJI){toast(`This name would need ${toks.length} kanji, but one artwork holds up to ${MAX_KANJI}. Try a shorter version — or one name at a time.`);return;}
   syls=toks;
   choices=pickDefaults(toks,rand).map((o,i)=>({s:i,o}));
   renderChips();render();
   history.replaceState(null,"","#"+encodeURIComponent(hashName()));
   return true;
 }
-function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600);}
+let toastTimer=null;
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),Math.min(6000,2600+msg.length*25));}
 // ロック項目タップ → Premiumセクションへ誘導（スムーズスクロール＋一瞬ハイライト）
 function sealedNudge(msg){
   toast(msg);
@@ -1358,21 +1360,21 @@ function updateDlButtons(){
   b4.classList.toggle("sealed",!premium);
 }
 document.getElementById("dlBtn").onclick=async()=>{
-  if(!choices.length){toast("Create your kanji first ✦");return;}
+  if(!choices.length){toast("Create your kanji first");return;}
   const c=await render(false);
   const a=document.createElement("a");
   a.download=artFilename();
   a.href=c.toDataURL("image/png");a.click();
-  toast(premium?"Downloaded!":"Downloaded! Upgrade for 4K & clean edition ✦");
+  toast(premium?"Downloaded!":"Downloaded! Upgrade for 4K & clean edition");
 };
 document.getElementById("dl4kBtn").onclick=async()=>{
   if(!premium){sealedNudge(`4K downloads are sealed — the Premium Pack opens them (${PRICE})`);return;}
-  if(!choices.length){toast("Create your kanji first ✦");return;}
+  if(!choices.length){toast("Create your kanji first");return;}
   const c=await render(true);
   const a=document.createElement("a");
   a.download=artFilename("-4k");
   a.href=c.toDataURL("image/png");a.click();
-  toast("4K art downloaded ✦");
+  toast("4K art downloaded");
 };
 function artFilename(suffix=""){return `kanji-name-${(document.getElementById("nameIn").value||"art").trim().toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"art"}${suffix}.png`;}
 function shareUrl(){
@@ -1398,7 +1400,7 @@ function shareNotice(message){
   status.textContent=message;status.classList.add("show");
 }
 document.getElementById("shareImageBtn").onclick=async()=>{
-  if(!choices.length){toast("Create your kanji first ✦");return;}
+  if(!choices.length){toast("Create your kanji first");return;}
   shareNotice("Preparing image…");
   const file=await artworkFile();
   if(!file){shareNotice("Couldn’t prepare the PNG — please try again");return;}
@@ -1425,7 +1427,7 @@ document.getElementById("priceVal").textContent=PRICE;
 if(SUPPORT_EMAIL){const lc=document.getElementById("lostCode");lc.style.display="block";lc.querySelector("a").href="mailto:"+SUPPORT_EMAIL+"?subject=Kanji%20My%20Name%20-%20lost%20unlock%20code";}
 document.getElementById("codeBtn").onclick=async()=>{
   const v=document.getElementById("codeIn").value.trim();
-  if(!v){toast("Enter your unlock code first ✦");return;}
+  if(!v){toast("Enter your unlock code first");return;}
   let ok=false;
   if(WORKER_URL){ // per-purchase codes live in the worker's KV
     try{const r=await fetch(WORKER_URL+"/verify?code="+encodeURIComponent(v));ok=(await r.json()).ok;}catch(e){}
@@ -1439,7 +1441,7 @@ document.getElementById("codeBtn").onclick=async()=>{
     FX.play(()=>{
       unlockUI();renderMyCode();
       document.querySelectorAll(".style-b.prem").forEach((b,i)=>{b.style.animationDelay=(i*60)+"ms";b.classList.add("flash-gold");});
-      toast("Premium unlocked — welcome to the atelier ✦");
+      toast("Premium unlocked — welcome to the atelier");
     });}
   else toast("That code doesn't match — check your unlock page after checkout");
 };
