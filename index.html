@@ -427,7 +427,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
 <div id="zoom" aria-hidden="true"><img alt="Enlarged kanji art preview"><div class="zhint">Tap anywhere to close</div></div>
 <div class="toast" id="toast"></div>
 
-<script src="effects.js?v=2"></script>
+<script src="effects.js?v=3"></script>
 <script>
 // ===== CONFIG =====
 const STRIPE_URL = "https://buy.stripe.com/00wcN6c1hgNte1t8kG7IY00"; // Stripe Payment Link $4.99 (after-payment redirect: unlock-80b9aa?session_id={CHECKOUT_SESSION_ID})
@@ -438,6 +438,7 @@ const PREMIUM_HASHES = [ // sha256 of each valid unlock code — add new codes h
   "953a15837393227855699fc84109ae2720c772ef70ee3026ea4c249c025e581b"
 ];
 const CREDIT = "kanji-my-name";
+const MAX_KANJI = 8; // 1作品あたりの漢字数上限（ひとみうさ裁定 2026-09-03: 9文字以上は文字が小さくなり意味行も収まらない）
 
 // ===== ATEJI DATA: syllable -> [kanji, meaning] options (positive meanings first) =====
 const ATEJI = {
@@ -911,7 +912,11 @@ function layoutKanji(kanji,W,H,scale,portrait,square){
   const n=kanji.length||1,pos=[];let size=300*scale,baseline="alphabetic",enso=null;
   if(currentStyle==="enso"){
     // 円相：掛すれた一筆の円の真中に文字列。縦横レイアウトに追従（5字以上は2列/2行に折り返し）
-    const rad=Math.min(W,H)*.37,ccx=W/2,ccy=H*.47;enso={cx:ccx,cy:ccy,rad};baseline="middle";
+    // 円の下端（筆幅＋揺らぎ込み=半径×1.12）が名前行の上に収まらない横書き/正方形では、上端余白と名前行の間に円を収め直す（縦書きは従来どおり）
+    const limitY=(portrait?H-210*scale:H-(square?220:190)*scale)-44*scale,top=90*scale;
+    let rad=Math.min(W,H)*.37,ccy=H*.47;const ccx=W/2;
+    if(ccy+rad*1.12>limitY){ccy=(top+limitY)/2;rad=Math.min(rad,(limitY-ccy)/1.12);}
+    enso={cx:ccx,cy:ccy,rad};baseline="middle";
     if(portrait){
       const cols=n>4?2:1,rows=Math.ceil(n/cols);
       size=Math.min(300*scale,(rad*2*.68)/rows,cols>1?rad*.82:300*scale);
@@ -1228,6 +1233,7 @@ function generate(rand){
   renderSayArea(words);
   const toks=words.flatMap(w=>tokenize(toRomaji(w,varOf(w))));
   if(!toks.length){toast("Hmm — try a simpler spelling of your name");return;}
+  if(toks.length>MAX_KANJI){toast(`Up to ${MAX_KANJI} kanji per artwork — try one name at a time ✦`);return;}
   syls=toks;
   choices=pickDefaults(toks,rand).map((o,i)=>({s:i,o}));
   renderChips();render();

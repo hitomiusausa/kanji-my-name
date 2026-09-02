@@ -340,20 +340,42 @@ function fxTracked(x, text, cx, y, track){
   cs.forEach((c, i) => { x.fillText(c, px, y); px += ws[i] + track; }); x.textAlign = ta;
 }
 // name: 表示名 / meanings: 意味の配列(空なら意味行なし) / light: 紙が明色か
+// 幅が収まらないときは 名前=縮小（最小60%）、意味=少し縮小→「·」区切りで最大3行に折り返し（8文字名でも見切れない）
+function fxMeasureTracked(x, text, track){ const cs = [...text]; return cs.reduce((a, c) => a + x.measureText(c).width, 0) + track * (cs.length - 1); }
 function fxLatin(x, W, H, scale, st, name, meanings, baseY, light){
-  const T = KFX.LATIN, S = scale;
-  if (T.style !== "B") {
+  const T = KFX.LATIN, S = scale, maxW = W * .86;
+  if (T.style !== "B") { // 旧処理（参考用に残置）
     x.fillStyle = st.romaji; x.font = `${34 * S}px 'Cormorant Garamond',serif`;
     x.fillText(name.toUpperCase().split("").join(" "), W / 2, baseY);
     if (meanings.length) { x.font = `italic ${25 * S}px 'Cormorant Garamond',serif`; x.fillText(meanings.join("  ·  "), W / 2, baseY + 52 * S); }
     return;
   }
   x.save(); x.fillStyle = light ? T.color : st.ink;
-  x.globalAlpha = T.nameAlpha; x.font = `${T.weight} ${T.nameSize * S}px ${T.family},serif`;
-  fxTracked(x, name.toUpperCase(), W / 2, baseY - 2 * S, T.nameSize * S * T.nameTrack);
+  // 名前行: 収まらなければ縮小
+  const up = name.toUpperCase(); let ns = T.nameSize * S;
+  x.font = `${T.weight} ${ns}px ${T.family},serif`;
+  const nw = fxMeasureTracked(x, up, ns * T.nameTrack);
+  if (nw > maxW) { ns = Math.max(ns * .6, ns * maxW / nw); x.font = `${T.weight} ${ns}px ${T.family},serif`; }
+  // 意味行: 行数を決めてから、複数行なら全体を少し上へ
+  let lines = [], ms = T.meanSize * S;
   if (meanings.length) {
-    x.globalAlpha = T.meanAlpha; x.font = `${T.weight} ${T.meanSize * S}px ${T.family},serif`;
-    fxTracked(x, meanings.map(m => m.toUpperCase()).join("   ·   "), W / 2, baseY + 48 * S, T.meanSize * S * T.meanTrack);
+    const items = meanings.map(m => m.toUpperCase()), sep = "   ·   ";
+    const fits = (txt, sz) => { x.font = `${T.weight} ${sz}px ${T.family},serif`; return fxMeasureTracked(x, txt, sz * T.meanTrack) <= maxW; };
+    if (!fits(items.join(sep), ms) && fits(items.join(sep), ms * .88)) ms *= .88;
+    if (fits(items.join(sep), ms)) lines = [items.join(sep)];
+    else { // 貪欲に折り返し（最大3行。超える場合はさらに縮小して再試行）
+      for (let tryS = ms; ; tryS *= .9) {
+        lines = []; let cur = [];
+        for (const it of items) { const cand = [...cur, it].join(sep); if (cur.length && !fits(cand, tryS)) { lines.push(cur.join(sep)); cur = [it]; } else cur.push(it); }
+        if (cur.length) lines.push(cur.join(sep));
+        if (lines.length <= 3 || tryS < ms * .6) { ms = tryS; break; }
+      }
+    }
   }
+  const lh = 27 * S, shift = (lines.length - 1) * 14 * S;
+  x.globalAlpha = T.nameAlpha; x.font = `${T.weight} ${ns}px ${T.family},serif`;
+  fxTracked(x, up, W / 2, baseY - 2 * S - shift, ns * T.nameTrack);
+  x.globalAlpha = T.meanAlpha; x.font = `${T.weight} ${ms}px ${T.family},serif`;
+  lines.forEach((ln, i) => fxTracked(x, ln, W / 2, baseY + 48 * S - shift + i * lh, ms * T.meanTrack));
   x.restore();
 }
