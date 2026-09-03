@@ -3,6 +3,7 @@ design-compare.html
 *.png
 image/og/
 image/preview/
+image/quiz/
 node_modules/
 tools/og/package-lock.json
 .playwright-cli/

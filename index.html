@@ -672,6 +672,9 @@ function pickDefaults(toks,rand){
 
 // ===== STATE =====
 let syls=[],choices=[],currentStyle="classic",currentFont="yuji",currentOrient="v",sealOn=true,meaningsOn=true,bgOn=true,premium=false;
+// Internal export-only flag. It is never changed by the UI: tools/build-quiz.mjs
+// enables it in its isolated browser page to make spoiler-free social quiz art.
+let quizMode=false;
 try{premium=localStorage.getItem("kna_premium")==="1"}catch(e){}
 
 const STYLE_LIST=[
@@ -946,13 +949,23 @@ function layoutKanji(kanji,W,H,scale,portrait,square){
       }
     }
   }else if(portrait){
-    const avail=H-(square?500:460)*scale;
-    size=Math.min(300*scale,avail/n*0.86);
-    const startY=(H-140*scale-(size*1.12*n))/2+size*.85;
-    kanji.forEach((k,i)=>pos.push([k,W/2,startY+i*size*1.12]));
+    // Square quiz exports have no Latin footer. Give the central vertical name
+    // the space that footer would otherwise occupy, while keeping six-kanji
+    // names safely inside the frame.
+    if(square&&quizMode){
+      const avail=H-480*scale;
+      size=Math.min(460*scale,avail/(n*.99));
+      const step=size*.98,startY=H/2-step*(n-1)/2+size*.35;
+      kanji.forEach((k,i)=>pos.push([k,W/2,startY+i*step]));
+    }else{
+      const avail=H-(square?500:460)*scale;
+      size=Math.min(300*scale,avail/n*0.86);
+      const startY=(H-140*scale-(size*1.12*n))/2+size*.85;
+      kanji.forEach((k,i)=>pos.push([k,W/2,startY+i*size*1.12]));
+    }
   }else{
-    const avail=W-(square?440:520)*scale;
-    size=Math.min(320*scale,avail/n*0.9);
+    const avail=W-(square?(quizMode?480:440):520)*scale;
+    size=Math.min((square&&quizMode?430:320)*scale,avail/n*(square&&quizMode?.99:.9));
     const step=size*1.12,startX=W/2-step*(n-1)/2;
     kanji.forEach((k,i)=>pos.push([k,startX+i*step,H*.5+size*.35]));
   }
@@ -1017,16 +1030,18 @@ function draw(hiRes){
   x.drawImage(layer,0,0);x.restore();
   // hanko seal — 篆刻風・白文（Task 3: 名前シードで再現・押しムラ・かすれ・にじみ）
   if(sealOn){
-    const sz=118*scale,sx=W-190*scale,sy=portrait?H-330*scale:H-260*scale;
+    const sz=118*scale,sx=W-190*scale,sy=portrait?H-((square&&quizMode)?390:330)*scale:H-260*scale;
     drawSeal(x,sx+sz/2,sy+sz/2,sz,kanji[0]||"印",st,rng,scale,inkBlend);
   }
   // romaji name + meanings（Task 4）
-  const baseY=portrait?H-210*scale:H-(square?220:190)*scale;
-  const meanings=meaningsOn?choices.map(ci=>ATEJI[syls[ci.s]][ci.o][1]):[];
-  x.textAlign="center";
-  fxLatin(x,W,H,scale,st,nm,meanings,baseY,light);
+  if(!quizMode){
+    const baseY=portrait?H-210*scale:H-(square?220:190)*scale;
+    const meanings=meaningsOn?choices.map(ci=>ATEJI[syls[ci.s]][ci.o][1]):[];
+    x.textAlign="center";
+    fxLatin(x,W,H,scale,st,nm,meanings,baseY,light);
+  }
   // credit (free users only — premium hides it everywhere, preview included)
-  if(!premium){x.font=`${18*scale}px 'Inter',sans-serif`;x.fillStyle=st.romaji;x.globalAlpha=.55;x.fillText(CREDIT,W/2,H-92*scale);x.globalAlpha=1;}
+  if(!premium&&!quizMode){x.font=`${18*scale}px 'Inter',sans-serif`;x.fillStyle=st.romaji;x.globalAlpha=.55;x.fillText(CREDIT,W/2,H-92*scale);x.globalAlpha=1;}
   return c;
 }
 // ===== 篦刻風 落款（白文）— オフスクリーンで生成して合成 =====

@@ -7,13 +7,17 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 PUBLIC_FILES=(index.html effects.js unlock-80b9aa.html terms.html tokushoho.html about.html robots.txt sitemap.xml sitemap-pages.xml sitemap-images.xml llms.txt _headers googleba92e5e2e65ae807.html BingSiteAuth.xml)
-PUBLIC_DIRS=(names guide image fonts)
+PUBLIC_DIRS=(names guide fonts)
 
 DIST=".pages-dist"
 rm -rf "$DIST"
 mkdir "$DIST"
 cp "${PUBLIC_FILES[@]}" "$DIST"/
 for d in "${PUBLIC_DIRS[@]}"; do cp -R "$d" "$DIST/$d"; done
+# Quiz cards are attached to X locally; publishing them would make answers
+# discoverable on the site. Keep image/quiz/ out even when the source folder
+# exists after an approved batch generation.
+rsync -a --exclude='quiz/' image/ "$DIST/image/"
 
 npx wrangler pages deploy "$DIST" --project-name kanji-my-name --branch main --commit-dirty=true
 rm -rf "$DIST"
