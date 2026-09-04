@@ -31,11 +31,13 @@ function extract(re, label) {
 const code = [
   extract(/const NAME_DICT=\{.*?\};/s, "NAME_DICT"),
   extract(/Object\.assign\(NAME_DICT,\{.*?\}\);/, "NAME_DICT special readings"),
+  extract(/const PRESERVE_ART_LONG_VOWELS=.*?;/, "preserved art long vowels"),
   extract(/const NAME_SAY=\{.*?\};/s, "NAME_SAY"),
   // Include the aliases immediately following the main dictionary too (for
   // example fi → hi). They are part of the generator's token vocabulary.
   extract(/const ATEJI\s*=\s*\{[\s\S]*?ATEJI\.ye=ATEJI\.e;/, "ATEJI + aliases"),
   extract(/function nameVariants\([^)]*\)\{[\s\S]*?\n\}/, "nameVariants"),
+  extract(/function pinyinTerminalNgReading\([^)]*\)\{[\s\S]*?\n\}/, "Pinyin terminal -ng rule"),
   extract(/function toRomaji\(name[^)]*\)\{[\s\S]*?\n\}/, "toRomaji"),
   extract(/const KANA_MAP=\{[\s\S]*?\};/, "KANA_MAP"),
   extract(/function toKatakana\([^)]*\)\{[\s\S]*?\n\}/, "toKatakana"),
