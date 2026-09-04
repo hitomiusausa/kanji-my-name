@@ -404,7 +404,7 @@ function hubHtml(all) {
 <link rel="canonical" href="${url}">
 <meta property="og:url" content="${url}">
 <meta property="og:title" content="Names in Japanese Kanji — ${all.length} Names with Meanings">
-<meta property="og:description" content="Browse sound-based Japanese kanji options, meanings, and calligraphy art for 500 common names.">
+<meta property="og:description" content="Browse sound-based Japanese kanji options, meanings, and calligraphy art for a growing collection of names.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Kanji My Name">
 <meta property="og:locale" content="en_US">
