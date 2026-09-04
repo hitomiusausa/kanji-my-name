@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// build-og.mjs — 名前別OG画像 (1200×630) を500枚バッチ生成する
+// build-og.mjs — 名前別OG画像 (1200×630) を全登録名ぶん生成する
 // 本体 index.html を headless Chromium で開き、Classic Scroll・横レイアウト・意味行あり・
 // フリー版クレジット入りで描画した canvas を 1200×630 に contain 合成して image/og/<name>.jpg へ保存。
 // 画像は git 管理外（.gitignore: image/og/）— deploy-pages.sh の image/ コピーで本番に載る。

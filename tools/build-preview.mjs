@@ -10,7 +10,7 @@
 // 使い方: node tools/build-preview.mjs [--only maeve] [--variant 2] [--dry-run]
 // 出力: image/preview/<name>.jpg（既定読み）および <name>--2.jpg（第2読み）。画像はgit管理外で、
 // deploy-pages.sh が公開対象 image/ をステージしてCloudflare Pagesへ載せる。
-// `--only abel --variant 2` は第2読みだけを安全に試作する。
+// `--only abel --variant 2` は第2読みだけを安全に試作する。全登録名を対象にできる。
 //       `--variant` は `--only` と組み合わせてのみ使える。
 // 各名前の実際の nameVariants() の件数からジョブを作るため、NAME_SAY の件数を別途複製しない。
 import fs from "node:fs";
