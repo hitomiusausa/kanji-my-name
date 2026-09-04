@@ -30,7 +30,7 @@ function extract(re, label) {
 }
 const code = [
   extract(/const NAME_DICT=\{.*?\};/s, "NAME_DICT"),
-  extract(/Object\.assign\(NAME_DICT,\{.*?\}\);/, "NAME_DICT special readings"),
+  extract(/Object\.assign\(NAME_DICT,\{.*?\}\);/s, "NAME_DICT special readings"),
   extract(/const PRESERVE_ART_LONG_VOWELS=.*?;/, "preserved art long vowels"),
   extract(/const NAME_SAY=\{.*?\};/s, "NAME_SAY"),
   // Include the aliases immediately following the main dictionary too (for
@@ -42,12 +42,13 @@ const code = [
   extract(/const KANA_MAP=\{[\s\S]*?\};/, "KANA_MAP"),
   extract(/function toKatakana\([^)]*\)\{[\s\S]*?\n\}/, "toKatakana"),
   extract(/function tokenize\(r\)\{[\s\S]*?\n\}/, "tokenize"),
+  extract(/const CN_MIN=[\s\S]*?function nameDefaultPicks\([^\n]*\}/, "name profiles"),
   extract(/const APPROX_SYL=\{.*?\};/s, "APPROX_SYL"),
   extract(/function trueSound\([^\n]*\}/, "trueSound"),
   extract(/function pickDefaults\([\s\S]*?\n\}/, "pickDefaults"),
 ].join("\n");
-const { ATEJI, toRomaji, tokenize, NAME_SAY, nameVariants, toKatakana, trueSound, pickDefaults } = new Function(
-  code + "\nreturn {ATEJI,toRomaji,tokenize,NAME_SAY,nameVariants,toKatakana,trueSound,pickDefaults};"
+const { ATEJI, toRomaji, tokenize, NAME_SAY, nameVariants, toKatakana, trueSound, pickDefaults, nameTokens, nameTokenOptions, nameDefaultPicks } = new Function(
+  code + "\nreturn {ATEJI,toRomaji,tokenize,NAME_SAY,nameVariants,toKatakana,trueSound,pickDefaults,nameTokens,nameTokenOptions,nameDefaultPicks};"
 )();
 
 // ---- 名前リスト ----
@@ -84,17 +85,18 @@ const SHARED_FAQ = [
 ];
 
 function analyzeReading(name, vi) {
-  const toks = tokenize(toRomaji(name, vi));
+  const toks = nameTokens(name, vi);
   if (!toks.length) return null;
-  const picks = pickDefaults(toks);
-  const def = toks.map((t, i) => ATEJI[t][picks[i]]);
+  const variants = toks.map((t) => nameTokenOptions(name, vi, t));
+  const picks = nameDefaultPicks(name, vi, toks, variants);
+  const def = toks.map((t, i) => variants[i][picks[i]]);
   return {
     picks,
     toks,
     kanji: def.map(([k]) => k).join(""),
     meanings: def.map(([, m]) => m),
-    variants: toks.map((t) => ATEJI[t]),
-    combos: toks.reduce((n, t) => n * ATEJI[t].length, 1),
+    variants,
+    combos: variants.reduce((n, opts) => n * opts.length, 1),
   };
 }
 function analyze(name) {

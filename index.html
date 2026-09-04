@@ -274,7 +274,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
   <h1>Your name,<br>written in <em>ink</em>.</h1>
   <div class="goldline"></div>
   <p class="sub">Type your name. We craft it into Japanese kanji — and <b>you choose the meaning</b> behind every character: love, dreams, strength, light. Then download it as elegant calligraphy art. Free.</p>
-  <p class="stat-line"><b id="statNames">501</b> names · <b id="statCombos">28,817</b> possible kanji spellings</p>
+  <p class="stat-line"><b id="statNames">512</b> names · <b id="statCombos">28,884</b> possible kanji spellings</p>
 </header>
 
 <main class="wrap">
@@ -482,7 +482,7 @@ const ATEJI = {
  yu:[["優","gentle · superior"],["悠","eternal calm"],["結","to unite"],["由","freedom · reason"]],
  // A long vowel can be meaningful rather than merely a shortened ateji sound.
  // Yuying uses 優's regular yū reading, so it stays distinct from yu.
- yū:[["優","gentle · superior"]],
+ yū:[["優","gentle · superior"],["悠","eternal calm"],["勇","bravery"]],
  yo:[["陽","sunshine"],["世","world"],["葉","leaf"]],
  ra:[["良","goodness"],["蘭","orchid"],["楽","joy"],["羅","fine silk"]],
  ri:[["莉","jasmine"],["理","reason · truth"],["里","homeland"],["璃","lapis lazuli"]],
@@ -560,12 +560,13 @@ function trueSound(tok,entry){return (entry&&entry[2])||APPROX_SYL[tok]||tok;}
 const NAME_DICT={michael:"maikeru",john:"jon",jon:"jon",david:"deibiddo",sarah:"sera",sara:"sara",emma:"ema",olivia:"oribia",liam:"riamu",noah:"noa",james:"jeimuzu",william:"uiriamu",sophia:"sofia",sofia:"sofia",isabella:"izabera",alex:"arekusu",alexander:"arekusandā",chris:"kurisu",christopher:"kurisutofā",maria:"maria",anna:"anna",kevin:"kebin",tom:"tomu",thomas:"tōmasu",mary:"meari",robert:"robāto",lucas:"rūkasu",luke:"rūku",mia:"mia",charlotte:"shārotto",amelia:"ameria",harry:"harī",jack:"jaku",george:"jōji",oliver:"oribā",emily:"emirī",jessica:"jeshika",daniel:"danieru",matthew:"mashū",andrew:"andoryū",ryan:"raian",laura:"rōra",julia:"juria",sophie:"sofī",leo:"reo",max:"makusu",ben:"ben",sam:"samu",kate:"keito",lily:"rirī",grace:"gureisu",chloe:"kuroe",zoe:"zoe",ethan:"īsan",mason:"meison",logan:"rōgan",lucy:"rūshī",hannah:"hana",ava:"eiba",ella:"era",nina:"nīna",carlos:"karurosu",jose:"hose",juan:"fan",pedro:"pedoro",ana:"ana",luis:"ruisu",diego:"diego",pablo:"paburo",marco:"maruko",luca:"ruka",giulia:"juria",pierre:"piēru",marie:"marī",hans:"hansu",felix:"ferikusu",ahmed:"amedo",mohammed:"mohamedo",fatima:"fatima",wei:"uei",li:"rī",chen:"chen",yuying:"yūin|yuingu",kim:"kimu",lee:"rī",park:"paku",raj:"raju",priya:"puria",ivan:"iban",olga:"oruga",dmitri:"dimitori",elena:"erena",abel:"eiberu|aberu",theodore:"seodoa",elijah:"iraija",eleanor:"erenoa",levi:"rībai|rebi",violet:"baioreto",elias:"iraiasu|eriasu",aurora:"ōrora",harper:"hāpā",sebastian:"sebasuchan|sebasutian",hudson:"hadoson",hazel:"heizeru",ellie:"erī",cooper:"kūpā",isla:"aira",asher:"ashā",lainey:"reinī",gianna:"jiana|jana",layla:"reira",avery:"eiburī",wyatt:"waiato",ivy:"aibī",jacob:"jeikobu",willow:"wirō",miles:"mairuzu",carter:"kātā",isaac:"aizaku",riley:"rairī",charles:"chāruzu",eloise:"eroīzu",sadie:"seidi",thiago:"tiago",delilah:"deraira",wesley:"wesurī",josephine:"josefin",josiah:"josaia",waylon:"weiron",isaiah:"aizaia",leah:"ria",caleb:"keirebu|karebu",adeline:"aderain|aderin",beau:"bō",iris:"airisu",aiden:"eiden",nathan:"neisan",brooks:"burukusu",alice:"arisu",genesis:"jeneshisu",paisley:"peizurī",angel:"enjeru|anheru",claire:"kurea",zoey:"zōi",lincoln:"rinkān",jayden:"jeiden",silas:"sairasu",millie:"mirī",adrian:"eidorian|adorian",daisy:"deijī",maeve:"meibu",cameron:"kyameron",walker:"wōkā",axel:"akuseru",lyla:"raira",madeline:"maderin|maderain",august:"ōgasuto",josie:"joshī",audrey:"ōdorī",arthur:"āsā",autumn:"ōtamu",jeremiah:"jeremaia",natalie:"natarī",micah:"maika",everly:"ebārī",kinsley:"kinzurī",jade:"jeido",caroline:"kyarorain",christian:"kurisuchan",eithan:"īsan",archer:"āchā",georgia:"jōjia",juniper:"junipā",myles:"mairuzu",aaliyah:"arīya",margot:"māgo",parker:"pākā",hailey:"heirī",eli:"īrai",xavier:"zeibia|eguzeibia",athena:"atena|ashina",juliette:"jurieto",easton:"īsuton",river:"ribā",margaret:"māgareto",nicholas:"nikorasu",austin:"ōsutin",rose:"rōzu",jace:"jeisu",eliza:"iraiza",jaxon:"jakuson",raelynn:"reirin",brooklyn:"burukurin",callum:"karamu",esther:"esutā",milo:"mairo",hallie:"harī",graham:"gureamu|gurahamu",hadley:"hadorī",emerson:"emāson",sawyer:"sōyā",elsie:"erushī",giovanni:"jobani",carson:"kāson",dean:"dīn",scottie:"sukoti",valerie:"barerī",jonah:"jona",jasper:"jasupā",hunter:"hantā",jordan:"jōdan",charlie:"chārī",ryder:"raidā",malachi:"marakai",savannah:"sabana",kayden:"keiden",stetson:"sutetoson",rylee:"rairī",jameson:"jeimuson",emersyn:"emāshin",sloane:"surōn",melanie:"meranī",zion:"zaion",brielle:"burieru",dawson:"dōson",aubrey:"ōburī",evangeline:"ebanjerin",genevieve:"jenebību",kehlani:"kerāni",june:"jūn",summer:"samā",oaklynn:"ōkurin",ember:"enbā",piper:"paipā",jude:"jūdo",oakley:"ōkurī",jaxson:"jakuson",phoebe:"fībī",colter:"korutā",arya:"āria",wrenley:"renrī",sage:"seiji",hayden:"heiden",hayes:"heizu",ashley:"ashurī",ace:"ēsu",nevaeh:"nebeia",jason:"jeison",isabelle:"izaberu",connor:"konā",skylar:"sukairā",jayce:"jeisu",beckham:"bekamu",blair:"burea",gemma:"jema",rosalie:"rōzarī",vivienne:"bibienu",jesus:"hesusu|jizasu",callie:"kyarī",freya:"fureiya",isabel:"izaberu",judah:"jūda",lilah:"raira",sutton:"saton",tucker:"takā",annie:"anī",cole:"kōru",ximena:"himena",ryker:"raikā",jesse:"jeshī",katherine:"kyasarin",lila:"raira",peter:"pītā",rhett:"reto",tatum:"teitamu",haven:"heibun",blakely:"bureikurī",reese:"rīsu",chase:"cheisu",legend:"rejendo",everleigh:"ebārī",tate:"teito",alejandro:"arehandoro",knox:"nokusu",olive:"orību",ashton:"ashuton",mabel:"meiberu",caden:"keiden",noelle:"noeru",stevie:"sutībī",timothy:"timoshī",kylie:"kairī",celine:"serīnu",messiah:"mesaia",adaline:"adarain|adarin",bailey:"beirī",abraham:"eiburahamu|aburahamu",myla:"maira",victor:"bikutā|bikutoru",miguel:"migeru",zayden:"zeiden",dahlia:"daria",bentley:"bentorē",selah:"sera",zachary:"zakarī",saylor:"seirā",baker:"beikā",tyler:"tairā",jane:"jēn",elise:"erīsu|erīze",oscar:"osukā",alaina:"areina",presley:"puresurī",cohen:"kōen",gracie:"gureishī",callahan:"kyarorain",mackenzie:"makenjī",brayden:"bureiden",simon:"saimon",wren:"ren",palmer:"pāmā",maisie:"meijī",justin:"jasutin",richard:"richādo",nyla:"naira",alexandra:"arekusandora",kaiden:"keiden|kaiden",ada:"eida",eden:"īden|eden",lucia:"rusia|ruchia"};
 // Nonstandard child-name spellings and special readings. Keep long vowels here so
 // the practical katakana line remains faithful while the art uses its short ateji form.
-Object.assign(NAME_DICT,{jhon:"jon",jhonny:"jonī",jhonatan:"jonatan",rhys:"rīsu",hannah:"hanna",callahan:"kyarahan"});
+Object.assign(NAME_DICT,{jhon:"jon",jhonny:"jonī",jhonatan:"jonatan",rhys:"rīsu",hannah:"hanna",callahan:"kyarahan",
+ ming:"min|mingu",ling:"rin|ringu",mei:"mei",meiling:"meirin|meiringu",xin:"shin",jun:"jun",jing:"jin|jingu",ying:"in|ingu",yu:"yū",xiaoyu:"shaoyū",xiaoming:"shaomin|shaomingu"});
 // These readings retain a long vowel in the art because the selected kanji has that
 // exact regular reading; they are not the usual decorative long-vowel shortening.
-const PRESERVE_ART_LONG_VOWELS=new Set(["yuying"]);
+const PRESERVE_ART_LONG_VOWELS=new Set(["yuying","yu","xiaoyu"]);
 // pronunciation labels for names with multiple readings ("|" in NAME_DICT). Same order as variants.
-const NAME_SAY={abel:["AY-bel","AH-bel"],levi:["LEE-vy","LEH-vee"],elias:["eye-LY-us","eh-LEE-as"],sebastian:["suh-BAS-chun","seh-BAS-tee-an"],gianna:["jee-AH-nah","JAH-nah"],caleb:["KAY-leb","KAH-leb"],adeline:["AD-uh-line","AD-uh-lin"],angel:["AIN-jel","AHN-hel"],adrian:["AY-dree-un","AH-dree-ahn"],madeline:["MAD-uh-lin","MAD-uh-line"],xavier:["ZAY-vee-er","ig-ZAY-vee-er"],athena:["ah-TEH-nah","uh-THEE-nuh"],graham:["GRAY-um","GRAH-ham"],jesus:["hay-SOOS","JEE-zus"],adaline:["AD-uh-line","AD-uh-lin"],abraham:["AY-bruh-ham","AH-brah-ham"],victor:["VIK-ter","VEEK-tor"],elise:["uh-LEES","ay-LEE-zuh"],kaiden:["KAY-den","KY-den"],eden:["EE-den","EH-den"],lucia:["loo-SEE-ah","LOO-chah"],yuying:["Chinese reading","English reading"]};
+const NAME_SAY={abel:["AY-bel","AH-bel"],levi:["LEE-vy","LEH-vee"],elias:["eye-LY-us","eh-LEE-as"],sebastian:["suh-BAS-chun","seh-BAS-tee-an"],gianna:["jee-AH-nah","JAH-nah"],caleb:["KAY-leb","KAH-leb"],adeline:["AD-uh-line","AD-uh-lin"],angel:["AIN-jel","AHN-hel"],adrian:["AY-dree-un","AH-dree-ahn"],madeline:["MAD-uh-lin","MAD-uh-line"],xavier:["ZAY-vee-er","ig-ZAY-vee-er"],athena:["ah-TEH-nah","uh-THEE-nuh"],graham:["GRAY-um","GRAH-ham"],jesus:["hay-SOOS","JEE-zus"],adaline:["AD-uh-line","AD-uh-lin"],abraham:["AY-bruh-ham","AH-brah-ham"],victor:["VIK-ter","VEEK-tor"],elise:["uh-LEES","ay-LEE-zuh"],kaiden:["KAY-den","KY-den"],eden:["EE-den","EH-den"],lucia:["loo-SEE-ah","LOO-chah"],yuying:["Chinese reading","English reading"],ming:["Chinese reading","English reading"],ling:["Chinese reading","English reading"],meiling:["Chinese reading","English reading"],jing:["Chinese reading","English reading"],ying:["Chinese reading","English reading"],xiaoming:["Chinese reading","English reading"]};
 
 // ===== ROMAJI CONVERSION =====
 // dictionary readings for a name ("|"-separated variants); [] if not in NAME_DICT
@@ -673,6 +674,24 @@ function tokenize(r){
   }
   return toks;
 }
+// Name-specific profiles take priority over global ATEJI. They keep language-origin
+// readings and curated alternatives isolated so ordinary names never re-segment.
+const CN_MIN=[["明","bright"],["民","the people"]],CN_RIN=[["鈴","bell"],["凛","dignified"],["琳","gem"]],CN_MEI=[["明","bright"],["鳴","birdsong"],["銘","inscription"]],CN_SHIN=[["心","heart"],["新","new"],["真","true"]],CN_JUN=[["純","pure"],["潤","grace"],["隼","falcon"]];
+const NAME_PROFILES={
+ ming:{tokens:[["min"],["min","gu"]],options:{min:CN_MIN}},ling:{tokens:[["rin"],["rin","gu"]],options:{rin:CN_RIN}},
+ mei:{tokens:[["mei"]],options:{mei:CN_MEI}},meiling:{tokens:[["mei","rin"],["mei","rin","gu"]],options:{mei:CN_MEI,rin:CN_RIN}},
+ xin:{tokens:[["shin"]],options:{shin:CN_SHIN}},jun:{tokens:[["jun"]],options:{jun:CN_JUN}},jing:{tokens:[["jin"],["jin","gu"]]},ying:{tokens:[["in"],["in","gu"]]},yu:{tokens:[["yū"]]},
+ xiaoyu:{tokens:[["sha","o","yū"]]},xiaoming:{tokens:[["sha","o","min"],["sha","o","min","gu"]],options:{min:CN_MIN}}
+};
+function profileFor(name){return NAME_PROFILES[name.toLowerCase().trim().replace(/[^a-zāīūēō]/g,"")]||null;}
+function nameTokens(name,variant){const p=profileFor(name);return p?(p.tokens[variant]||p.tokens[0]):tokenize(toRomaji(name,variant));}
+function nameTokenOptions(name,variant,tok){const p=profileFor(name);return (p&&p.options&&p.options[tok])||ATEJI[tok];}
+function pickDefaultsWithOptions(toks,opts,rand){
+ const picks=toks.map((t,i)=>rand?Math.floor(Math.random()*opts[i].length):0);
+ for(let i=1;i<picks.length;i++){const prev=opts[i-1][picks[i-1]][0];if(opts[i][picks[i]][0]!==prev)continue;const alt=opts[i].findIndex(e=>e[0]!==prev);if(alt>=0)picks[i]=alt;}
+ return picks;
+}
+function nameDefaultPicks(name,variant,toks,opts,rand){return profileFor(name)?pickDefaultsWithOptions(toks,opts,rand):pickDefaults(toks,rand);}
 // default kanji picks — no adjacent duplicate kanji (波波・良良・寿寿 NG)。
 // 例外=DOUBLE_OK: 重ねて可愛い字だけ許容 (Lily 莉莉 / Vivienne 美美)。2つ目は次候補へ (Clara 久良蘭 / Jesus 平寿瑞)
 function pickDefaults(toks,rand){
@@ -789,7 +808,7 @@ const FONTS=[
 const fontCss=()=>FONTS.find(f=>f.id===currentFont).css;
 const fontFor=px=>{const f=FONTS.find(f=>f.id===currentFont);return `${f.w?f.w+" ":""}${px}px ${f.css}`;};
 async function ensureFont(){
-  const chars=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]).join("")||"永漢名";
+  const chars=choices.map(ci=>ci.opts[ci.o][0]).join("")||"永漢名";
   try{await document.fonts.load(fontFor(80),chars);}catch(e){}
   try{await document.fonts.load("80px 'Zen Antique'",chars[0]||"印");}catch(e){} // 篦刻印用
   try{await document.fonts.load(`${KFX.LATIN.weight} 30px ${KFX.LATIN.family}`,"EMILY");}catch(e){} // 欧文（D-38）
@@ -1004,7 +1023,7 @@ function draw(hiRes){
   const rng=fxRng("kmn:"+nm.toLowerCase());
   const light=fxIsLight(st),paperStyle=light&&KFX.PAPER.enabled&&!KFX.PAPER.plainStyles.includes(currentStyle); // 紙系: classic/blossom/storm/enso（shiroは白地のみ）
   const inkBlend=(light&&bgOn)?"multiply":"source-over"; // 明色の紙には墨を乗算で馴染ませる
-  const kanji=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]);
+  const kanji=choices.map(ci=>ci.opts[ci.o][0]);
   const lay=layoutKanji(kanji,W,H,scale,portrait,square);
   if(bgOn){
     const plain=light&&KFX.PAPER.plainStyles.includes(currentStyle); // Pure White: 完全な白地（グラデ・点・ビネットなし）
@@ -1054,7 +1073,7 @@ function draw(hiRes){
   // romaji name + meanings（Task 4）
   if(!quizMode){
     const baseY=portrait?H-210*scale:H-(square?220:190)*scale;
-    const meanings=meaningsOn?choices.map(ci=>ATEJI[syls[ci.s]][ci.o][1]):[];
+    const meanings=meaningsOn?choices.map(ci=>ci.opts[ci.o][1]):[];
     x.textAlign="center";
     fxLatin(x,W,H,scale,st,nm,meanings,baseY,light);
   }
@@ -1169,7 +1188,7 @@ function renderFontRow(){
 function renderChips(){
   const el=document.getElementById("chips");el.innerHTML="";
   choices.forEach((ci,idx)=>{
-    const tok=syls[ci.s],ent=ATEJI[tok][ci.o],[k,m]=ent,ts=trueSound(tok,ent);
+    const tok=syls[ci.s],ent=ci.opts[ci.o],[k,m]=ent,ts=trueSound(tok,ent);
     const d=document.createElement("div");d.className="chip";
     d.style.animationDelay=(idx*70)+"ms"; // hanko stamp-in, one press per character
     d.innerHTML=`<span class="s">${tok}${ts!==tok?` <i class="apx">≈ ${ts}</i>`:""}</span><span class="k">${k}</span><span class="m">${m} ▾</span>`;
@@ -1177,10 +1196,10 @@ function renderChips(){
     el.appendChild(d);
   });
   document.getElementById("sylArea").style.display="block";
-  document.getElementById("bgk").textContent=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]).join("")||"名前";
+  document.getElementById("bgk").textContent=choices.map(ci=>ci.opts[ci.o][0]).join("")||"名前";
 }
 function openPicker(idx){
-  const ci=choices[idx],opts=ATEJI[syls[ci.s]];
+  const ci=choices[idx],opts=ci.opts;
   const card=document.getElementById("pickerCard");
   card.innerHTML=`<button class="pk-x" type="button" aria-label="Close">×</button><h3>Choose a meaning for “${syls[ci.s]}”</h3><p>Each kanji carries the same or closest Japanese sound — pick the meaning that feels like you.</p>`;
   card.querySelector(".pk-x").onclick=()=>document.getElementById("picker").classList.remove("open");
@@ -1219,7 +1238,7 @@ function renderSayArea(words){
       const b=document.createElement("button");
       b.className="style-b"+(varOf(w)===i?" on":"");
       b.dataset.word=k;b.dataset.variant=i;
-      b.innerHTML=(say[i]||v)+'<span class="say-syl">'+tokenize(toRomaji(w,i)).join(" · ")+"</span>";
+      b.innerHTML=(say[i]||v)+'<span class="say-syl">'+nameTokens(w,i).join(" · ")+"</span>";
       row.appendChild(b);
     });
     rows.appendChild(row);
@@ -1263,7 +1282,7 @@ function renderArtNote(){
   }else{
     l1.hidden=true;
   }
-  document.getElementById("anKanji").textContent=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]).join("");
+  document.getElementById("anKanji").textContent=choices.map(ci=>ci.opts[ci.o][0]).join("");
 }
 
 function generate(rand){
@@ -1271,11 +1290,13 @@ function generate(rand){
   if(!nm){toast("Type your name first");return;}
   const words=nm.split(/\s+/).filter(Boolean);
   renderSayArea(words);
-  const toks=words.flatMap(w=>tokenize(toRomaji(w,varOf(w))));
+  const units=words.flatMap(w=>{const vi=varOf(w),toks=nameTokens(w,vi);return toks.map(t=>({tok:t,opts:nameTokenOptions(w,vi,t)}));});
+  const toks=units.map(u=>u.tok);
   if(!toks.length){toast("Hmm — try a simpler spelling of your name");return;}
   if(toks.length>MAX_KANJI){toast(`This name would need ${toks.length} kanji, but one artwork holds up to ${MAX_KANJI}. Try a shorter version — or one name at a time.`);return;}
   syls=toks;
-  choices=pickDefaults(toks,rand).map((o,i)=>({s:i,o}));
+  let cursor=0;const picks=words.flatMap(w=>{const vi=varOf(w),ts=nameTokens(w,vi),os=ts.map(t=>nameTokenOptions(w,vi,t));cursor+=ts.length;return nameDefaultPicks(w,vi,ts,os,rand);});
+  choices=picks.map((o,i)=>({s:i,o,opts:units[i].opts}));
   renderChips();render();
   history.replaceState(null,"","#"+encodeURIComponent(hashName()));
   return true;
@@ -1422,7 +1443,7 @@ function shareUrl(){
 }
 function shareText(){
   const nm=document.getElementById("nameIn").value.trim()||"my name";
-  const kanji=choices.map(ci=>ATEJI[syls[ci.s]][ci.o][0]).join("");
+  const kanji=choices.map(ci=>ci.opts[ci.o][0]).join("");
   return `My name "${nm}" in kanji is ${kanji} — made at ${shareUrl()}`;
 }
 async function artworkFile(){

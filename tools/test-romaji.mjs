@@ -20,7 +20,7 @@ function extractOpt(re) {
 }
 const code = [
   extract(/const NAME_DICT=\{.*?\};/s, "NAME_DICT"),
-  extract(/Object\.assign\(NAME_DICT,\{.*?\}\);/, "NAME_DICT special readings"),
+  extract(/Object\.assign\(NAME_DICT,\{.*?\}\);/s, "NAME_DICT special readings"),
   extract(/const PRESERVE_ART_LONG_VOWELS=.*?;/, "preserved art long vowels"),
   extractOpt(/const NAME_SAY=\{.*?\};/s),
   extract(/const ATEJI\s*=\s*\{[\s\S]*?ATEJI\.ye=ATEJI\.e;/, "ATEJI + aliases"),
@@ -30,13 +30,14 @@ const code = [
   extract(/const KANA_MAP=\{[\s\S]*?\};/, "KANA_MAP"),
   extract(/function toKatakana\([^)]*\)\{[\s\S]*?\n\}/, "toKatakana"),
   extract(/function tokenize\(r\)\{[\s\S]*?\n\}/, "tokenize"),
+  extract(/const CN_MIN=[\s\S]*?function nameDefaultPicks\([^\n]*\}/, "name profiles"),
 ].join("\n");
-const { ATEJI, toRomaji, toKatakana, tokenize, NAME_SAY, nameVariants, pinyinTerminalNgReading } = new Function(
+const { ATEJI, toRomaji, toKatakana, tokenize, NAME_SAY, nameVariants, pinyinTerminalNgReading, nameTokens, nameTokenOptions } = new Function(
   code +
     "\nreturn {ATEJI,toRomaji,toKatakana,tokenize," +
     "NAME_SAY:typeof NAME_SAY==='undefined'?null:NAME_SAY," +
     "nameVariants:typeof nameVariants==='undefined'?null:nameVariants," +
-    "pinyinTerminalNgReading:typeof pinyinTerminalNgReading==='undefined'?null:pinyinTerminalNgReading};"
+    "pinyinTerminalNgReading:typeof pinyinTerminalNgReading==='undefined'?null:pinyinTerminalNgReading,nameTokens,nameTokenOptions};"
 )();
 
 let pass = 0, fail = 0;
@@ -114,6 +115,17 @@ eq(toRomaji("king"), "kingu", "King rule-path reading is unchanged");
 eq(toRomaji("sterling"), "suteringu", "Sterling rule-path reading is unchanged");
 eq(toRomaji("irving"), "irubingu", "Irving rule-path reading is unchanged");
 
+// ---- 中華圏頻出名 Tier A（名前別プロファイルはグローバル辞書より優先）----
+eq(nameVariants("ming"), ["min", "mingu"], "Ming has Chinese and English readings");
+eq(nameTokens("ming", 0), ["min"], "Ming Chinese profile keeps min whole");
+eq(nameTokenOptions("ming", 0, "min").map(e=>e[0]), ["明","民"], "Ming profile candidates are isolated");
+eq(nameTokens("ming", 1), ["min","gu"], "Ming English variant follows tokenizer min·gu");
+eq(nameTokenOptions("ling", 0, "rin").map(e=>e[0]), ["鈴","凛","琳"], "Ling profile candidates are isolated");
+eq(nameTokenOptions("mei", 0, "mei").map(e=>e[0]), ["明","鳴","銘"], "Mei profile blocks global re-segmentation");
+eq(nameTokens("meiling", 0), ["mei","rin"], "Meiling uses profile syllables");
+eq(nameTokens("xiaoyu", 0), ["sha","o","yū"], "Xiaoyu uses profile syllables");
+eq(nameVariants("li"), ["rī"], "Li remains the existing dictionary entry");
+
 // ---- 発音バリアント（2026-09-01設計・NAME_DICT パイプ区切り）----
 ok(typeof nameVariants === "function", "nameVariants() exists");
 if (nameVariants) {
@@ -137,8 +149,8 @@ if (nameVariants && NAME_SAY) {
   for (const n of piped) {
     nameVariants(n).forEach((v, i) => {
       const r = toRomaji(n, i);
-      const toks = tokenize(r);
-      ok(toks.length > 0 && toks.join("") === r, `variant tokenizes fully: ${n}[${i}]`, `got ${JSON.stringify(toks)} from ${r}`);
+      const toks = nameTokens(n, i);
+      ok(toks.length > 0 && toks.every(t=>nameTokenOptions(n,i,t)), `variant tokenizes fully: ${n}[${i}]`, `got ${JSON.stringify(toks)} from ${r}`);
     });
   }
 }
@@ -169,8 +181,8 @@ const list = fs
   .map((s) => s.trim().toLowerCase())
   .filter((s) => /^[a-z]+$/.test(s));
 for (const name of list) {
-  const toks = tokenize(toRomaji(name));
-  ok(toks.length > 0 && toks.every((t) => ATEJI[t]), `smoke: ${name}`, `got ${JSON.stringify(toks)}`);
+  const toks = nameTokens(name, 0);
+  ok(toks.length > 0 && toks.every((t) => nameTokenOptions(name,0,t)), `smoke: ${name}`, `got ${JSON.stringify(toks)}`);
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);
