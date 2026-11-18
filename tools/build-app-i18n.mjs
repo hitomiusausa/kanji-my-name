@@ -42,6 +42,13 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 const escAttr = (s) => String(s).replace(/&(?![a-z]+;|#\d+;)/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 // French typography: no-break space before : ; ? ! » and after « (same rule as the landing pages).
 export const frTypo = (s) => String(s).replace(/ ([:;?!»])/g, " $1").replace(/« /g, "« ");
+// Price as people write it in each language (display only — the Stripe amount is in the Payment Link).
+// index.html keeps PRICE = "$X.YY"; the locale page shows fr/it "X,YY $", id "US$X,YY".
+export const PRICE_FMT = {
+  fr: (whole, cents) => `${whole},${cents} $`,
+  it: (whole, cents) => `${whole},${cents} $`,
+  id: (whole, cents) => `US$${whole},${cents}`,
+};
 
 // ---- 1. find every data-i18n element / data-i18n-attr in index.html ----
 const VOID = new Set(["input", "img", "br", "meta", "link"]);
@@ -144,8 +151,9 @@ function replaceOnce(html, re, rep, label) {
 }
 
 function pageHtml(lc) {
-  const S = STRINGS[lc];
   const typo = lc === "fr" ? frTypo : (s) => s;
+  // title / description / og:* / h1 get the same French typography as the body text
+  const S = Object.fromEntries(Object.entries(STRINGS[lc]).map(([k, v]) => [k, ["title", "description", "ogTitle", "h1"].includes(k) ? typo(v) : v]));
   const T = Object.fromEntries(Object.entries(APP_STRINGS[lc]).map(([k, v]) => [k, KINDS[k] === "attr" && k.endsWith("_href") ? v : typo(v)]));
   const url = `${SITE}/${lc}/`;
   const { ld, sections } = landingParts(lc);
@@ -165,6 +173,13 @@ function pageHtml(lc) {
   const gloss = Object.fromEntries(Object.entries(loadLocaleMeanings(ROOT, lc)).map(([k, v]) => [k, typo(v)]));
   const jsUI = Object.fromEntries(Object.keys(T).filter((k) => KINDS[k] === "js").map((k) => [k, T[k]]));
   html = html.replace(UI_BLOCK, (_, a, _b, c) => `${a}const PAGE_LC=${JSON.stringify(lc)};\nconst UI=${JSON.stringify(jsUI)};\nconst GLOSS=${JSON.stringify(gloss)};${c}`);
+
+  // price display (the JS constant feeds every {price} toast; the span is the Premium box before JS runs)
+  const pm = src.match(/const PRICE = "\$(\d+)\.(\d{2})";/);
+  if (!pm) throw new Error('index.html: const PRICE = "$X.YY"; not found');
+  const price = PRICE_FMT[lc](pm[1], pm[2]);
+  html = replaceOnce(html, /const PRICE = "\$\d+\.\d{2}";/, () => `const PRICE = ${JSON.stringify(price)};`, "const PRICE");
+  html = replaceOnce(html, /(<span id="priceVal">)[^<]*(<\/span>)/, (_, a, b) => a + esc(price) + b, "#priceVal");
 
   // <head>
   html = replaceOnce(html, /<html lang="en">/, `<html lang="${S.htmlLang}">`, "<html lang>");

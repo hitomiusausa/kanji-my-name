@@ -28,7 +28,7 @@ export const STRINGS = {
     placeholder: "ex. : Chloé",
     button: "Voir mon prénom en japonais",
     formNote:
-      "Le générateur est <b>en français</b> et <b>gratuit</b>, et votre prénom ne quitte pas votre navigateur. Une offre Premium payante existe, mais elle est facultative.",
+      "Le générateur est <b>en français</b> et <b>gratuit</b>, et votre prénom ne quitte pas votre navigateur. Un Pack Premium payant existe, mais il est facultatif.",
     example: "chloe:Chloé",
     scriptsH2: (d) => `Trois façons d'écrire ${d.name} en japonais`,
     kataWhy:
@@ -54,7 +54,7 @@ export const STRINGS = {
        "Un tatouage est définitif. Considérez le résultat comme une simple piste, et faites vérifier le katakana comme les kanji par une personne de langue maternelle japonaise avant de vous décider."],
       // 2026-11-19: /fr/ is now the generator itself, in French (tools/build-app-i18n.mjs).
       ["Le générateur est-il en français ?",
-       "Oui : sur cette page, tout est en français, y compris le sens de chaque kanji. Tapez votre prénom, choisissez le sens de chaque kanji, puis téléchargez gratuitement l'image en PNG. L'offre Premium payante (haute définition, styles et polices supplémentaires) est facultative."],
+       "Oui : sur cette page, tout est en français, y compris le sens de chaque kanji. Tapez votre prénom, choisissez le sens de chaque kanji, puis téléchargez gratuitement l'image en PNG. Le Pack Premium payant (haute définition, styles et polices supplémentaires) est facultatif."],
     ],
     trust: "Créé au Japon par Hitomi Kuga, Japonaise et enseignante de japonais.",
     about: "À propos (en anglais)",
@@ -77,7 +77,7 @@ export const STRINGS = {
     placeholder: "es. Giulia",
     button: "Scopri il tuo nome in giapponese",
     formNote:
-      "Il generatore è <b>in italiano</b> e <b>gratuito</b>; il tuo nome resta nel tuo browser. Esiste anche un pacchetto Premium a pagamento, del tutto facoltativo.",
+      "Il generatore è <b>in italiano</b> e <b>gratuito</b>; il tuo nome resta nel tuo browser. Esiste anche un Pacchetto Premium a pagamento, del tutto facoltativo.",
     example: "giulia:Giulia",
     scriptsH2: (d) => `Tre modi di scrivere ${d.name} in giapponese`,
     kataWhy:
@@ -102,7 +102,7 @@ export const STRINGS = {
       ["Posso usare questi kanji per un tatuaggio?",
        "Un tatuaggio è per sempre. Considera il risultato come una bozza e, prima di decidere, fai controllare sia il katakana sia i kanji da una persona madrelingua giapponese."],
       ["Il generatore è in italiano?",
-       "Sì: in questa pagina è tutto in italiano. Scrivi il nome, scegli il significato di ogni kanji e scarica gratis l'immagine in PNG. Il pacchetto Premium a pagamento (alta risoluzione, stili e caratteri in più) è facoltativo."],
+       "Sì: in questa pagina è tutto in italiano. Scrivi il nome, scegli il significato di ogni kanji e scarica gratis l'immagine in PNG. Il Pacchetto Premium a pagamento (alta risoluzione, stili e caratteri in più) è facoltativo."],
     ],
     trust: "Creato in Giappone da Hitomi Kuga, madrelingua giapponese e insegnante di giapponese.",
     about: "Chi siamo (in inglese)",
@@ -125,7 +125,7 @@ export const STRINGS = {
     placeholder: "contoh: Putri",
     button: "Lihat namaku dalam bahasa Jepang",
     formNote:
-      "Generatornya <b>berbahasa Indonesia</b> dan <b>gratis</b>. Namamu tidak dikirim ke mana pun karena semuanya diproses di browser. Ada juga paket Premium berbayar, tapi sifatnya opsional.",
+      "Generatornya <b>berbahasa Indonesia</b> dan <b>gratis</b>. Namamu tidak dikirim ke mana pun karena semuanya diproses di browser. Ada juga Paket Premium berbayar, tapi sifatnya opsional.",
     // Putri is in tools/locales/id-names.json → the example uses its local reading (プトゥリ) and links to /id/nama/putri.
     example: "putri:Putri",
     scriptsH2: (d) => `Tiga cara menulis ${d.name} dalam bahasa Jepang`,
@@ -192,7 +192,9 @@ export const LOCALE_NAME_STRINGS = {
     hiraWhy:
       "Le hiragana sert aux mots japonais et à la grammaire : on ne l'emploie pas, en principe, pour un prénom étranger. Certaines personnes l'aiment pourtant pour son tracé doux et arrondi.",
     kanjiWhy: (d) =>
-      `Ce sont des <i>ateji</i> (当て字) : des kanji choisis pour leur son et pour leur sens (« ${d.mean} »). C'est une création artistique, pas une orthographe officielle.`,
+      d.n === 1
+        ? `C'est un <i>ateji</i> (当て字) : un kanji choisi pour son son et pour son sens (« ${d.mean} »). C'est une création artistique, pas une orthographe officielle.`
+        : `Ce sont des <i>ateji</i> (当て字) : des kanji choisis pour leur son et pour leur sens (« ${d.mean} »). C'est une création artistique, pas une orthographe officielle.`,
     altLine: (alts) => `Aussi écrit : ${alts}`,
     artNote: (art) =>
       `Pour les kanji, la lecture est simplifiée en « ${art} » : le japonais n'a pas exactement tous ces sons, et les ateji s'en tiennent aux lectures les plus proches.`,
@@ -231,13 +233,15 @@ export const LOCALE_NAME_STRINGS = {
     ],
     // same sections as the English /names/ pages (hero heading, notes under the three scripts, gift ideas)
     heroH2: (d) => `${d.kanji} — « ${d.mean} »`,
-    permanentNote: "Pour tout usage définitif, faites-le vérifier par une personne de langue maternelle japonaise.",
+    permanentNote: "Pour tout usage définitif, faites vérifier ces kanji par une personne de langue maternelle japonaise.",
     giftH2: "Idées : tatouage, cadeau, tableau",
     giftBody: (d) =>
       `${d.kanji} rend très bien en calligraphie verticale : une idée pour un <b>tatouage de prénom en kanji</b>, un <b>cadeau personnalisé</b> ou un <b>tableau à encadrer</b>. Cette page explique chaque caractère : vous (et votre tatoueur) savez exactement ce que signifie chaque kanji.`,
     relatedH2: "D'autres prénoms en japonais",
     allLink: "Tous les prénoms →",
     nameCrumb: (d) => `${d.D} en japonais`,
+    // footer + landmarks of the name/list pages (About/Terms are English-only pages; the legal notice is ja/en)
+    footer: { about: "À propos (en anglais)", terms: "Conditions (en anglais)", legal: "Mentions légales", made: "Créé au Japon par une Japonaise, enseignante de japonais", logoAlt: "Logo Kanji My Name", crumbsAria: "Fil d'Ariane" },
     // list page /fr/prenoms/
     listTitle: "Prénoms français en japonais (katakana, kanji) | Kanji My Name",
     listDescription: (n) =>
@@ -292,27 +296,28 @@ export const LOCALE_NAME_STRINGS = {
     sylLine: (t, n) => `«${t}» — ${n} kanji tra cui scegliere`,
     selLabel: "In questa versione",
     selAria: "Selezionato",
-    cta: (d) => `Crea gratis ${d.D} in kanji`,
+    cta: (d) => `Scrivi ${d.D} in kanji, gratis`,
     ctaNote: "Generatore in italiano · download immediato · il tuo nome resta nel tuo browser",
     faqH2: (d) => `Domande su ${d.D} in giapponese`,
     faq: (d) => [
       [`Come si scrive ${d.D} in giapponese?`,
        `In katakana: ${d.K} (${d.R}).${d.alts ? ` Si trova scritto anche ${d.alts}.` : ""} È la scrittura che il giapponese usa per i nomi e le parole straniere${d.pron ? ", e segue la pronuncia italiana del nome" : ""}.${d.kanaNote ? ` ${d.kanaNote}` : ""} In hiragana sarebbe ${d.H}, ma per un nome straniero di norma non si usa.`],
       [`Che cosa significa ${d.D} in giapponese?`,
-       `Di per sé ${d.D} non ha un significato in giapponese: il katakana trascrive solo il suono. Il significato arriva solo se si scelgono dei kanji. Nella versione proposta qui, ${d.kanji} significa «${d.mean}», e puoi sostituire ${d.n === 1 ? "questo kanji" : "ogni kanji"} per cambiare il significato.`],
+       `Di per sé ${d.D} non ha un significato in giapponese: il katakana trascrive solo il suono. Il significato nasce quando si scelgono dei kanji. Nella versione proposta qui, ${d.kanji} significa «${d.mean}», e puoi sostituire ${d.n === 1 ? "questo kanji" : "ogni kanji"} per cambiare il significato.`],
       [`${d.kanji} è la grafia ufficiale di ${d.D}?`,
        `No. Per un nome straniero non esiste un kanji ufficiale. ${d.kanji} è un ateji, una proposta artistica tra ${d.combos} ${d.n === 1 ? "kanji possibili" : "combinazioni possibili"}. Nella vita di tutti i giorni, in Giappone ${d.D} si scrive in katakana.`],
       [`Posso tatuarmi ${d.kanji}?`,
        `Un tatuaggio è per sempre. Considera questi kanji come una bozza e, prima di decidere, fai controllare sia il katakana (${d.K}) sia i kanji da una persona madrelingua giapponese.`],
     ],
     heroH2: (d) => `${d.kanji} — «${d.mean}»`,
-    permanentNote: "Per qualsiasi uso definitivo, fallo controllare da una persona madrelingua giapponese.",
+    permanentNote: "Per qualsiasi uso definitivo, fai controllare i kanji da una persona madrelingua giapponese.",
     giftH2: "Idee: tatuaggio, regalo, quadro",
     giftBody: (d) =>
-      `${d.kanji} è molto d'effetto in calligrafia verticale: un'idea per un <b>tatuaggio con il nome in kanji</b>, un <b>regalo personalizzato</b> o un <b>quadro da appendere</b>. Questa pagina spiega ogni carattere, così tu (e il tuo tatuatore) sapete esattamente che cosa significa ogni kanji.`,
+      `${d.kanji} è molto d'effetto in calligrafia verticale: un'idea per un <b>tatuaggio con il nome in kanji</b>, un <b>regalo personalizzato</b> o un <b>quadro da appendere</b>. Questa pagina spiega ogni carattere, così tu e chi ti farà il tatuaggio saprete esattamente che cosa significa ogni kanji.`,
     relatedH2: "Altri nomi in giapponese",
     allLink: "Tutti i nomi →",
     nameCrumb: (d) => `${d.D} in giapponese`,
+    footer: { about: "Chi siamo (in inglese)", terms: "Condizioni d'uso (in inglese)", legal: "Note legali", made: "Creato in Giappone da una madrelingua giapponese e insegnante di giapponese", logoAlt: "Logo di Kanji My Name", crumbsAria: "Percorso" },
     listTitle: "Nomi italiani in giapponese: katakana e kanji | Kanji My Name",
     listDescription: (n) =>
       `${n} nomi diffusi in Italia scritti in giapponese: katakana secondo la pronuncia italiana, hiragana e kanji (ateji) con il loro significato.`,
@@ -380,12 +385,13 @@ export const LOCALE_NAME_STRINGS = {
     ],
     heroH2: (d) => `${d.kanji} — “${d.mean}”`,
     permanentNote: "Untuk penggunaan permanen, mintalah penutur asli bahasa Jepang memeriksanya terlebih dahulu.",
-    giftH2: "Ide: tato, hadiah, hiasan dinding",
+    giftH2: "Ide: hadiah, hiasan dinding, tato",
     giftBody: (d) =>
-      `${d.kanji} tampak indah sebagai kaligrafi vertikal: cocok untuk <b>tato nama dalam kanji</b>, <b>hadiah</b> yang personal, atau <b>hiasan dinding</b> berbingkai. Halaman ini menjelaskan arti setiap kanji, jadi kamu (dan seniman tatomu) tahu persis maknanya.`,
+      `${d.kanji} tampak indah sebagai kaligrafi vertikal: cocok untuk <b>hadiah</b> yang personal, <b>hiasan dinding</b> berbingkai, atau <b>tato nama dalam kanji</b>. Halaman ini menjelaskan arti setiap kanji, jadi kamu (dan seniman tatomu) tahu persis maknanya.`,
     relatedH2: "Nama lain dalam bahasa Jepang",
     allLink: "Semua nama →",
     nameCrumb: (d) => `${d.D} dalam bahasa Jepang`,
+    footer: { about: "Tentang kami (bahasa Inggris)", terms: "Ketentuan (bahasa Inggris)", legal: "Informasi Hukum", made: "Dibuat di Jepang oleh orang Jepang asli yang juga guru bahasa Jepang", logoAlt: "Logo Kanji My Name", crumbsAria: "Navigasi lokasi" },
     listTitle: "Nama Indonesia dalam Bahasa Jepang | Kanji My Name",
     listDescription: (n) =>
       `${n} nama yang populer di Indonesia dalam bahasa Jepang: katakana sesuai pelafalan Indonesia, hiragana, dan kanji (ateji) beserta maknanya.`,

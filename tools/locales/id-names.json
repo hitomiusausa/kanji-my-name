@@ -82,6 +82,10 @@
     "kana": "ヌル",
     "romaji": "nuru",
     "art": "nuru",
+    "defaults": [
+      "布",
+      "流"
+    ],
     "gender": "f",
     "note": "Nur is used for both genders, mostly as the first part of a name (Nurhayati, Nur Aini); standalone use mostly female"
   },
@@ -159,6 +163,13 @@
     "kana": "ヌルハヤティ",
     "romaji": "nuruhayati",
     "art": "nuruhayati",
+    "defaults": [
+      "布",
+      "流",
+      "波",
+      "弥",
+      "智"
+    ],
     "gender": "f",
     "note": "Dukcapil: most common female name (all ages); JKT48 member ヌルハヤティ"
   },
@@ -303,7 +314,7 @@
     "defaults": [
       "愛",
       "流",
-      "智",
+      "慈",
       "安",
       "射"
     ]

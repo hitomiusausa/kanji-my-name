@@ -49,6 +49,10 @@
     "kana": "ノア",
     "romaji": "noa",
     "art": "noa",
+    "defaults": [
+      "野",
+      "亜"
+    ],
     "gender": "m"
   },
   {
@@ -218,6 +222,10 @@
     "kana": "リュカ",
     "romaji": "ryuka",
     "art": "ryuka",
+    "defaults": [
+      "龍",
+      "佳"
+    ],
     "gender": "m",
     "note": "French: final s silent"
   },
@@ -227,6 +235,10 @@
     "kana": "ノエ",
     "romaji": "noe",
     "art": "noe",
+    "defaults": [
+      "野",
+      "恵"
+    ],
     "gender": "m"
   },
   {
@@ -244,10 +256,7 @@
     "romaji": "gyaban",
     "art": "gyaban",
     "gender": "m",
-    "note": "French sound is closer to ガバン; ギャバン follows Jean Gabin",
-    "alt": [
-      "ガバン"
-    ]
+    "note": "French sound is closer to ガバン; ギャバン follows Jean Gabin"
   },
   {
     "slug": "adele",
@@ -294,8 +303,7 @@
     "gender": "m",
     "note": "Search check 2026-11-18 (jawiki / eiga.com / soccer media).",
     "alt": [
-      "ユーゴー",
-      "ウーゴ"
+      "ユーゴー"
     ]
   },
   {

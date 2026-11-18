@@ -155,10 +155,16 @@ const PAGE_CSS = NAME_PAGE_CSS + `
 `;
 
 const ICON = `<link rel="icon" type="image/png" href="../../image/kanjimyname-icon.png?v=2">`;
-const FOOTER = `<footer><a href="../../" class="flogo" aria-label="Kanji My Name"><img src="../../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../../about" hreflang="en">About</a> · <a href="../../terms" hreflang="en">Terms</a> · <a href="../../tokushoho" hreflang="en">Legal Notice</a></div><div style="margin-top:6px" lang="en">Made in Japan by a native speaker &amp; Japanese-language teacher</div></footer>`;
+// Footer in the page language (About/Terms exist only in English, so their links say so).
+const footer = (lc) => {
+  const F = LOCALE_NAME_STRINGS[lc].footer;
+  return `<footer><a href="../../" class="flogo" aria-label="Kanji My Name"><img src="../../image/kanjilogo-footer.png" alt="${esc(F.logoAlt)}" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../../about" hreflang="en">${esc(F.about)}</a> · <a href="../../terms" hreflang="en">${esc(F.terms)}</a> · <a href="../../tokushoho">${esc(F.legal)}</a></div><div style="margin-top:6px">${esc(F.made)}</div></footer>`;
+};
 
 // French typography (same rule as build-i18n.mjs): no-break space before : ; ? ! » and after «.
-const finish = (lc, html) => (lc === "fr" ? html.replace(/ ([:;?!»])(?=[\s<"])/g, " $1").replace(/« /g, "« ") : html);
+// » always (also before ) , . — interpolated meanings end right before them); : ; ? ! only before
+// whitespace, a tag, a quote or ) , . so URLs and code are never touched.
+const finish = (lc, html) => (lc === "fr" ? html.replace(/ »/g, "\u00a0»").replace(/ ([:;?!])(?=[\s<"),.]|$)/g, "\u00a0$1").replace(/« /g, "«\u00a0") : html);
 
 function head(lc, { title, description, url, ogTitle, ld, ogType, extraCss = "" }) {
   const S = STRINGS[lc];
@@ -255,7 +261,7 @@ function namePage(lc, a, all) {
 <body>
 <div class="wrap">
   <div class="top"><div class="brand"><a href="../../">Kanji My Name</a></div>${langSwitcher("../../", lc)}</div>
-  <nav class="crumbs" aria-label="Breadcrumb"><a href="../">${esc(S.breadcrumbName)}</a><span aria-hidden="true">›</span><a href="./">${esc(LS.listH1)}</a></nav>
+  <nav class="crumbs" aria-label="${esc(LS.footer.crumbsAria)}"><a href="../">${esc(S.breadcrumbName)}</a><span aria-hidden="true">›</span><a href="./">${esc(LS.listH1)}</a></nav>
 
   <h1>${esc(LS.h1(raw))}</h1>
   <p class="sub">${LS.sub(h)}</p>
@@ -303,7 +309,7 @@ function namePage(lc, a, all) {
 
   <p class="trust"><a href="../">${esc(S.breadcrumbName)}</a> · <a href="../../about" hreflang="en">${esc(S.about)}</a> · <a href="../">${esc(S.toolLink)}</a></p>
 
-  ${FOOTER}
+  ${footer(lc)}
 </div>
 <span class="sr-only" role="status" aria-live="polite" id="copyStatus"></span>
 <script>
@@ -357,7 +363,7 @@ function listPage(lc, all) {
 <div class="list-watermark list-watermark-right" aria-hidden="true">前</div>
 <div class="wrap">
   <div class="top"><div class="brand"><a href="../../">Kanji My Name</a></div>${langSwitcher("../../", lc)}</div>
-  <nav class="crumbs" aria-label="Breadcrumb"><a href="../">${esc(S.breadcrumbName)}</a></nav>
+  <nav class="crumbs" aria-label="${esc(LS.footer.crumbsAria)}"><a href="../">${esc(S.breadcrumbName)}</a></nav>
   <h1>${esc(LS.listH1)}</h1>
   <p class="sub">${esc(LS.listLead(all.length))} <a style="color:var(--gold)" href="../">${esc(S.toolLink)} →</a></p>
   ${groups.length > 1 ? `<nav class="rel jump" aria-label="${esc(LS.listH1)}">${groups.map(([gk, xs]) => `<a href="#${gk}">${esc(LS.groups[gk])} (${xs.length})</a>`).join("")}</nav>` : ""}
@@ -369,7 +375,7 @@ function listPage(lc, all) {
 
   <p class="trust">${esc(S.trust)} <a href="../">${esc(S.breadcrumbName)}</a> · <a href="../../about" hreflang="en">${esc(S.about)}</a> · <a href="../">${esc(S.toolLink)}</a></p>
 
-  ${FOOTER}
+  ${footer(lc)}
 </div>
 </body>
 </html>

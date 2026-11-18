@@ -43,7 +43,13 @@ for (const lc of I18N_LANGS) {
   const p = `${lc}/index.html`, html = read(p), S = STRINGS[lc];
   ok(html.includes(`<html lang="${S.htmlLang}">`), `${p}: html lang`);
   ok(html.includes(`<link rel="canonical" href="https://kanji.kugainc.com/${lc}/">`), `${p}: canonical`);
-  ok(html.includes(`<title>${S.title.replace(/&/g, "&amp;")}</title>`), `${p}: landing title`);
+  // fr: the title gets French typography (no-break space before : ; ? !), like the body text
+  const title = lc === "fr" ? S.title.replace(/ ([:;?!»])/g, "\u00a0$1") : S.title;
+  ok(html.includes(`<title>${title.replace(/&/g, "&amp;")}</title>`), `${p}: landing title`);
+  // price shown the local way (display only); Stripe link untouched
+  const [, pw, pc] = index.match(/const PRICE = "\$(\d+)\.(\d{2})";/);
+  const price = { fr: `${pw},${pc}\u00a0$`, it: `${pw},${pc}\u00a0$`, id: `US$${pw},${pc}` }[lc];
+  ok(html.includes(`<span id="priceVal">${price}</span>`) && html.includes(`const PRICE = ${JSON.stringify(price)};`), `${p}: local price display`);
   ok(count(html, '<link rel="alternate" hreflang=') === 5, `${p}: 5 hreflang links`);
   ok(count(html, "<h1>") === 1, `${p}: one h1`);
   ok(count(html, 'id="nameIn"') === 1 && count(html, '<canvas id="art"') === 1, `${p}: the generator once`);

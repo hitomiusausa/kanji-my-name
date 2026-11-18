@@ -107,7 +107,8 @@ const ENGINE = extractEngine(src);
 const LOCALE_GRID_MAX = 24;
 
 // French typography: no-break space before : ; ? ! » and after «, so they never start a line.
-const finish = (lang, s) => (lang === "fr" ? s.replace(/ ([:;?!»])(?=[\s<"])/g, " $1").replace(/« /g, "« ") : s);
+// » always (interpolated meanings can end right before ) , .); : ; ? ! before whitespace, a tag, a quote or ) , .
+const finish = (lang, s) => (lang === "fr" ? s.replace(/ »/g, "\u00a0»").replace(/ ([:;?!])(?=[\s<"),.]|$)/g, "\u00a0$1").replace(/« /g, "«\u00a0") : s);
 
 // Landing sections for /<lang>/ (paths are relative to /<lang>/). Returns { ld: JSON-LD text, sections: HTML }.
 export function landingParts(lang) {
