@@ -1,0 +1,283 @@
+#!/usr/bin/env node
+// build-i18n.mjs — /fr/ /it/ /id/ landing pages ("<prénom> en japonais" etc.).
+// Policy (2026-11-18): ONE hand-written landing page per language. Do not mass-produce
+// translated name pages (thin duplicates could hurt the English site's rankings).
+// Strings live in tools/i18n-strings.mjs. Kana/kanji come from index.html, extracted the same
+// way tools/build-names.mjs does (single-source rule: no dictionaries are copied here).
+// Usage: node tools/build-i18n.mjs
+// The sitemap entries are written by tools/build-names.mjs (it imports I18N_LANGS).
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { I18N_LANGS, LANG_LABELS, STRINGS } from "./i18n-strings.mjs";
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const SITE = "https://kanji.kugainc.com";
+const SOCIAL_IMAGE = `${SITE}/image/kanjimyname.png?v=2`;
+// Same (empty) Cloudflare Web Analytics gate as build-names.mjs — set both together.
+const CF_BEACON_TOKEN = "";
+const CF_BEACON_SNIPPET = `<script>(function(){var CF_BEACON_TOKEN="${CF_BEACON_TOKEN}";if(!CF_BEACON_TOKEN)return;var s=document.createElement("script");s.type="module";s.src="https://static.cloudflareinsights.com/beacon.min.js";s.setAttribute("data-cf-beacon",JSON.stringify({token:CF_BEACON_TOKEN}));document.head.appendChild(s);})();</script>`;
+
+const src = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
+
+// ---- Generator logic, extracted from index.html (same regexes as build-names.mjs) ----
+function extract(re, label) {
+  const m = src.match(re);
+  if (!m) throw new Error("extract failed: " + label);
+  return m[0];
+}
+const code = [
+  extract(/const NAME_DICT=\{.*?\};/s, "NAME_DICT"),
+  extract(/Object\.assign\(NAME_DICT,\{.*?\}\);/s, "NAME_DICT special readings"),
+  extract(/const PRESERVE_ART_LONG_VOWELS=.*?;/, "preserved art long vowels"),
+  extract(/const NAME_SAY=\{.*?\};/s, "NAME_SAY"),
+  extract(/const ATEJI\s*=\s*\{[\s\S]*?ATEJI\.ye=ATEJI\.e;/, "ATEJI + aliases"),
+  extract(/function nameVariants\([^)]*\)\{[\s\S]*?\n\}/, "nameVariants"),
+  extract(/const NAME_KANA=\{.*?\};/s, "NAME_KANA display fixes"),
+  extract(/function displayReading\([^)]*\)\{[\s\S]*?\n\}/, "displayReading"),
+  extract(/function pinyinTerminalNgReading\([^)]*\)\{[\s\S]*?\n\}/, "Pinyin terminal -ng rule"),
+  extract(/function toRomaji\(name[^)]*\)\{[\s\S]*?\n\}/, "toRomaji"),
+  extract(/const KANA_MAP=\{[\s\S]*?\};/, "KANA_MAP"),
+  extract(/function toKatakana\([^)]*\)\{[\s\S]*?\n\}/, "toKatakana"),
+  extract(/function tokenize\(r\)\{[\s\S]*?\n\}/, "tokenize"),
+  extract(/const CN_MIN=[\s\S]*?function nameDefaultPicks\([^\n]*\}/, "name profiles"),
+  extract(/const APPROX_SYL=\{.*?\};/s, "APPROX_SYL"),
+  extract(/function trueSound\([^\n]*\}/, "trueSound"),
+  extract(/function pickDefaults\([\s\S]*?\n\}/, "pickDefaults"),
+].join("\n");
+const { displayReading, toKatakana, nameTokens, nameTokenOptions, nameDefaultPicks } = new Function(
+  code + "\nreturn {displayReading,toKatakana,nameTokens,nameTokenOptions,nameDefaultPicks};"
+)();
+
+const NAMES = new Set(
+  fs.readFileSync(path.join(ROOT, "tools", "names.txt"), "utf8")
+    .split(/\r?\n/).map((s) => s.trim().toLowerCase()).filter((s) => /^[a-z]+$/.test(s))
+);
+
+const esc = (s) =>
+  String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const stripTags = (s) => String(s).replace(/<[^>]+>/g, "");
+const toHiragana = (k) => k.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
+const cap = (s) => s[0].toUpperCase() + s.slice(1);
+
+// Default reading (index 0) only — the same default the name pages and the generator show first.
+function analyze(spec) {
+  const [slug, label] = spec.split(":");
+  const toks = nameTokens(slug, 0);
+  if (!toks || !toks.length) throw new Error(`cannot analyze "${slug}"`);
+  const variants = toks.map((t) => nameTokenOptions(slug, 0, t));
+  const picks = nameDefaultPicks(slug, 0, toks, variants);
+  const def = toks.map((t, i) => variants[i][picks[i]]);
+  const romaji = displayReading(slug, 0);
+  const kata = toKatakana(romaji);
+  if (!kata) throw new Error(`no katakana for "${slug}"`);
+  return {
+    slug, name: label || cap(slug), inList: NAMES.has(slug),
+    kata, hira: toHiragana(kata), romaji,
+    kanji: def.map(([k]) => k).join(""),
+    meanings: def.map(([, m]) => m),
+  };
+}
+
+// ---- hreflang: identical block on all four pages (index.html carries a hand-copied version) ----
+const ALT_URLS = { en: `${SITE}/`, ...Object.fromEntries(I18N_LANGS.map((l) => [l, `${SITE}/${l}/`])) };
+const HREFLANG = [
+  ...Object.entries(ALT_URLS).map(([l, u]) => `<link rel="alternate" hreflang="${l}" href="${u}">`),
+  `<link rel="alternate" hreflang="x-default" href="${ALT_URLS.en}">`,
+].join("\n");
+
+const CSS = `
+:root{--bg:#131310;--panel:#1a1a16;--line:#35332a;--ink:#e8e2d5;--head:#f0ead9;--gold:#b89250;--muted:#8f897b;--seal:#c73e2c;
+--washi:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 .9 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.7;position:relative}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 60% 40% at 78% 8%,rgba(232,226,213,.045),transparent 70%),radial-gradient(ellipse 46% 34% at -6% 86%,rgba(199,62,44,.04),transparent 72%),var(--washi)}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;padding:34px 0 0}
+.brand{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:12px}
+.brand::before{content:"印";font-family:'Yuji Syuku',serif;font-size:13px;color:#fdf6ea;background:var(--seal);width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(3deg);letter-spacing:0}
+.brand a{color:inherit;text-decoration:none}
+.langs{display:flex;flex-wrap:wrap;gap:4px 14px;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.06em}
+.langs a{color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.langs a:hover{color:var(--ink)}
+.langs a[aria-current]{color:var(--gold);border-bottom-color:var(--gold)}
+h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(32px,5.4vw,50px);line-height:1.2;margin:26px 0 10px;color:var(--head)}
+h2{font-family:'Shippori Mincho',serif;font-size:clamp(21px,3vw,25px);line-height:1.35;color:var(--head);margin:48px 0 14px}
+p{margin:10px 0}
+.lead{color:rgba(232,226,213,.82);max-width:680px;font-size:16px}
+.lead b{color:var(--head);font-weight:600}
+.namebox{margin:28px 0 0;padding:22px;border:1px solid var(--line);background:rgba(26,26,22,.82);max-width:680px}
+.namebox label{display:block;font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.nb-row{display:flex;flex-wrap:wrap;gap:10px}
+.nb-row input{flex:1 1 220px;min-width:0;background:#0f0f0c;border:1px solid var(--line);color:var(--head);font-family:'Inter',sans-serif;font-size:18px;padding:13px 14px;border-radius:0}
+.nb-row input:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+.cta{flex:0 1 auto;display:inline-block;background:#15150f;color:var(--gold);border:1px solid var(--gold);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:15px 22px;text-decoration:none;cursor:pointer;position:relative;overflow:hidden;z-index:0;transition:color .2s}
+.cta::before{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.3,0,.2,1);z-index:-1}
+.cta:hover,.cta:focus-visible{color:#131310}
+.cta:hover::before,.cta:focus-visible::before{transform:scaleX(1)}
+@media(prefers-reduced-motion:reduce){.cta::before{transition:none}}
+@media(max-width:480px){.cta{flex:1 1 100%}}
+.nb-note{font-size:13px;color:var(--muted);margin:12px 0 0}
+.nb-note b{color:var(--ink);font-weight:600}
+.scripts{margin:0;display:grid;max-width:760px}
+.sc-row{display:grid;grid-template-columns:110px minmax(0,1fr);gap:4px 18px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+.sc-row:first-child{border-top:1px solid var(--line)}
+.sc-row dt{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.sc-row dd{margin:0;font-size:14px;line-height:1.75;color:rgba(232,226,213,.78)}
+.sc-script{font-family:'Shippori Mincho',serif;font-size:26px;color:var(--head);margin-right:.4em}
+.sc-kanji{font-family:'Yuji Syuku',serif}
+.romaji{color:var(--muted);font-size:13px}
+.sc-why{display:block;margin-top:4px}
+@media(max-width:480px){.sc-row{grid-template-columns:1fr}}
+.body-copy{max-width:720px;color:rgba(232,226,213,.82)}
+.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin:18px 0 0}
+.nc{display:block;border:1px solid var(--line);background:rgba(26,26,22,.82);padding:14px 14px 12px;text-decoration:none;color:var(--ink);transition:border-color .15s}
+.nc:hover,.nc:focus-visible{border-color:var(--gold)}
+.nc-name{display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:var(--head)}
+.nc-kana{display:block;font-family:'Shippori Mincho',serif;font-size:16px;color:rgba(232,226,213,.8);margin-top:2px}
+.nc-kanji{display:block;font-family:'Yuji Syuku',serif;font-size:26px;line-height:1.3;color:var(--head);margin-top:6px;overflow-wrap:anywhere}
+.nc-mean{display:block;font-size:11.5px;line-height:1.5;color:var(--muted);margin-top:4px}
+.grid-note{font-size:13px;color:var(--muted);max-width:720px}
+.qa{border-bottom:1px solid var(--line);padding:16px 0;max-width:760px}
+.qa h3{font-family:'Inter',sans-serif;font-size:15.5px;font-weight:600;color:var(--head);margin-bottom:4px}
+.qa p{color:rgba(232,226,213,.72);font-size:14.5px;margin:0}
+.trust{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);font-size:14px;color:rgba(232,226,213,.8)}
+.trust a{color:var(--gold)}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0 40px;color:var(--muted);font-size:13px;text-align:center}
+footer a{color:var(--gold)}
+.flogo{display:inline-block;margin-bottom:12px}
+.flogo img{width:84px;height:84px;display:block;opacity:.92}
+`;
+
+const FONTS_LINK = `<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@700&family=Yuji+Syuku&family=Space+Grotesk:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">`;
+
+// The name box hands off to the English generator via its #Name hash. The generator only reads
+// a–z, so accents are folded (Chloé → Chloe) and other characters become word breaks.
+const FORM_JS = `<script>
+document.getElementById("nf").addEventListener("submit",function(e){
+  e.preventDefault();
+  var i=document.getElementById("ni");
+  var v=i.value.replace(/[œŒ]/g,function(c){return c==="œ"?"oe":"Oe"}).replace(/[æÆ]/g,function(c){return c==="æ"?"ae":"Ae"})
+    .normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").replace(/[^A-Za-z]+/g," ").trim();
+  if(!v){i.focus();return;}
+  location.href="../#"+encodeURIComponent(v);
+});
+</script>`;
+
+function pageHtml(lang) {
+  const S = STRINGS[lang];
+  const url = ALT_URLS[lang];
+  const ex = analyze(S.example);
+  const exData = { name: esc(ex.name), kata: ex.kata, hira: ex.hira, romaji: ex.romaji, kanji: ex.kanji, mean: esc(ex.meanings.join(" · ")) };
+  const exHref = ex.inList ? `../names/${ex.slug}` : `../#${encodeURIComponent(ex.name)}`;
+  const grid = S.names.map(analyze);
+  for (const g of grid) if (!g.inList) throw new Error(`[${lang}] "${g.slug}" is not in tools/names.txt`);
+  if (new Set(grid.map((g) => g.slug)).size !== grid.length) throw new Error(`[${lang}] duplicate name in list`);
+
+  const ld = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage", "@id": `${url}#webpage`, url, name: S.ogTitle, inLanguage: S.htmlLang,
+        description: S.description, isPartOf: { "@id": `${SITE}/#website` },
+        about: { "@id": `${SITE}/#app` },
+      },
+      {
+        "@type": "FAQPage", "@id": `${url}#faq`, inLanguage: S.htmlLang,
+        mainEntity: S.faq.map(([q, a]) => ({
+          "@type": "Question", name: stripTags(q),
+          acceptedAnswer: { "@type": "Answer", text: stripTags(a) },
+        })),
+      },
+    ],
+  };
+  const langNav = Object.keys(ALT_URLS).map((l) =>
+    `<a href="${l === "en" ? "../" : `../${l}/`}" hreflang="${l}" lang="${l}"${l === lang ? ' aria-current="page"' : ""}>${esc(LANG_LABELS[l])}</a>`
+  ).join("");
+
+  return `<!DOCTYPE html>
+<html lang="${S.htmlLang}">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${esc(S.title)}</title>
+<meta name="description" content="${esc(S.description)}">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<link rel="canonical" href="${url}">
+${HREFLANG}
+<meta property="og:url" content="${url}">
+<meta property="og:title" content="${esc(S.ogTitle)}">
+<meta property="og:description" content="${esc(S.description)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Kanji My Name">
+<meta property="og:locale" content="${S.ogLocale}">
+<meta property="og:image" content="${SOCIAL_IMAGE}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="../image/kanjimyname-icon.png?v=2">
+${FONTS_LINK}
+<style>${CSS}</style>
+<script type="application/ld+json">${JSON.stringify(ld)}</script>
+${CF_BEACON_SNIPPET}
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><a href="../">Kanji My Name</a></div>
+    <nav class="langs" aria-label="${esc(S.langNav)}">${langNav}</nav>
+  </div>
+
+  <h1>${esc(S.h1)}</h1>
+  <p class="lead">${S.lead}</p>
+
+  <form class="namebox" id="nf" action="../" method="get">
+    <label for="ni">${esc(S.formLabel)}</label>
+    <div class="nb-row">
+      <input id="ni" name="n" type="text" autocomplete="given-name" autocapitalize="words" spellcheck="false" maxlength="40" placeholder="${esc(S.placeholder)}" required>
+      <button class="cta" type="submit">${esc(S.button)}</button>
+    </div>
+    <p class="nb-note">${S.formNote}</p>
+  </form>
+
+  <h2>${S.scriptsH2(exData)}</h2>
+  <dl class="scripts">
+    <div class="sc-row"><dt>Katakana</dt><dd><span class="sc-script" lang="ja">${esc(ex.kata)}</span><span class="romaji">(${esc(ex.romaji)})</span><span class="sc-why">${S.kataWhy}</span></dd></div>
+    <div class="sc-row"><dt>Hiragana</dt><dd><span class="sc-script" lang="ja">${esc(ex.hira)}</span><span class="sc-why">${S.hiraWhy}</span></dd></div>
+    <div class="sc-row"><dt>Kanji</dt><dd><a href="${exHref}" style="text-decoration:none"><span class="sc-script sc-kanji" lang="ja">${esc(ex.kanji)}</span></a><span class="sc-why">${S.kanjiWhy(exData)}</span></dd></div>
+  </dl>
+
+  <h2>${esc(S.sayH2)}</h2>
+  <p class="body-copy">${S.say}</p>
+
+  <h2>${esc(S.gridH2)}</h2>
+  <p class="grid-note">${S.gridNote}</p>
+  <div class="ngrid">
+    ${grid.map((g) => `<a class="nc" href="../names/${g.slug}"><span class="nc-name">${esc(g.name)}</span><span class="nc-kana" lang="ja">${esc(g.kata)}</span><span class="nc-kanji" lang="ja">${esc(g.kanji)}</span><span class="nc-mean" lang="en">${esc(g.meanings.join(" · "))}</span></a>`).join("\n    ")}
+  </div>
+
+  <h2>${esc(S.faqH2)}</h2>
+  ${S.faq.map(([q, a]) => `<div class="qa"><h3>${q}</h3><p>${a}</p></div>`).join("\n  ")}
+
+  <p class="trust">${esc(S.trust)} <a href="../about" hreflang="en">${esc(S.about)}</a> · <a href="../" hreflang="en">${esc(S.toolLink)}</a></p>
+
+  <footer><a href="../" class="flogo" aria-label="Kanji My Name"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../about" hreflang="en">About</a> · <a href="../terms" hreflang="en">Terms</a> · <a href="../tokushoho" hreflang="en">Legal Notice</a></div><div style="margin-top:6px" lang="en">Made in Japan by a native speaker &amp; Japanese-language teacher</div></footer>
+</div>
+${FORM_JS}
+</body>
+</html>
+`;
+}
+
+for (const lang of I18N_LANGS) {
+  const dir = path.join(ROOT, lang);
+  fs.mkdirSync(dir, { recursive: true });
+  let html = pageHtml(lang);
+  // French typography: no-break space before : ; ? ! » and after «, so they never start a line.
+  if (lang === "fr") html = html.replace(/ ([:;?!»])(?=[\s<"])/g, "\u00a0$1").replace(/« /g, "«\u00a0");
+  fs.writeFileSync(path.join(dir, "index.html"), html);
+  console.log(`wrote ${lang}/index.html`);
+}
+
+// index.html keeps a hand-written copy of the hreflang block (a minimal edit to the
+// single-file app). Warn if it drifts from the generated one.
+for (const line of HREFLANG.split("\n")) {
+  if (!src.includes(line)) console.warn("WARN index.html is missing:", line);
+}
