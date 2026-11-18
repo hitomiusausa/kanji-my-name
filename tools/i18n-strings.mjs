@@ -45,7 +45,7 @@ export const STRINGS = {
       "Pour chaque prénom : le katakana, puis les kanji proposés par défaut. Cliquez sur un prénom pour voir toutes les variantes en kanji (page en anglais). Les significations des kanji sont indiquées en anglais.",
     names: [
       "emma:Emma", "alice:Alice", "chloe:Chloé", "rose:Rose", "mila:Mila", "anna:Anna", "juliette:Juliette",
-      "clara:Clara", "julia:Julia", "nina:Nina", "marie:Marie", "celine:Céline", "sophie:Sophie", "victoria:Victoria",
+      "clara:Clara", "julia:Julia", "marie:Marie", "celine:Céline", "sophie:Sophie", "victoria:Victoria",
       "leo:Léo", "gabriel:Gabriel", "adam:Adam", "noah:Noah", "tom:Tom", "enzo:Enzo", "axel:Axel",
       "felix:Félix", "leon:Léon", "pierre:Pierre",
     ],
@@ -99,16 +99,16 @@ export const STRINGS = {
     gridNote:
       "Per ogni nome: il katakana e i kanji proposti dal generatore. Clicca su un nome per vedere tutte le alternative in kanji (pagina in inglese). I significati dei kanji sono indicati in inglese.",
     names: [
-      "sofia:Sofia", "giulia:Giulia", "aurora:Aurora", "alice:Alice", "emma:Emma", "sara:Sara", "anna:Anna",
-      "maria:Maria", "valentina:Valentina", "elena:Elena", "arianna:Arianna", "isabella:Isabella", "clara:Clara",
+      "sofia:Sofia", "giulia:Giulia", "emma:Emma", "sara:Sara", "anna:Anna",
+      "maria:Maria", "elena:Elena", "isabella:Isabella", "clara:Clara",
       "emilia:Emilia", "mia:Mia", "nina:Nina",
-      "leonardo:Leonardo", "matteo:Matteo", "andrea:Andrea", "antonio:Antonio", "marco:Marco", "luca:Luca",
+      "leonardo:Leonardo", "andrea:Andrea", "antonio:Antonio", "marco:Marco", "luca:Luca",
       "giovanni:Giovanni", "leo:Leo",
     ],
     faqH2: "Domande frequenti",
     faq: [
       ["Come si scrive un nome italiano in giapponese?",
-       "In katakana, la scrittura che il giapponese usa per le parole e i nomi stranieri. Il nome si trascrive in base alla pronuncia: Sofia diventa ソフィア, Matteo マテオ. Non si traduce: conta il suono."],
+       "In katakana, la scrittura che il giapponese usa per le parole e i nomi stranieri. Il nome si trascrive in base alla pronuncia: Sofia diventa ソフィア, Luca ルカ. Non si traduce: conta il suono."],
       ["Esiste un kanji ufficiale per il mio nome?",
        "No. Un nome straniero non ha un kanji ufficiale. Le versioni in kanji sono ateji, scelti per suono e significato: per lo stesso nome le possibilità sono tante, e la scelta è tua."],
       ["Perché non scriverlo in hiragana?",
