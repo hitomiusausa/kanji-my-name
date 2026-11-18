@@ -5,7 +5,14 @@
     "kana": "ガブリエル",
     "romaji": "gaburieru",
     "art": "gaburieru",
-    "gender": "m"
+    "gender": "m",
+    "defaults": [
+      "雅",
+      "武",
+      "理",
+      "恵",
+      "瑠"
+    ]
   },
   {
     "slug": "raphael",
@@ -59,7 +66,10 @@
     "romaji": "aruchūru",
     "art": "aruchuru",
     "gender": "m",
-    "note": "アルテュール also seen"
+    "note": "アルテュール also seen",
+    "alt": [
+      "アルテュール"
+    ]
   },
   {
     "slug": "jade",
@@ -68,7 +78,11 @@
     "romaji": "jado",
     "art": "jado",
     "gender": "f",
-    "note": "ジャッド/ジェイド also seen"
+    "note": "ジャッド/ジェイド also seen",
+    "defaults": [
+      "紗",
+      "道"
+    ]
   },
   {
     "slug": "adam",
@@ -151,7 +165,12 @@
     "kana": "サシャ",
     "romaji": "sasha",
     "art": "sasha",
-    "gender": "m"
+    "gender": "m",
+    "defaults": [
+      "沙",
+      "射"
+    ],
+    "note": "defaults 沙射 (2026-11-19): 咲紗 reads as a girl's name in Japan; 射 = archery. Gender stays m."
   },
   {
     "slug": "alma",
@@ -225,7 +244,10 @@
     "romaji": "gyaban",
     "art": "gyaban",
     "gender": "m",
-    "note": "French sound is closer to ガバン; ギャバン follows Jean Gabin"
+    "note": "French sound is closer to ガバン; ギャバン follows Jean Gabin",
+    "alt": [
+      "ガバン"
+    ]
   },
   {
     "slug": "adele",
@@ -250,7 +272,10 @@
     "romaji": "agatto",
     "art": "agato",
     "gender": "f",
-    "note": "アガト also seen"
+    "note": "アガト also seen",
+    "alt": [
+      "アガト"
+    ]
   },
   {
     "slug": "paul",
@@ -284,18 +309,18 @@
   {
     "slug": "marius",
     "display": "Marius",
-    "kana": "マリウス",
-    "romaji": "mariusu",
-    "art": "mariusu",
+    "kana": "マリユス",
+    "romaji": "mariyusu",
+    "art": "mariyusu",
     "gender": "m",
-    "note": "Search check 2026-11-18 (jawiki / eiga.com / soccer media).",
+    "note": "2026-11-19 fr-rules: French bearers on jawiki are マリユス (Trésor, Constant) and it follows the rule (-ius → イユス); マリウス (Petipa, wider use) kept as alt.",
     "alt": [
-      "マリユス"
+      "マリウス"
     ],
     "defaults": [
       "真",
       "理",
-      "宇",
+      "優",
       "寿"
     ]
   },
@@ -386,7 +411,10 @@
     "romaji": "matisu",
     "art": "matisu",
     "gender": "m",
-    "note": "マチス also seen"
+    "note": "マチス also seen",
+    "alt": [
+      "マチス"
+    ]
   },
   {
     "slug": "come",
@@ -450,7 +478,7 @@
     "romaji": "kyapushīnu",
     "art": "kapushinu",
     "gender": "f",
-    "note": "Search check 2026-11-18 (jawiki / eiga.com / soccer media).",
+    "note": "art stays kapushinu (not kyapushinu) on purpose: the only kya kanji is 伽 (temple night), so ka 花 (flower) is the closer positive choice — same approach as Augustin ギュ→gu. Reviewed 2026-11-19 (fr-rules.md).",
     "alt": [
       "カピュシーヌ"
     ]

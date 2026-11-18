@@ -5,7 +5,14 @@
     "kana": "レオナルド",
     "romaji": "reonarudo",
     "art": "reonarudo",
-    "gender": "m"
+    "gender": "m",
+    "defaults": [
+      "玲",
+      "央",
+      "那",
+      "瑠",
+      "道"
+    ]
   },
   {
     "slug": "edoardo",
@@ -30,7 +37,10 @@
     "romaji": "tonmāzo",
     "art": "tonmazo",
     "gender": "m",
-    "note": "トマソ/トマーゾ表記も見かけるが jawiki 人名はトンマーゾ（トンマーゾ・ポベガ等）"
+    "note": "トマソ/トマーゾ表記も見かけるが jawiki 人名はトンマーゾ（トンマーゾ・ポベガ等）",
+    "alt": [
+      "トマーゾ"
+    ]
   },
   {
     "slug": "aurora",
@@ -54,7 +64,14 @@
     "kana": "アレッサンドロ",
     "romaji": "aressandoro",
     "art": "aresandoro",
-    "gender": "m"
+    "gender": "m",
+    "defaults": [
+      "安",
+      "礼",
+      "燦",
+      "道",
+      "朗"
+    ]
   },
   {
     "slug": "francesco",
@@ -79,7 +96,8 @@
       "良"
     ],
     "alt": [
-      "ジネブラ"
+      "ジネブラ",
+      "ジネーヴラ"
     ]
   },
   {
@@ -91,7 +109,7 @@
     "gender": "f",
     "note": "Search check 2026-11-18: dominant Japanese spelling (jawiki / sports media).",
     "alt": [
-      "ビットーリア"
+      "ヴィットリア"
     ]
   },
   {
@@ -109,7 +127,14 @@
     "kana": "ガブリエーレ",
     "romaji": "gaburiēre",
     "art": "gaburiere",
-    "gender": "m"
+    "gender": "m",
+    "defaults": [
+      "雅",
+      "武",
+      "理",
+      "恵",
+      "礼"
+    ]
   },
   {
     "slug": "riccardo",
@@ -148,17 +173,24 @@
     "romaji": "andorea",
     "art": "andorea",
     "gender": "m",
-    "note": "Italian Andrea is a boy's name"
+    "note": "Italian Andrea is a boy's name",
+    "defaults": [
+      "安",
+      "道",
+      "礼",
+      "亜"
+    ]
   },
   {
     "slug": "ludovica",
     "display": "Ludovica",
-    "kana": "ルドヴィカ",
-    "romaji": "rudovika",
+    "kana": "ルドヴィーカ",
+    "romaji": "rudovīka",
     "art": "rudobika",
     "gender": "f",
-    "note": "Search check 2026-11-18: dominant Japanese spelling (jawiki / sports media).",
+    "note": "2026-11-19 it-rules: Italian women on jawiki are ルドヴィーカ (stress on vì; ルドヴィーコ 14 vs ルドヴィコ 4); ルドヴィカ is mostly non-Italian bearers → alt. art stays rudobika.",
     "alt": [
+      "ルドヴィカ",
       "ルドビカ"
     ]
   },
@@ -204,7 +236,12 @@
     "romaji": "enea",
     "art": "enea",
     "gender": "m",
-    "note": "jawiki: エネア・バスティアニーニ"
+    "note": "jawiki: エネア・バスティアニーニ",
+    "defaults": [
+      "恵",
+      "根",
+      "亜"
+    ]
   },
   {
     "slug": "matteo",
@@ -246,7 +283,10 @@
     "romaji": "kamirra",
     "art": "kamira",
     "gender": "f",
-    "note": "カミラ also common"
+    "note": "カミラ also common",
+    "alt": [
+      "カミラ"
+    ]
   },
   {
     "slug": "federico",
@@ -254,7 +294,16 @@
     "kana": "フェデリコ",
     "romaji": "federiko",
     "art": "federiko",
-    "gender": "m"
+    "gender": "m",
+    "defaults": [
+      "平",
+      "天",
+      "理",
+      "幸"
+    ],
+    "alt": [
+      "フェデリーコ"
+    ]
   },
   {
     "slug": "samuele",
@@ -266,7 +315,13 @@
     "alt": [
       "サムエーレ"
     ],
-    "note": "Search check 2026-11-18: dominant Japanese spelling (jawiki / sports media)."
+    "note": "Search check 2026-11-18: dominant Japanese spelling (jawiki / sports media).",
+    "defaults": [
+      "沙",
+      "武",
+      "恵",
+      "礼"
+    ]
   },
   {
     "slug": "anna",
@@ -336,16 +391,24 @@
     "kana": "ジュリオ",
     "romaji": "jurio",
     "art": "jurio",
-    "gender": "m"
+    "gender": "m",
+    "defaults": [
+      "樹",
+      "理",
+      "央"
+    ]
   },
   {
     "slug": "azzurra",
     "display": "Azzurra",
-    "kana": "アズーラ",
-    "romaji": "azūra",
+    "kana": "アッズーラ",
+    "romaji": "azzūra",
     "art": "azura",
     "gender": "f",
-    "note": "no jawiki person precedent; follows established アズーリ (Azzurri, national team nickname) → アズーラ"
+    "note": "2026-11-19 it-rules: person names on jawiki use アッズーラ (Maria Azzurra, Azzurra Agnese); アズーラ is the Grotta Azzurra / Avatar villain Azula spelling → alt. art stays azura.",
+    "alt": [
+      "アズーラ"
+    ]
   },
   {
     "slug": "chiara",
@@ -387,7 +450,10 @@
     "romaji": "joruja",
     "art": "joruja",
     "gender": "f",
-    "note": "jawiki: ジョルジャ・メローニ; ジョルジア also seen"
+    "note": "jawiki: ジョルジャ・メローニ; ジョルジア also seen",
+    "alt": [
+      "ジョルジア"
+    ]
   },
   {
     "slug": "michele",
@@ -395,7 +461,12 @@
     "kana": "ミケーレ",
     "romaji": "mikēre",
     "art": "mikere",
-    "gender": "m"
+    "gender": "m",
+    "defaults": [
+      "海",
+      "慶",
+      "礼"
+    ]
   },
   {
     "slug": "arianna",
@@ -448,7 +519,10 @@
     "kana": "マルティーナ",
     "romaji": "marutīna",
     "art": "marutina",
-    "gender": "f"
+    "gender": "f",
+    "alt": [
+      "マルティナ"
+    ]
   },
   {
     "slug": "adele",

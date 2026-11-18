@@ -32,6 +32,9 @@
       "理",
       "瑞",
       "輝"
+    ],
+    "alt": [
+      "リズキー"
     ]
   },
   {
@@ -41,7 +44,10 @@
     "romaji": "dewi",
     "art": "dewi",
     "gender": "f",
-    "note": "Dewi Sukarno is デヴィ (her own established spelling); デウィ follows Indonesian /w/ and the site's no-ヴ rule"
+    "note": "Dewi Sukarno is デヴィ (her own established spelling); デウィ follows Indonesian /w/ and the site's no-ヴ rule",
+    "alt": [
+      "デヴィ"
+    ]
   },
   {
     "slug": "budi",
@@ -111,7 +117,10 @@
     "romaji": "inda",
     "art": "inda",
     "gender": "f",
-    "note": "Final -h not lengthened, consistent with Aisyah アイシャ (checker B, 2026-11-18). インダー also seen."
+    "note": "Final -h not lengthened, consistent with Aisyah アイシャ (checker B, 2026-11-18). インダー also seen.",
+    "alt": [
+      "インダー"
+    ]
   },
   {
     "slug": "fajar",
@@ -120,7 +129,12 @@
     "romaji": "fajaru",
     "art": "fajaru",
     "gender": "m",
-    "note": "ファジャル・アルフィアン (badminton, ja.wikipedia)"
+    "note": "ファジャル・アルフィアン (badminton, ja.wikipedia)",
+    "defaults": [
+      "羽",
+      "若",
+      "瑠"
+    ]
   },
   {
     "slug": "aisyah",
@@ -163,7 +177,13 @@
     "kana": "レスタリ",
     "romaji": "resutari",
     "art": "resutari",
-    "gender": "f"
+    "gender": "f",
+    "defaults": [
+      "麗",
+      "寿",
+      "多",
+      "莉"
+    ]
   },
   {
     "slug": "eko",
@@ -282,10 +302,10 @@
     "note": "Dukcapil: no.1 Gen Z men; no ja.wikipedia example found",
     "defaults": [
       "愛",
-      "瑠",
+      "流",
       "智",
       "安",
-      "紗"
+      "射"
     ]
   },
   {
@@ -384,7 +404,13 @@
     "romaji": "iruhamu",
     "art": "iruhamu",
     "gender": "m",
-    "note": "イルハム (ja.wikipedia, Azerbaijani Ilham Aliyev uses same kana)"
+    "note": "イルハム (ja.wikipedia, Azerbaijani Ilham Aliyev uses same kana)",
+    "defaults": [
+      "意",
+      "流",
+      "波",
+      "夢"
+    ]
   },
   {
     "slug": "rahma",
@@ -414,7 +440,10 @@
     "romaji": "zafura",
     "art": "zafura",
     "gender": "f",
-    "note": "JKT48 ザフラ"
+    "note": "JKT48 ザフラ",
+    "alt": [
+      "ザーラ"
+    ]
   },
   {
     "slug": "bagus",
@@ -439,7 +468,10 @@
     "romaji": "putora",
     "art": "putora",
     "gender": "m",
-    "note": "same トゥ/ト question as Putri"
+    "note": "same トゥ/ト question as Putri",
+    "alt": [
+      "プトゥラ"
+    ]
   },
   {
     "slug": "dian",
