@@ -26,6 +26,13 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .brand{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);padding:34px 0 0;display:flex;align-items:center;gap:12px}
 .brand::before{content:"印";font-family:'Yuji Syuku',serif;font-size:13px;color:#fdf6ea;background:var(--seal);width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(3deg);letter-spacing:0}
 .brand a{color:inherit;text-decoration:none}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;padding:34px 0 0}
+.top .brand{padding:0}
+.langs{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:4px 14px;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.06em}
+.langs a{position:relative;color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.langs a::after{content:"";position:absolute;inset:-8px -6px}
+.langs a:hover{color:var(--ink)}
+.langs a[aria-current]{color:var(--gold);border-bottom-color:var(--gold)}
 h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.25;margin:16px 0 6px;color:var(--head)}
 h2{font-family:'Shippori Mincho',serif;font-size:24px;color:var(--head);margin:40px 0 12px}
 .sub{color:var(--muted);max-width:640px;font-size:15px}
@@ -107,7 +114,7 @@ p{margin:10px 0}
 </head>
 <body>
 <div class="wrap">
-  <div class="brand"><a href="../">Kanji My Name</a></div>
+  <div class="top"><div class="brand"><a href="../">Kanji My Name</a></div><nav class="langs" aria-label="Language"><a href="../" hreflang="en" lang="en" aria-current="page">English</a><a href="../fr/" hreflang="fr" lang="fr">Français</a><a href="../it/" hreflang="it" lang="it">Italiano</a><a href="../id/" hreflang="id" lang="id">Bahasa Indonesia</a></nav></div>
   <h1>Names Starting with "L"</h1>
   <p class="sub">35 names in kanji, starting with "L". <a style="color:var(--gold)" href="./">All letters →</a></p>
   <div class="rel"><a href="lainey">Lainey 麗衣仁</a><a href="landon">Landon 蘭暖</a><a href="laura">Laura 路良</a><a href="layla">Layla 麗衣良</a><a href="leah">Leah 莉愛</a><a href="lee">Lee 莉</a><a href="legend">Legend 麗慈音道</a><a href="leilani">Leilani 麗衣良仁</a><a href="lennon">Lennon 麗暖</a><a href="leo">Leo 麗央</a><a href="leon">Leon 麗恩</a><a href="leonardo">Leonardo 麗央奈瑠道</a><a href="levi">Levi 莉葉衣</a><a href="li">Li 莉</a><a href="lia">Lia 莉愛</a><a href="liam">Liam 莉愛夢</a><a href="lila">Lila 良衣良</a><a href="lilah">Lilah 良衣良</a><a href="liliana">Liliana 莉莉愛奈</a><a href="lillian">Lillian 莉莉安</a><a href="lily">Lily 莉莉</a><a href="lincoln">Lincoln 凛感</a><a href="ling">Ling 鈴</a><a href="logan">Logan 路岩</a><a href="lorenzo">Lorenzo 路蓮蔵</a><a href="luca">Luca 瑠花</a><a href="lucas">Lucas 瑠花寿</a><a href="lucia">Lucia 瑠志愛</a><a href="lucy">Lucy 瑠志</a><a href="luis">Luis 瑠衣寿</a><a href="luka">Luka 瑠花</a><a href="luke">Luke 瑠久</a><a href="luna">Luna 瑠奈</a><a href="lydia">Lydia 莉慈愛</a><a href="lyla">Lyla 良衣良</a></div>

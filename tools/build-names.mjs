@@ -6,7 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { I18N_LANGS } from "./i18n-strings.mjs"; // /fr/ /it/ /id/ landing pages (tools/build-i18n.mjs)
-import { localeNameUrls } from "./locale-names-lib.mjs"; // /fr/prenoms/ … (tools/build-locale-names.mjs, D-56) — this script owns the sitemap
+import { localeNameUrls, langSwitcher, LANG_SWITCHER_CSS } from "./locale-names-lib.mjs"; // /fr/prenoms/ … (tools/build-locale-names.mjs, D-56) — this script owns the sitemap
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 // Cloudflare Pages is the public, indexable site. Keep every generated
@@ -142,7 +142,7 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .brand{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);padding:34px 0 0;display:flex;align-items:center;gap:12px}
 .brand::before{content:"印";font-family:'Yuji Syuku',serif;font-size:13px;color:#fdf6ea;background:var(--seal);width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(3deg);letter-spacing:0}
 .brand a{color:inherit;text-decoration:none}
-h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.25;margin:16px 0 6px;color:var(--head)}
+${LANG_SWITCHER_CSS}h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.25;margin:16px 0 6px;color:var(--head)}
 h2{font-family:'Shippori Mincho',serif;font-size:24px;color:var(--head);margin:40px 0 12px}
 .sub{color:var(--muted);max-width:640px;font-size:15px}
 .hero{display:grid;grid-template-columns:280px 1fr;gap:34px;margin:30px 0;align-items:center}
@@ -399,7 +399,7 @@ ${CF_BEACON_SNIPPET}
 </head>
 <body>
 <div class="wrap">
-  <div class="brand"><a href="../">Kanji My Name</a></div>
+  <div class="top"><div class="brand"><a href="../">Kanji My Name</a></div>${langSwitcher("../", "en")}</div>
   <h1>${esc(d.Name)} in Japanese</h1>
   <p class="sub"><b>${esc(d.Name)} in kanji: ${esc(d.kanji)}</b> — one way to write ${esc(d.Name)}, with meanings you choose yourself, in the Japanese <i>ateji</i> (当て字) tradition.${hasApprox ? ` Some sounds have no exact kanji; ateji tradition uses the closest reading — marked ≈ below (e.g. ヴァ → ba, フィ → hi).` : ""}</p>
   ${artNotes}
@@ -475,7 +475,7 @@ ${CF_BEACON_SNIPPET}
 <div class="list-watermark list-watermark-left" aria-hidden="true">名</div>
 <div class="list-watermark list-watermark-right" aria-hidden="true">前</div>
 <div class="wrap">
-  <div class="brand"><a href="../">Kanji My Name</a></div>
+  <div class="top"><div class="brand"><a href="../">Kanji My Name</a></div>${langSwitcher("../", "en")}</div>
   <h1>Names in Japanese Kanji</h1>
   <p class="sub">${all.length} names · ${totalCombos} possible kanji spellings. Each kanji shown here is one sound-based <i>ateji</i> option — open a name to explore other combinations, or <a style="color:var(--gold)" href="../">create your own →</a></p>
   <div class="az-nav" aria-label="Browse by first letter">${letters.map((L) => `<a href="${L.toLowerCase()}">${L}</a>`).join("")}</div>
@@ -529,7 +529,7 @@ ${CF_BEACON_SNIPPET}
 </head>
 <body>
 <div class="wrap">
-  <div class="brand"><a href="../">Kanji My Name</a></div>
+  <div class="top"><div class="brand"><a href="../">Kanji My Name</a></div>${langSwitcher("../", "en")}</div>
   <h1>Names Starting with "${esc(letter)}"</h1>
   <p class="sub">${sorted.length} name${sorted.length === 1 ? "" : "s"} in kanji, starting with "${esc(letter)}". <a style="color:var(--gold)" href="./">All letters →</a></p>
   <div class="rel">${sorted.map((d) => `<a href="${d.name}">${esc(d.Name)} ${esc(d.kanji)}</a>`).join("")}</div>

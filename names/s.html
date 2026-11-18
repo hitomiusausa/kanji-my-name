@@ -26,6 +26,13 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .brand{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);padding:34px 0 0;display:flex;align-items:center;gap:12px}
 .brand::before{content:"印";font-family:'Yuji Syuku',serif;font-size:13px;color:#fdf6ea;background:var(--seal);width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(3deg);letter-spacing:0}
 .brand a{color:inherit;text-decoration:none}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;padding:34px 0 0}
+.top .brand{padding:0}
+.langs{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:4px 14px;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.06em}
+.langs a{position:relative;color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.langs a::after{content:"";position:absolute;inset:-8px -6px}
+.langs a:hover{color:var(--ink)}
+.langs a[aria-current]{color:var(--gold);border-bottom-color:var(--gold)}
 h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.25;margin:16px 0 6px;color:var(--head)}
 h2{font-family:'Shippori Mincho',serif;font-size:24px;color:var(--head);margin:40px 0 12px}
 .sub{color:var(--muted);max-width:640px;font-size:15px}
@@ -107,7 +114,7 @@ p{margin:10px 0}
 </head>
 <body>
 <div class="wrap">
-  <div class="brand"><a href="../">Kanji My Name</a></div>
+  <div class="top"><div class="brand"><a href="../">Kanji My Name</a></div><nav class="langs" aria-label="Language"><a href="../" hreflang="en" lang="en" aria-current="page">English</a><a href="../fr/" hreflang="fr" lang="fr">Français</a><a href="../it/" hreflang="it" lang="it">Italiano</a><a href="../id/" hreflang="id" lang="id">Bahasa Indonesia</a></nav></div>
   <h1>Names Starting with "S"</h1>
   <p class="sub">29 names in kanji, starting with "S". <a style="color:var(--gold)" href="./">All letters →</a></p>
   <div class="rel"><a href="sadie">Sadie 世衣慈</a><a href="sage">Sage 世衣慈</a><a href="sam">Sam 咲夢</a><a href="samantha">Samantha 咲万咲</a><a href="samuel">Samuel 咲夢恵瑠</a><a href="santiago">Santiago 燦智愛悟</a><a href="sara">Sara 咲良</a><a href="sarah">Sarah 世良</a><a href="savannah">Savannah 咲葉奈</a><a href="sawyer">Sawyer 蒼弥</a><a href="saylor">Saylor 世衣良</a><a href="scarlett">Scarlett 寿花麗斗</a><a href="scottie">Scottie 寿幸智</a><a href="sebastian">Sebastian 世葉寿茶音</a><a href="selah">Selah 世良</a><a href="serenity">Serenity 世麗仁智</a><a href="sienna">Sienna 志恵奈</a><a href="silas">Silas 咲衣良寿</a><a href="simon">Simon 咲衣門</a><a href="skylar">Skylar 寿花衣良</a><a href="sloane">Sloane 寿論</a><a href="sofia">Sofia 蒼陽愛</a><a href="sophia">Sophia 蒼陽愛</a><a href="sophie">Sophie 蒼陽</a><a href="stella">Stella 寿天良</a><a href="stetson">Stetson 寿天斗尊</a><a href="stevie">Stevie 寿智美</a><a href="summer">Summer 咲真</a><a href="sutton">Sutton 咲敦</a></div>

@@ -23,6 +23,7 @@ import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { STRINGS, LOCALE_NAME_STRINGS } from "./i18n-strings.mjs";
 import {
+  langSwitcher,
   LOCALES, LOCALE_DIRS, loadLocaleNames, loadLocaleMeanings, extractEngine, analyzeLocaleName,
   foldName, I18N_CSS, I18N_FONTS_LINK, CF_BEACON_SNIPPET,
 } from "./locale-names-lib.mjs";
@@ -257,7 +258,7 @@ function namePage(lc, a, all) {
   const html = `${head(lc, { title: LS.title(raw), description: LS.description(raw), url, ogTitle: LS.ogTitle(raw), ld, ogType: "article" })}
 <body>
 <div class="wrap">
-  <div class="top"><div class="brand"><a href="../../">Kanji My Name</a></div></div>
+  <div class="top"><div class="brand"><a href="../../">Kanji My Name</a></div>${langSwitcher("../../", lc)}</div>
   <nav class="crumbs" aria-label="Breadcrumb"><a href="../">${esc(S.breadcrumbName)}</a><span aria-hidden="true">›</span><a href="./">${esc(LS.listH1)}</a></nav>
 
   <h1>${esc(LS.h1(raw))}</h1>
@@ -356,7 +357,7 @@ function listPage(lc, all) {
   const html = `${head(lc, { title: LS.listTitle, description: LS.listDescription(all.length), url, ogTitle: LS.listH1, ld, ogType: "website" })}
 <body>
 <div class="wrap">
-  <div class="top"><div class="brand"><a href="../../">Kanji My Name</a></div></div>
+  <div class="top"><div class="brand"><a href="../../">Kanji My Name</a></div>${langSwitcher("../../", lc)}</div>
   <nav class="crumbs" aria-label="Breadcrumb"><a href="../">${esc(S.breadcrumbName)}</a></nav>
 
   <h1>${esc(LS.listH1)}</h1>

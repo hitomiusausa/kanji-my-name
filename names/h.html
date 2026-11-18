@@ -26,6 +26,13 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .brand{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);padding:34px 0 0;display:flex;align-items:center;gap:12px}
 .brand::before{content:"印";font-family:'Yuji Syuku',serif;font-size:13px;color:#fdf6ea;background:var(--seal);width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(3deg);letter-spacing:0}
 .brand a{color:inherit;text-decoration:none}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;padding:34px 0 0}
+.top .brand{padding:0}
+.langs{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:4px 14px;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.06em}
+.langs a{position:relative;color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.langs a::after{content:"";position:absolute;inset:-8px -6px}
+.langs a:hover{color:var(--ink)}
+.langs a[aria-current]{color:var(--gold);border-bottom-color:var(--gold)}
 h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.25;margin:16px 0 6px;color:var(--head)}
 h2{font-family:'Shippori Mincho',serif;font-size:24px;color:var(--head);margin:40px 0 12px}
 .sub{color:var(--muted);max-width:640px;font-size:15px}
@@ -107,7 +114,7 @@ p{margin:10px 0}
 </head>
 <body>
 <div class="wrap">
-  <div class="brand"><a href="../">Kanji My Name</a></div>
+  <div class="top"><div class="brand"><a href="../">Kanji My Name</a></div><nav class="langs" aria-label="Language"><a href="../" hreflang="en" lang="en" aria-current="page">English</a><a href="../fr/" hreflang="fr" lang="fr">Français</a><a href="../it/" hreflang="it" lang="it">Italiano</a><a href="../id/" hreflang="id" lang="id">Bahasa Indonesia</a></nav></div>
   <h1>Names Starting with "H"</h1>
   <p class="sub">15 names in kanji, starting with "H". <a style="color:var(--gold)" href="./">All letters →</a></p>
   <div class="rel"><a href="hadley">Hadley 波道莉</a><a href="hailey">Hailey 平衣莉</a><a href="hallie">Hallie 波莉</a><a href="hannah">Hannah 帆奈</a><a href="hans">Hans 帆寿</a><a href="harper">Harper 波羽</a><a href="harrison">Harrison 波莉尊</a><a href="harry">Harry 波莉</a><a href="haven">Haven 平衣武音</a><a href="hayden">Hayden 平衣伝</a><a href="hayes">Hayes 平衣瑞</a><a href="hazel">Hazel 平衣瀬瑠</a><a href="henry">Henry 平音莉</a><a href="hudson">Hudson 波道尊</a><a href="hunter">Hunter 帆太</a></div>

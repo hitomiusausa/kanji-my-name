@@ -26,6 +26,13 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .brand{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);padding:34px 0 0;display:flex;align-items:center;gap:12px}
 .brand::before{content:"印";font-family:'Yuji Syuku',serif;font-size:13px;color:#fdf6ea;background:var(--seal);width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(3deg);letter-spacing:0}
 .brand a{color:inherit;text-decoration:none}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;padding:34px 0 0}
+.top .brand{padding:0}
+.langs{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:4px 14px;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.06em}
+.langs a{position:relative;color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.langs a::after{content:"";position:absolute;inset:-8px -6px}
+.langs a:hover{color:var(--ink)}
+.langs a[aria-current]{color:var(--gold);border-bottom-color:var(--gold)}
 h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.25;margin:16px 0 6px;color:var(--head)}
 h2{font-family:'Shippori Mincho',serif;font-size:24px;color:var(--head);margin:40px 0 12px}
 .sub{color:var(--muted);max-width:640px;font-size:15px}
@@ -107,7 +114,7 @@ p{margin:10px 0}
 </head>
 <body>
 <div class="wrap">
-  <div class="brand"><a href="../">Kanji My Name</a></div>
+  <div class="top"><div class="brand"><a href="../">Kanji My Name</a></div><nav class="langs" aria-label="Language"><a href="../" hreflang="en" lang="en" aria-current="page">English</a><a href="../fr/" hreflang="fr" lang="fr">Français</a><a href="../it/" hreflang="it" lang="it">Italiano</a><a href="../id/" hreflang="id" lang="id">Bahasa Indonesia</a></nav></div>
   <h1>Names Starting with "M"</h1>
   <p class="sub">44 names in kanji, starting with "M". <a style="color:var(--gold)" href="./">All letters →</a></p>
   <div class="rel"><a href="mabel">Mabel 芽衣紅瑠</a><a href="mackenzie">Mackenzie 真健慈</a><a href="maddox">Maddox 真道久</a><a href="madeline">Madeline 真天凛</a><a href="madelyn">Madelyn 真天凛</a><a href="madison">Madison 真慈尊</a><a href="maeve">Maeve 芽衣武</a><a href="magnolia">Magnolia 真弘乃莉愛</a><a href="maisie">Maisie 芽衣慈</a><a href="malachi">Malachi 真良花衣</a><a href="malakai">Malakai 真良花衣</a><a href="marco">Marco 真瑠幸</a><a href="margaret">Margaret 真雅麗斗</a><a href="margot">Margot 真悟</a><a href="maria">Maria 真莉愛</a><a href="marie">Marie 真莉</a><a href="mary">Mary 芽愛莉</a><a href="mason">Mason 芽衣尊</a><a href="mateo">Mateo 真天央</a><a href="matias">Matias 真智愛寿</a><a href="matteo">Matteo 真天央</a><a href="matthew">Matthew 真珠</a><a href="maverick">Maverick 真紅莉久</a><a href="max">Max 真久</a><a href="maxwell">Maxwell 真久寿上瑠</a><a href="maya">Maya 真弥</a><a href="mei">Mei 明</a><a href="meiling">Meiling 明鈴</a><a href="melanie">Melanie 芽良仁</a><a href="melody">Melody 芽路慈</a><a href="messiah">Messiah 芽咲衣愛</a><a href="mia">Mia 美愛</a><a href="micah">Micah 真衣花</a><a href="michael">Michael 真衣慶瑠</a><a href="miguel">Miguel 美芸瑠</a><a href="mila">Mila 美良</a><a href="miles">Miles 真衣瑠瑞</a><a href="millie">Millie 美莉</a><a href="milo">Milo 真衣路</a><a href="ming">Ming 明</a><a href="mohammed">Mohammed 望波芽道</a><a href="molly">Molly 望莉</a><a href="myla">Myla 真衣良</a><a href="myles">Myles 真衣瑠瑞</a></div>

@@ -7,6 +7,23 @@
 import fs from "node:fs";
 import path from "node:path";
 
+
+// Language switcher (same look as the /fr/ /it/ /id/ landing pages). `up` = path back to the site root.
+const SWITCH_LABELS = { en: "English", fr: "Français", it: "Italiano", id: "Bahasa Indonesia" };
+const SWITCH_ARIA = { en: "Language", fr: "Langue", it: "Lingua", id: "Bahasa" };
+export function langSwitcher(up, current) {
+  const links = Object.keys(SWITCH_LABELS).map((l) =>
+    `<a href="${up}${l === "en" ? "" : `${l}/`}" hreflang="${l}" lang="${l}"${l === current ? ' aria-current="page"' : ""}>${SWITCH_LABELS[l]}</a>`).join("");
+  return `<nav class="langs" aria-label="${SWITCH_ARIA[current]}">${links}</nav>`;
+}
+export const LANG_SWITCHER_CSS = `.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;padding:34px 0 0}
+.top .brand{padding:0}
+.langs{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:4px 14px;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.06em}
+.langs a{position:relative;color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.langs a::after{content:"";position:absolute;inset:-8px -6px}
+.langs a:hover{color:var(--ink)}
+.langs a[aria-current]{color:var(--gold);border-bottom-color:var(--gold)}
+`;
 export const LOCALES = ["fr", "it", "id"];
 // URL folder under /<lc>/ — /fr/prenoms/<slug>, /it/nomi/<slug>, /id/nama/<slug>
 export const LOCALE_DIRS = { fr: "prenoms", it: "nomi", id: "nama" };
@@ -102,8 +119,9 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .brand{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:12px}
 .brand::before{content:"印";font-family:'Yuji Syuku',serif;font-size:13px;color:#fdf6ea;background:var(--seal);width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(3deg);letter-spacing:0}
 .brand a{color:inherit;text-decoration:none}
-.langs{display:flex;flex-wrap:wrap;gap:4px 14px;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.06em}
-.langs a{color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.langs{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:4px 14px;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.06em}
+.langs a{position:relative;color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.langs a::after{content:"";position:absolute;inset:-8px -6px}
 .langs a:hover{color:var(--ink)}
 .langs a[aria-current]{color:var(--gold);border-bottom-color:var(--gold)}
 h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(32px,5.4vw,50px);line-height:1.2;margin:26px 0 10px;color:var(--head)}

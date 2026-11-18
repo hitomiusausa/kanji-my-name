@@ -26,6 +26,13 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .brand{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);padding:34px 0 0;display:flex;align-items:center;gap:12px}
 .brand::before{content:"印";font-family:'Yuji Syuku',serif;font-size:13px;color:#fdf6ea;background:var(--seal);width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(3deg);letter-spacing:0}
 .brand a{color:inherit;text-decoration:none}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;padding:34px 0 0}
+.top .brand{padding:0}
+.langs{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:4px 14px;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.06em}
+.langs a{position:relative;color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.langs a::after{content:"";position:absolute;inset:-8px -6px}
+.langs a:hover{color:var(--ink)}
+.langs a[aria-current]{color:var(--gold);border-bottom-color:var(--gold)}
 h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.25;margin:16px 0 6px;color:var(--head)}
 h2{font-family:'Shippori Mincho',serif;font-size:24px;color:var(--head);margin:40px 0 12px}
 .sub{color:var(--muted);max-width:640px;font-size:15px}
@@ -107,7 +114,7 @@ p{margin:10px 0}
 </head>
 <body>
 <div class="wrap">
-  <div class="brand"><a href="../">Kanji My Name</a></div>
+  <div class="top"><div class="brand"><a href="../">Kanji My Name</a></div><nav class="langs" aria-label="Language"><a href="../" hreflang="en" lang="en" aria-current="page">English</a><a href="../fr/" hreflang="fr" lang="fr">Français</a><a href="../it/" hreflang="it" lang="it">Italiano</a><a href="../id/" hreflang="id" lang="id">Bahasa Indonesia</a></nav></div>
   <h1>Names Starting with "C"</h1>
   <p class="sub">37 names in kanji, starting with "C". <a style="color:var(--gold)" href="./">All letters →</a></p>
   <div class="rel"><a href="caden">Caden 慶衣伝</a><a href="caleb">Caleb 慶衣麗武</a><a href="callahan">Callahan 伽良帆</a><a href="callan">Callan 花蘭</a><a href="callie">Callie 伽莉</a><a href="callum">Callum 花良夢</a><a href="calvin">Calvin 花瑠敏</a><a href="camden">Camden 花夢伝</a><a href="cameron">Cameron 伽芽論</a><a href="camila">Camila 花美良</a><a href="carlos">Carlos 花瑠路寿</a><a href="caroline">Caroline 伽路良韻</a><a href="carson">Carson 花尊</a><a href="carter">Carter 花太</a><a href="cataleya">Cataleya 花太麗弥</a><a href="catalina">Catalina 花太莉奈</a><a href="cecilia">Cecilia 世志莉愛</a><a href="celeste">Celeste 世麗寿天</a><a href="celine">Celine 世莉布</a><a href="charles">Charles 茶瑠瑞</a><a href="charlie">Charlie 茶莉</a><a href="charlotte">Charlotte 紗路斗</a><a href="chase">Chase 智衣寿</a><a href="chen">Chen 智音</a><a href="chloe">Chloe 久路恵</a><a href="chris">Chris 久莉寿</a><a href="christian">Christian 久莉寿茶音</a><a href="christopher">Christopher 久莉寿斗波</a><a href="claire">Claire 久麗愛</a><a href="clara">Clara 久良蘭</a><a href="cohen">Cohen 幸縁</a><a href="cole">Cole 幸瑠</a><a href="colter">Colter 幸瑠太</a><a href="colton">Colton 幸瑠敦</a><a href="connor">Connor 幸奈</a><a href="cooper">Cooper 久波</a><a href="cora">Cora 幸良</a></div>

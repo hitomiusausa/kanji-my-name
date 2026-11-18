@@ -26,6 +26,13 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .brand{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);padding:34px 0 0;display:flex;align-items:center;gap:12px}
 .brand::before{content:"印";font-family:'Yuji Syuku',serif;font-size:13px;color:#fdf6ea;background:var(--seal);width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(3deg);letter-spacing:0}
 .brand a{color:inherit;text-decoration:none}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;padding:34px 0 0}
+.top .brand{padding:0}
+.langs{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:4px 14px;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.06em}
+.langs a{position:relative;color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.langs a::after{content:"";position:absolute;inset:-8px -6px}
+.langs a:hover{color:var(--ink)}
+.langs a[aria-current]{color:var(--gold);border-bottom-color:var(--gold)}
 h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.25;margin:16px 0 6px;color:var(--head)}
 h2{font-family:'Shippori Mincho',serif;font-size:24px;color:var(--head);margin:40px 0 12px}
 .sub{color:var(--muted);max-width:640px;font-size:15px}
@@ -107,7 +114,7 @@ p{margin:10px 0}
 </head>
 <body>
 <div class="wrap">
-  <div class="brand"><a href="../">Kanji My Name</a></div>
+  <div class="top"><div class="brand"><a href="../">Kanji My Name</a></div><nav class="langs" aria-label="Language"><a href="../" hreflang="en" lang="en" aria-current="page">English</a><a href="../fr/" hreflang="fr" lang="fr">Français</a><a href="../it/" hreflang="it" lang="it">Italiano</a><a href="../id/" hreflang="id" lang="id">Bahasa Indonesia</a></nav></div>
   <h1>Names Starting with "R"</h1>
   <p class="sub">21 names in kanji, starting with "R". <a style="color:var(--gold)" href="./">All letters →</a></p>
   <div class="rel"><a href="raelynn">Raelynn 麗衣凛</a><a href="rafael">Rafael 良波恵瑠</a><a href="raj">Raj 良樹</a><a href="reese">Reese 莉寿</a><a href="remi">Remi 麗美</a><a href="rhett">Rhett 麗斗</a><a href="richard">Richard 莉茶道</a><a href="riley">Riley 良衣莉</a><a href="river">River 莉葉</a><a href="robert">Robert 路葉斗</a><a href="roman">Roman 路万</a><a href="rory">Rory 路莉</a><a href="rosalie">Rosalie 路紗莉</a><a href="rose">Rose 路瑞</a><a href="rowan">Rowan 路和音</a><a href="ruby">Ruby 瑠美</a><a href="ruth">Ruth 瑠寿</a><a href="ryan">Ryan 良衣安</a><a href="ryder">Ryder 良衣大</a><a href="ryker">Ryker 良衣花</a><a href="rylee">Rylee 良衣莉</a></div>
