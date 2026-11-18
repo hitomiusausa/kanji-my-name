@@ -6,6 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { I18N_LANGS } from "./i18n-strings.mjs"; // /fr/ /it/ /id/ landing pages (tools/build-i18n.mjs)
+import { localeNameUrls } from "./locale-names-lib.mjs"; // /fr/prenoms/ … (tools/build-locale-names.mjs, D-56) — this script owns the sitemap
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 // Cloudflare Pages is the public, indexable site. Keep every generated
@@ -616,6 +617,7 @@ if (!only) {
   const urls = [
     `${SITE}/`, `${SITE}/about`, `${SITE}/terms`, `${SITE}/tokushoho`,
     ...I18N_LANGS.map((l) => `${SITE}/${l}/`),
+    ...localeNameUrls(ROOT, SITE),
     ...GUIDE_SLUGS.map((s) => `${SITE}/guide/${s}`),
     `${SITE}/names/`,
     ...letters.map((L) => `${SITE}/names/${L.toLowerCase()}`),

@@ -2,6 +2,8 @@
 // Pure data, no side effects: tools/build-names.mjs imports I18N_LANGS from here for the sitemap.
 //
 // Policy (2026-11-18): one hand-written landing page per language — NOT translated name pages.
+// D-56: locale name pages (LOCALE_NAME_STRINGS at the end) are not translations of /names/ —
+// they carry the local reading (Lorenzo → ロレンツォ) and are built from tools/locales/*.json.
 // Each string was written natively, not word-for-word. Values are trusted HTML (<b>, <i>, <a>).
 // Function values receive the example data computed by build-i18n.mjs:
 //   { name, kata, hira, romaji, kanji, mean }   (mean = English meanings, already escaped)
@@ -179,5 +181,212 @@ export const STRINGS = {
     toolLink: "Buka generator (bahasa Inggris)",
     langNav: "Bahasa",
     breadcrumbName: "Nama kamu dalam bahasa Jepang",
+  },
+};
+
+// ---------------------------------------------------------------------------------------------
+// Locale NAME pages (D-56): /fr/prenoms/<slug>, /it/nomi/<slug>, /id/nama/<slug> + list pages.
+// Built by tools/build-locale-names.mjs from tools/locales/<lc>-names.json.
+// Values are trusted HTML. Functions receive (already HTML-escaped where it matters):
+//   d = { D: display name, K: katakana, R: romaji, H: hiragana, kanji, mean: local meanings
+//         joined with " · ", combos: number of kanji spellings, n: number of sounds,
+//         toks: sounds joined with " · " }
+// Facts to keep (same as the landing pages): katakana = the usual way to write foreign names;
+// hiragana is not normally used for foreign names; kanji = ateji, art, not an official spelling;
+// no tattoo promises — always "have a native speaker check it".
+// Landing-page grid keys (gridH2Local, gridNoteLocal, allNamesLink, sayLocal) are used by
+// tools/build-i18n.mjs once tools/locales/<lc>-names.json exists.
+// ---------------------------------------------------------------------------------------------
+export const LOCALE_NAME_STRINGS = {
+  fr: {
+    title: (d) => `${d.D} en japonais : katakana et kanji | Kanji My Name`,
+    description: (d) =>
+      `${d.D} s'écrit ${d.K} (${d.R}) en katakana, d'après la prononciation française. Voyez aussi le hiragana et une version en kanji (ateji) à créer gratuitement.`,
+    ogTitle: (d) => `${d.D} en japonais : ${d.K} · ${d.kanji}`,
+    h1: (d) => `${d.D} en japonais`,
+    sub: (d) =>
+      `En japonais, ${d.D} s'écrit <b>${d.K}</b> en katakana, d'après sa prononciation française. Voici aussi sa forme en hiragana et une proposition en kanji, à personnaliser.`,
+    scriptsH2: (d) => `Trois façons d'écrire ${d.D} en japonais`,
+    kataWhy: (d) =>
+      `C'est l'écriture qu'on utilise normalement au Japon pour les prénoms étrangers : au quotidien, c'est ainsi qu'on écrirait ${d.D}.`,
+    hiraWhy:
+      "Le hiragana sert aux mots japonais et à la grammaire : on ne l'emploie pas, en principe, pour un prénom étranger. Certaines personnes l'aiment pourtant pour son tracé doux et arrondi.",
+    kanjiWhy: (d) =>
+      `Ce sont des <i>ateji</i> (当て字) : des kanji choisis pour leur son et pour leur sens (« ${d.mean} »). C'est une création artistique, pas une orthographe officielle.`,
+    copy: "Copier",
+    copied: "Copié",
+    copyAria: (d, script) => `Copier ${d.D} en ${script}`,
+    cardAria: (d) => `${d.D} en kanji : ${d.kanji}`,
+    breakdownH2: (d) => `Comment ${d.D} devient des kanji`,
+    breakdownIntro: (d) =>
+      `En japonais, ${d.D} se découpe en ${d.n} sons : <b>${d.toks}</b>. À chaque son correspond un kanji, ce qui donne <b>${d.kanji}</b>, l'une des ${d.combos} combinaisons possibles.`,
+    th: ["Son", "Kanji", "Sens"],
+    approxNote:
+      "≈ : le japonais n'a pas exactement ce son ; on prend alors le kanji dont la lecture est la plus proche, comme le veut la tradition des ateji.",
+    fallbackNote:
+      "Certaines significations ne sont pas encore traduites : elles sont indiquées en anglais.",
+    choicesH2: (d) => `Tous les kanji possibles pour ${d.D}`,
+    choicesIntro:
+      "Pour chaque son, plusieurs kanji se prononcent de la même façon (ou presque), mais chacun a son propre sens. Choisissez ceux qui vous plaisent dans le générateur.",
+    sylLine: (t, n) => `« ${t} » — ${n} kanji au choix`,
+    selLabel: "Dans cette version",
+    selAria: "Sélectionné",
+    cta: (d) => `Créer mon ${d.D} en kanji — gratuit`,
+    ctaNote: "Générateur en anglais · téléchargement immédiat · votre prénom reste dans votre navigateur",
+    faqH2: (d) => `Questions sur ${d.D} en japonais`,
+    faq: (d) => [
+      [`Comment écrit-on ${d.D} en japonais ?`,
+       `En katakana : ${d.K} (${d.R}). C'est l'écriture que le japonais utilise pour les prénoms et les mots étrangers, et elle suit la prononciation française du prénom. En hiragana, on écrirait ${d.H}, mais ce n'est pas l'usage pour un prénom étranger.`],
+      [`Que signifie ${d.D} en japonais ?`,
+       `En soi, ${d.D} n'a pas de sens en japonais : le katakana ne note que le son. Le sens n'apparaît que si l'on choisit des kanji. Dans la version proposée ici, ${d.kanji} signifie « ${d.mean} », et vous pouvez remplacer chaque kanji pour changer de sens.`],
+      [`${d.kanji} est-il l'orthographe officielle de ${d.D} ?`,
+       `Non. Il n'existe pas de kanji officiel pour un prénom étranger. ${d.kanji} est un ateji, une proposition artistique parmi ${d.combos} combinaisons possibles. Au Japon, dans la vie courante, ${d.D} s'écrit en katakana.`],
+      [`Puis-je me faire tatouer ${d.kanji} ?`,
+       `Un tatouage est définitif. Considérez ces kanji comme une simple piste, et faites vérifier le katakana (${d.K}) comme les kanji par une personne de langue maternelle japonaise avant de vous décider.`],
+    ],
+    relatedH2: "D'autres prénoms en japonais",
+    allLink: "Tous les prénoms →",
+    nameCrumb: (d) => `${d.D} en japonais`,
+    // list page /fr/prenoms/
+    listTitle: "Prénoms français en japonais : katakana et kanji | Kanji My Name",
+    listDescription: (n) =>
+      `${n} prénoms courants en France écrits en japonais : katakana d'après la prononciation française, hiragana et kanji (ateji) avec leur signification.`,
+    listH1: "Prénoms français en japonais",
+    listLead: (n) =>
+      `${n} prénoms courants en France, écrits en katakana d'après leur prononciation française, avec une proposition en kanji. Cliquez sur un prénom pour voir toutes ses écritures.`,
+    groups: { f: "Prénoms féminins", m: "Prénoms masculins", u: "Prénoms mixtes" },
+    // landing page /fr/
+    gridH2Local: "Des prénoms courants en France, écrits en japonais",
+    gridNoteLocal:
+      "Pour chaque prénom : le katakana d'après la prononciation française, puis une proposition en kanji. Cliquez sur un prénom pour ouvrir sa page.",
+    allNamesLink: "Tous les prénoms →",
+    sayLocal:
+      "Si vous tapez ci-dessus un prénom de notre liste, le générateur reprend directement sa prononciation française.",
+  },
+
+  it: {
+    title: (d) => `${d.D} in giapponese: katakana e kanji | Kanji My Name`,
+    description: (d) =>
+      `${d.D} in giapponese si scrive ${d.K} (${d.R}) in katakana, secondo la pronuncia italiana. Scopri anche l'hiragana e una versione in kanji (ateji) da creare gratis.`,
+    ogTitle: (d) => `${d.D} in giapponese: ${d.K} · ${d.kanji}`,
+    h1: (d) => `${d.D} in giapponese`,
+    sub: (d) =>
+      `In giapponese ${d.D} si scrive <b>${d.K}</b> in katakana, secondo la pronuncia italiana. Qui trovi anche la forma in hiragana e una proposta in kanji da personalizzare.`,
+    scriptsH2: (d) => `Tre modi di scrivere ${d.D} in giapponese`,
+    kataWhy: (d) =>
+      `È la scrittura che in Giappone si usa normalmente per i nomi stranieri: nella vita di tutti i giorni ${d.D} si scriverebbe così.`,
+    hiraWhy:
+      "L'hiragana serve per le parole giapponesi e per la grammatica, quindi di norma non si usa per i nomi stranieri. C'è però chi lo sceglie per il suo tratto morbido e tondeggiante.",
+    kanjiWhy: (d) =>
+      `Sono <i>ateji</i> (当て字): kanji scelti sia per il suono sia per il significato («${d.mean}»). È una forma d'arte, non una grafia ufficiale.`,
+    copy: "Copia",
+    copied: "Copiato",
+    copyAria: (d, script) => `Copia ${d.D} in ${script}`,
+    cardAria: (d) => `${d.D} in kanji: ${d.kanji}`,
+    breakdownH2: (d) => `Come ${d.D} diventa kanji`,
+    breakdownIntro: (d) =>
+      `In giapponese ${d.D} si divide in ${d.n} suoni: <b>${d.toks}</b>. A ogni suono corrisponde un kanji, e il risultato è <b>${d.kanji}</b>, una delle ${d.combos} combinazioni possibili.`,
+    th: ["Suono", "Kanji", "Significato"],
+    approxNote:
+      "≈: il giapponese non ha esattamente questo suono, quindi si usa il kanji con la lettura più vicina, come vuole la tradizione degli ateji.",
+    fallbackNote: "Alcuni significati non sono ancora tradotti e sono indicati in inglese.",
+    choicesH2: (d) => `Tutti i kanji possibili per ${d.D}`,
+    choicesIntro:
+      "Per ogni suono ci sono più kanji con la stessa pronuncia (o quasi), ma ognuno ha un significato diverso. Scegli quelli che preferisci nel generatore.",
+    sylLine: (t, n) => `«${t}» — ${n} kanji tra cui scegliere`,
+    selLabel: "In questa versione",
+    selAria: "Selezionato",
+    cta: (d) => `Crea gratis ${d.D} in kanji`,
+    ctaNote: "Generatore in inglese · download immediato · il tuo nome resta nel tuo browser",
+    faqH2: (d) => `Domande su ${d.D} in giapponese`,
+    faq: (d) => [
+      [`Come si scrive ${d.D} in giapponese?`,
+       `In katakana: ${d.K} (${d.R}). È la scrittura che il giapponese usa per i nomi e le parole straniere, e segue la pronuncia italiana del nome. In hiragana sarebbe ${d.H}, ma per un nome straniero di norma non si usa.`],
+      [`Che cosa significa ${d.D} in giapponese?`,
+       `Di per sé ${d.D} non ha un significato in giapponese: il katakana trascrive solo il suono. Il significato arriva solo se si scelgono dei kanji. Nella versione proposta qui, ${d.kanji} significa «${d.mean}», e puoi sostituire ogni kanji per cambiarne il senso.`],
+      [`${d.kanji} è la grafia ufficiale di ${d.D}?`,
+       `No. Per un nome straniero non esiste un kanji ufficiale. ${d.kanji} è un ateji, una proposta artistica tra ${d.combos} combinazioni possibili. Nella vita di tutti i giorni, in Giappone ${d.D} si scrive in katakana.`],
+      [`Posso tatuarmi ${d.kanji}?`,
+       `Un tatuaggio è per sempre. Considera questi kanji come una bozza e, prima di decidere, fai controllare sia il katakana (${d.K}) sia i kanji da una persona madrelingua giapponese.`],
+    ],
+    relatedH2: "Altri nomi in giapponese",
+    allLink: "Tutti i nomi →",
+    nameCrumb: (d) => `${d.D} in giapponese`,
+    listTitle: "Nomi italiani in giapponese: katakana e kanji | Kanji My Name",
+    listDescription: (n) =>
+      `${n} nomi diffusi in Italia scritti in giapponese: katakana secondo la pronuncia italiana, hiragana e kanji (ateji) con il loro significato.`,
+    listH1: "Nomi italiani in giapponese",
+    listLead: (n) =>
+      `${n} nomi diffusi in Italia, scritti in katakana secondo la pronuncia italiana e con una proposta in kanji. Clicca su un nome per vedere tutte le sue scritture.`,
+    groups: { f: "Nomi femminili", m: "Nomi maschili", u: "Nomi unisex" },
+    gridH2Local: "Nomi diffusi in Italia, in giapponese",
+    gridNoteLocal:
+      "Per ogni nome: il katakana secondo la pronuncia italiana e una proposta in kanji. Clicca su un nome per aprire la sua pagina.",
+    allNamesLink: "Tutti i nomi →",
+    sayLocal:
+      "Se qui sopra scrivi un nome del nostro elenco, il generatore usa direttamente la pronuncia italiana.",
+  },
+
+  id: {
+    title: (d) => `${d.D} dalam Bahasa Jepang: Katakana & Kanji | Kanji My Name`,
+    description: (d) =>
+      `${d.D} dalam bahasa Jepang ditulis ${d.K} (${d.R}) dengan katakana, sesuai pelafalan Indonesia. Lihat juga versi hiragana dan buat versi kanji (ateji) gratis.`,
+    ogTitle: (d) => `${d.D} dalam bahasa Jepang: ${d.K} · ${d.kanji}`,
+    h1: (d) => `${d.D} dalam bahasa Jepang`,
+    sub: (d) =>
+      `Dalam bahasa Jepang, ${d.D} ditulis <b>${d.K}</b> dengan katakana, sesuai cara orang Indonesia melafalkannya. Di sini ada juga versi hiragana dan satu usulan kanji yang bisa kamu ubah sendiri.`,
+    scriptsH2: (d) => `Tiga cara menulis ${d.D} dalam bahasa Jepang`,
+    kataWhy: (d) =>
+      `Ini huruf yang biasa dipakai di Jepang untuk nama asing. Dalam kehidupan sehari-hari, ${d.D} akan ditulis seperti ini.`,
+    hiraWhy:
+      "Hiragana dipakai untuk kata-kata asli Jepang dan tata bahasa, jadi biasanya tidak dipakai untuk nama asing. Meski begitu, ada yang menyukainya karena bentuknya yang bulat dan lembut.",
+    kanjiWhy: (d) =>
+      `Ini disebut <i>ateji</i> (当て字): kanji yang dipilih karena bunyi sekaligus maknanya (“${d.mean}”). Ateji adalah kreasi artistik, bukan ejaan resmi.`,
+    copy: "Salin",
+    copied: "Tersalin",
+    copyAria: (d, script) => `Salin ${d.D} dalam ${script}`,
+    cardAria: (d) => `${d.D} dalam kanji: ${d.kanji}`,
+    breakdownH2: (d) => `Bagaimana ${d.D} menjadi kanji`,
+    breakdownIntro: (d) =>
+      `Dalam bahasa Jepang, ${d.D} terdiri dari ${d.n} bunyi: <b>${d.toks}</b>. Setiap bunyi dipasangkan dengan satu kanji, sehingga hasilnya <b>${d.kanji}</b>, salah satu dari ${d.combos} kombinasi yang mungkin.`,
+    th: ["Bunyi", "Kanji", "Makna"],
+    approxNote:
+      "≈: bahasa Jepang tidak punya bunyi yang persis sama, jadi dipakai kanji dengan bacaan yang paling mirip, sesuai tradisi ateji.",
+    fallbackNote: "Beberapa makna belum diterjemahkan, jadi masih ditulis dalam bahasa Inggris.",
+    choicesH2: (d) => `Semua pilihan kanji untuk ${d.D}`,
+    choicesIntro:
+      "Untuk setiap bunyi ada beberapa kanji dengan bacaan yang sama (atau mirip), tapi maknanya berbeda-beda. Pilih yang kamu suka di generator.",
+    sylLine: (t, n) => `“${t}” — ${n} pilihan kanji`,
+    selLabel: "Dipakai di versi ini",
+    selAria: "Terpilih",
+    cta: (d) => `Buat kanji ${d.D} — gratis`,
+    ctaNote: "Generator berbahasa Inggris · langsung unduh · namamu tetap di browser",
+    faqH2: (d) => `Pertanyaan tentang ${d.D} dalam bahasa Jepang`,
+    faq: (d) => [
+      [`Bagaimana cara menulis ${d.D} dalam bahasa Jepang?`,
+       `Dengan katakana: ${d.K} (${d.R}). Katakana adalah huruf yang dipakai bahasa Jepang untuk nama dan kata asing, dan penulisannya mengikuti pelafalan Indonesia. Dalam hiragana, ${d.D} menjadi ${d.H}, tapi hiragana biasanya tidak dipakai untuk nama asing.`],
+      [`Apa arti ${d.D} dalam bahasa Jepang?`,
+       `${d.D} sendiri tidak punya arti dalam bahasa Jepang: katakana hanya menuliskan bunyinya. Makna baru muncul kalau kamu memilih kanji. Dalam versi di halaman ini, ${d.kanji} berarti “${d.mean}”, dan setiap kanji bisa kamu ganti untuk mengubah maknanya.`],
+      [`Apakah ${d.kanji} ejaan resmi untuk ${d.D}?`,
+       `Bukan. Nama asing tidak punya kanji resmi. ${d.kanji} adalah ateji, satu usulan artistik dari ${d.combos} kombinasi yang mungkin. Dalam kehidupan sehari-hari di Jepang, ${d.D} ditulis dengan katakana.`],
+      [`Apakah ${d.kanji} bisa dipakai untuk tato?`,
+       `Tato itu permanen. Anggap kanji ini sebagai rancangan awal, dan sebelum memutuskan, minta penutur asli bahasa Jepang untuk memeriksa katakana (${d.K}) dan kanjinya.`],
+    ],
+    relatedH2: "Nama lain dalam bahasa Jepang",
+    allLink: "Semua nama →",
+    nameCrumb: (d) => `${d.D} dalam bahasa Jepang`,
+    listTitle: "Nama Indonesia dalam Bahasa Jepang | Kanji My Name",
+    listDescription: (n) =>
+      `${n} nama yang populer di Indonesia dalam bahasa Jepang: katakana sesuai pelafalan Indonesia, hiragana, dan kanji (ateji) beserta maknanya.`,
+    listH1: "Nama Indonesia dalam bahasa Jepang",
+    listLead: (n) =>
+      `${n} nama yang populer di Indonesia, ditulis dengan katakana sesuai pelafalannya, lengkap dengan satu usulan kanji. Klik nama untuk melihat semua cara menulisnya.`,
+    groups: { f: "Nama perempuan", m: "Nama laki-laki", u: "Nama uniseks" },
+    gridH2Local: "Nama yang populer di Indonesia dalam bahasa Jepang",
+    gridNoteLocal:
+      "Setiap nama ditampilkan dengan katakana sesuai pelafalan Indonesia dan satu usulan kanji. Klik nama untuk membuka halamannya.",
+    allNamesLink: "Semua nama →",
+    sayLocal:
+      "Kalau kamu mengetik nama yang ada di daftar kami, generator langsung memakai pelafalan Indonesia.",
   },
 };

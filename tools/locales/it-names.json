@@ -1,0 +1,6 @@
+[
+  { "slug": "lorenzo", "display": "Lorenzo", "kana": "ロレンツォ", "romaji": "rorentso", "art": "rorenzo", "gender": "m", "note": "FIXTURE — replaced by the real data at merge" },
+  { "slug": "matteo", "display": "Matteo", "kana": "マッテオ", "romaji": "matteo", "art": "mateo", "gender": "m", "note": "FIXTURE" },
+  { "slug": "giulia", "display": "Giulia", "kana": "ジュリア", "romaji": "juria", "art": "juria", "gender": "f", "note": "FIXTURE" },
+  { "slug": "niccolo", "display": "Niccolò", "kana": "ニッコロ", "romaji": "nikkoro", "art": "nikoro", "gender": "m", "note": "FIXTURE" }
+]

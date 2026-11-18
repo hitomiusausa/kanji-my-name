@@ -194,5 +194,56 @@ for (const name of list) {
   ok(toks.length > 0 && toks.every((t) => nameTokenOptions(name,0,t)), `smoke: ${name}`, `got ${JSON.stringify(toks)}`);
 }
 
+// ---- Locale readings (D-56): #Name@lc → the locale's katakana; kanji from its "art" romaji ----
+// Extracted the same way as above (index.html is the single source): the LOCALE_NAMES block +
+// parseHashWord/wordTokens/wordReading/wordDefaultPicks, with the engine they rely on.
+{
+  const locCode = [
+    code,
+    extract(/const APPROX_SYL=\{.*?\};/s, "APPROX_SYL"),
+    extract(/function trueSound\([^\n]*\}/, "trueSound"),
+    extract(/function pickDefaults\([\s\S]*?\n\}/, "pickDefaults"),
+    extract(/\/\* locale-names:start \*\/[\s\S]*?\/\/ locale-readings:end/, "locale readings"),
+  ].join("\n");
+  const L = new Function(locCode + "\nreturn {ATEJI,LOCALE_NAMES,parseHashWord,wordTokens,wordTokenOptions,wordDefaultPicks,wordReading,localeEntry,tokenize,toKatakana,displayReading,nameTokens,pickDefaults};")();
+  const KATA = /^[\u30A1-\u30FA\u30FC]+$/;
+  // hash parsing
+  eq(L.parseHashWord("Lorenzo@it"), { w: "Lorenzo", v: 0, lc: "it" }, "hash: Lorenzo@it");
+  eq(L.parseHashWord("Chloe@fr"), { w: "Chloe", v: 0, lc: "fr" }, "hash: Chloe@fr");
+  eq(L.parseHashWord("Putri@id"), { w: "Putri", v: 0, lc: "id" }, "hash: Putri@id");
+  eq(L.parseHashWord("Abel~2"), { w: "Abel", v: 1, lc: null }, "hash: Abel~2 keeps the English variant syntax");
+  eq(L.parseHashWord("Wyatt"), { w: "Wyatt", v: 0, lc: null }, "hash: plain word = English");
+  eq(L.parseHashWord("Lorenzo@xx").lc, null, "hash: unknown locale falls back to English");
+  eq(L.parseHashWord("Wyatt@it").lc, null, "hash: name not in that locale falls back to English");
+  ok(L.localeEntry("Chloé", "fr") && L.localeEntry("CHLOE", "fr"), "locale lookup folds accents and case");
+  // spec §4 examples
+  const loc = (w, lc) => {
+    const e = L.localeEntry(w, lc), toks = L.wordTokens(w, 0, lc);
+    return { e, toks, rd: L.wordReading(w, 0, lc) };
+  };
+  for (const [w, lc, kana] of [["Lorenzo", "it", "ロレンツォ"], ["Chloe", "fr", "クロエ"], ["Putri", "id", "プトリ"]]) {
+    const { e, toks, rd } = loc(w, lc);
+    ok(!!e, `${w}@${lc} is in LOCALE_NAMES`);
+    if (!e) continue;
+    eq(rd.kana, kana, `${w}@${lc} katakana note`);
+    eq(rd.raw, e.r, `${w}@${lc} romaji note`);
+    eq(toks, L.tokenize(e.a), `${w}@${lc} kanji tokens come from art`);
+    eq(toks.join(""), e.a, `${w}@${lc} art tokenizes fully`);
+    ok(toks.every((t) => L.wordTokenOptions(w, 0, lc, t) === L.ATEJI[t]), `${w}@${lc} options are plain ATEJI`);
+    eq(L.wordDefaultPicks(w, 0, lc, toks, toks.map((t) => L.ATEJI[t])), L.pickDefaults(toks), `${w}@${lc} default kanji = pickDefaults (same as the locale page)`);
+  }
+  // Lorenzo differs from the English reading (that is the point)
+  ok(L.wordReading("Lorenzo", 0, "it").kana !== L.wordReading("Lorenzo", 0, null).kana, "Lorenzo@it reading differs from English");
+  // English Wyatt unchanged through the new word* layer
+  eq(L.wordTokens("Wyatt", 0, null), nameTokens("wyatt", 0), "Wyatt tokens unchanged (no locale)");
+  eq(L.wordTokens("Wyatt", 0, null).join("-"), "wa-i-a-to", "Wyatt kanji tokens = wa-i-a-to");
+  eq(L.wordReading("Wyatt", 0, null).kana, "ワイアット", "Wyatt katakana unchanged");
+  // every locale entry: valid katakana + art tokenizes fully (the build also checks this)
+  for (const [lc, table] of Object.entries(L.LOCALE_NAMES)) for (const [slug, e] of Object.entries(table)) {
+    ok(KATA.test(e.k), `${lc}/${slug} kana is katakana`, e.k);
+    ok(L.tokenize(e.a).join("") === e.a, `${lc}/${slug} art tokenizes fully`, e.a);
+  }
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
