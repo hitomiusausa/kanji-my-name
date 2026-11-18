@@ -452,7 +452,7 @@ export const APP_STRINGS = {
     mini_up: "▴ karya",
     prem_h2: "Paket Premium",
     prem_li1: "Karya 4K beresolusi sangat tinggi — pas untuk dicetak &amp; dibingkai",
-    prem_li2: "Tanpa keterangan situs — karya yang bersih dan layak dipajang",
+    prem_li2: "Tanpa tanda air — karya yang bersih dan layak dipajang",
     prem_li3: "Semua 13 font kaligrafi (10 di antaranya khusus Premium)",
     prem_li4: "PNG berlatar transparan — pas untuk kaus, stiker &amp; desain lainnya",
     prem_li5: "Gaya eksklusif <i>Daun Emas</i>, <i>Badai Sumi</i>, <i>Ombak Nila</i>, <i>Ensō</i> &amp; <i>Putih Murni</i>",
