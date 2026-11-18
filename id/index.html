@@ -319,103 +319,103 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
   <div class="top"><div class="brand"><a href="../">Kanji My Name</a></div><nav class="langs" aria-label="Bahasa"><a href="../" hreflang="en" lang="en">English</a><a href="../fr/" hreflang="fr" lang="fr">Français</a><a href="../it/" hreflang="it" lang="it">Italiano</a><a href="../id/" hreflang="id" lang="id" aria-current="page">Bahasa Indonesia</a></nav></div>
   <h1>Nama kamu dalam bahasa Jepang</h1>
   <div class="goldline"></div>
-  <p class="sub" data-i18n="sub">Type your name. Kanji My Name crafts it into Japanese kanji — and <b>you choose the meaning</b> behind every character: love, dreams, strength, light. Then download it as elegant calligraphy art. Free.</p>
-  <p class="stat-line" data-i18n="stat">Any name · 28,000+ kanji combinations</p>
+  <p class="sub" data-i18n="sub">Ketik namamu. Kanji My Name mengubahnya menjadi kanji Jepang — dan <b>kamu sendiri yang memilih makna</b> setiap hurufnya: cinta, mimpi, kekuatan, cahaya. Lalu unduh sebagai karya kaligrafi yang elegan. Gratis.</p>
+  <p class="stat-line" data-i18n="stat">Nama apa saja · lebih dari 28.000 kombinasi kanji</p>
 </header>
 
 <main class="wrap">
   <div class="app">
     <div class="panel">
-      <label for="nameIn" data-i18n="lbl_name">Your name (any language, in Latin letters)</label>
-      <input type="text" id="nameIn" placeholder="e.g. Emma, Michael, Lucas…" autocomplete="off" data-i18n-attr="placeholder:ph_name">
-      <div class="hint" style="margin-top:8px" data-i18n="hint_two">Writing two names? Separate them with a space — e.g. “Emma Rose”.</div>
+      <label for="nameIn" data-i18n="lbl_name">Nama kamu (bahasa apa pun, dalam huruf Latin)</label>
+      <input type="text" id="nameIn" placeholder="contoh: Putri, Budi, Rizky…" autocomplete="off" data-i18n-attr="placeholder:ph_name">
+      <div class="hint" style="margin-top:8px" data-i18n="hint_two">Mau menulis dua nama? Pisahkan dengan spasi — misalnya “Putri Ayu”.</div>
       <div class="row">
-        <button class="btn btn-red" id="goBtn" data-i18n="btn_go">Create my kanji ✦</button>
-        <button class="btn btn-ghost" id="luckyBtn" data-i18n="btn_lucky">Surprise me</button>
+        <button class="btn btn-red" id="goBtn" data-i18n="btn_go">Buat kanjiku ✦</button>
+        <button class="btn btn-ghost" id="luckyBtn" data-i18n="btn_lucky">Kejutkan aku</button>
       </div>
       <div class="say-area" id="sayArea" style="display:none">
-        <label style="margin-top:18px" data-i18n="lbl_say">How do you say it? — pick the closest sound</label>
+        <label style="margin-top:18px" data-i18n="lbl_say">Bagaimana kamu melafalkannya? — pilih bunyi yang paling mirip</label>
         <div id="sayRows"></div>
       </div>
       <div class="syl-area" id="sylArea" style="display:none">
-        <label data-i18n="lbl_chips">Your kanji — tap a character to see your choices</label>
+        <label data-i18n="lbl_chips">Kanji kamu — ketuk satu huruf untuk melihat pilihan lainnya</label>
         <div class="chips" id="chips"></div>
-        <div class="hint" data-i18n="hint_chips">Tap any kanji above ▴ — other characters with the same or closest Japanese sound will appear below it, each with a different meaning. Pick your favorite. This is <i>ateji</i> (当て字), the traditional Japanese art of writing foreign names with meaningful characters.</div>
-        <label style="margin-top:18px" data-i18n="lbl_style">Art style</label>
+        <div class="hint" data-i18n="hint_chips">Ketuk kanji mana saja di atas ▴ — kanji lain dengan bunyi Jepang yang sama atau paling mirip akan muncul di bawahnya, masing-masing dengan makna yang berbeda. Pilih yang paling kamu suka. Inilah <i>ateji</i> (当て字), seni tradisional Jepang untuk menulis nama asing dengan huruf yang bermakna.</div>
+        <label style="margin-top:18px" data-i18n="lbl_style">Gaya</label>
         <div class="styles" id="styleRow" style="margin-top:4px"></div>
-        <label style="margin-top:18px" data-i18n="lbl_font">Calligraphy font</label>
+        <label style="margin-top:18px" data-i18n="lbl_font">Font kaligrafi</label>
         <div class="styles" id="fontRow" style="margin-top:4px"></div>
-        <label style="margin-top:18px" data-i18n="lbl_layout">Layout</label>
+        <label style="margin-top:18px" data-i18n="lbl_layout">Tata letak</label>
         <div class="styles" id="orientRow" style="margin-top:4px"></div>
-        <label style="margin-top:18px" data-i18n="lbl_seal">Hanko seal 朱印</label>
+        <label style="margin-top:18px" data-i18n="lbl_seal">Cap hanko 朱印</label>
         <div class="styles" id="sealRow" style="margin-top:4px"></div>
-        <label style="margin-top:18px" data-i18n="lbl_mean">Meanings line 意</label>
+        <label style="margin-top:18px" data-i18n="lbl_mean">Baris makna 意</label>
         <div class="styles" id="meanRow" style="margin-top:4px"></div>
-        <label style="margin-top:18px" data-i18n="lbl_bg">Background 紙</label>
+        <label style="margin-top:18px" data-i18n="lbl_bg">Latar 紙</label>
         <div class="styles" id="bgRow" style="margin-top:4px"></div>
-        <div class="seal-legend" id="sealLegend"><i>封</i><span data-i18n="legend_sealed"><b>封 = “sealed”</b> — these options open with the Premium Pack. Tap one to peek.</span></div>
-        <div class="seal-legend"><i class="seal-sel" aria-hidden="true">選</i><span data-i18n="legend_sel"><b>選 = “selected”</b> — the kanji currently in your name art. Tap a kanji above to swap it.</span></div>
+        <div class="seal-legend" id="sealLegend"><i>封</i><span data-i18n="legend_sealed"><b>封 = “tersegel”</b> — pilihan ini terbuka dengan Paket Premium. Ketuk salah satunya untuk mengintip.</span></div>
+        <div class="seal-legend"><i class="seal-sel" aria-hidden="true">選</i><span data-i18n="legend_sel"><b>選 = “terpilih”</b> — kanji yang sedang dipakai di karyamu. Ketuk kanji di atas untuk menggantinya.</span></div>
       </div>
     </div>
     <div class="panel canvas-holder">
       <canvas id="art" width="1200" height="1800"></canvas>
       <div class="art-note" id="artNote" hidden>
-        <p class="an-l1" id="anL1"><span class="an-lbl" data-i18n="an_l1">In Japanese, <span id="anName"></span> is usually written</span> <span class="an-kana" id="anKana"></span> <span class="an-romaji">(<span id="anRomaji"></span>)<span id="anLoc"></span></span></p>
-        <p class="an-l2" data-i18n="an_l2"><span id="anKanji"></span> is an artistic ateji — chosen for sound and meaning, not an official spelling.</p>
-        <p class="an-l3" data-i18n="an_l3">For anything permanent, have a native speaker check it.</p>
+        <p class="an-l1" id="anL1"><span class="an-lbl" data-i18n="an_l1">Dalam bahasa Jepang, <span id="anName"></span> biasanya ditulis</span> <span class="an-kana" id="anKana"></span> <span class="an-romaji">(<span id="anRomaji"></span>)<span id="anLoc"></span></span></p>
+        <p class="an-l2" data-i18n="an_l2"><span id="anKanji"></span> adalah ateji artistik — dipilih karena bunyi dan maknanya, bukan ejaan resmi.</p>
+        <p class="an-l3" data-i18n="an_l3">Untuk penggunaan permanen, mintalah penutur asli bahasa Jepang memeriksanya terlebih dahulu.</p>
       </div>
       <div class="dl-row">
-        <button class="btn btn-red" id="dlBtn" data-i18n="btn_dl">Download PNG</button>
-        <button class="btn btn-4k" id="dl4kBtn" data-i18n="btn_4k">Download 4K ✦</button>
-        <button class="btn btn-ghost" id="shareImageBtn" data-i18n="btn_shareimg">Share image</button>
-        <button class="btn btn-ghost" id="shareLinkBtn" data-i18n="btn_sharelink">Copy share link</button>
+        <button class="btn btn-red" id="dlBtn" data-i18n="btn_dl">Unduh PNG</button>
+        <button class="btn btn-4k" id="dl4kBtn" data-i18n="btn_4k">Unduh 4K ✦</button>
+        <button class="btn btn-ghost" id="shareImageBtn" data-i18n="btn_shareimg">Bagikan gambar</button>
+        <button class="btn btn-ghost" id="shareLinkBtn" data-i18n="btn_sharelink">Salin tautan</button>
       </div>
       <p class="share-status" id="shareStatus" role="status" aria-live="polite"></p>
-      <div class="upsell-note" data-i18n="upsell">Free download includes a small credit line. <b>Premium unlocks high-resolution, clean artwork, all 13 fonts and exclusive styles — <a href="#premium">explore the Pack ✦</a></b></div>
+      <div class="upsell-note" data-i18n="upsell">Unduhan gratis menyertakan keterangan kecil nama situs. <b>Premium membuka resolusi tinggi, karya tanpa keterangan, ke-13 font, dan gaya eksklusif — <a href="#premium">lihat Paketnya ✦</a></b></div>
       <div id="spCustomize"><!-- SPのみ: 編集できることの可視化 (D-30 Task 6A) -->
-        <button type="button" id="spCustLbl" data-i18n="sp_cust"><span class="bob" aria-hidden="true">▾</span> Customize — style, font, layout &amp; more</button>
+        <button type="button" id="spCustLbl" data-i18n="sp_cust"><span class="bob" aria-hidden="true">▾</span> Atur sendiri — gaya, font, tata letak &amp; lainnya</button>
         <div class="styles sp-strip" id="spStyleRow"></div>
       </div>
     </div>
   </div>
-  <div id="miniBar" role="button" tabindex="0" aria-label="Back to your kanji art" data-i18n-attr="aria-label:aria_mini" hidden><!-- SPのみ: 大プレビュー画面外時のミニプレビュー (Task 6B) -->
+  <div id="miniBar" role="button" tabindex="0" aria-label="Kembali ke karya kanjimu" data-i18n-attr="aria-label:aria_mini" hidden><!-- SPのみ: 大プレビュー画面外時のミニプレビュー (Task 6B) -->
     <img id="miniImg" alt="">
     <div class="mt"><b id="miniStyle"></b><span id="miniFont"></span></div>
-    <span class="mup" aria-hidden="true" data-i18n="mini_up">▴ art</span>
+    <span class="mup" aria-hidden="true" data-i18n="mini_up">▴ karya</span>
   </div>
 
   <div class="divider"><span>特別頒布</span></div>
   <section class="premium" id="premium">
     <div>
-      <h2 data-i18n="prem_h2">The Premium Pack</h2>
+      <h2 data-i18n="prem_h2">Paket Premium</h2>
       <ul>
-        <li data-i18n="prem_li1">Ultra high-resolution 4K art — perfect for printing &amp; framing</li>
-        <li data-i18n="prem_li2">No credit line — clean, gallery-ready artwork</li>
-        <li data-i18n="prem_li3">All 13 calligraphy fonts (10 premium-only)</li>
-        <li data-i18n="prem_li4">Transparent-background PNG — perfect for shirts, stickers &amp; overlays</li>
-        <li data-i18n="prem_li5">Exclusive <i>Gold Leaf</i>, <i>Sumi Storm</i>, <i>Indigo Wave</i>, <i>Ensō</i> &amp; <i>Pure White</i> art styles</li>
-        <li data-i18n="prem_li6">Seal-free edition — remove the hanko for a pure look</li>
-        <li data-i18n="prem_li7">Meanings on or off — keep the poetry, or let the kanji speak alone</li>
-        <li data-i18n="prem_li8">Square canvas — choose vertical or horizontal kanji for social posts and prints</li>
+        <li data-i18n="prem_li1">Karya 4K beresolusi sangat tinggi — pas untuk dicetak &amp; dibingkai</li>
+        <li data-i18n="prem_li2">Tanpa keterangan situs — karya yang bersih dan layak dipajang</li>
+        <li data-i18n="prem_li3">Ke-13 font kaligrafi (10 di antaranya khusus Premium)</li>
+        <li data-i18n="prem_li4">PNG berlatar transparan — pas untuk kaus, stiker &amp; tempelan desain</li>
+        <li data-i18n="prem_li5">Gaya eksklusif <i>Daun Emas</i>, <i>Badai Sumi</i>, <i>Ombak Nila</i>, <i>Ensō</i> &amp; <i>Putih Murni</i></li>
+        <li data-i18n="prem_li6">Edisi tanpa cap — hilangkan hanko untuk tampilan yang polos</li>
+        <li data-i18n="prem_li7">Makna ditampilkan atau disembunyikan — simpan puisinya, atau biarkan kanji berbicara sendiri</li>
+        <li data-i18n="prem_li8">Kanvas persegi — pilih kanji tegak atau mendatar untuk media sosial dan cetakan</li>
       </ul>
       <div class="unlock-in" id="unlockIn">
-        <input type="text" id="codeIn" placeholder="Already purchased? Enter unlock code" data-i18n-attr="placeholder:ph_code">
-        <button class="btn btn-ghost" id="codeBtn" data-i18n="btn_unlock">Unlock</button>
+        <input type="text" id="codeIn" placeholder="Sudah membeli? Masukkan kode aktivasi" data-i18n-attr="placeholder:ph_code">
+        <button class="btn btn-ghost" id="codeBtn" data-i18n="btn_unlock">Aktifkan</button>
       </div>
       <div id="myCode" style="display:none;margin-top:14px;font-size:13px;color:var(--muted)">
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-          <span data-i18n="mycode_lbl">Your unlock code:</span>
+          <span data-i18n="mycode_lbl">Kode aktivasi kamu:</span>
           <code id="myCodeVal" style="border:1px dashed var(--gold);padding:6px 12px;color:var(--head);letter-spacing:.06em"></code>
-          <button class="btn btn-ghost" id="copyCodeBtn" style="padding:8px 16px;font-size:11px" data-i18n="btn_copy">Copy</button>
+          <button class="btn btn-ghost" id="copyCodeBtn" style="padding:8px 16px;font-size:11px" data-i18n="btn_copy">Salin</button>
         </div>
-        <p id="myCodeNote" style="margin-top:8px" data-i18n="mycode_note">Jot this code down somewhere safe — it's your lifetime key and unlocks Premium on any device.</p>
+        <p id="myCodeNote" style="margin-top:8px" data-i18n="mycode_note">Catat kode ini di tempat yang aman — ini kunci seumur hidupmu dan bisa mengaktifkan Premium di perangkat apa pun.</p>
       </div>
     </div>
     <div style="text-align:center">
-      <div class="price"><span id="priceVal">$4.99</span> <small data-i18n="price_once">one-time</small></div>
-      <a class="btn btn-red" id="buyBtn" style="margin-top:12px" target="_blank" rel="noopener" data-i18n="btn_buy">Get the Premium Pack</a>
-      <p style="font-size:12px;color:#8f897b;margin-top:10px" data-i18n="buy_note">Unlock code revealed right after checkout · lifetime access</p>
-      <p id="lostCode" style="font-size:12px;color:#8f897b;margin-top:6px;display:none" data-i18n="lost_code">Lost your code? <a style="color:#b89250">Email us</a> with your Stripe receipt — we’ll resend it.</p>
+      <div class="price"><span id="priceVal">$4.99</span> <small data-i18n="price_once">sekali bayar</small></div>
+      <a class="btn btn-red" id="buyBtn" style="margin-top:12px" target="_blank" rel="noopener" data-i18n="btn_buy">Dapatkan Paket Premium</a>
+      <p style="font-size:12px;color:#8f897b;margin-top:10px" data-i18n="buy_note">Kode aktivasi langsung muncul setelah pembayaran · akses seumur hidup</p>
+      <p id="lostCode" style="font-size:12px;color:#8f897b;margin-top:6px;display:none" data-i18n="lost_code">Kode hilang? <a style="color:#b89250">Kirim email ke kami</a> dengan struk Stripe-mu — kami akan mengirimkannya lagi.</p>
     </div>
   </section>
 
@@ -471,7 +471,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
   </section>
 </main>
 
-<footer class="wrap"><a href="../" class="flogo" aria-label="Kanji My Name — home" data-i18n-attr="aria-label:aria_home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" data-i18n-attr="alt:alt_logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener" style="color:var(--gold)">KUGA Inc.</a> · <a href="nama/" style="color:var(--gold)" data-i18n="ft_names" data-i18n-attr="href:ft_names_href">Browse names in kanji →</a> · <a href="../about" style="color:var(--gold)" data-i18n="ft_about">About</a> · <a href="../terms" style="color:var(--gold)" data-i18n="ft_terms">Terms</a> · <a href="../tokushoho" style="color:var(--gold)" data-i18n="ft_legal">Legal Notice</a></div><div style="margin-top:6px" data-i18n="ft_made">Made in Japan by a native speaker &amp; Japanese-language teacher</div><div style="margin-top:6px" id="ftLangs"><a href="../" hreflang="en" lang="en" style="color:var(--gold)">English</a> · <a href="../fr/" hreflang="fr" lang="fr" style="color:var(--gold)">Français</a> · <a href="../it/" hreflang="it" lang="it" style="color:var(--gold)">Italiano</a></div></footer>
+<footer class="wrap"><a href="../" class="flogo" aria-label="Kanji My Name — beranda" data-i18n-attr="aria-label:aria_home"><img src="../image/kanjilogo-footer.png" alt="Logo Kanji My Name" data-i18n-attr="alt:alt_logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener" style="color:var(--gold)">KUGA Inc.</a> · <a href="nama/" style="color:var(--gold)" data-i18n="ft_names" data-i18n-attr="href:ft_names_href">Nama Indonesia dalam bahasa Jepang →</a> · <a href="../about" style="color:var(--gold)" data-i18n="ft_about">Tentang kami</a> · <a href="../terms" style="color:var(--gold)" data-i18n="ft_terms">Ketentuan</a> · <a href="../tokushoho" style="color:var(--gold)" data-i18n="ft_legal">Informasi Hukum</a></div><div style="margin-top:6px" data-i18n="ft_made">Dibuat di Jepang oleh orang Jepang asli yang juga guru bahasa Jepang</div><div style="margin-top:6px" id="ftLangs"><a href="../" hreflang="en" lang="en" style="color:var(--gold)">English</a> · <a href="../fr/" hreflang="fr" lang="fr" style="color:var(--gold)">Français</a> · <a href="../it/" hreflang="it" lang="it" style="color:var(--gold)">Italiano</a></div></footer>
 <div class="picker" id="picker"><div class="picker-card" id="pickerCard"></div></div>
 <div id="fxA" aria-hidden="true">
   <div id="fxDim"></div>
@@ -484,7 +484,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
 <div class="cuthalf" id="cutTop"></div><div class="cuthalf" id="cutBot"></div>
 <div id="gapline"></div>
 <svg width="0" height="0" style="position:absolute"><filter id="roughA"><feTurbulence type="fractalNoise" baseFrequency=".055" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7"/></filter></svg>
-<div id="zoom" aria-hidden="true"><img alt="Enlarged kanji art preview" data-i18n-attr="alt:alt_zoom"><div class="zhint" data-i18n="zoom_hint">Tap anywhere to close</div></div>
+<div id="zoom" aria-hidden="true"><img alt="Pratinjau karya kanji yang diperbesar" data-i18n-attr="alt:alt_zoom"><div class="zhint" data-i18n="zoom_hint">Ketuk di mana saja untuk menutup</div></div>
 <div class="toast" id="toast"></div>
 
 <script src="../effects.js?v=3"></script>
@@ -509,8 +509,8 @@ const MAX_KANJI = 8; // 1作品あたりの漢字数上限（ひとみうさ裁�
 // (the build fails on drift). UI must stay one line of JSON.
 /* app-ui:start */
 const PAGE_LC="id";
-const UI={"st_classic":"Classic Scroll","st_night":"Midnight Ink","st_blossom":"Blossom","st_gold":"Gold Leaf","st_storm":"Sumi Storm","st_indigo":"Indigo Wave","st_enso":"Ensō","st_shiro":"Pure White","seal_on":"With seal 朱","seal_off":"No seal","mean_on":"With meanings 意","mean_off":"No meanings","bg_on":"Washi paper 紙","bg_off":"Transparent","or_v":"Vertical 縦","or_h":"Horizontal 横","or_sv":"Square · Vertical 縦","or_sh":"Square · Horizontal 横","f_yuji":"Brush 筆","f_mincho":"Mincho 雅","f_maru":"Round 丸","f_boku":"Bold Brush 墨","f_gyosho":"Calligraphy 書","f_mai":"Dancing Brush 舞","f_hina":"Heirloom 雛","f_tegomin":"Folk 民","f_decol":"Charm 彩","f_kiwi":"Sweet 苺","f_klee":"Pen 心","f_oldmincho":"Antique 刻","f_dela":"Urban 塊","pk_close":"Close","pk_title":"Choose a meaning for “{s}”","pk_intro":"Each kanji carries the same or closest Japanese sound — pick the meaning that feels like you.","pk_read":"read as “{ts}”","pk_used":" — used for “{s}”","pk_selected":"Selected","lang_fr":"French","lang_it":"Italian","lang_id":"Indonesian","say_loc":"{lang} reading · {kana}","say_en":"English reading · {kana}","an_loc":"{langs} reading","t_name_first":"Type your name first","t_simpler":"Hmm — try a simpler spelling of your name","t_too_long":"This name would need {n} kanji, but one artwork holds up to {max}. Try a shorter version — or one name at a time.","t_sealed_named":"“{label}” is sealed — the Premium Pack opens it ({price})","t_sealed_seal":"Removing the seal is sealed — the Premium Pack opens it ({price})","t_sealed_mean":"Hiding the meanings is sealed — the Premium Pack opens it ({price})","t_sealed_bg":"The transparent background is sealed — the Premium Pack opens it ({price})","t_sealed_square":"Square canvases are sealed — the Premium Pack opens them ({price})","t_sealed_4k":"4K downloads are sealed — the Premium Pack opens them ({price})","dl_png":"Download PNG","dl_free":" · free","dl_4k_open":"Download 4K","dl_4k_sealed":"Download 4K ✦","t_create_first":"Create your kanji first","t_downloaded":"Downloaded!","t_downloaded_free":"Downloaded! Upgrade for 4K & clean edition","t_4k_done":"4K art downloaded","share_myname":"my name","share_text":"My name \"{name}\" in kanji is {kanji} — made at {url}","sh_preparing":"Preparing image…","sh_fail":"Couldn’t prepare the PNG — please try again","sh_ready":"Image ready to share","sh_downloaded":"PNG downloaded — share it from Photos or Files","sh_link_copied":"Share link copied","buy_soon":"Coming soon — launching this week","t_code_first":"Enter your unlock code first","t_unlocked":"Premium unlocked — welcome to the atelier","t_code_bad":"That code doesn't match — check your unlock page after checkout","mycode_active":"Premium is active on this device. Keep the unlock code from your purchase page noted somewhere safe — it works on any device, forever.","t_code_copied":"Code copied — keep it somewhere safe!","demo":"Putri"};
-const GLOSS={"wind":"angin","wealth":"kemakmuran","lotus":"teratai","Big Dipper":"Bintang Biduk","capital city":"ibu kota","to ascend":"naik ke puncak","jasmine":"melati","reason · truth":"nalar · kebenaran","homeland":"kampung halaman","lapis lazuli":"lapis lazuli (batu biru)","ambition":"cita-cita","poetry":"puisi","noble warrior":"kesatria","purple":"ungu","wisdom":"kebijaksanaan","thousand":"seribu","earth":"bumi","auspicious":"pertanda baik","vision · plan":"visi · rencana","hope":"harapan","radiance":"sinar gemilang","great tree":"pohon besar","noble":"mulia","heaven":"langit","to rise forth":"muncul","garment":"busana","unique · only one":"unik · satu-satunya","mind · heart":"hati · pikiran","that beauty":"sang jelita","warrior":"pejuang","dance":"tarian","mercy":"welas asih","samurai":"samurai","to heal":"menyembuhkan","long life":"panjang umur","clear · pure":"jernih · murni","sandbar · continent":"gosong pasir · benua","love":"cinta","Asia · next":"Asia · berikutnya","peace":"damai","broad · vast":"luas","fine cloth":"kain halus","warmth":"kehangatan","flowing":"mengalir","to stay":"tinggal","harmony":"harmoni","circle · ring":"lingkaran","wheel · ring":"roda · cincin","gentle · superior":"lembut · unggul","eternal calm":"ketenangan abadi","to unite":"menyatukan","freedom · reason":"kebebasan · alasan","truth":"kebenaran","polished":"terasah","linen":"kain rami","rhyme · echo":"rima · gema","sound":"suara","seal":"cap","great":"agung","steep peak":"puncak terjal (juga dipakai dalam istilah Buddha)","wave":"ombak","wings":"sayap","supremacy":"kejayaan","youthful":"muda belia","silk gauze":"sutra tipis","indigo":"nila","to shoot":"memanah","ever more":"kian bertambah","arrow":"anak panah","night":"malam","leaf":"daun","fragrant plant":"tanaman harum","horse":"kuda","lovely":"elok","jewel's chime":"denting permata","grace · courtesy":"santun · hormat","great · bold":"besar · berani","abundant":"berlimpah","chosen":"terpilih","blessing":"berkah","art · painting":"seni · lukisan","calm river":"sungai tenang","happiness":"kebahagiaan","lake":"danau","coral":"karang","graceful":"anggun","blossom greens":"sayuran segar","elegant":"elegan","beauty":"keindahan","lute":"kecapi","goodness":"kebaikan","orchid":"anggrek","joy":"sukacita","fine silk":"sutra halus","apricot":"aprikot","hermitage":"pondok yang tenang","to bloom":"mekar","sand · shore":"pasir · pantai","castle":"kastil · benteng","to help":"menolong","benevolence":"kebajikan","rainbow":"pelangi","vermilion":"merah cerah","jade blue":"biru giok","gratitude":"budi · kebaikan hati","fortune":"keberuntungan","the Way":"jalan hidup","child spirit":"jiwa kanak-kanak","sunshine":"sinar matahari","to fly":"terbang","princess":"putri","daybreak":"fajar","new sprout":"tunas baru","bright":"cerah","woman":"perempuan","poetic 'of'":"partikel puitis “dari”","hope · wish":"harapan · keinginan","open field":"padang luas","flower":"bunga","excellent":"istimewa","fragrance":"keharuman","to add · grow":"menambah · tumbuh","dream":"mimpi","mist":"kabut","elegance":"keanggunan","celebration":"perayaan"};
+const UI={"st_classic":"Gulungan Klasik","st_night":"Tinta Tengah Malam","st_blossom":"Bunga Sakura","st_gold":"Daun Emas","st_storm":"Badai Sumi","st_indigo":"Ombak Nila","st_enso":"Ensō","st_shiro":"Putih Murni","seal_on":"Dengan cap 朱","seal_off":"Tanpa cap","mean_on":"Dengan makna 意","mean_off":"Tanpa makna","bg_on":"Kertas washi 紙","bg_off":"Transparan","or_v":"Tegak 縦","or_h":"Mendatar 横","or_sv":"Persegi · tegak 縦","or_sh":"Persegi · mendatar 横","f_yuji":"Kuas 筆","f_mincho":"Mincho 雅","f_maru":"Bulat 丸","f_boku":"Kuas Tebal 墨","f_gyosho":"Kaligrafi 書","f_mai":"Kuas Menari 舞","f_hina":"Pusaka 雛","f_tegomin":"Tradisional 民","f_decol":"Pesona 彩","f_kiwi":"Manis 苺","f_klee":"Pena 心","f_oldmincho":"Antik 刻","f_dela":"Gaya Kota 塊","pk_close":"Tutup","pk_title":"Pilih makna untuk “{s}”","pk_intro":"Setiap kanji punya bunyi Jepang yang sama atau paling mirip — pilih makna yang paling menggambarkan dirimu.","pk_read":"dibaca “{ts}”","pk_used":" — dipakai untuk “{s}”","pk_selected":"Terpilih","lang_fr":"Prancis","lang_it":"Italia","lang_id":"Indonesia","say_loc":"Pelafalan {lang} · {kana}","say_en":"Pelafalan Inggris · {kana}","an_loc":"pelafalan {langs}","t_name_first":"Ketik namamu dulu","t_simpler":"Hmm — coba ejaan nama yang lebih sederhana","t_too_long":"Nama ini butuh {n} kanji, padahal satu karya maksimal {max} kanji. Coba versi yang lebih pendek — atau satu nama dulu.","t_sealed_named":"“{label}” tersedia di Paket Premium ({price})","t_sealed_seal":"Menghilangkan cap tersedia di Paket Premium ({price})","t_sealed_mean":"Menyembunyikan makna tersedia di Paket Premium ({price})","t_sealed_bg":"Latar transparan tersedia di Paket Premium ({price})","t_sealed_square":"Kanvas persegi tersedia di Paket Premium ({price})","t_sealed_4k":"Unduhan 4K tersedia di Paket Premium ({price})","dl_png":"Unduh PNG","dl_free":" · gratis","dl_4k_open":"Unduh 4K","dl_4k_sealed":"Unduh 4K ✦","t_create_first":"Buat kanjimu dulu","t_downloaded":"Berhasil diunduh!","t_downloaded_free":"Berhasil diunduh! Pilih Premium untuk 4K & edisi tanpa keterangan","t_4k_done":"Karya 4K berhasil diunduh","share_myname":"namaku","share_text":"Namaku “{name}” dalam kanji adalah {kanji} — dibuat di {url}","sh_preparing":"Menyiapkan gambar…","sh_fail":"Gagal menyiapkan PNG — silakan coba lagi","sh_ready":"Gambar siap dibagikan","sh_downloaded":"PNG sudah diunduh — bagikan dari Foto atau File","sh_link_copied":"Tautan tersalin","buy_soon":"Segera hadir — diluncurkan minggu ini","t_code_first":"Masukkan kode aktivasi dulu","t_unlocked":"Premium aktif — selamat datang di sanggar kami","t_code_bad":"Kode tidak cocok — periksa halaman aktivasi yang muncul setelah pembayaran","mycode_active":"Premium sudah aktif di perangkat ini. Simpan kode aktivasi dari halaman pembelianmu di tempat yang aman — kode itu berlaku di perangkat apa pun, selamanya.","t_code_copied":"Kode tersalin — simpan di tempat yang aman!","demo":"Putri"};
+const GLOSS={"wind":"angin","wealth":"kemakmuran","lotus":"teratai","Big Dipper":"Bintang Biduk","capital city":"ibu kota","to ascend":"naik ke puncak","jasmine":"melati","reason · truth":"nalar · kebenaran","homeland":"kampung halaman","lapis lazuli":"lapis lazuli (batu biru)","ambition":"cita-cita","poetry":"puisi","noble warrior":"kesatria","purple":"ungu","wisdom":"kebijaksanaan","thousand":"seribu","earth":"bumi","auspicious":"pertanda baik","vision · plan":"visi · rencana","hope":"harapan","radiance":"sinar gemilang","great tree":"pohon besar","noble":"mulia","heaven":"langit","to rise forth":"muncul","garment":"busana","unique · only one":"unik · satu-satunya","mind · heart":"hati · pikiran","that beauty":"sang jelita","warrior":"pejuang","dance":"tarian","mercy":"welas asih","samurai":"samurai","to heal":"menyembuhkan","long life":"panjang umur","clear · pure":"jernih · murni","sandbar · continent":"gosong pasir · benua","love":"cinta","Asia · next":"Asia · berikutnya","peace":"damai","broad · vast":"luas","fine cloth":"kain halus","warmth":"kehangatan","flowing":"mengalir","to stay":"tinggal","harmony":"harmoni","circle · ring":"lingkaran","wheel · ring":"roda · cincin","gentle · superior":"lembut · unggul","eternal calm":"ketenangan abadi","to unite":"menyatukan","freedom · reason":"kebebasan · alasan","truth":"kebenaran","polished":"terasah","linen":"kain rami","rhyme · echo":"rima · gema","sound":"suara","seal":"cap","great":"agung","steep peak":"puncak terjal","wave":"ombak","wings":"sayap","supremacy":"kejayaan","youthful":"muda belia","silk gauze":"sutra tipis","indigo":"nila","to shoot":"memanah","ever more":"kian bertambah","arrow":"anak panah","night":"malam","leaf":"daun","fragrant plant":"tanaman harum","horse":"kuda","lovely":"elok","jewel's chime":"denting permata","grace · courtesy":"santun · hormat","great · bold":"besar · berani","abundant":"berlimpah","chosen":"terpilih","blessing":"berkah","art · painting":"seni · lukisan","calm river":"sungai tenang","happiness":"kebahagiaan","lake":"danau","coral":"karang","graceful":"anggun","blossom greens":"sayuran segar","elegant":"elegan","beauty":"keindahan","lute":"kecapi","goodness":"kebaikan","orchid":"anggrek","joy":"sukacita","fine silk":"sutra halus","apricot":"aprikot","hermitage":"pondok yang tenang","to bloom":"mekar","sand · shore":"pasir · pantai","castle":"kastil · benteng","to help":"menolong","benevolence":"kebajikan","rainbow":"pelangi","vermilion":"merah cerah","jade blue":"biru giok","gratitude":"budi · kebaikan hati","fortune":"keberuntungan","the Way":"jalan hidup","child spirit":"jiwa kanak-kanak","sunshine":"sinar matahari","to fly":"terbang","princess":"putri","daybreak":"fajar","new sprout":"tunas baru","bright":"cerah","woman":"perempuan","poetic 'of'":"partikel puitis “dari”","hope · wish":"harapan · keinginan","open field":"padang luas","flower":"bunga","excellent":"istimewa","fragrance":"keharuman","to add · grow":"menambah · tumbuh","dream":"mimpi","mist":"kabut","elegance":"keanggunan","celebration":"perayaan","universe":"alam semesta","rabbit":"kelinci","center":"pusat","king":"raja","bond · thread":"ikatan · benang","everlasting":"abadi","sky":"angkasa","black jewel":"permata hitam","joy · celebration":"sukacita · perayaan","precious gem":"permata berharga","world":"dunia","holy":"suci","rapids":"jeram","deep blue":"biru tua","thought · feeling":"pikiran · perasaan","to play music":"bermain musik","harbor":"pelabuhan","crane":"burung bangau","to shine":"bersinar","emperor":"kaisar","peaceful":"tenteram","strong roots":"akar yang kuat","sail":"layar","ear of grain":"bulir padi","to protect":"melindungi","sea":"laut","sincerity · fruit":"ketulusan · buah","flourish":"tumbuh subur","hundred":"seratus","bravery":"keberanian","road · journey":"jalan · perjalanan","cheerful · bright":"ceria · cerah","melody":"melodi","morning dew":"embun pagi","righteousness":"keadilan","artistry":"keahlian seni","fine art":"kesenian","summer":"musim panas","enlightenment":"pencerahan","oneself":"diri sendiri","five":"lima","wealth · treasure":"harta · kekayaan","presence · being":"kehadiran · keberadaan","gateway":"gerbang","above · top":"atas · puncak","treasure house":"gudang harta","crimson":"merah tua","clan · guild":"kelompok · perkumpulan","adoration":"kekaguman","temple night":"malam yang hening","palace":"istana","mastery":"penguasaan ilmu","capital":"ibu kota","respect":"rasa hormat","pearl":"mutiara","excellence":"keunggulan","to soar":"melambung tinggi","to rise":"bangkit","tea":"teh","outer space":"luar angkasa","loyalty":"kesetiaan","butterfly":"kupu-kupu","leader":"pemimpin","dragon":"naga","lapis":"lapis lazuli","cool breeze":"angin sejuk","vast":"sangat luas","strategy":"strategi","dawn":"cahaya fajar","health · strength":"sehat · kuat","sword":"pedang","feeling":"perasaan","crown":"mahkota","delight":"kegembiraan","gold":"emas","brocade":"kain songket","soul":"jiwa","fragrant":"harum","heart":"hati","trust":"kepercayaan","brilliant":"berkilau","mountain":"gunung","praise":"pujian","sage":"orang bijak","spring water":"mata air","revered":"dihormati","precise measure":"ukuran yang tepat","to unfold":"membentang","sincerity":"ketulusan","south":"selatan","devotion":"kesungguhan hati","prosperity":"kesejahteraan","dignity":"martabat","origin · true":"asal · sejati","ten thousand":"sepuluh ribu","fullness":"penuh · sempurna","the people":"rakyat","gentle sleep":"tidur lelap","gate":"pintu gerbang","crest":"lambang","yuzu citrus":"jeruk yuzu","dignified":"berwibawa","bell":"lonceng kecil","forest":"hutan","romance":"asmara","connection":"hubungan","philosophy":"filsafat","ethics":"etika","great rock":"batu besar","wish":"harapan tulus","origin":"asal mula","string melody":"alunan dawai","silver":"perak","majesty":"keagungan","zen":"zen","bold cut":"tebasan tegas","swift":"tangkas","purity":"kemurnian","togetherness":"kebersamaan","legacy":"warisan","evening":"senja","cleverness":"kecerdasan","humility":"kerendahan hati","diligence":"ketekunan","cloud":"awan","destiny bond":"ikatan takdir","circle":"bundar","banquet":"jamuan","gem":"permata","birdsong":"kicau burung","inscription":"ukiran kata","new":"baru","true":"sejati","pure":"murni","grace":"kelembutan","falcon":"burung elang"};
 /* app-ui:end */
 const T=(k,o)=>UI[k].replace(/\{(\w+)\}/g,(m,v)=>o&&v in o?o[v]:m);
 const gl=m=>GLOSS[m]||m; // kanji gloss in the page language (falls back to English)

@@ -319,103 +319,103 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
   <div class="top"><div class="brand"><a href="../">Kanji My Name</a></div><nav class="langs" aria-label="Lingua"><a href="../" hreflang="en" lang="en">English</a><a href="../fr/" hreflang="fr" lang="fr">Français</a><a href="../it/" hreflang="it" lang="it" aria-current="page">Italiano</a><a href="../id/" hreflang="id" lang="id">Bahasa Indonesia</a></nav></div>
   <h1>Il tuo nome in giapponese</h1>
   <div class="goldline"></div>
-  <p class="sub" data-i18n="sub">Type your name. Kanji My Name crafts it into Japanese kanji — and <b>you choose the meaning</b> behind every character: love, dreams, strength, light. Then download it as elegant calligraphy art. Free.</p>
-  <p class="stat-line" data-i18n="stat">Any name · 28,000+ kanji combinations</p>
+  <p class="sub" data-i18n="sub">Scrivi il tuo nome. Kanji My Name lo trasforma in kanji giapponesi — e <b>sei tu a scegliere il significato</b> di ogni carattere: amore, sogni, forza, luce. Poi scaricalo come un'elegante opera di calligrafia. Gratis.</p>
+  <p class="stat-line" data-i18n="stat">Qualsiasi nome · oltre 28.000 combinazioni di kanji</p>
 </header>
 
 <main class="wrap">
   <div class="app">
     <div class="panel">
-      <label for="nameIn" data-i18n="lbl_name">Your name (any language, in Latin letters)</label>
-      <input type="text" id="nameIn" placeholder="e.g. Emma, Michael, Lucas…" autocomplete="off" data-i18n-attr="placeholder:ph_name">
-      <div class="hint" style="margin-top:8px" data-i18n="hint_two">Writing two names? Separate them with a space — e.g. “Emma Rose”.</div>
+      <label for="nameIn" data-i18n="lbl_name">Il tuo nome (in qualsiasi lingua, in lettere latine)</label>
+      <input type="text" id="nameIn" placeholder="es. Giulia, Marco, Sofia…" autocomplete="off" data-i18n-attr="placeholder:ph_name">
+      <div class="hint" style="margin-top:8px" data-i18n="hint_two">Due nomi? Separali con uno spazio — per esempio «Anna Maria».</div>
       <div class="row">
-        <button class="btn btn-red" id="goBtn" data-i18n="btn_go">Create my kanji ✦</button>
-        <button class="btn btn-ghost" id="luckyBtn" data-i18n="btn_lucky">Surprise me</button>
+        <button class="btn btn-red" id="goBtn" data-i18n="btn_go">Crea i miei kanji ✦</button>
+        <button class="btn btn-ghost" id="luckyBtn" data-i18n="btn_lucky">Sorprendimi</button>
       </div>
       <div class="say-area" id="sayArea" style="display:none">
-        <label style="margin-top:18px" data-i18n="lbl_say">How do you say it? — pick the closest sound</label>
+        <label style="margin-top:18px" data-i18n="lbl_say">Come si pronuncia? — scegli il suono più vicino</label>
         <div id="sayRows"></div>
       </div>
       <div class="syl-area" id="sylArea" style="display:none">
-        <label data-i18n="lbl_chips">Your kanji — tap a character to see your choices</label>
+        <label data-i18n="lbl_chips">I tuoi kanji — tocca un carattere per vedere le alternative</label>
         <div class="chips" id="chips"></div>
-        <div class="hint" data-i18n="hint_chips">Tap any kanji above ▴ — other characters with the same or closest Japanese sound will appear below it, each with a different meaning. Pick your favorite. This is <i>ateji</i> (当て字), the traditional Japanese art of writing foreign names with meaningful characters.</div>
-        <label style="margin-top:18px" data-i18n="lbl_style">Art style</label>
+        <div class="hint" data-i18n="hint_chips">Tocca un kanji qui sopra ▴: sotto compariranno altri caratteri con lo stesso suono giapponese (o il più vicino), ognuno con un significato diverso. Scegli il tuo preferito. È l'arte degli <i>ateji</i> (当て字), la tradizione giapponese di scrivere i nomi stranieri con caratteri ricchi di significato.</div>
+        <label style="margin-top:18px" data-i18n="lbl_style">Stile</label>
         <div class="styles" id="styleRow" style="margin-top:4px"></div>
-        <label style="margin-top:18px" data-i18n="lbl_font">Calligraphy font</label>
+        <label style="margin-top:18px" data-i18n="lbl_font">Carattere calligrafico</label>
         <div class="styles" id="fontRow" style="margin-top:4px"></div>
-        <label style="margin-top:18px" data-i18n="lbl_layout">Layout</label>
+        <label style="margin-top:18px" data-i18n="lbl_layout">Impaginazione</label>
         <div class="styles" id="orientRow" style="margin-top:4px"></div>
-        <label style="margin-top:18px" data-i18n="lbl_seal">Hanko seal 朱印</label>
+        <label style="margin-top:18px" data-i18n="lbl_seal">Sigillo hanko 朱印</label>
         <div class="styles" id="sealRow" style="margin-top:4px"></div>
-        <label style="margin-top:18px" data-i18n="lbl_mean">Meanings line 意</label>
+        <label style="margin-top:18px" data-i18n="lbl_mean">Riga dei significati 意</label>
         <div class="styles" id="meanRow" style="margin-top:4px"></div>
-        <label style="margin-top:18px" data-i18n="lbl_bg">Background 紙</label>
+        <label style="margin-top:18px" data-i18n="lbl_bg">Sfondo 紙</label>
         <div class="styles" id="bgRow" style="margin-top:4px"></div>
-        <div class="seal-legend" id="sealLegend"><i>封</i><span data-i18n="legend_sealed"><b>封 = “sealed”</b> — these options open with the Premium Pack. Tap one to peek.</span></div>
-        <div class="seal-legend"><i class="seal-sel" aria-hidden="true">選</i><span data-i18n="legend_sel"><b>選 = “selected”</b> — the kanji currently in your name art. Tap a kanji above to swap it.</span></div>
+        <div class="seal-legend" id="sealLegend"><i>封</i><span data-i18n="legend_sealed"><b>封 = «sigillato»</b> — queste opzioni si sbloccano con il Pacchetto Premium. Toccane una per un'anteprima.</span></div>
+        <div class="seal-legend"><i class="seal-sel" aria-hidden="true">選</i><span data-i18n="legend_sel"><b>選 = «selezionato»</b> — il kanji che compare ora nella tua opera. Tocca un kanji qui sopra per cambiarlo.</span></div>
       </div>
     </div>
     <div class="panel canvas-holder">
       <canvas id="art" width="1200" height="1800"></canvas>
       <div class="art-note" id="artNote" hidden>
-        <p class="an-l1" id="anL1"><span class="an-lbl" data-i18n="an_l1">In Japanese, <span id="anName"></span> is usually written</span> <span class="an-kana" id="anKana"></span> <span class="an-romaji">(<span id="anRomaji"></span>)<span id="anLoc"></span></span></p>
-        <p class="an-l2" data-i18n="an_l2"><span id="anKanji"></span> is an artistic ateji — chosen for sound and meaning, not an official spelling.</p>
-        <p class="an-l3" data-i18n="an_l3">For anything permanent, have a native speaker check it.</p>
+        <p class="an-l1" id="anL1"><span class="an-lbl" data-i18n="an_l1">In giapponese, <span id="anName"></span> si scrive di solito</span> <span class="an-kana" id="anKana"></span> <span class="an-romaji">(<span id="anRomaji"></span>)<span id="anLoc"></span></span></p>
+        <p class="an-l2" data-i18n="an_l2"><span id="anKanji"></span> è un ateji artistico — scelto per il suono e per il significato, non una grafia ufficiale.</p>
+        <p class="an-l3" data-i18n="an_l3">Per qualcosa di definitivo, fallo controllare da una persona madrelingua giapponese.</p>
       </div>
       <div class="dl-row">
-        <button class="btn btn-red" id="dlBtn" data-i18n="btn_dl">Download PNG</button>
-        <button class="btn btn-4k" id="dl4kBtn" data-i18n="btn_4k">Download 4K ✦</button>
-        <button class="btn btn-ghost" id="shareImageBtn" data-i18n="btn_shareimg">Share image</button>
-        <button class="btn btn-ghost" id="shareLinkBtn" data-i18n="btn_sharelink">Copy share link</button>
+        <button class="btn btn-red" id="dlBtn" data-i18n="btn_dl">Scarica il PNG</button>
+        <button class="btn btn-4k" id="dl4kBtn" data-i18n="btn_4k">Scarica in 4K ✦</button>
+        <button class="btn btn-ghost" id="shareImageBtn" data-i18n="btn_shareimg">Condividi l'immagine</button>
+        <button class="btn btn-ghost" id="shareLinkBtn" data-i18n="btn_sharelink">Copia il link</button>
       </div>
       <p class="share-status" id="shareStatus" role="status" aria-live="polite"></p>
-      <div class="upsell-note" data-i18n="upsell">Free download includes a small credit line. <b>Premium unlocks high-resolution, clean artwork, all 13 fonts and exclusive styles — <a href="#premium">explore the Pack ✦</a></b></div>
+      <div class="upsell-note" data-i18n="upsell">Il download gratuito include una piccola scritta con il nome del sito. <b>Il Premium sblocca l'alta risoluzione, un'opera senza scritte, tutti i 13 caratteri e stili esclusivi — <a href="#premium">scopri il Pacchetto ✦</a></b></div>
       <div id="spCustomize"><!-- SPのみ: 編集できることの可視化 (D-30 Task 6A) -->
-        <button type="button" id="spCustLbl" data-i18n="sp_cust"><span class="bob" aria-hidden="true">▾</span> Customize — style, font, layout &amp; more</button>
+        <button type="button" id="spCustLbl" data-i18n="sp_cust"><span class="bob" aria-hidden="true">▾</span> Personalizza — stile, carattere, impaginazione e altro</button>
         <div class="styles sp-strip" id="spStyleRow"></div>
       </div>
     </div>
   </div>
-  <div id="miniBar" role="button" tabindex="0" aria-label="Back to your kanji art" data-i18n-attr="aria-label:aria_mini" hidden><!-- SPのみ: 大プレビュー画面外時のミニプレビュー (Task 6B) -->
+  <div id="miniBar" role="button" tabindex="0" aria-label="Torna alla tua opera in kanji" data-i18n-attr="aria-label:aria_mini" hidden><!-- SPのみ: 大プレビュー画面外時のミニプレビュー (Task 6B) -->
     <img id="miniImg" alt="">
     <div class="mt"><b id="miniStyle"></b><span id="miniFont"></span></div>
-    <span class="mup" aria-hidden="true" data-i18n="mini_up">▴ art</span>
+    <span class="mup" aria-hidden="true" data-i18n="mini_up">▴ opera</span>
   </div>
 
   <div class="divider"><span>特別頒布</span></div>
   <section class="premium" id="premium">
     <div>
-      <h2 data-i18n="prem_h2">The Premium Pack</h2>
+      <h2 data-i18n="prem_h2">Il Pacchetto Premium</h2>
       <ul>
-        <li data-i18n="prem_li1">Ultra high-resolution 4K art — perfect for printing &amp; framing</li>
-        <li data-i18n="prem_li2">No credit line — clean, gallery-ready artwork</li>
-        <li data-i18n="prem_li3">All 13 calligraphy fonts (10 premium-only)</li>
-        <li data-i18n="prem_li4">Transparent-background PNG — perfect for shirts, stickers &amp; overlays</li>
-        <li data-i18n="prem_li5">Exclusive <i>Gold Leaf</i>, <i>Sumi Storm</i>, <i>Indigo Wave</i>, <i>Ensō</i> &amp; <i>Pure White</i> art styles</li>
-        <li data-i18n="prem_li6">Seal-free edition — remove the hanko for a pure look</li>
-        <li data-i18n="prem_li7">Meanings on or off — keep the poetry, or let the kanji speak alone</li>
-        <li data-i18n="prem_li8">Square canvas — choose vertical or horizontal kanji for social posts and prints</li>
+        <li data-i18n="prem_li1">Opera in 4K ad altissima risoluzione — perfetta da stampare e incorniciare</li>
+        <li data-i18n="prem_li2">Senza scritta del sito — un'opera pulita, da galleria</li>
+        <li data-i18n="prem_li3">Tutti i 13 caratteri calligrafici (10 solo per il Premium)</li>
+        <li data-i18n="prem_li4">PNG con sfondo trasparente — perfetto per magliette, adesivi e sovrapposizioni</li>
+        <li data-i18n="prem_li5">Gli stili esclusivi <i>Foglia d'oro</i>, <i>Tempesta di sumi</i>, <i>Onda indaco</i>, <i>Ensō</i> e <i>Bianco puro</i></li>
+        <li data-i18n="prem_li6">Versione senza sigillo — togli l'hanko per un effetto essenziale</li>
+        <li data-i18n="prem_li7">Significati sì o no — tieni la poesia, o lascia parlare solo i kanji</li>
+        <li data-i18n="prem_li8">Formato quadrato — kanji in verticale o in orizzontale, per i social e per la stampa</li>
       </ul>
       <div class="unlock-in" id="unlockIn">
-        <input type="text" id="codeIn" placeholder="Already purchased? Enter unlock code" data-i18n-attr="placeholder:ph_code">
-        <button class="btn btn-ghost" id="codeBtn" data-i18n="btn_unlock">Unlock</button>
+        <input type="text" id="codeIn" placeholder="Hai già acquistato? Inserisci il codice di sblocco" data-i18n-attr="placeholder:ph_code">
+        <button class="btn btn-ghost" id="codeBtn" data-i18n="btn_unlock">Sblocca</button>
       </div>
       <div id="myCode" style="display:none;margin-top:14px;font-size:13px;color:var(--muted)">
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-          <span data-i18n="mycode_lbl">Your unlock code:</span>
+          <span data-i18n="mycode_lbl">Il tuo codice di sblocco:</span>
           <code id="myCodeVal" style="border:1px dashed var(--gold);padding:6px 12px;color:var(--head);letter-spacing:.06em"></code>
-          <button class="btn btn-ghost" id="copyCodeBtn" style="padding:8px 16px;font-size:11px" data-i18n="btn_copy">Copy</button>
+          <button class="btn btn-ghost" id="copyCodeBtn" style="padding:8px 16px;font-size:11px" data-i18n="btn_copy">Copia</button>
         </div>
-        <p id="myCodeNote" style="margin-top:8px" data-i18n="mycode_note">Jot this code down somewhere safe — it's your lifetime key and unlocks Premium on any device.</p>
+        <p id="myCodeNote" style="margin-top:8px" data-i18n="mycode_note">Annota questo codice in un posto sicuro: è la tua chiave a vita e sblocca il Premium su qualsiasi dispositivo.</p>
       </div>
     </div>
     <div style="text-align:center">
-      <div class="price"><span id="priceVal">$4.99</span> <small data-i18n="price_once">one-time</small></div>
-      <a class="btn btn-red" id="buyBtn" style="margin-top:12px" target="_blank" rel="noopener" data-i18n="btn_buy">Get the Premium Pack</a>
-      <p style="font-size:12px;color:#8f897b;margin-top:10px" data-i18n="buy_note">Unlock code revealed right after checkout · lifetime access</p>
-      <p id="lostCode" style="font-size:12px;color:#8f897b;margin-top:6px;display:none" data-i18n="lost_code">Lost your code? <a style="color:#b89250">Email us</a> with your Stripe receipt — we’ll resend it.</p>
+      <div class="price"><span id="priceVal">$4.99</span> <small data-i18n="price_once">una tantum</small></div>
+      <a class="btn btn-red" id="buyBtn" style="margin-top:12px" target="_blank" rel="noopener" data-i18n="btn_buy">Ottieni il Pacchetto Premium</a>
+      <p style="font-size:12px;color:#8f897b;margin-top:10px" data-i18n="buy_note">Codice di sblocco mostrato subito dopo il pagamento · accesso a vita</p>
+      <p id="lostCode" style="font-size:12px;color:#8f897b;margin-top:6px;display:none" data-i18n="lost_code">Hai perso il codice? <a style="color:#b89250">Scrivici</a> con la ricevuta di Stripe: te lo invieremo di nuovo.</p>
     </div>
   </section>
 
@@ -471,7 +471,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
   </section>
 </main>
 
-<footer class="wrap"><a href="../" class="flogo" aria-label="Kanji My Name — home" data-i18n-attr="aria-label:aria_home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" data-i18n-attr="alt:alt_logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener" style="color:var(--gold)">KUGA Inc.</a> · <a href="nomi/" style="color:var(--gold)" data-i18n="ft_names" data-i18n-attr="href:ft_names_href">Browse names in kanji →</a> · <a href="../about" style="color:var(--gold)" data-i18n="ft_about">About</a> · <a href="../terms" style="color:var(--gold)" data-i18n="ft_terms">Terms</a> · <a href="../tokushoho" style="color:var(--gold)" data-i18n="ft_legal">Legal Notice</a></div><div style="margin-top:6px" data-i18n="ft_made">Made in Japan by a native speaker &amp; Japanese-language teacher</div><div style="margin-top:6px" id="ftLangs"><a href="../" hreflang="en" lang="en" style="color:var(--gold)">English</a> · <a href="../fr/" hreflang="fr" lang="fr" style="color:var(--gold)">Français</a> · <a href="../id/" hreflang="id" lang="id" style="color:var(--gold)">Bahasa Indonesia</a></div></footer>
+<footer class="wrap"><a href="../" class="flogo" aria-label="Kanji My Name — pagina iniziale" data-i18n-attr="aria-label:aria_home"><img src="../image/kanjilogo-footer.png" alt="Logo di Kanji My Name" data-i18n-attr="alt:alt_logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener" style="color:var(--gold)">KUGA Inc.</a> · <a href="nomi/" style="color:var(--gold)" data-i18n="ft_names" data-i18n-attr="href:ft_names_href">Nomi italiani in giapponese →</a> · <a href="../about" style="color:var(--gold)" data-i18n="ft_about">Chi siamo</a> · <a href="../terms" style="color:var(--gold)" data-i18n="ft_terms">Condizioni</a> · <a href="../tokushoho" style="color:var(--gold)" data-i18n="ft_legal">Note legali</a></div><div style="margin-top:6px" data-i18n="ft_made">Creato in Giappone da una madrelingua giapponese e insegnante di giapponese</div><div style="margin-top:6px" id="ftLangs"><a href="../" hreflang="en" lang="en" style="color:var(--gold)">English</a> · <a href="../fr/" hreflang="fr" lang="fr" style="color:var(--gold)">Français</a> · <a href="../id/" hreflang="id" lang="id" style="color:var(--gold)">Bahasa Indonesia</a></div></footer>
 <div class="picker" id="picker"><div class="picker-card" id="pickerCard"></div></div>
 <div id="fxA" aria-hidden="true">
   <div id="fxDim"></div>
@@ -484,7 +484,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
 <div class="cuthalf" id="cutTop"></div><div class="cuthalf" id="cutBot"></div>
 <div id="gapline"></div>
 <svg width="0" height="0" style="position:absolute"><filter id="roughA"><feTurbulence type="fractalNoise" baseFrequency=".055" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7"/></filter></svg>
-<div id="zoom" aria-hidden="true"><img alt="Enlarged kanji art preview" data-i18n-attr="alt:alt_zoom"><div class="zhint" data-i18n="zoom_hint">Tap anywhere to close</div></div>
+<div id="zoom" aria-hidden="true"><img alt="Anteprima ingrandita dell'opera in kanji" data-i18n-attr="alt:alt_zoom"><div class="zhint" data-i18n="zoom_hint">Tocca in un punto qualsiasi per chiudere</div></div>
 <div class="toast" id="toast"></div>
 
 <script src="../effects.js?v=3"></script>
@@ -509,7 +509,7 @@ const MAX_KANJI = 8; // 1作品あたりの漢字数上限（ひとみうさ裁�
 // (the build fails on drift). UI must stay one line of JSON.
 /* app-ui:start */
 const PAGE_LC="it";
-const UI={"st_classic":"Classic Scroll","st_night":"Midnight Ink","st_blossom":"Blossom","st_gold":"Gold Leaf","st_storm":"Sumi Storm","st_indigo":"Indigo Wave","st_enso":"Ensō","st_shiro":"Pure White","seal_on":"With seal 朱","seal_off":"No seal","mean_on":"With meanings 意","mean_off":"No meanings","bg_on":"Washi paper 紙","bg_off":"Transparent","or_v":"Vertical 縦","or_h":"Horizontal 横","or_sv":"Square · Vertical 縦","or_sh":"Square · Horizontal 横","f_yuji":"Brush 筆","f_mincho":"Mincho 雅","f_maru":"Round 丸","f_boku":"Bold Brush 墨","f_gyosho":"Calligraphy 書","f_mai":"Dancing Brush 舞","f_hina":"Heirloom 雛","f_tegomin":"Folk 民","f_decol":"Charm 彩","f_kiwi":"Sweet 苺","f_klee":"Pen 心","f_oldmincho":"Antique 刻","f_dela":"Urban 塊","pk_close":"Close","pk_title":"Choose a meaning for “{s}”","pk_intro":"Each kanji carries the same or closest Japanese sound — pick the meaning that feels like you.","pk_read":"read as “{ts}”","pk_used":" — used for “{s}”","pk_selected":"Selected","lang_fr":"French","lang_it":"Italian","lang_id":"Indonesian","say_loc":"{lang} reading · {kana}","say_en":"English reading · {kana}","an_loc":"{langs} reading","t_name_first":"Type your name first","t_simpler":"Hmm — try a simpler spelling of your name","t_too_long":"This name would need {n} kanji, but one artwork holds up to {max}. Try a shorter version — or one name at a time.","t_sealed_named":"“{label}” is sealed — the Premium Pack opens it ({price})","t_sealed_seal":"Removing the seal is sealed — the Premium Pack opens it ({price})","t_sealed_mean":"Hiding the meanings is sealed — the Premium Pack opens it ({price})","t_sealed_bg":"The transparent background is sealed — the Premium Pack opens it ({price})","t_sealed_square":"Square canvases are sealed — the Premium Pack opens them ({price})","t_sealed_4k":"4K downloads are sealed — the Premium Pack opens them ({price})","dl_png":"Download PNG","dl_free":" · free","dl_4k_open":"Download 4K","dl_4k_sealed":"Download 4K ✦","t_create_first":"Create your kanji first","t_downloaded":"Downloaded!","t_downloaded_free":"Downloaded! Upgrade for 4K & clean edition","t_4k_done":"4K art downloaded","share_myname":"my name","share_text":"My name \"{name}\" in kanji is {kanji} — made at {url}","sh_preparing":"Preparing image…","sh_fail":"Couldn’t prepare the PNG — please try again","sh_ready":"Image ready to share","sh_downloaded":"PNG downloaded — share it from Photos or Files","sh_link_copied":"Share link copied","buy_soon":"Coming soon — launching this week","t_code_first":"Enter your unlock code first","t_unlocked":"Premium unlocked — welcome to the atelier","t_code_bad":"That code doesn't match — check your unlock page after checkout","mycode_active":"Premium is active on this device. Keep the unlock code from your purchase page noted somewhere safe — it works on any device, forever.","t_code_copied":"Code copied — keep it somewhere safe!","demo":"Giulia"};
+const UI={"st_classic":"Rotolo classico","st_night":"Inchiostro di mezzanotte","st_blossom":"Fiori di ciliegio","st_gold":"Foglia d'oro","st_storm":"Tempesta di sumi","st_indigo":"Onda indaco","st_enso":"Ensō","st_shiro":"Bianco puro","seal_on":"Con sigillo 朱","seal_off":"Senza sigillo","mean_on":"Con significati 意","mean_off":"Senza significati","bg_on":"Carta washi 紙","bg_off":"Trasparente","or_v":"Verticale 縦","or_h":"Orizzontale 横","or_sv":"Quadrato · verticale 縦","or_sh":"Quadrato · orizzontale 横","f_yuji":"Pennello 筆","f_mincho":"Mincho 雅","f_maru":"Tondo 丸","f_boku":"Pennello deciso 墨","f_gyosho":"Calligrafia 書","f_mai":"Pennello danzante 舞","f_hina":"Tradizione 雛","f_tegomin":"Popolare 民","f_decol":"Fascino 彩","f_kiwi":"Dolcezza 苺","f_klee":"Penna 心","f_oldmincho":"Antico 刻","f_dela":"Urbano 塊","pk_close":"Chiudi","pk_title":"Scegli un significato per «{s}»","pk_intro":"Ogni kanji ha lo stesso suono giapponese, o il più vicino — scegli il significato che ti somiglia di più.","pk_read":"si legge «{ts}»","pk_used":" — usato per «{s}»","pk_selected":"Selezionato","lang_fr":"francese","lang_it":"italiana","lang_id":"indonesiana","say_loc":"Pronuncia {lang} · {kana}","say_en":"Pronuncia inglese · {kana}","an_loc":"pronuncia {langs}","t_name_first":"Scrivi prima il tuo nome","t_simpler":"Mmm — prova a scrivere il tuo nome in modo più semplice","t_too_long":"Questo nome richiederebbe {n} kanji, ma un'opera ne contiene al massimo {max}. Prova una versione più corta — o un nome alla volta.","t_sealed_named":"«{label}» fa parte del Pacchetto Premium ({price})","t_sealed_seal":"Togliere il sigillo fa parte del Pacchetto Premium ({price})","t_sealed_mean":"Nascondere i significati fa parte del Pacchetto Premium ({price})","t_sealed_bg":"Lo sfondo trasparente fa parte del Pacchetto Premium ({price})","t_sealed_square":"I formati quadrati fanno parte del Pacchetto Premium ({price})","t_sealed_4k":"Il download in 4K fa parte del Pacchetto Premium ({price})","dl_png":"Scarica il PNG","dl_free":" · gratis","dl_4k_open":"Scarica in 4K","dl_4k_sealed":"Scarica in 4K ✦","t_create_first":"Crea prima i tuoi kanji","t_downloaded":"Scaricato!","t_downloaded_free":"Scaricato! Passa al Premium per il 4K e la versione senza scritte","t_4k_done":"Opera in 4K scaricata","share_myname":"il mio nome","share_text":"Il mio nome «{name}» in kanji è {kanji} — creato su {url}","sh_preparing":"Preparazione dell'immagine…","sh_fail":"Non è stato possibile preparare il PNG — riprova","sh_ready":"Immagine pronta da condividere","sh_downloaded":"PNG scaricato — condividilo da Foto o File","sh_link_copied":"Link copiato","buy_soon":"In arrivo — il lancio è questa settimana","t_code_first":"Inserisci prima il codice di sblocco","t_unlocked":"Premium sbloccato — benvenuto nell'atelier","t_code_bad":"Il codice non corrisponde — controlla la pagina di sblocco mostrata dopo il pagamento","mycode_active":"Il Premium è attivo su questo dispositivo. Conserva in un posto sicuro il codice di sblocco della pagina d'acquisto: funziona su qualsiasi dispositivo, per sempre.","t_code_copied":"Codice copiato — conservalo in un posto sicuro!","demo":"Giulia"};
 const GLOSS={"lovely":"incantevole","jewel's chime":"tintinnio di gemme","grace · courtesy":"grazia · cortesia","center":"centro","king":"re","bond · thread":"legame · filo","graceful":"aggraziato","blossom greens":"verdi germogli","elegant":"elegante","lapis lazuli":"lapislazzuli","flowing":"che scorre","to stay":"restare","the Way":"la Via","earth":"terra","child spirit":"animo fanciullo","blessing":"benedizione","art · painting":"arte · pittura","calm river":"fiume calmo","love":"amore","Asia · next":"Asia · secondo","peace":"pace","deep blue":"blu profondo","thought · feeling":"pensiero · sentimento","to play music":"suonare musica","sunshine":"luce del sole","to fly":"volare","princess":"principessa","sincerity":"sincerità","wealth":"ricchezza","truth":"verità","dance":"danza","polished":"levigato","linen":"lino","treasure house":"scrigno di tesori","universe":"universo","wings":"ali","rabbit":"coniglio","road · journey":"strada · viaggio","cheerful · bright":"allegro · luminoso","melody":"melodia","morning dew":"rugiada del mattino","goodness":"bontà","orchid":"orchidea","joy":"gioia","fine silk":"seta pregiata","wisdom":"saggezza","thousand":"mille","brilliant":"splendente","mountain":"montagna","praise":"lode","wind":"vento","lotus":"loto","indigo":"indaco","long life":"lunga vita","auspicious":"di buon auspicio","clear · pure":"limpido · puro","sandbar · continent":"banco di sabbia · continente","happiness":"felicità","lake":"lago","coral":"corallo","mercy":"misericordia","samurai":"samurai","to heal":"guarire","sound":"suono","peaceful":"sereno","strong roots":"radici forti","warrior":"guerriero","beauty":"bellezza","lute":"liuto (biwa)","Big Dipper":"Grande Carro","capital city":"capitale","to ascend":"salire","jasmine":"gelsomino","reason · truth":"ragione · verità","homeland":"terra natale","romance":"innamoramento","connection":"legame","elegance":"eleganza","celebration":"festa","flower":"fiore","excellent":"eccellente","fragrance":"profumo","to add · grow":"aggiungere · crescere","great tree":"grande albero","pearl":"perla","crimson":"cremisi","clan · guild":"clan · gilda","apricot":"albicocca","hermitage":"eremo","heaven":"cielo","to rise forth":"sorgere","enlightenment":"illuminazione","oneself":"sé stessi","five":"cinque","destiny bond":"legame del destino","circle":"cerchio","banquet":"banchetto","to shine":"risplendere","emperor":"imperatore","rapids":"rapide","world":"mondo","jade blue":"blu giada","benevolence":"benevolenza","rainbow":"arcobaleno","vermilion":"vermiglio","sea":"mare","sincerity · fruit":"sincerità · frutto","to bloom":"sbocciare","sand · shore":"sabbia · riva","silk gauze":"velo di seta","dream":"sogno","mist":"nebbia","sail":"vela","ear of grain":"spiga","to protect":"proteggere","castle":"castello","to help":"aiutare","ten thousand":"diecimila","evening":"sera","broad · vast":"ampio · vasto","great · bold":"grande · audace","abundant":"abbondante","chosen":"scelto","vision · plan":"visione · progetto","hope":"speranza","radiance":"splendore","noble":"nobile","great":"grande","steep peak":"picco scosceso","youthful":"giovanile","joy · celebration":"gioia · festa","precious gem":"gemma preziosa","garment":"veste","unique · only one":"unico · il solo","mind · heart":"mente · cuore","that beauty":"quella bellezza","poetic 'of'":"\"di\" poetico","hope · wish":"speranza · desiderio","open field":"campo aperto","everlasting":"eternità","sky":"cielo","black jewel":"gemma nera","ambition":"ambizione","poetry":"poesia","noble warrior":"nobile guerriero","purple":"viola","holy":"sacro","harbor":"porto","crane":"gru","fine cloth":"tessuto pregiato","warmth":"calore","wave":"onda","supremacy":"supremazia","new sprout":"germoglio","bright":"luminosità","woman":"donna","flourish":"rigoglio","hundred":"cento","ever more":"sempre di più","arrow":"freccia","night":"notte","gentle · superior":"gentilezza · eccellenza","eternal calm":"calma eterna","to unite":"unire","freedom · reason":"libertà · ragione","bravery":"coraggio","leaf":"foglia","harmony":"armonia","circle · ring":"cerchio · anello","wheel · ring":"ruota · anello","gratitude":"gratitudine","fortune":"fortuna","righteousness":"rettitudine","artistry":"talento artistico","fine art":"belle arti","summer":"estate","wealth · treasure":"ricchezza · tesoro","presence · being":"presenza · esistenza","gateway":"varco","above · top":"altezza · vetta","fragrant plant":"pianta profumata","horse":"cavallo","adoration":"adorazione","temple night":"notte al tempio","palace":"palazzo","mastery":"maestria","capital":"capitale","respect":"rispetto","to shoot":"tiro con l'arco","excellence":"eccellenza","to soar":"librarsi in volo","to rise":"ascesa","tea":"tè","outer space":"cosmo","loyalty":"lealtà","butterfly":"farfalla","leader":"guida","dragon":"drago","lapis":"lapislazzuli","cool breeze":"brezza fresca","vast":"vastità","strategy":"strategia","dawn":"aurora","health · strength":"salute · forza","sword":"spada","feeling":"emozione","crown":"corona","delight":"incanto","gold":"oro","brocade":"broccato","soul":"anima","fragrant":"fragranza","heart":"cuore","trust":"fiducia","sage":"saggio","spring water":"acqua di sorgente","revered":"onore","precise measure":"giusta misura","daybreak":"alba","to unfold":"dispiegarsi","south":"sud","devotion":"dedizione","prosperity":"prosperità","dignity":"dignità","origin · true":"origine · autenticità","fullness":"pienezza","the people":"il popolo","gentle sleep":"dolce sonno","gate":"porta","crest":"stemma","yuzu citrus":"yuzu (agrume)","dignified":"fierezza","bell":"campanella","forest":"foresta","philosophy":"filosofia","ethics":"etica","great rock":"grande roccia","wish":"desiderio","origin":"origine","string melody":"melodia di corde","silver":"argento","majesty":"maestà","zen":"zen","bold cut":"taglio deciso","swift":"rapidità","purity":"purezza","togetherness":"unione","legacy":"eredità","cleverness":"intelligenza","humility":"umiltà","diligence":"diligenza","rhyme · echo":"rima · eco","seal":"sigillo","cloud":"nuvola","gem":"gemma","birdsong":"canto degli uccelli","inscription":"iscrizione","new":"rinnovamento","true":"autenticità","pure":"purezza","grace":"grazia","falcon":"falco"};
 /* app-ui:end */
 const T=(k,o)=>UI[k].replace(/\{(\w+)\}/g,(m,v)=>o&&v in o?o[v]:m);
