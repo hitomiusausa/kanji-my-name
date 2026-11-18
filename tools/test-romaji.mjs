@@ -34,12 +34,12 @@ const code = [
   extract(/function tokenize\(r\)\{[\s\S]*?\n\}/, "tokenize"),
   extract(/const CN_MIN=[\s\S]*?function nameDefaultPicks\([^\n]*\}/, "name profiles"),
 ].join("\n");
-const { ATEJI, toRomaji, toKatakana, displayReading, tokenize, NAME_SAY, nameVariants, pinyinTerminalNgReading, nameTokens, nameTokenOptions } = new Function(
+const { ATEJI, toRomaji, toKatakana, displayReading, tokenize, NAME_SAY, nameVariants, pinyinTerminalNgReading, nameTokens, nameTokenOptions, NAME_PROFILES } = new Function(
   code +
     "\nreturn {ATEJI,toRomaji,toKatakana,displayReading,tokenize," +
     "NAME_SAY:typeof NAME_SAY==='undefined'?null:NAME_SAY," +
     "nameVariants:typeof nameVariants==='undefined'?null:nameVariants," +
-    "pinyinTerminalNgReading:typeof pinyinTerminalNgReading==='undefined'?null:pinyinTerminalNgReading,nameTokens,nameTokenOptions};"
+    "pinyinTerminalNgReading:typeof pinyinTerminalNgReading==='undefined'?null:pinyinTerminalNgReading,nameTokens,nameTokenOptions,NAME_PROFILES};"
 )();
 
 let pass = 0, fail = 0;
@@ -252,6 +252,13 @@ for (const name of list) {
     ok(KATA.test(e.k), `${lc}/${slug} kana is katakana`, e.k);
     ok(L.tokenize(e.a).join("") === e.a, `${lc}/${slug} art tokenizes fully`, e.a);
   }
+}
+
+// ---- 音ごとの漢字は必ず2つ以上の候補（全言語共通・ひとみうさ決定 2026-11-19）----
+for (const [tok, opts] of Object.entries(ATEJI)) ok(Array.isArray(opts) && opts.length >= 2, `ATEJI.${tok} offers at least 2 kanji`, JSON.stringify(opts));
+for (const [name, p] of Object.entries(NAME_PROFILES)) {
+  for (const [tok, opts] of Object.entries(p.options || {})) ok(opts.length >= 2, `NAME_PROFILES.${name}.options.${tok} offers at least 2 kanji`);
+  for (const toks of p.tokens) for (const t of toks) ok((nameTokenOptions(name, 0, t) || []).length >= 2, `NAME_PROFILES.${name} token ${t} offers at least 2 kanji`);
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);
