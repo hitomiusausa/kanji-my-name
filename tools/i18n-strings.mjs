@@ -229,6 +229,12 @@ export const LOCALE_NAME_STRINGS = {
       [`Puis-je me faire tatouer ${d.kanji} ?`,
        `Un tatouage est définitif. Considérez ces kanji comme une simple piste, et faites vérifier le katakana (${d.K}) et les kanji par une personne de langue maternelle japonaise avant de vous décider.`],
     ],
+    // same sections as the English /names/ pages (hero heading, notes under the three scripts, gift ideas)
+    heroH2: (d) => `${d.kanji} — « ${d.mean} »`,
+    permanentNote: "Pour tout usage définitif, faites-le vérifier par une personne de langue maternelle japonaise.",
+    giftH2: "Idées : tatouage, cadeau, tableau",
+    giftBody: (d) =>
+      `${d.kanji} rend très bien en calligraphie verticale : une idée pour un <b>tatouage de prénom en kanji</b>, un <b>cadeau personnalisé</b> ou un <b>tableau à encadrer</b>. Cette page explique chaque caractère : vous (et votre tatoueur) savez exactement ce que signifie chaque kanji.`,
     relatedH2: "D'autres prénoms en japonais",
     allLink: "Tous les prénoms →",
     nameCrumb: (d) => `${d.D} en japonais`,
@@ -299,6 +305,11 @@ export const LOCALE_NAME_STRINGS = {
       [`Posso tatuarmi ${d.kanji}?`,
        `Un tatuaggio è per sempre. Considera questi kanji come una bozza e, prima di decidere, fai controllare sia il katakana (${d.K}) sia i kanji da una persona madrelingua giapponese.`],
     ],
+    heroH2: (d) => `${d.kanji} — «${d.mean}»`,
+    permanentNote: "Per qualsiasi uso definitivo, fallo controllare da una persona madrelingua giapponese.",
+    giftH2: "Idee: tatuaggio, regalo, quadro",
+    giftBody: (d) =>
+      `${d.kanji} è molto d'effetto in calligrafia verticale: un'idea per un <b>tatuaggio con il nome in kanji</b>, un <b>regalo personalizzato</b> o un <b>quadro da appendere</b>. Questa pagina spiega ogni carattere, così tu (e il tuo tatuatore) sapete esattamente che cosa significa ogni kanji.`,
     relatedH2: "Altri nomi in giapponese",
     allLink: "Tutti i nomi →",
     nameCrumb: (d) => `${d.D} in giapponese`,
@@ -367,6 +378,11 @@ export const LOCALE_NAME_STRINGS = {
       [`Apakah ${d.kanji} bisa dipakai untuk tato?`,
        `Tato itu permanen. Anggap kanji ini sebagai rancangan awal, dan sebelum memutuskan, minta penutur asli bahasa Jepang untuk memeriksa katakana (${d.K}) dan kanjinya.`],
     ],
+    heroH2: (d) => `${d.kanji} — “${d.mean}”`,
+    permanentNote: "Untuk penggunaan permanen, mintalah penutur asli bahasa Jepang memeriksanya terlebih dahulu.",
+    giftH2: "Ide: tato, hadiah, hiasan dinding",
+    giftBody: (d) =>
+      `${d.kanji} tampak indah sebagai kaligrafi vertikal: cocok untuk <b>tato nama dalam kanji</b>, <b>hadiah</b> yang personal, atau <b>hiasan dinding</b> berbingkai. Halaman ini menjelaskan arti setiap kanji, jadi kamu (dan seniman tatomu) tahu persis maknanya.`,
     relatedH2: "Nama lain dalam bahasa Jepang",
     allLink: "Semua nama →",
     nameCrumb: (d) => `${d.D} dalam bahasa Jepang`,
