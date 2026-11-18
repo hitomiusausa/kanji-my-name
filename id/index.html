@@ -163,6 +163,8 @@ document.getElementById("nf").addEventListener("submit",function(e){
   var v=i.value.replace(/[œŒ]/g,function(c){return c==="œ"?"oe":"Oe"}).replace(/[æÆ]/g,function(c){return c==="æ"?"ae":"Ae"})
     .normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^A-Za-z]+/g," ").trim();
   if(!v){i.focus();return;}
+  // anonymous click count (D-55): event + page language only, never the name
+  try{if(navigator.sendBeacon)navigator.sendBeacon("https://kanji-my-name-metrics.hitomiusausa.workers.dev/e?k=lp_cta&s="+document.documentElement.lang)}catch(_){}
   location.href="../#"+encodeURIComponent(v);
 });
 </script>

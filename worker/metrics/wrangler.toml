@@ -1,0 +1,9 @@
+name = "kanji-my-name-metrics"
+main = "worker.js"
+compatibility_date = "2026-08-01"
+workers_dev = true
+
+# Anonymous daily click totals only (D-55). Separate from CODES (payments) on purpose.
+[[kv_namespaces]]
+binding = "METRICS"
+id = "8bcdf94a62d849fd852c76e1bfe8d5ea"
