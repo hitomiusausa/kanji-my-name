@@ -1,24 +1,37 @@
 #!/usr/bin/env node
-// build-i18n.mjs — /fr/ /it/ /id/ landing pages ("<prénom> en japonais" etc.).
-// Policy (2026-11-18): ONE hand-written landing page per language. Do not mass-produce
+// build-i18n.mjs — the /fr/ /it/ /id/ LANDING SECTIONS ("<prénom> en japonais" etc.).
+// Policy (2026-11-18): ONE hand-written landing text per language. Do not mass-produce
 // translated name pages (thin duplicates could hurt the English site's rankings).
-// D-56: the locale name pages (/fr/prenoms/ …, tools/build-locale-names.mjs) are NOT translations:
-// they carry the local reading. When tools/locales/<lc>-names.json exists, the grid below lists
-// those names and links to their local pages. build-locale-names.mjs runs this script at its end.
+//
+// Since 2026-11-19 the /fr/ /it/ /id/ top page is the full generator in that language
+// (tools/build-app-i18n.mjs, the ONLY writer of <lc>/index.html). This module no longer writes
+// files: it exports landingParts(lc) — the sections shown BELOW the generator (three scripts,
+// pronunciation note, locale name grid → /fr/prenoms/…, FAQ, trust line) + their JSON-LD —
+// and LANDING_CSS (the landing look, scoped to .lp so it cannot touch the generator).
+// Running it directly (`node tools/build-i18n.mjs`, as tools/build-locale-names.mjs does at its
+// end) just runs tools/build-app-i18n.mjs, so old build steps keep working with one writer.
+//
+// D-56: the locale name pages (/fr/prenoms/ …, tools/build-locale-names.mjs) carry the local
+// reading; the grid below lists those names and links to their local pages.
 // Strings live in tools/i18n-strings.mjs. Kana/kanji come from index.html, extracted the same
 // way tools/build-names.mjs does (single-source rule: no dictionaries are copied here).
-// Usage: node tools/build-i18n.mjs
 // The sitemap entries are written by tools/build-names.mjs (it imports I18N_LANGS).
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { I18N_LANGS, LANG_LABELS, STRINGS, LOCALE_NAME_STRINGS } from "./i18n-strings.mjs";
-// Shared page CSS/fonts/beacon (also used by the locale name pages) + locale name data (D-56).
-import { I18N_CSS as CSS, I18N_FONTS_LINK as FONTS_LINK, CF_BEACON_SNIPPET, LOCALE_DIRS, loadLocaleNames, loadLocaleMeanings, extractEngine, analyzeLocaleName } from "./locale-names-lib.mjs";
+import { execFileSync } from "node:child_process";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import { I18N_LANGS, STRINGS, LOCALE_NAME_STRINGS } from "./i18n-strings.mjs";
+// Shared landing CSS + locale name data (D-56).
+import { I18N_CSS, LOCALE_DIRS, loadLocaleNames, loadLocaleMeanings, extractEngine, analyzeLocaleName } from "./locale-names-lib.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = "https://kanji.kugainc.com";
-const SOCIAL_IMAGE = `${SITE}/image/kanjimyname.png?v=2`;
+
+// ---- CLI: delegate to the single writer ----
+if (import.meta.url === pathToFileURL(process.argv[1] || "").href) {
+  execFileSync(process.execPath, [path.join(ROOT, "tools", "build-app-i18n.mjs"), ...process.argv.slice(2)], { stdio: "inherit" });
+  process.exit(0);
+}
 
 const src = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
 
@@ -47,9 +60,16 @@ const code = [
   extract(/function trueSound\([^\n]*\}/, "trueSound"),
   extract(/function pickDefaults\([\s\S]*?\n\}/, "pickDefaults"),
 ].join("\n");
-const { displayReading, toKatakana, nameTokens, nameTokenOptions, nameDefaultPicks } = new Function(
-  code + "\nreturn {displayReading,toKatakana,nameTokens,nameTokenOptions,nameDefaultPicks};"
+const { ATEJI, NAME_PROFILES, displayReading, toKatakana, nameTokens, nameTokenOptions, nameDefaultPicks } = new Function(
+  code + "\nreturn {ATEJI,NAME_PROFILES,displayReading,toKatakana,nameTokens,nameTokenOptions,nameDefaultPicks};"
 )();
+
+// Every English gloss the generator can show (ATEJI + per-name profile options) — the keys a
+// complete tools/locales/<lc>-meanings.json must have.
+export const ALL_GLOSSES = [...new Set([
+  ...Object.values(ATEJI).flat().map((e) => e[1]),
+  ...Object.values(NAME_PROFILES).flatMap((p) => Object.values(p.options || {}).flat().map((e) => e[1])),
+])];
 
 const NAMES = new Set(
   fs.readFileSync(path.join(ROOT, "tools", "names.txt"), "utf8")
@@ -81,43 +101,19 @@ function analyze(spec) {
   };
 }
 
-// ---- hreflang: identical block on all four pages (index.html carries a hand-copied version) ----
-const ALT_URLS = { en: `${SITE}/`, ...Object.fromEntries(I18N_LANGS.map((l) => [l, `${SITE}/${l}/`])) };
-const HREFLANG = [
-  ...Object.entries(ALT_URLS).map(([l, u]) => `<link rel="alternate" hreflang="${l}" href="${u}">`),
-  `<link rel="alternate" hreflang="x-default" href="${ALT_URLS.en}">`,
-].join("\n");
-
-
-
-// The name box hands off to the English generator via its #Name hash. The generator only reads
-// a–z, so accents are folded (Chloé → Chloe) and other characters become word breaks.
-// D-56: a word that is in this language's locale name list gets "@<lc>" (#Lorenzo@it), so the
-// generator uses the local reading (ロレンツォ) instead of the English one.
-const FORM_JS = (lang, slugs) => `<script>
-document.getElementById("nf").addEventListener("submit",function(e){
-  e.preventDefault();
-  var i=document.getElementById("ni");
-  var v=i.value.replace(/[œŒ]/g,function(c){return c==="œ"?"oe":"Oe"}).replace(/[æÆ]/g,function(c){return c==="æ"?"ae":"Ae"})
-    .normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").replace(/[^A-Za-z]+/g," ").trim();
-  if(!v){i.focus();return;}
-  var LN=${JSON.stringify(slugs)};
-  v=v.split(" ").map(function(w){return LN.indexOf(w.toLowerCase())>=0?w+"@${lang}":w}).join(" ");
-  // anonymous click count (D-55): event + page language only, never the name
-  try{if(navigator.sendBeacon)navigator.sendBeacon("https://kanji-my-name-metrics.hitomiusausa.workers.dev/e?k=lp_cta&s="+document.documentElement.lang)}catch(_){}
-  location.href="../#"+encodeURIComponent(v);
-});
-</script>`;
-
 // D-56 locale names: kanji from the locale "art" romaji, same engine as the generator.
 const ENGINE = extractEngine(src);
 // How many locale names the landing grid shows (popularity order); the rest are on the list page.
 const LOCALE_GRID_MAX = 24;
 
-function pageHtml(lang) {
+// French typography: no-break space before : ; ? ! » and after «, so they never start a line.
+const finish = (lang, s) => (lang === "fr" ? s.replace(/ ([:;?!»])(?=[\s<"])/g, " $1").replace(/« /g, "« ") : s);
+
+// Landing sections for /<lang>/ (paths are relative to /<lang>/). Returns { ld: JSON-LD text, sections: HTML }.
+export function landingParts(lang) {
   const S = STRINGS[lang];
   const LS = LOCALE_NAME_STRINGS[lang];
-  const url = ALT_URLS[lang];
+  const url = `${SITE}/${lang}/`;
   const locDir = LOCALE_DIRS[lang];
   const locMeans = loadLocaleMeanings(ROOT, lang);
   const loc = loadLocaleNames(ROOT, lang).map((n) => analyzeLocaleName(ENGINE, n, locMeans));
@@ -131,7 +127,6 @@ function pageHtml(lang) {
   const exHref = exLoc ? `${locDir}/${exLoc.slug}` : ex.inList ? `../names/${ex.slug}` : `../#${encodeURIComponent(ex.name)}`;
   if (!loc.length) throw new Error(`[${lang}] tools/locales/${lang}-names.json is missing or empty (the landing grid lists the locale names)`);
   const meanHtml = (ms) => ms.map((m) => (m.en ? `<span lang="en">${esc(m.text)}</span>` : esc(m.text))).join(" / ");
-  // Locale grid: links to /<lc>/<dir>/<slug>.
   const gridBlock = `<h2>${esc(LS.gridH2Local)}</h2>
   <p class="grid-note">${LS.gridNoteLocal}</p>
   <div class="ngrid">
@@ -156,53 +151,8 @@ function pageHtml(lang) {
       },
     ],
   };
-  const langNav = Object.keys(ALT_URLS).map((l) =>
-    `<a href="${l === "en" ? "../" : `../${l}/`}" hreflang="${l}" lang="${l}"${l === lang ? ' aria-current="page"' : ""}>${esc(LANG_LABELS[l])}</a>`
-  ).join("");
 
-  return `<!DOCTYPE html>
-<html lang="${S.htmlLang}">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(S.title)}</title>
-<meta name="description" content="${esc(S.description)}">
-<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
-<link rel="canonical" href="${url}">
-${HREFLANG}
-<meta property="og:url" content="${url}">
-<meta property="og:title" content="${esc(S.ogTitle)}">
-<meta property="og:description" content="${esc(S.description)}">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Kanji My Name">
-<meta property="og:locale" content="${S.ogLocale}">
-<meta property="og:image" content="${SOCIAL_IMAGE}">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" href="../image/kanjimyname-icon.png?v=2">
-${FONTS_LINK}
-<style>${CSS}</style>
-<script type="application/ld+json">${JSON.stringify(ld)}</script>
-${CF_BEACON_SNIPPET}
-</head>
-<body>
-<div class="wrap">
-  <div class="top">
-    <div class="brand"><a href="../">Kanji My Name</a></div>
-    <nav class="langs" aria-label="${esc(S.langNav)}">${langNav}</nav>
-  </div>
-
-  <h1>${esc(S.h1)}</h1>
-  <p class="lead">${S.lead}</p>
-
-  <form class="namebox" id="nf" action="../" method="get">
-    <label for="ni">${esc(S.formLabel)}</label>
-    <div class="nb-row">
-      <input id="ni" name="n" type="text" autocomplete="given-name" autocapitalize="words" spellcheck="false" maxlength="40" placeholder="${esc(S.placeholder)}" required>
-      <button class="cta" type="submit">${esc(S.button)}</button>
-    </div>
-    <p class="nb-note">${S.formNote}</p>
-  </form>
-
-  <h2>${S.scriptsH2(exData)}</h2>
+  const sections = `  <h2>${S.scriptsH2(exData)}</h2>
   <dl class="scripts">
     <div class="sc-row"><dt>Katakana</dt><dd><span class="sc-script" lang="ja">${esc(ex.kata)}</span><span class="romaji">(${esc(ex.romaji)})</span><span class="sc-why">${S.kataWhy}</span></dd></div>
     <div class="sc-row"><dt>Hiragana</dt><dd><span class="sc-script" lang="ja">${esc(ex.hira)}</span><span class="sc-why">${S.hiraWhy}</span></dd></div>
@@ -217,28 +167,21 @@ ${CF_BEACON_SNIPPET}
   <h2>${esc(S.faqH2)}</h2>
   ${S.faq.map(([q, a]) => `<div class="qa"><h3>${q}</h3><p>${a}</p></div>`).join("\n  ")}
 
-  <p class="trust">${esc(S.trust)} <a href="../about" hreflang="en">${esc(S.about)}</a> · <a href="../" hreflang="en">${esc(S.toolLink)}</a></p>
+  <p class="trust">${esc(S.trust)} <a href="../about" hreflang="en">${esc(S.about)}</a></p>`;
 
-  <footer><a href="../" class="flogo" aria-label="Kanji My Name"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../about" hreflang="en">About</a> · <a href="../terms" hreflang="en">Terms</a> · <a href="../tokushoho" hreflang="en">Legal Notice</a></div><div style="margin-top:6px" lang="en">Made in Japan by a native speaker &amp; Japanese-language teacher</div></footer>
-</div>
-${FORM_JS(lang, loc.map((n) => n.slug))}
-</body>
-</html>
-`;
+  return { ld: finish(lang, JSON.stringify(ld)), sections: finish(lang, sections) };
 }
 
-for (const lang of I18N_LANGS) {
-  const dir = path.join(ROOT, lang);
-  fs.mkdirSync(dir, { recursive: true });
-  let html = pageHtml(lang);
-  // French typography: no-break space before : ; ? ! » and after «, so they never start a line.
-  if (lang === "fr") html = html.replace(/ ([:;?!»])(?=[\s<"])/g, "\u00a0$1").replace(/« /g, "«\u00a0");
-  fs.writeFileSync(path.join(dir, "index.html"), html);
-  console.log(`wrote ${lang}/index.html`);
-}
-
-// index.html keeps a hand-written copy of the hreflang block (a minimal edit to the
-// single-file app). Warn if it drifts from the generated one.
-for (const line of HREFLANG.split("\n")) {
-  if (!src.includes(line)) console.warn("WARN index.html is missing:", line);
-}
+// The landing look (tools/locale-names-lib.mjs I18N_CSS), only the rules the sections use, each
+// selector prefixed with ".lp " so nothing leaks into the generator above it.
+const LP_SEL = /^(h2|h3|p|\.scripts|\.sc-|\.romaji|\.body-copy|\.ngrid|\.nc|\.grid-|\.qa|\.trust)/;
+const scope = (sels) => sels.split(",").map((s) => `.lp ${s.trim()}`).join(",");
+export const LANDING_CSS = [".lp{line-height:1.7;margin:20px 0 0}"].concat(
+  I18N_CSS.split("\n").map((line) => {
+    let m = line.match(/^(@media[^{]+)\{([^{}]+)\{([^{}]*)\}\}$/);
+    if (m) return m[2].split(",").every((s) => LP_SEL.test(s.trim())) ? `${m[1]}{${scope(m[2])}{${m[3]}}}` : null;
+    m = line.match(/^([^@{][^{]*)\{([^{}]*)\}$/);
+    if (m) return m[1].split(",").every((s) => LP_SEL.test(s.trim())) ? `${scope(m[1])}{${m[2]}}` : null;
+    return null;
+  }).filter(Boolean)
+).join("\n");

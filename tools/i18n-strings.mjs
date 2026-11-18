@@ -52,8 +52,9 @@ export const STRINGS = {
        "C'est possible, mais ce n'est pas l'usage : le hiragana sert surtout aux mots japonais. Un Japonais le lira sans difficulté, mais le trouvera inhabituel. Certains l'apprécient justement pour son côté doux."],
       ["Puis-je utiliser ces kanji pour un tatouage ?",
        "Un tatouage est définitif. Considérez le résultat comme une simple piste, et faites vérifier le katakana comme les kanji par une personne de langue maternelle japonaise avant de vous décider."],
+      // 2026-11-19: /fr/ is now the generator itself, in French (tools/build-app-i18n.mjs).
       ["Le générateur est-il en français ?",
-       "Non, il est en anglais, mais il est très simple à utiliser : tapez votre prénom, choisissez le sens de chaque kanji, puis téléchargez gratuitement l'image en PNG. L'offre Premium payante (haute définition, styles et polices supplémentaires) est facultative."],
+       "Oui : sur cette page, tout est en français, y compris le sens de chaque kanji. Tapez votre prénom, choisissez le sens de chaque kanji, puis téléchargez gratuitement l'image en PNG. L'offre Premium payante (haute définition, styles et polices supplémentaires) est facultative."],
     ],
     trust: "Créé au Japon par Hitomi Kuga, Japonaise et enseignante de japonais.",
     about: "À propos (en anglais)",
