@@ -71,6 +71,19 @@ const toHiragana = (k) => k.replace(/[\u30A1-\u30F6]/g, (c) => String.fromCharCo
 
 // Task E: /guide/* pages (independent FAQ deep-dives, see doc/faq-4.md). Listed here so the
 // sitemap and every name page's shared FAQ 1/4 entries stay in sync with the guide slugs.
+// Internal links: names ordered by Search Console demand (2026-11, 3 months). Shown on the
+// /names/ hub (all) and as a compact row on the homepage (first POPULAR_HOME_COUNT).
+const POPULAR_NAMES = ["wyatt", "cecilia", "victoria", "jeremiah", "raj", "priya", "tatum", "jayden", "alexander", "liliana", "adriel", "anastasia", "jesus", "genesis", "alejandro", "sienna", "messiah", "hudson", "maxwell", "ana", "adam", "julia", "chris", "nathaniel", "christopher", "celeste", "zara", "tate", "elias", "landon"];
+const POPULAR_HOME_COUNT = 12;
+// Link text = Name + the practical katakana shown on each page (default reading).
+const popLabel = (d) => `${d.Name} ${toKatakana(displayReading(d.name, 0)) || d.kanji}`;
+function popularOf(all) {
+  const byName = new Map(all.map((d) => [d.name, d]));
+  const missing = POPULAR_NAMES.filter((n) => !byName.has(n));
+  if (missing.length) throw new Error("POPULAR_NAMES not in names.txt: " + missing.join(", "));
+  return POPULAR_NAMES.map((n) => byName.get(n));
+}
+
 const GUIDE_SLUGS = ["japanese-writing-systems", "how-names-become-kanji", "what-does-approx-mean", "katakana-vs-kanji-names"];
 // Shared, condensed versions of FAQ 1 and FAQ 4 from doc/faq-4.md, added to every name page
 // (kept short on purpose — full copy lives on the /guide/ pages and the index FAQ section).
@@ -193,6 +206,12 @@ p{margin:10px 0}
 .sc-row dd{margin:0;font-size:13px;line-height:1.7;color:rgba(232,226,213,.72)}
 .sc-script{font-family:'Shippori Mincho',serif;font-size:22px;color:var(--head);margin-right:.4em}
 .sc-why{display:block;margin-top:2px}
+.sc-copy{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);background:transparent;border:1px solid var(--line);min-height:28px;padding:4px 10px;margin-right:.7em;vertical-align:.35em;cursor:pointer;transition:border-color .15s,color .15s}
+.sc-copy:hover,.sc-copy:focus-visible{border-color:var(--gold)}
+.sc-copy:focus-visible{outline:1px solid var(--gold);outline-offset:2px}
+.sc-copy.done{color:var(--ink);border-color:var(--gold)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.pop-h{margin-top:28px}
 @media(max-width:480px){.sc-row{grid-template-columns:1fr}}
 .an-l2,.an-l3{font-family:'Inter',sans-serif;font-size:12.5px;color:rgba(232,226,213,.55);line-height:1.75;margin-top:6px}
 `;
@@ -226,6 +245,8 @@ function pageHtml(d, all) {
     ...(kata0 ? [[`How do you write ${d.Name} in Japanese?`,
      `${d.Name} is normally written ${kata0} in katakana — Japanese writes foreign names and other foreign words in katakana. In hiragana it would be ${toHiragana(kata0)}, though foreign names aren't normally written that way. As kanji art, one ateji spelling is ${d.kanji} ("${mm}"), chosen for sound and meaning rather than as an official spelling.`,
      "katakana-vs-kanji-names"]] : []),
+    [`What does ${d.Name} mean in Japanese?`,
+     `On its own, ${d.Name} has no meaning in Japanese. ${kata0 ? `Katakana (${kata0}) records only the sound, the way Japanese writes any foreign name.` : `Written in katakana, a foreign name records only the sound.`} Meaning comes in only if you write it in kanji: with ateji (当て字), you choose characters for their meaning as well as their sound. The default spelling here, ${d.kanji}, means "${mm}" — and you can swap any character to pick a different meaning.`],
     [`What is the kanji for ${d.Name}?`,
      `There is no single official kanji for ${d.Name}. This is one sound-based ateji (当て字) option: ${d.kanji}, read as "${d.toks.join("-")}", with the meanings "${mm}". You can swap a character for another with the same or closest Japanese sound: ${d.Name} has ${d.combos} possible kanji spellings in this generator.`],
     [`Is ${d.kanji} suitable for a tattoo?`,
@@ -243,10 +264,10 @@ function pageHtml(d, all) {
   const noteBlock = (r, i) => {
     const raw = displayReading(d.name, i);
     const kk = toKatakana(raw);
-    const row = (lbl, script, txt, lang) => `<div class="sc-row"><dt>${lbl}</dt><dd><span class="sc-script"${lang ? ` lang="${lang}"` : ""}>${esc(script)}</span>${txt}</dd></div>`;
+    const row = (lbl, script, txt, lang, copy) => `<div class="sc-row"><dt>${lbl}</dt><dd><span class="sc-script"${lang ? ` lang="${lang}"` : ""}>${esc(script)}</span>${copy ? `<button type="button" class="sc-copy" data-copy="${esc(script)}" aria-label="Copy ${esc(d.Name)} in ${lbl.toLowerCase()}">Copy</button>` : ""}${txt}</dd></div>`;
     const rows = [
-      kk ? row("Katakana", kk, `<span class="an-romaji">(${esc(raw)})</span><span class="sc-why">Japanese writes foreign names and other foreign words in katakana. This is how ${esc(d.Name)} is normally written in Japan.</span>`, "ja") : "",
-      kk ? row("Hiragana", toHiragana(kk), `<span class="sc-why">Hiragana is used for native Japanese words, so foreign names aren't normally written this way. Some people still like it for its soft, rounded look.</span>`, "ja") : "",
+      kk ? row("Katakana", kk, `<span class="an-romaji">(${esc(raw)})</span><span class="sc-why">Japanese writes foreign names and other foreign words in katakana. This is how ${esc(d.Name)} is normally written in Japan.</span>`, "ja", true) : "",
+      kk ? row("Hiragana", toHiragana(kk), `<span class="sc-why">Hiragana is used for native Japanese words, so foreign names aren't normally written this way. Some people still like it for its soft, rounded look.</span>`, "ja", true) : "",
       row("Kanji", r.kanji, `<span class="sc-why">Ateji: kanji chosen for their sound and meaning (“${esc(r.meanings.join(" · "))}”). It's an art form, not an official spelling.</span>`, "ja"),
     ].join("");
     return `<div class="an vgrp" data-v="${i}"${i > 0 ? " hidden" : ""}>
@@ -324,6 +345,19 @@ function pageHtml(d, all) {
   ${sylBlocks(r)}
 </div>`;
   };
+  // Copy buttons on the Katakana / Hiragana rows: clipboard API, execCommand fallback,
+  // and as a last resort select the text so the visitor can copy it by hand.
+  const copyScript = !kata0 ? "" : `<span class="sr-only" role="status" aria-live="polite" id="copyStatus"></span>
+<script>
+document.addEventListener("click",function(e){
+  var b=e.target.closest(".sc-copy");if(!b)return;
+  var t=b.dataset.copy,st=document.getElementById("copyStatus");
+  function ok(){b.textContent="Copied";b.classList.add("done");st.textContent="Copied "+t;clearTimeout(b._t);b._t=setTimeout(function(){b.textContent="Copy";b.classList.remove("done");st.textContent="";},1600);}
+  function manual(){var s=b.parentNode.querySelector(".sc-script"),r=document.createRange();r.selectNodeContents(s);var sel=getSelection();sel.removeAllRanges();sel.addRange(r);b.textContent="Selected";st.textContent="Text selected — copy it manually";}
+  function legacy(){var a=document.createElement("textarea");a.value=t;a.setAttribute("readonly","");a.style.cssText="position:fixed;top:0;left:0;opacity:0";document.body.appendChild(a);a.select();var d=false;try{d=document.execCommand("copy")}catch(_){}a.remove();d?ok():manual();}
+  if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).then(ok,legacy);else legacy();
+});
+</script>`;
   const multi = d.readings.length > 1;
   const sayPicker = !multi ? "" : `<div class="say-pick" aria-label="How do you say it?">
     <span class="say-q">How do you say it?</span>
@@ -381,6 +415,7 @@ ${CF_BEACON_SNIPPET}
 
   <footer><a href="../" class="flogo" aria-label="Kanji My Name — home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../">Try your own name →</a> · <a href="../about">About</a> · <a href="../terms">Terms</a> · <a href="../tokushoho">Legal Notice</a></div><div style="margin-top:6px">Made in Japan by a native speaker &amp; Japanese-language teacher</div></footer>
 </div>
+${copyScript}
 ${sayScript}
 </body>
 </html>
@@ -442,6 +477,8 @@ ${CF_BEACON_SNIPPET}
   <h1>Names in Japanese Kanji</h1>
   <p class="sub">${all.length} names · ${totalCombos} possible kanji spellings. Each kanji shown here is one sound-based <i>ateji</i> option — open a name to explore other combinations, or <a style="color:var(--gold)" href="../">create your own →</a></p>
   <div class="az-nav" aria-label="Browse by first letter">${letters.map((L) => `<a href="${L.toLowerCase()}">${L}</a>`).join("")}</div>
+  <h2 class="pop-h">Most searched names</h2>
+  <div class="rel">${popularOf(all).map((d) => `<a href="${d.name}">${esc(popLabel(d))}</a>`).join("")}</div>
   ${letters.map((L) => `<h2>${L}</h2><div class="rel">${groups[L].map((d) => `<a href="${d.name}">${esc(d.Name)} ${esc(d.kanji)}</a>`).join("")}</div>`).join("\n  ")}
   <footer><a href="../" class="flogo" aria-label="Kanji My Name — home"><img src="../image/kanjilogo-footer.png" alt="Kanji My Name logo" width="84" height="84" loading="lazy"></a><div>Kanji My Name · © <a href="https://kugainc.com/en/" rel="noopener">KUGA Inc.</a> · <a href="../">Try your own name →</a> · <a href="../about">About</a> · <a href="../terms">Terms</a> · <a href="../tokushoho">Legal Notice</a></div><div style="margin-top:6px">Made in Japan by a native speaker &amp; Japanese-language teacher</div></footer>
 </div>
@@ -519,6 +556,14 @@ function writeStats(all) {
     html = html.replace(/(id="statCombos">)[\d,]+(<)/, `$1${combosFmt}$2`);
     fs.writeFileSync(p, html);
   }
+  // Homepage "Most searched names" row, between markers in index.html.
+  const ip = path.join(ROOT, "index.html");
+  const home = fs.readFileSync(ip, "utf8");
+  const row = popularOf(all).slice(0, POPULAR_HOME_COUNT)
+    .map((d) => `<a href="names/${d.name}">${esc(popLabel(d))}</a>`).join("");
+  const re = /(<!-- popular-names:start -->)[\s\S]*?(<!-- popular-names:end -->)/;
+  if (!re.test(home)) throw new Error("index.html: popular-names markers missing");
+  fs.writeFileSync(ip, home.replace(re, `$1${row}<a href="names/" class="pop-all">All names →</a>$2`));
   return stats;
 }
 

@@ -243,6 +243,11 @@ body.fxshake main,body.fxshake header{animation:shakeA .34s linear}
 .qa strong{color:var(--head)}
 .qa .qa-more{margin-top:10px;font-size:13px}
 .qa .qa-more a{color:var(--gold)}
+.pop-names{padding:18px 0 0;font-size:13px;line-height:2;color:var(--muted)}
+.pop-names .pop-lbl{display:block;font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.pop-names a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);margin-right:14px;white-space:nowrap}
+.pop-names a:hover{border-color:var(--gold);color:var(--gold)}
+.pop-names a.pop-all{color:var(--gold);border-color:transparent}
 footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 40px;text-align:center;color:var(--muted);font-size:13px}
 .flogo{display:inline-block;margin-bottom:12px}
 .flogo img{width:84px;height:84px;display:block;opacity:.92;transition:opacity .2s,transform .2s}
@@ -409,6 +414,7 @@ footer.wrap{border-top:1px solid var(--line);margin-top:56px;padding:24px 20px 4
     <div class="qa"><b>Can I use it for a tattoo?</b><p>Some do. Treat it as a design draft, not a final word — and have a native speaker check it first. The Premium 4K clean edition gives your artist the exact characters in a high-resolution image to review.</p></div>
     <div class="qa"><b>Is the free download really free?</b><p>Yes — full-size PNG with a small credit line. The Premium Pack adds 4K, the clean edition, all 13 fonts, and exclusive styles — one small payment, lifetime access.</p></div>
     <div class="qa"><b>Is my name sent anywhere?</b><p>Never. Everything — the kanji matching, the art, the download — happens entirely in your browser. Your name is not sent to any server, stored, or tracked.</p></div>
+    <nav class="pop-names" aria-label="Most searched names"><span class="pop-lbl">Most searched names</span><!-- popular-names:start --><a href="names/wyatt">Wyatt ワイアット</a><a href="names/cecilia">Cecilia セシリア</a><a href="names/victoria">Victoria ビクトリア</a><a href="names/jeremiah">Jeremiah ジェレマイア</a><a href="names/raj">Raj ラージ</a><a href="names/priya">Priya プリヤ</a><a href="names/tatum">Tatum テイタム</a><a href="names/jayden">Jayden ジェイデン</a><a href="names/alexander">Alexander アレクサンダー</a><a href="names/liliana">Liliana リリアナ</a><a href="names/adriel">Adriel アドリエル</a><a href="names/anastasia">Anastasia アナスタシア</a><a href="names/" class="pop-all">All names →</a><!-- popular-names:end --></nav>
   </section>
 </main>
 
@@ -1591,7 +1597,9 @@ window.addEventListener("load",async()=>{
     return w;
   }).join(" ");
   document.getElementById("nameIn").value=initName;
-  generate(false);
+  // Arriving with #Name (name-page CTA, share link): on SP the art sits below the fold,
+  // so bring it into view. Plain visits (no hash) keep the page top.
+  if(generate(false)&&h&&mqSP.matches)document.getElementById("art").scrollIntoView({block:"center"});
 });
 </script>
 </body>
