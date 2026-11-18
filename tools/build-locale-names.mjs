@@ -209,7 +209,7 @@ function namePage(lc, a, all) {
   const h = Object.fromEntries(Object.entries(raw).map(([k, v]) => [k, typeof v === "string" ? esc(v) : v]));
   const artDiffers = a.art !== plainRomaji(a.romaji);
   const faqRaw = LS.faq(raw), faqHtml = LS.faq(h);
-  const genHref = `../../#${encodeURIComponent(foldName(a.display))}@${lc}`;
+  const genHref = `../#${encodeURIComponent(foldName(a.display))}@${lc}`;
   const anyApprox = a.toks.some((t, i) => a.variants[i].some((e) => trueSound(t, e) !== t));
   const anyFallback = a.toks.some((t, i) => a.variants[i].some(([, en]) => a.locMeaning(en).en));
   const idx = all.findIndex((x) => x.slug === a.slug);
@@ -301,7 +301,7 @@ function namePage(lc, a, all) {
   <h2>${esc(LS.relatedH2)}</h2>
   <div class="rel">${rel.map((w) => `<a href="${w.slug}">${esc(w.display)} <span lang="ja">${esc(w.kana)}</span></a>`).join("")}<a href="./">${esc(LS.allLink)}</a></div>
 
-  <p class="trust"><a href="../">${esc(S.breadcrumbName)}</a> · <a href="../../about" hreflang="en">${esc(S.about)}</a> · <a href="../../" hreflang="en">${esc(S.toolLink)}</a></p>
+  <p class="trust"><a href="../">${esc(S.breadcrumbName)}</a> · <a href="../../about" hreflang="en">${esc(S.about)}</a> · <a href="../">${esc(S.toolLink)}</a></p>
 
   ${FOOTER}
 </div>
@@ -359,7 +359,7 @@ function listPage(lc, all) {
   <div class="top"><div class="brand"><a href="../../">Kanji My Name</a></div>${langSwitcher("../../", lc)}</div>
   <nav class="crumbs" aria-label="Breadcrumb"><a href="../">${esc(S.breadcrumbName)}</a></nav>
   <h1>${esc(LS.listH1)}</h1>
-  <p class="sub">${esc(LS.listLead(all.length))} <a style="color:var(--gold)" href="../../" hreflang="en">${esc(S.toolLink)} →</a></p>
+  <p class="sub">${esc(LS.listLead(all.length))} <a style="color:var(--gold)" href="../">${esc(S.toolLink)} →</a></p>
   ${groups.length > 1 ? `<nav class="rel jump" aria-label="${esc(LS.listH1)}">${groups.map(([gk, xs]) => `<a href="#${gk}">${esc(LS.groups[gk])} (${xs.length})</a>`).join("")}</nav>` : ""}
 
   ${groups.map(([gk, xs]) => `<h2 id="${gk}">${esc(LS.groups[gk])}</h2>
@@ -367,7 +367,7 @@ function listPage(lc, all) {
     ${xs.map(card).join("\n    ")}
   </div>`).join("\n\n  ")}
 
-  <p class="trust">${esc(S.trust)} <a href="../">${esc(S.breadcrumbName)}</a> · <a href="../../about" hreflang="en">${esc(S.about)}</a> · <a href="../../" hreflang="en">${esc(S.toolLink)}</a></p>
+  <p class="trust">${esc(S.trust)} <a href="../">${esc(S.breadcrumbName)}</a> · <a href="../../about" hreflang="en">${esc(S.about)}</a> · <a href="../">${esc(S.toolLink)}</a></p>
 
   ${FOOTER}
 </div>

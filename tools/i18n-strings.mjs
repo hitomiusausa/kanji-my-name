@@ -28,7 +28,7 @@ export const STRINGS = {
     placeholder: "ex. : Chloé",
     button: "Voir mon prénom en japonais",
     formNote:
-      "Le bouton ouvre notre générateur. Il est <b>en anglais</b> et <b>gratuit</b>, et votre prénom ne quitte pas votre navigateur. Une offre Premium payante existe, mais elle est facultative.",
+      "Le générateur est <b>en français</b> et <b>gratuit</b>, et votre prénom ne quitte pas votre navigateur. Une offre Premium payante existe, mais elle est facultative.",
     example: "chloe:Chloé",
     scriptsH2: (d) => `Trois façons d'écrire ${d.name} en japonais`,
     kataWhy:
@@ -58,7 +58,7 @@ export const STRINGS = {
     ],
     trust: "Créé au Japon par Hitomi Kuga, Japonaise et enseignante de japonais.",
     about: "À propos (en anglais)",
-    toolLink: "Ouvrir le générateur (en anglais)",
+    toolLink: "Ouvrir le générateur",
     langNav: "Langue",
     breadcrumbName: "Votre prénom en japonais",
   },
@@ -77,7 +77,7 @@ export const STRINGS = {
     placeholder: "es. Giulia",
     button: "Scopri il tuo nome in giapponese",
     formNote:
-      "Ti porteremo al nostro generatore. È <b>in inglese</b> e <b>gratuito</b>; il tuo nome resta nel tuo browser. Esiste anche un pacchetto Premium a pagamento, del tutto facoltativo.",
+      "Il generatore è <b>in italiano</b> e <b>gratuito</b>; il tuo nome resta nel tuo browser. Esiste anche un pacchetto Premium a pagamento, del tutto facoltativo.",
     example: "giulia:Giulia",
     scriptsH2: (d) => `Tre modi di scrivere ${d.name} in giapponese`,
     kataWhy:
@@ -102,11 +102,11 @@ export const STRINGS = {
       ["Posso usare questi kanji per un tatuaggio?",
        "Un tatuaggio è per sempre. Considera il risultato come una bozza e, prima di decidere, fai controllare sia il katakana sia i kanji da una persona madrelingua giapponese."],
       ["Il generatore è in italiano?",
-       "No, è in inglese, ma è semplice da usare: scrivi il nome, scegli il significato di ogni kanji e scarica gratis l'immagine in PNG. Il pacchetto Premium a pagamento (alta risoluzione, stili e caratteri in più) è facoltativo."],
+       "Sì: in questa pagina è tutto in italiano. Scrivi il nome, scegli il significato di ogni kanji e scarica gratis l'immagine in PNG. Il pacchetto Premium a pagamento (alta risoluzione, stili e caratteri in più) è facoltativo."],
     ],
     trust: "Creato in Giappone da Hitomi Kuga, madrelingua giapponese e insegnante di giapponese.",
     about: "Chi siamo (in inglese)",
-    toolLink: "Apri il generatore (in inglese)",
+    toolLink: "Apri il generatore",
     langNav: "Lingua",
     breadcrumbName: "Il tuo nome in giapponese",
   },
@@ -125,7 +125,7 @@ export const STRINGS = {
     placeholder: "contoh: Putri",
     button: "Lihat namaku dalam bahasa Jepang",
     formNote:
-      "Kamu akan diarahkan ke generator kami. Generatornya <b>berbahasa Inggris</b> dan <b>gratis</b>. Namamu tidak dikirim ke mana pun karena semuanya diproses di browser. Ada juga paket Premium berbayar, tapi sifatnya opsional.",
+      "Generatornya <b>berbahasa Indonesia</b> dan <b>gratis</b>. Namamu tidak dikirim ke mana pun karena semuanya diproses di browser. Ada juga paket Premium berbayar, tapi sifatnya opsional.",
     // Putri is in tools/locales/id-names.json → the example uses its local reading (プトゥリ) and links to /id/nama/putri.
     example: "putri:Putri",
     scriptsH2: (d) => `Tiga cara menulis ${d.name} dalam bahasa Jepang`,
@@ -151,11 +151,11 @@ export const STRINGS = {
       ["Apakah kanji ini bisa dipakai untuk tato?",
        "Tato itu permanen. Anggap hasilnya sebagai rancangan awal, dan sebelum memutuskan, minta penutur asli bahasa Jepang untuk memeriksa katakana dan kanjinya."],
       ["Apakah generatornya tersedia dalam bahasa Indonesia?",
-       "Tidak, generatornya berbahasa Inggris, tapi mudah dipakai: ketik nama, pilih makna setiap kanji, lalu unduh gambar PNG secara gratis. Paket Premium berbayar (resolusi tinggi, gaya dan font tambahan) bersifat opsional."],
+       "Ya: di halaman ini semuanya dalam bahasa Indonesia. Ketik nama, pilih makna setiap kanji, lalu unduh gambar PNG secara gratis. Paket Premium berbayar (resolusi tinggi, gaya dan font tambahan) bersifat opsional."],
     ],
     trust: "Dibuat di Jepang oleh Hitomi Kuga, orang Jepang asli yang juga guru bahasa Jepang.",
     about: "Tentang kami (bahasa Inggris)",
-    toolLink: "Buka generator (bahasa Inggris)",
+    toolLink: "Buka generator",
     langNav: "Bahasa",
     breadcrumbName: "Nama kamu dalam bahasa Jepang",
   },
@@ -217,7 +217,7 @@ export const LOCALE_NAME_STRINGS = {
     selLabel: "Dans cette version",
     selAria: "Sélectionné",
     cta: (d) => `Créer ${d.D} en kanji — gratuit`,
-    ctaNote: "Générateur en anglais · téléchargement immédiat · votre prénom reste dans votre navigateur",
+    ctaNote: "Générateur en français · téléchargement immédiat · votre prénom reste dans votre navigateur",
     faqH2: (d) => `Questions sur ${d.D} en japonais`,
     faq: (d) => [
       [`Comment écrit-on ${d.D} en japonais ?`,
@@ -293,7 +293,7 @@ export const LOCALE_NAME_STRINGS = {
     selLabel: "In questa versione",
     selAria: "Selezionato",
     cta: (d) => `Crea gratis ${d.D} in kanji`,
-    ctaNote: "Generatore in inglese · download immediato · il tuo nome resta nel tuo browser",
+    ctaNote: "Generatore in italiano · download immediato · il tuo nome resta nel tuo browser",
     faqH2: (d) => `Domande su ${d.D} in giapponese`,
     faq: (d) => [
       [`Come si scrive ${d.D} in giapponese?`,
@@ -366,7 +366,7 @@ export const LOCALE_NAME_STRINGS = {
     selLabel: "Dipakai di versi ini",
     selAria: "Terpilih",
     cta: (d) => `Buat versi kanji ${d.D} — gratis`,
-    ctaNote: "Generator berbahasa Inggris · langsung unduh · namamu tidak dikirim ke mana pun",
+    ctaNote: "Generator berbahasa Indonesia · langsung unduh · namamu tidak dikirim ke mana pun",
     faqH2: (d) => `Pertanyaan tentang ${d.D} dalam bahasa Jepang`,
     faq: (d) => [
       [`Bagaimana cara menulis ${d.D} dalam bahasa Jepang?`,
