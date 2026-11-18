@@ -1,5 +1,469 @@
 [
-  {"slug": "putri", "display": "Putri", "kana": "プトリ", "romaji": "putori", "art": "putori", "gender": "f", "note": "FIXTURE — replaced by the real data at merge"},
-  {"slug": "budi", "display": "Budi", "kana": "ブディ", "romaji": "budi", "art": "budi", "gender": "m", "note": "FIXTURE"},
-  {"slug": "dewi", "display": "Dewi", "kana": "デウィ", "romaji": "dewi", "art": "dewi", "gender": "f", "note": "FIXTURE (defaults test: 伊 'that beauty' instead of 衣)", "defaults": ["天", "伊"]}
+  {
+    "slug": "putri",
+    "display": "Putri",
+    "kana": "プトゥリ",
+    "romaji": "puturi",
+    "art": "putori",
+    "gender": "f",
+    "note": "Search check 2026-11-18: ja.wikipedia (JKT48 members, Megawati Sukarnoputri) consistently uses プトゥリ.",
+    "alt": [
+      "プトリ"
+    ]
+  },
+  {
+    "slug": "siti",
+    "display": "Siti",
+    "kana": "シティ",
+    "romaji": "shiti",
+    "art": "shiti",
+    "gender": "f",
+    "note": "シティ・アイシャ (ja.wikipedia 金正男暗殺事件)"
+  },
+  {
+    "slug": "rizky",
+    "display": "Rizky",
+    "kana": "リズキ",
+    "romaji": "rizuki",
+    "art": "rizuki",
+    "gender": "m",
+    "note": "also seen as リズキー",
+    "defaults": [
+      "理",
+      "瑞",
+      "輝"
+    ]
+  },
+  {
+    "slug": "dewi",
+    "display": "Dewi",
+    "kana": "デウィ",
+    "romaji": "dewi",
+    "art": "dewi",
+    "gender": "f",
+    "note": "Dewi Sukarno is デヴィ (her own established spelling); デウィ follows Indonesian /w/ and the site's no-ヴ rule"
+  },
+  {
+    "slug": "budi",
+    "display": "Budi",
+    "kana": "ブディ",
+    "romaji": "budi",
+    "art": "budi",
+    "gender": "m",
+    "note": "ブディ・ウトモ (ja.wikipedia)"
+  },
+  {
+    "slug": "sri",
+    "display": "Sri",
+    "kana": "スリ",
+    "romaji": "suri",
+    "art": "suri",
+    "gender": "f",
+    "note": "スリ・ムルヤニ (ja.wikipedia)"
+  },
+  {
+    "slug": "agus",
+    "display": "Agus",
+    "kana": "アグス",
+    "romaji": "agusu",
+    "art": "agusu",
+    "gender": "m",
+    "note": "ハジ・アグス・サリム (ja.wikipedia)"
+  },
+  {
+    "slug": "nur",
+    "display": "Nur",
+    "kana": "ヌル",
+    "romaji": "nuru",
+    "art": "nuru",
+    "gender": "f",
+    "note": "Nur is used for both genders, mostly as the first part of a name (Nurhayati, Nur Aini); standalone use mostly female"
+  },
+  {
+    "slug": "wahyu",
+    "display": "Wahyu",
+    "kana": "ワヒュ",
+    "romaji": "wahyu",
+    "art": "wayu",
+    "gender": "m",
+    "note": "ja.wikipedia: ワヒュ (cabinet list), cf. スリ・ワヒュニ; art drops h (≈)"
+  },
+  {
+    "slug": "ayu",
+    "display": "Ayu",
+    "kana": "アユ",
+    "romaji": "ayu",
+    "art": "ayu",
+    "gender": "f"
+  },
+  {
+    "slug": "dimas",
+    "display": "Dimas",
+    "kana": "ディマス",
+    "romaji": "dimasu",
+    "art": "dimasu",
+    "gender": "m"
+  },
+  {
+    "slug": "indah",
+    "display": "Indah",
+    "kana": "インダ",
+    "romaji": "inda",
+    "art": "inda",
+    "gender": "f",
+    "note": "Final -h not lengthened, consistent with Aisyah アイシャ (checker B, 2026-11-18). インダー also seen."
+  },
+  {
+    "slug": "fajar",
+    "display": "Fajar",
+    "kana": "ファジャル",
+    "romaji": "fajaru",
+    "art": "fajaru",
+    "gender": "m",
+    "note": "ファジャル・アルフィアン (badminton, ja.wikipedia)"
+  },
+  {
+    "slug": "aisyah",
+    "display": "Aisyah",
+    "kana": "アイシャ",
+    "romaji": "aisha",
+    "art": "aisha",
+    "gender": "f",
+    "note": "Siti Aisyah = シティ・アイシャ"
+  },
+  {
+    "slug": "adi",
+    "display": "Adi",
+    "kana": "アディ",
+    "romaji": "adi",
+    "art": "adi",
+    "gender": "m"
+  },
+  {
+    "slug": "nurhayati",
+    "display": "Nurhayati",
+    "kana": "ヌルハヤティ",
+    "romaji": "nuruhayati",
+    "art": "nuruhayati",
+    "gender": "f",
+    "note": "Dukcapil: most common female name (all ages); JKT48 member ヌルハヤティ"
+  },
+  {
+    "slug": "bayu",
+    "display": "Bayu",
+    "kana": "バユ",
+    "romaji": "bayu",
+    "art": "bayu",
+    "gender": "m",
+    "note": "ラディテャ・バユ・ワルダナ (ja.wikipedia badminton)"
+  },
+  {
+    "slug": "lestari",
+    "display": "Lestari",
+    "kana": "レスタリ",
+    "romaji": "resutari",
+    "art": "resutari",
+    "gender": "f"
+  },
+  {
+    "slug": "eko",
+    "display": "Eko",
+    "kana": "エコ",
+    "romaji": "eko",
+    "art": "eko",
+    "gender": "m",
+    "note": "エコ = 'eco' in Japanese too; harmless"
+  },
+  {
+    "slug": "nabila",
+    "display": "Nabila",
+    "kana": "ナビラ",
+    "romaji": "nabira",
+    "art": "nabira",
+    "gender": "f"
+  },
+  {
+    "slug": "andi",
+    "display": "Andi",
+    "kana": "アンディ",
+    "romaji": "andi",
+    "art": "andi",
+    "gender": "m"
+  },
+  {
+    "slug": "salsabila",
+    "display": "Salsabila",
+    "kana": "サルサビラ",
+    "romaji": "sarusabira",
+    "art": "sarusabira",
+    "gender": "f"
+  },
+  {
+    "slug": "joko",
+    "display": "Joko",
+    "kana": "ジョコ",
+    "romaji": "joko",
+    "art": "joko",
+    "gender": "m",
+    "note": "ジョコ・ウィドド (ja.wikipedia)"
+  },
+  {
+    "slug": "wahyuni",
+    "display": "Wahyuni",
+    "kana": "ワヒュニ",
+    "romaji": "wahyuni",
+    "art": "wayuni",
+    "gender": "f",
+    "note": "スリ・ワヒュニ・アグスティアニ (ja.wikipedia); art drops h (≈)"
+  },
+  {
+    "slug": "hendra",
+    "display": "Hendra",
+    "kana": "ヘンドラ",
+    "romaji": "hendora",
+    "art": "hendora",
+    "gender": "m",
+    "note": "ヘンドラ・セティアワン (ja.wikipedia)"
+  },
+  {
+    "slug": "fitri",
+    "display": "Fitri",
+    "kana": "フィトリ",
+    "romaji": "fitori",
+    "art": "fitori",
+    "gender": "f",
+    "note": "JKT48 pages use フィトゥリ in フィトゥリヤンティ; フィトリ is the plainer form",
+    "alt": [
+      "フィトゥリ"
+    ]
+  },
+  {
+    "slug": "wahyudi",
+    "display": "Wahyudi",
+    "kana": "ワヒュディ",
+    "romaji": "wahyudi",
+    "art": "wayudi",
+    "gender": "m",
+    "note": "Dukcapil: top-3 for Millennials and Gen Z men; art drops h (≈)"
+  },
+  {
+    "slug": "ratna",
+    "display": "Ratna",
+    "kana": "ラトナ",
+    "romaji": "ratona",
+    "art": "ratona",
+    "gender": "f",
+    "note": "ラトナ・サリ・デヴィ (ja.wikipedia)"
+  },
+  {
+    "slug": "aldi",
+    "display": "Aldi",
+    "kana": "アルディ",
+    "romaji": "arudi",
+    "art": "arudi",
+    "gender": "m",
+    "note": "Dukcapil: no.2 Gen Z men"
+  },
+  {
+    "slug": "intan",
+    "display": "Intan",
+    "kana": "インタン",
+    "romaji": "intan",
+    "art": "intan",
+    "gender": "f"
+  },
+  {
+    "slug": "ardiansyah",
+    "display": "Ardiansyah",
+    "kana": "アルディアンシャ",
+    "romaji": "arudiansha",
+    "art": "arudiansha",
+    "gender": "m",
+    "note": "Dukcapil: no.1 Gen Z men; no ja.wikipedia example found",
+    "defaults": [
+      "愛",
+      "瑠",
+      "智",
+      "安",
+      "紗"
+    ]
+  },
+  {
+    "slug": "rina",
+    "display": "Rina",
+    "kana": "リナ",
+    "romaji": "rina",
+    "art": "rina",
+    "gender": "f"
+  },
+  {
+    "slug": "slamet",
+    "display": "Slamet",
+    "kana": "スラメット",
+    "romaji": "surametto",
+    "art": "surameto",
+    "gender": "m",
+    "note": "Dukcapil: no.1 Baby Boomer men; スラメット山 (ja.wikipedia)"
+  },
+  {
+    "slug": "citra",
+    "display": "Citra",
+    "kana": "チトラ",
+    "romaji": "chitora",
+    "art": "chitora",
+    "gender": "f",
+    "note": "JKT48 チトラ"
+  },
+  {
+    "slug": "sutrisno",
+    "display": "Sutrisno",
+    "kana": "ストリスノ",
+    "romaji": "sutorisuno",
+    "art": "sutorisuno",
+    "gender": "m",
+    "note": "Dukcapil: most common male name (all ages); older generation",
+    "defaults": [
+      "寿",
+      "登",
+      "理",
+      "澄",
+      "望"
+    ]
+  },
+  {
+    "slug": "dinda",
+    "display": "Dinda",
+    "kana": "ディンダ",
+    "romaji": "dinda",
+    "art": "dinda",
+    "gender": "f"
+  },
+  {
+    "slug": "yusuf",
+    "display": "Yusuf",
+    "kana": "ユスフ",
+    "romaji": "yusufu",
+    "art": "yusufu",
+    "gender": "m",
+    "note": "Muhammad Yusuf = Dukcapil no.3 Gen Alpha boys; ユスフ is the usual Japanese form"
+  },
+  {
+    "slug": "anisa",
+    "display": "Anisa",
+    "kana": "アニサ",
+    "romaji": "anisa",
+    "art": "anisa",
+    "gender": "f",
+    "note": "also spelled Annisa"
+  },
+  {
+    "slug": "arif",
+    "display": "Arif",
+    "kana": "アリフ",
+    "romaji": "arifu",
+    "art": "arifu",
+    "gender": "m",
+    "defaults": [
+      "安",
+      "理",
+      "風"
+    ]
+  },
+  {
+    "slug": "kartika",
+    "display": "Kartika",
+    "kana": "カルティカ",
+    "romaji": "karutika",
+    "art": "karutika",
+    "gender": "f"
+  },
+  {
+    "slug": "ilham",
+    "display": "Ilham",
+    "kana": "イルハム",
+    "romaji": "iruhamu",
+    "art": "iruhamu",
+    "gender": "m",
+    "note": "イルハム (ja.wikipedia, Azerbaijani Ilham Aliyev uses same kana)"
+  },
+  {
+    "slug": "rahma",
+    "display": "Rahma",
+    "kana": "ラフマ",
+    "romaji": "rafuma",
+    "art": "rafuma",
+    "gender": "f",
+    "note": "also Rahmah"
+  },
+  {
+    "slug": "reza",
+    "display": "Reza",
+    "kana": "レザ",
+    "romaji": "reza",
+    "art": "reza",
+    "gender": "m",
+    "defaults": [
+      "礼",
+      "沙"
+    ]
+  },
+  {
+    "slug": "zahra",
+    "display": "Zahra",
+    "kana": "ザフラ",
+    "romaji": "zafura",
+    "art": "zafura",
+    "gender": "f",
+    "note": "JKT48 ザフラ"
+  },
+  {
+    "slug": "bagus",
+    "display": "Bagus",
+    "kana": "バグス",
+    "romaji": "bagusu",
+    "art": "bagusu",
+    "gender": "m"
+  },
+  {
+    "slug": "sari",
+    "display": "Sari",
+    "kana": "サリ",
+    "romaji": "sari",
+    "art": "sari",
+    "gender": "f"
+  },
+  {
+    "slug": "putra",
+    "display": "Putra",
+    "kana": "プトラ",
+    "romaji": "putora",
+    "art": "putora",
+    "gender": "m",
+    "note": "same トゥ/ト question as Putri"
+  },
+  {
+    "slug": "dian",
+    "display": "Dian",
+    "kana": "ディアン",
+    "romaji": "dian",
+    "art": "dian",
+    "gender": "u",
+    "note": "mostly female, also male; ディアン・サストロワルドヨ"
+  },
+  {
+    "slug": "rudi",
+    "display": "Rudi",
+    "kana": "ルディ",
+    "romaji": "rudi",
+    "art": "rudi",
+    "gender": "m"
+  },
+  {
+    "slug": "rangga",
+    "display": "Rangga",
+    "kana": "ランガ",
+    "romaji": "ranga",
+    "art": "ranga",
+    "gender": "m"
+  }
 ]

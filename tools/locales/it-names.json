@@ -1,6 +1,469 @@
 [
-  { "slug": "lorenzo", "display": "Lorenzo", "kana": "ロレンツォ", "romaji": "rorentso", "art": "rorenzo", "gender": "m", "note": "FIXTURE — replaced by the real data at merge" },
-  { "slug": "matteo", "display": "Matteo", "kana": "マッテオ", "romaji": "matteo", "art": "mateo", "gender": "m", "note": "FIXTURE" },
-  { "slug": "giulia", "display": "Giulia", "kana": "ジュリア", "romaji": "juria", "art": "juria", "gender": "f", "note": "FIXTURE" },
-  { "slug": "niccolo", "display": "Niccolò", "kana": "ニッコロ", "romaji": "nikkoro", "art": "nikoro", "gender": "m", "note": "FIXTURE" }
+  {
+    "slug": "leonardo",
+    "display": "Leonardo",
+    "kana": "レオナルド",
+    "romaji": "reonarudo",
+    "art": "reonarudo",
+    "gender": "m"
+  },
+  {
+    "slug": "edoardo",
+    "display": "Edoardo",
+    "kana": "エドアルド",
+    "romaji": "edoarudo",
+    "art": "edoarudo",
+    "gender": "m"
+  },
+  {
+    "slug": "sofia",
+    "display": "Sofia",
+    "kana": "ソフィア",
+    "romaji": "sofia",
+    "art": "sofia",
+    "gender": "f"
+  },
+  {
+    "slug": "tommaso",
+    "display": "Tommaso",
+    "kana": "トンマーゾ",
+    "romaji": "tonmāzo",
+    "art": "tonmazo",
+    "gender": "m",
+    "note": "トマソ/トマーゾ表記も見かけるが jawiki 人名はトンマーゾ（トンマーゾ・ポベガ等）"
+  },
+  {
+    "slug": "aurora",
+    "display": "Aurora",
+    "kana": "アウローラ",
+    "romaji": "aurōra",
+    "art": "aurora",
+    "gender": "f"
+  },
+  {
+    "slug": "mattia",
+    "display": "Mattia",
+    "kana": "マッティア",
+    "romaji": "mattia",
+    "art": "matia",
+    "gender": "m"
+  },
+  {
+    "slug": "alessandro",
+    "display": "Alessandro",
+    "kana": "アレッサンドロ",
+    "romaji": "aressandoro",
+    "art": "aresandoro",
+    "gender": "m"
+  },
+  {
+    "slug": "francesco",
+    "display": "Francesco",
+    "kana": "フランチェスコ",
+    "romaji": "furanchesuko",
+    "art": "furanchesuko",
+    "gender": "m"
+  },
+  {
+    "slug": "ginevra",
+    "display": "Ginevra",
+    "kana": "ジネヴラ",
+    "romaji": "jinevura",
+    "art": "jinebura",
+    "gender": "f",
+    "note": "Search check 2026-11-18: dominant Japanese spelling (jawiki / sports media).",
+    "defaults": [
+      "慈",
+      "音",
+      "舞",
+      "良"
+    ],
+    "alt": [
+      "ジネブラ"
+    ]
+  },
+  {
+    "slug": "vittoria",
+    "display": "Vittoria",
+    "kana": "ヴィットーリア",
+    "romaji": "vittōria",
+    "art": "bitoria",
+    "gender": "f",
+    "note": "Search check 2026-11-18: dominant Japanese spelling (jawiki / sports media).",
+    "alt": [
+      "ビットーリア"
+    ]
+  },
+  {
+    "slug": "lorenzo",
+    "display": "Lorenzo",
+    "kana": "ロレンツォ",
+    "romaji": "rorentso",
+    "art": "rorenzo",
+    "gender": "m",
+    "note": "ツォ≈zo"
+  },
+  {
+    "slug": "gabriele",
+    "display": "Gabriele",
+    "kana": "ガブリエーレ",
+    "romaji": "gaburiēre",
+    "art": "gaburiere",
+    "gender": "m"
+  },
+  {
+    "slug": "riccardo",
+    "display": "Riccardo",
+    "kana": "リッカルド",
+    "romaji": "rikkarudo",
+    "art": "rikarudo",
+    "gender": "m",
+    "defaults": [
+      "理",
+      "花",
+      "瑠",
+      "道"
+    ]
+  },
+  {
+    "slug": "giulia",
+    "display": "Giulia",
+    "kana": "ジュリア",
+    "romaji": "juria",
+    "art": "juria",
+    "gender": "f"
+  },
+  {
+    "slug": "beatrice",
+    "display": "Beatrice",
+    "kana": "ベアトリーチェ",
+    "romaji": "beatorīche",
+    "art": "beatoriche",
+    "gender": "f"
+  },
+  {
+    "slug": "andrea",
+    "display": "Andrea",
+    "kana": "アンドレア",
+    "romaji": "andorea",
+    "art": "andorea",
+    "gender": "m",
+    "note": "Italian Andrea is a boy's name"
+  },
+  {
+    "slug": "ludovica",
+    "display": "Ludovica",
+    "kana": "ルドヴィカ",
+    "romaji": "rudovika",
+    "art": "rudobika",
+    "gender": "f",
+    "note": "Search check 2026-11-18: dominant Japanese spelling (jawiki / sports media).",
+    "alt": [
+      "ルドビカ"
+    ]
+  },
+  {
+    "slug": "matilde",
+    "display": "Matilde",
+    "kana": "マティルデ",
+    "romaji": "matirude",
+    "art": "matirude",
+    "gender": "f"
+  },
+  {
+    "slug": "alice",
+    "display": "Alice",
+    "kana": "アリーチェ",
+    "romaji": "arīche",
+    "art": "ariche",
+    "gender": "f",
+    "note": "jawiki: アリーチェ・ロルヴァケル"
+  },
+  {
+    "slug": "diego",
+    "display": "Diego",
+    "kana": "ディエゴ",
+    "romaji": "diego",
+    "art": "diego",
+    "gender": "m"
+  },
+  {
+    "slug": "emma",
+    "display": "Emma",
+    "kana": "エマ",
+    "romaji": "ema",
+    "art": "ema",
+    "gender": "f",
+    "note": "エンマ is closer to Italian but evokes 閻魔 (King of Hell) to Japanese readers; エマ is common in Japan (decided 2026-11-18).",
+    "kanaNote": "In giapponese si scrive di solito エマ; la pronuncia italiana sarebbe エンマ."
+  },
+  {
+    "slug": "enea",
+    "display": "Enea",
+    "kana": "エネア",
+    "romaji": "enea",
+    "art": "enea",
+    "gender": "m",
+    "note": "jawiki: エネア・バスティアニーニ"
+  },
+  {
+    "slug": "matteo",
+    "display": "Matteo",
+    "kana": "マッテオ",
+    "romaji": "matteo",
+    "art": "mateo",
+    "gender": "m"
+  },
+  {
+    "slug": "giuseppe",
+    "display": "Giuseppe",
+    "kana": "ジュゼッペ",
+    "romaji": "juzeppe",
+    "art": "juzepe",
+    "gender": "m"
+  },
+  {
+    "slug": "antonio",
+    "display": "Antonio",
+    "kana": "アントニオ",
+    "romaji": "antonio",
+    "art": "antonio",
+    "gender": "m"
+  },
+  {
+    "slug": "nicolo",
+    "display": "Nicolò",
+    "kana": "ニコロ",
+    "romaji": "nikoro",
+    "art": "nikoro",
+    "gender": "m",
+    "note": "ISTAT spelling NICOLO' (2,187); Niccolò ニッコロ is a separate, less common spelling (567)"
+  },
+  {
+    "slug": "camilla",
+    "display": "Camilla",
+    "kana": "カミッラ",
+    "romaji": "kamirra",
+    "art": "kamira",
+    "gender": "f",
+    "note": "カミラ also common"
+  },
+  {
+    "slug": "federico",
+    "display": "Federico",
+    "kana": "フェデリコ",
+    "romaji": "federiko",
+    "art": "federiko",
+    "gender": "m"
+  },
+  {
+    "slug": "samuele",
+    "display": "Samuele",
+    "kana": "サムエレ",
+    "romaji": "samuere",
+    "art": "samuere",
+    "gender": "m",
+    "alt": [
+      "サムエーレ"
+    ],
+    "note": "Search check 2026-11-18: dominant Japanese spelling (jawiki / sports media)."
+  },
+  {
+    "slug": "anna",
+    "display": "Anna",
+    "kana": "アンナ",
+    "romaji": "anna",
+    "art": "anna",
+    "gender": "f"
+  },
+  {
+    "slug": "pietro",
+    "display": "Pietro",
+    "kana": "ピエトロ",
+    "romaji": "pietoro",
+    "art": "pietoro",
+    "gender": "m"
+  },
+  {
+    "slug": "filippo",
+    "display": "Filippo",
+    "kana": "フィリッポ",
+    "romaji": "firippo",
+    "art": "firipo",
+    "gender": "m",
+    "defaults": [
+      "陽",
+      "理",
+      "帆"
+    ]
+  },
+  {
+    "slug": "giovanni",
+    "display": "Giovanni",
+    "kana": "ジョヴァンニ",
+    "romaji": "jovanni",
+    "art": "jobanni",
+    "gender": "m",
+    "note": "Search check 2026-11-18: dominant Japanese spelling (jawiki / sports media).",
+    "alt": [
+      "ジョバンニ"
+    ]
+  },
+  {
+    "slug": "bianca",
+    "display": "Bianca",
+    "kana": "ビアンカ",
+    "romaji": "bianka",
+    "art": "bianka",
+    "gender": "f"
+  },
+  {
+    "slug": "greta",
+    "display": "Greta",
+    "kana": "グレタ",
+    "romaji": "gureta",
+    "art": "gureta",
+    "gender": "f",
+    "defaults": [
+      "弘",
+      "麗",
+      "多"
+    ]
+  },
+  {
+    "slug": "giulio",
+    "display": "Giulio",
+    "kana": "ジュリオ",
+    "romaji": "jurio",
+    "art": "jurio",
+    "gender": "m"
+  },
+  {
+    "slug": "azzurra",
+    "display": "Azzurra",
+    "kana": "アズーラ",
+    "romaji": "azūra",
+    "art": "azura",
+    "gender": "f",
+    "note": "no jawiki person precedent; follows established アズーリ (Azzurri, national team nickname) → アズーラ"
+  },
+  {
+    "slug": "chiara",
+    "display": "Chiara",
+    "kana": "キアラ",
+    "romaji": "kiara",
+    "art": "kiara",
+    "gender": "f"
+  },
+  {
+    "slug": "elia",
+    "display": "Elia",
+    "kana": "エリア",
+    "romaji": "eria",
+    "art": "eria",
+    "gender": "m",
+    "defaults": [
+      "恵",
+      "理",
+      "愛"
+    ]
+  },
+  {
+    "slug": "davide",
+    "display": "Davide",
+    "kana": "ダヴィデ",
+    "romaji": "davide",
+    "art": "dabide",
+    "gender": "m",
+    "note": "Search check 2026-11-18: dominant Japanese spelling (jawiki / sports media).",
+    "alt": [
+      "ダビデ"
+    ]
+  },
+  {
+    "slug": "giorgia",
+    "display": "Giorgia",
+    "kana": "ジョルジャ",
+    "romaji": "joruja",
+    "art": "joruja",
+    "gender": "f",
+    "note": "jawiki: ジョルジャ・メローニ; ジョルジア also seen"
+  },
+  {
+    "slug": "michele",
+    "display": "Michele",
+    "kana": "ミケーレ",
+    "romaji": "mikēre",
+    "art": "mikere",
+    "gender": "m"
+  },
+  {
+    "slug": "arianna",
+    "display": "Arianna",
+    "kana": "アリアンナ",
+    "romaji": "arianna",
+    "art": "arianna",
+    "gender": "f"
+  },
+  {
+    "slug": "gaia",
+    "display": "Gaia",
+    "kana": "ガイア",
+    "romaji": "gaia",
+    "art": "gaia",
+    "gender": "f"
+  },
+  {
+    "slug": "ambra",
+    "display": "Ambra",
+    "kana": "アンブラ",
+    "romaji": "anbura",
+    "art": "anbura",
+    "gender": "f",
+    "defaults": [
+      "安",
+      "舞",
+      "良"
+    ]
+  },
+  {
+    "slug": "noemi",
+    "display": "Noemi",
+    "kana": "ノエミ",
+    "romaji": "noemi",
+    "art": "noemi",
+    "gender": "f"
+  },
+  {
+    "slug": "sara",
+    "display": "Sara",
+    "kana": "サラ",
+    "romaji": "sara",
+    "art": "sara",
+    "gender": "f"
+  },
+  {
+    "slug": "martina",
+    "display": "Martina",
+    "kana": "マルティーナ",
+    "romaji": "marutīna",
+    "art": "marutina",
+    "gender": "f"
+  },
+  {
+    "slug": "adele",
+    "display": "Adele",
+    "kana": "アデーレ",
+    "romaji": "adēre",
+    "art": "adere",
+    "gender": "f"
+  },
+  {
+    "slug": "elena",
+    "display": "Elena",
+    "kana": "エレナ",
+    "romaji": "erena",
+    "art": "erena",
+    "gender": "f"
+  }
 ]

@@ -79,6 +79,16 @@ for (const lc of LOCALES) {
         }
       }
     }
+    // optional "alt": other katakana spellings (shown under the katakana row, FAQ 1, maybe the description)
+    if (n.alt !== undefined) {
+      if (!Array.isArray(n.alt) || !n.alt.length) bad(`alt must be a non-empty array of katakana (got ${JSON.stringify(n.alt)})`);
+      else n.alt.forEach((k, j) => {
+        if (!KATAKANA.test(k || "")) bad(`alt[${j}] must be katakana only (got ${JSON.stringify(k)})`);
+        else if (k === n.kana) bad(`alt[${j}] repeats kana ${k}`);
+      });
+    }
+    // optional "kanaNote": local-language note under the katakana row (the kana is not the local pronunciation)
+    if (n.kanaNote !== undefined && (typeof n.kanaNote !== "string" || !n.kanaNote.trim())) bad("kanaNote must be a non-empty string");
     if (!["f", "m", "u"].includes(n.gender)) bad(`gender must be "f" | "m" | "u" (got ${JSON.stringify(n.gender)})`);
   });
   data[lc] = { names, meanings };
@@ -140,6 +150,8 @@ td .kj{font-family:'Yuji Syuku',serif;font-size:26px;color:var(--head)}
 .alt.sel{border:2px solid var(--gold);background:rgba(184,146,80,.08);padding:9px 13px}
 .seal-sel{font-style:normal;font-family:'Yuji Syuku',serif;font-size:11px;color:var(--seal);background:#e8e2d5;border:1px solid var(--seal);width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;border-radius:2px;transform:rotate(-6deg);position:absolute;top:6px;right:6px}
 .selline{display:block;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:4px}
+.sc-alt,.sc-note{display:block;margin-top:4px;font-size:13px;color:var(--ink)}
+.sc-note{color:rgba(232,226,213,.78);font-style:italic}
 .rel{display:flex;flex-wrap:wrap;gap:8px}
 .rel a{border:1px solid var(--line);color:var(--ink);text-decoration:none;padding:7px 14px;font-size:13px}
 .rel a:hover{border-color:var(--gold)}
@@ -178,7 +190,11 @@ ${CF_BEACON_SNIPPET}
 </head>`;
 }
 
-const meanHtml = (ms) => ms.map((m) => (m.en ? `<span lang="en">${esc(m.text)}</span>` : esc(m.text))).join(" · ");
+// One gloss per kanji, joined with " / " (a single gloss may itself contain " · ").
+const meanHtml = (ms) => ms.map((m) => (m.en ? `<span lang="en">${esc(m.text)}</span>` : esc(m.text))).join(" / ");
+const DESC_MAX = 160;
+// romaji without macrons (ō → o) — when the art reading differs from it, the page says the kanji reading is simplified
+const plainRomaji = (r) => r.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
 function namePage(lc, a, all) {
   const S = STRINGS[lc], LS = LOCALE_NAME_STRINGS[lc];
@@ -188,10 +204,14 @@ function namePage(lc, a, all) {
   // raw values for text/JSON-LD, escaped values for HTML
   const raw = {
     D: a.display, K: a.kana, R: a.romaji, H: a.hira, kanji: a.kanji,
-    mean: a.meaningsLoc.map((m) => m.text).join(" · "), combos: a.combos.toLocaleString("en-US"),
+    mean: a.meaningsLoc.map((m) => m.text).join(" / "), combos: a.combos.toLocaleString("en-US"),
     n: a.toks.length, toks: a.toks.join(" · "),
   };
-  const h = Object.fromEntries(Object.entries(raw).map(([k, v]) => [k, esc(v)]));
+  Object.assign(raw, { alts: (a.alt || []).join(", "), pron: !a.kanaNote, kanaNote: a.kanaNote || "", altDesc: false });
+  // the alternative spellings go into the meta description only if it stays ≤ DESC_MAX characters
+  if (raw.alts && LS.description({ ...raw, altDesc: true }).length <= DESC_MAX) raw.altDesc = true;
+  const h = Object.fromEntries(Object.entries(raw).map(([k, v]) => [k, typeof v === "string" ? esc(v) : v]));
+  const artDiffers = a.art !== plainRomaji(a.romaji);
   const faqRaw = LS.faq(raw), faqHtml = LS.faq(h);
   const genHref = `../../#${encodeURIComponent(foldName(a.display))}@${lc}`;
   const anyApprox = a.toks.some((t, i) => a.variants[i].some((e) => trueSound(t, e) !== t));
@@ -248,7 +268,7 @@ function namePage(lc, a, all) {
     <div>
       <h2 style="margin-top:0">${LS.scriptsH2(h)}</h2>
       <dl class="scripts">
-        <div class="sc-row"><dt>Katakana</dt><dd><span class="sc-script" lang="ja">${h.K}</span>${copyBtn(a.kana, "katakana")}<span class="romaji">(${h.R})</span><span class="sc-why">${LS.kataWhy(h)}</span></dd></div>
+        <div class="sc-row"><dt>Katakana</dt><dd><span class="sc-script" lang="ja">${h.K}</span>${copyBtn(a.kana, "katakana")}<span class="romaji">(${h.R})</span>${a.alt ? `<span class="sc-alt">${esc(LS.altLine(raw.alts))}</span>` : ""}${a.kanaNote ? `<span class="sc-note">${h.kanaNote}</span>` : ""}<span class="sc-why">${LS.kataWhy(h)}</span></dd></div>
         <div class="sc-row"><dt>Hiragana</dt><dd><span class="sc-script" lang="ja">${h.H}</span>${copyBtn(a.hira, "hiragana")}<span class="sc-why">${LS.hiraWhy}</span></dd></div>
         <div class="sc-row"><dt>Kanji</dt><dd><span class="sc-script sc-kanji" lang="ja">${h.kanji}</span><span class="sc-why">${LS.kanjiWhy(h)}</span></dd></div>
       </dl>
@@ -267,6 +287,7 @@ function namePage(lc, a, all) {
     ${a.toks.map((t, j) => { const e = a.variants[j][a.picks[j]]; return `<tr><td>${soundCell(t, e)}</td><td><span class="kj" lang="ja">${esc(e[0])}</span></td><td>${meanHtml([a.meaningsLoc[j]])}</td></tr>`; }).join("\n    ")}
   </table>
   ${anyApprox ? `<p class="small-note">${esc(LS.approxNote)}</p>` : ""}
+  ${artDiffers ? `<p class="small-note">${esc(LS.artNote(a.art))}</p>` : ""}
   ${anyFallback ? `<p class="small-note">${esc(LS.fallbackNote)}</p>` : ""}
 
   <h2>${LS.choicesH2(h)}</h2>
@@ -364,6 +385,11 @@ for (const lc of LOCALES) {
   const outDir = path.join(ROOT, lc, LOCALE_DIRS[lc]);
   fs.mkdirSync(outDir, { recursive: true });
   for (const a of all) fs.writeFileSync(path.join(outDir, a.slug + ".html"), namePage(lc, a, all));
+  // Orphans: a <slug>.html whose slug left the data would stay online with stale content → delete it.
+  const keep = new Set(all.map((a) => a.slug + ".html").concat("index.html"));
+  for (const f of fs.readdirSync(outDir)) {
+    if (f.endsWith(".html") && !keep.has(f)) { fs.unlinkSync(path.join(outDir, f)); console.log(`removed orphan ${lc}/${LOCALE_DIRS[lc]}/${f}`); }
+  }
   fs.writeFileSync(path.join(outDir, "index.html"), listPage(lc, all));
   summary.push(`${lc}: ${all.length} pages + list → /${lc}/${LOCALE_DIRS[lc]}/`);
 }

@@ -123,28 +123,21 @@ function pageHtml(lang) {
   const loc = loadLocaleNames(ROOT, lang).map((n) => analyzeLocaleName(ENGINE, n, locMeans));
   const ex = analyze(S.example);
   // The example uses the locale reading + local page when that name is in the locale list.
-  // Its meanings stay English (S.kanjiWhy says they are shown in English).
+  // With a locale entry its meanings are local (S.kanjiWhyLocal); otherwise English (S.kanjiWhy says so).
+  // Per-kanji glosses are joined with " / " (a gloss itself may contain " · ").
   const exLoc = loc.find((n) => n.slug === ex.slug);
-  if (exLoc) Object.assign(ex, { kata: exLoc.kana, hira: exLoc.hira, romaji: exLoc.romaji, kanji: exLoc.kanji, meanings: exLoc.meaningsEn });
-  const exData = { name: esc(ex.name), kata: ex.kata, hira: ex.hira, romaji: ex.romaji, kanji: ex.kanji, mean: esc(ex.meanings.join(" · ")) };
+  if (exLoc) Object.assign(ex, { kata: exLoc.kana, hira: exLoc.hira, romaji: exLoc.romaji, kanji: exLoc.kanji, meanings: exLoc.meaningsLoc.map((m) => m.text) });
+  const exData = { name: esc(ex.name), kata: ex.kata, hira: ex.hira, romaji: ex.romaji, kanji: ex.kanji, mean: esc(ex.meanings.join(" / ")) };
   const exHref = exLoc ? `${locDir}/${exLoc.slug}` : ex.inList ? `../names/${ex.slug}` : `../#${encodeURIComponent(ex.name)}`;
-  const grid = S.names.map(analyze);
-  for (const g of grid) if (!g.inList) throw new Error(`[${lang}] "${g.slug}" is not in tools/names.txt`);
-  if (new Set(grid.map((g) => g.slug)).size !== grid.length) throw new Error(`[${lang}] duplicate name in list`);
-  const meanHtml = (ms) => ms.map((m) => (m.en ? `<span lang="en">${esc(m.text)}</span>` : esc(m.text))).join(" · ");
-  // Locale grid (links to /<lc>/<dir>/<slug>) once the locale data exists; English grid otherwise.
-  const gridBlock = loc.length
-    ? `<h2>${esc(LS.gridH2Local)}</h2>
+  if (!loc.length) throw new Error(`[${lang}] tools/locales/${lang}-names.json is missing or empty (the landing grid lists the locale names)`);
+  const meanHtml = (ms) => ms.map((m) => (m.en ? `<span lang="en">${esc(m.text)}</span>` : esc(m.text))).join(" / ");
+  // Locale grid: links to /<lc>/<dir>/<slug>.
+  const gridBlock = `<h2>${esc(LS.gridH2Local)}</h2>
   <p class="grid-note">${LS.gridNoteLocal}</p>
   <div class="ngrid">
     ${loc.slice(0, LOCALE_GRID_MAX).map((g) => `<a class="nc" href="${locDir}/${g.slug}"><span class="nc-name">${esc(g.display)}</span><span class="nc-kana" lang="ja">${esc(g.kana)}</span><span class="nc-kanji" lang="ja">${esc(g.kanji)}</span><span class="nc-mean">${meanHtml(g.meaningsLoc)}</span></a>`).join("\n    ")}
   </div>
-  <p class="grid-more"><a href="${locDir}/">${esc(LS.allNamesLink)}</a></p>`
-    : `<h2>${esc(S.gridH2)}</h2>
-  <p class="grid-note">${S.gridNote}</p>
-  <div class="ngrid">
-    ${grid.map((g) => `<a class="nc" href="../names/${g.slug}"><span class="nc-name">${esc(g.name)}</span><span class="nc-kana" lang="ja">${esc(g.kata)}</span><span class="nc-kanji" lang="ja">${esc(g.kanji)}</span><span class="nc-mean" lang="en">${esc(g.meanings.join(" · "))}</span></a>`).join("\n    ")}
-  </div>`;
+  <p class="grid-more"><a href="${locDir}/">${esc(LS.allNamesLink)}</a></p>`;
 
   const ld = {
     "@context": "https://schema.org",
@@ -213,11 +206,11 @@ ${CF_BEACON_SNIPPET}
   <dl class="scripts">
     <div class="sc-row"><dt>Katakana</dt><dd><span class="sc-script" lang="ja">${esc(ex.kata)}</span><span class="romaji">(${esc(ex.romaji)})</span><span class="sc-why">${S.kataWhy}</span></dd></div>
     <div class="sc-row"><dt>Hiragana</dt><dd><span class="sc-script" lang="ja">${esc(ex.hira)}</span><span class="sc-why">${S.hiraWhy}</span></dd></div>
-    <div class="sc-row"><dt>Kanji</dt><dd><a href="${exHref}" style="text-decoration:none"><span class="sc-script sc-kanji" lang="ja">${esc(ex.kanji)}</span></a><span class="sc-why">${S.kanjiWhy(exData)}</span></dd></div>
+    <div class="sc-row"><dt>Kanji</dt><dd><a href="${exHref}" style="text-decoration:none"><span class="sc-script sc-kanji" lang="ja">${esc(ex.kanji)}</span></a><span class="sc-why">${exLoc ? S.kanjiWhyLocal(exData) : S.kanjiWhy(exData)}</span></dd></div>
   </dl>
 
   <h2>${esc(S.sayH2)}</h2>
-  <p class="body-copy">${S.say}${loc.length ? " " + LS.sayLocal : ""}</p>
+  <p class="body-copy">${S.say} ${LS.sayLocal}</p>
 
   ${gridBlock}
 

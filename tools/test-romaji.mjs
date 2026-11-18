@@ -221,7 +221,7 @@ for (const name of list) {
     const e = L.localeEntry(w, lc), toks = L.wordTokens(w, 0, lc);
     return { e, toks, rd: L.wordReading(w, 0, lc) };
   };
-  for (const [w, lc, kana] of [["Lorenzo", "it", "ロレンツォ"], ["Chloe", "fr", "クロエ"], ["Putri", "id", "プトリ"]]) {
+  for (const [w, lc, kana] of [["Lorenzo", "it", "ロレンツォ"], ["Chloe", "fr", "クロエ"], ["Putri", "id", "プトゥリ"]]) {
     const { e, toks, rd } = loc(w, lc);
     ok(!!e, `${w}@${lc} is in LOCALE_NAMES`);
     if (!e) continue;
@@ -240,6 +240,7 @@ for (const name of list) {
     ok(e.p.length === toks.length && e.p.every((o, i) => o >= 0 && o < os[i].length), `${lc}/${slug} defaults are valid option indices`);
   }
   ok(Object.values(L.LOCALE_NAMES).some((t) => Object.values(t).some((e) => e.p)), "at least one locale name carries curated defaults (fixture: dewi@id)");
+  eq(L.wordReading("Putri", 0, "id").raw, "puturi", "Putri@id romaji = puturi (トゥ = tu)");
   // Lorenzo differs from the English reading (that is the point)
   ok(L.wordReading("Lorenzo", 0, "it").kana !== L.wordReading("Lorenzo", 0, null).kana, "Lorenzo@it reading differs from English");
   // English Wyatt unchanged through the new word* layer

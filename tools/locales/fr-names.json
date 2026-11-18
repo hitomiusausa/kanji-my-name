@@ -1,6 +1,458 @@
 [
-  { "slug": "chloe", "display": "Chloé", "kana": "クロエ", "romaji": "kuroe", "art": "kuroe", "gender": "f", "note": "FIXTURE — replaced by the real data at merge" },
-  { "slug": "louis", "display": "Louis", "kana": "ルイ", "romaji": "rui", "art": "rui", "gender": "m", "note": "FIXTURE" },
-  { "slug": "lea", "display": "Léa", "kana": "レア", "romaji": "rea", "art": "rea", "gender": "f", "note": "FIXTURE" },
-  { "slug": "camille", "display": "Camille", "kana": "カミーユ", "romaji": "kamīyu", "art": "kamiyu", "gender": "u", "note": "FIXTURE" }
+  {
+    "slug": "gabriel",
+    "display": "Gabriel",
+    "kana": "ガブリエル",
+    "romaji": "gaburieru",
+    "art": "gaburieru",
+    "gender": "m"
+  },
+  {
+    "slug": "raphael",
+    "display": "Raphaël",
+    "kana": "ラファエル",
+    "romaji": "rafaeru",
+    "art": "rafaeru",
+    "gender": "m"
+  },
+  {
+    "slug": "louis",
+    "display": "Louis",
+    "kana": "ルイ",
+    "romaji": "rui",
+    "art": "rui",
+    "gender": "m",
+    "note": "not ルイス",
+    "defaults": [
+      "瑠",
+      "伊"
+    ]
+  },
+  {
+    "slug": "leo",
+    "display": "Léo",
+    "kana": "レオ",
+    "romaji": "reo",
+    "art": "reo",
+    "gender": "m"
+  },
+  {
+    "slug": "noah",
+    "display": "Noah",
+    "kana": "ノア",
+    "romaji": "noa",
+    "art": "noa",
+    "gender": "m"
+  },
+  {
+    "slug": "louise",
+    "display": "Louise",
+    "kana": "ルイーズ",
+    "romaji": "ruīzu",
+    "art": "ruizu",
+    "gender": "f"
+  },
+  {
+    "slug": "arthur",
+    "display": "Arthur",
+    "kana": "アルチュール",
+    "romaji": "aruchūru",
+    "art": "aruchuru",
+    "gender": "m",
+    "note": "アルテュール also seen"
+  },
+  {
+    "slug": "jade",
+    "display": "Jade",
+    "kana": "ジャド",
+    "romaji": "jado",
+    "art": "jado",
+    "gender": "f",
+    "note": "ジャッド/ジェイド also seen"
+  },
+  {
+    "slug": "adam",
+    "display": "Adam",
+    "kana": "アダム",
+    "romaji": "adamu",
+    "art": "adamu",
+    "gender": "m"
+  },
+  {
+    "slug": "jules",
+    "display": "Jules",
+    "kana": "ジュール",
+    "romaji": "jūru",
+    "art": "juru",
+    "gender": "m"
+  },
+  {
+    "slug": "mael",
+    "display": "Maël",
+    "kana": "マエル",
+    "romaji": "maeru",
+    "art": "maeru",
+    "gender": "m"
+  },
+  {
+    "slug": "ambre",
+    "display": "Ambre",
+    "kana": "アンブル",
+    "romaji": "anburu",
+    "art": "anburu",
+    "gender": "f",
+    "defaults": [
+      "安",
+      "舞",
+      "瑠"
+    ]
+  },
+  {
+    "slug": "alba",
+    "display": "Alba",
+    "kana": "アルバ",
+    "romaji": "aruba",
+    "art": "aruba",
+    "gender": "f"
+  },
+  {
+    "slug": "leon",
+    "display": "Léon",
+    "kana": "レオン",
+    "romaji": "reon",
+    "art": "reon",
+    "gender": "m"
+  },
+  {
+    "slug": "emma",
+    "display": "Emma",
+    "kana": "エマ",
+    "romaji": "ema",
+    "art": "ema",
+    "gender": "f"
+  },
+  {
+    "slug": "isaac",
+    "display": "Isaac",
+    "kana": "イザック",
+    "romaji": "izakku",
+    "art": "izaku",
+    "gender": "m",
+    "note": "French sound イザック; English アイザック",
+    "defaults": [
+      "伊",
+      "沙",
+      "玖"
+    ]
+  },
+  {
+    "slug": "sacha",
+    "display": "Sacha",
+    "kana": "サシャ",
+    "romaji": "sasha",
+    "art": "sasha",
+    "gender": "m"
+  },
+  {
+    "slug": "alma",
+    "display": "Alma",
+    "kana": "アルマ",
+    "romaji": "aruma",
+    "art": "aruma",
+    "gender": "f"
+  },
+  {
+    "slug": "marceau",
+    "display": "Marceau",
+    "kana": "マルソー",
+    "romaji": "marusō",
+    "art": "maruso",
+    "gender": "m"
+  },
+  {
+    "slug": "romy",
+    "display": "Romy",
+    "kana": "ロミー",
+    "romaji": "romī",
+    "art": "romi",
+    "gender": "f"
+  },
+  {
+    "slug": "rose",
+    "display": "Rose",
+    "kana": "ローズ",
+    "romaji": "rōzu",
+    "art": "rozu",
+    "gender": "f"
+  },
+  {
+    "slug": "alice",
+    "display": "Alice",
+    "kana": "アリス",
+    "romaji": "arisu",
+    "art": "arisu",
+    "gender": "f"
+  },
+  {
+    "slug": "lucas",
+    "display": "Lucas",
+    "kana": "リュカ",
+    "romaji": "ryuka",
+    "art": "ryuka",
+    "gender": "m",
+    "note": "French: final s silent"
+  },
+  {
+    "slug": "noe",
+    "display": "Noé",
+    "kana": "ノエ",
+    "romaji": "noe",
+    "art": "noe",
+    "gender": "m"
+  },
+  {
+    "slug": "lou",
+    "display": "Lou",
+    "kana": "ルー",
+    "romaji": "rū",
+    "art": "ru",
+    "gender": "f"
+  },
+  {
+    "slug": "gabin",
+    "display": "Gabin",
+    "kana": "ギャバン",
+    "romaji": "gyaban",
+    "art": "gyaban",
+    "gender": "m",
+    "note": "French sound is closer to ガバン; ギャバン follows Jean Gabin"
+  },
+  {
+    "slug": "adele",
+    "display": "Adèle",
+    "kana": "アデル",
+    "romaji": "aderu",
+    "art": "aderu",
+    "gender": "f"
+  },
+  {
+    "slug": "iris",
+    "display": "Iris",
+    "kana": "イリス",
+    "romaji": "irisu",
+    "art": "irisu",
+    "gender": "f"
+  },
+  {
+    "slug": "agathe",
+    "display": "Agathe",
+    "kana": "アガット",
+    "romaji": "agatto",
+    "art": "agato",
+    "gender": "f",
+    "note": "アガト also seen"
+  },
+  {
+    "slug": "paul",
+    "display": "Paul",
+    "kana": "ポール",
+    "romaji": "pōru",
+    "art": "poru",
+    "gender": "m"
+  },
+  {
+    "slug": "hugo",
+    "display": "Hugo",
+    "kana": "ユーゴ",
+    "romaji": "yūgo",
+    "art": "yugo",
+    "gender": "m",
+    "note": "Search check 2026-11-18 (jawiki / eiga.com / soccer media).",
+    "alt": [
+      "ユーゴー",
+      "ウーゴ"
+    ]
+  },
+  {
+    "slug": "jeanne",
+    "display": "Jeanne",
+    "kana": "ジャンヌ",
+    "romaji": "jannu",
+    "art": "jannu",
+    "gender": "f"
+  },
+  {
+    "slug": "marius",
+    "display": "Marius",
+    "kana": "マリウス",
+    "romaji": "mariusu",
+    "art": "mariusu",
+    "gender": "m",
+    "note": "Search check 2026-11-18 (jawiki / eiga.com / soccer media).",
+    "alt": [
+      "マリユス"
+    ],
+    "defaults": [
+      "真",
+      "理",
+      "宇",
+      "寿"
+    ]
+  },
+  {
+    "slug": "lena",
+    "display": "Léna",
+    "kana": "レナ",
+    "romaji": "rena",
+    "art": "rena",
+    "gender": "f"
+  },
+  {
+    "slug": "juliette",
+    "display": "Juliette",
+    "kana": "ジュリエット",
+    "romaji": "jurietto",
+    "art": "jurieto",
+    "gender": "f"
+  },
+  {
+    "slug": "leonie",
+    "display": "Léonie",
+    "kana": "レオニー",
+    "romaji": "reonī",
+    "art": "reoni",
+    "gender": "f"
+  },
+  {
+    "slug": "zoe",
+    "display": "Zoé",
+    "kana": "ゾエ",
+    "romaji": "zoe",
+    "art": "zoe",
+    "gender": "f",
+    "defaults": [
+      "奏",
+      "恵"
+    ]
+  },
+  {
+    "slug": "chloe",
+    "display": "Chloé",
+    "kana": "クロエ",
+    "romaji": "kuroe",
+    "art": "kuroe",
+    "gender": "f"
+  },
+  {
+    "slug": "martin",
+    "display": "Martin",
+    "kana": "マルタン",
+    "romaji": "marutan",
+    "art": "marutan",
+    "gender": "m"
+  },
+  {
+    "slug": "theo",
+    "display": "Théo",
+    "kana": "テオ",
+    "romaji": "teo",
+    "art": "teo",
+    "gender": "m"
+  },
+  {
+    "slug": "lea",
+    "display": "Léa",
+    "kana": "レア",
+    "romaji": "rea",
+    "art": "rea",
+    "gender": "f"
+  },
+  {
+    "slug": "gaspard",
+    "display": "Gaspard",
+    "kana": "ガスパール",
+    "romaji": "gasupāru",
+    "art": "gasuparu",
+    "gender": "m",
+    "note": "Search check 2026-11-18 (jawiki / eiga.com / soccer media).",
+    "alt": [
+      "ギャスパー"
+    ]
+  },
+  {
+    "slug": "mathis",
+    "display": "Mathis",
+    "kana": "マティス",
+    "romaji": "matisu",
+    "art": "matisu",
+    "gender": "m",
+    "note": "マチス also seen"
+  },
+  {
+    "slug": "come",
+    "display": "Côme",
+    "kana": "コーム",
+    "romaji": "kōmu",
+    "art": "komu",
+    "gender": "m",
+    "note": "コーム also コム"
+  },
+  {
+    "slug": "augustin",
+    "display": "Augustin",
+    "kana": "オーギュスタン",
+    "romaji": "ōgyusutan",
+    "art": "ogusutan",
+    "gender": "m",
+    "note": "art approximates ギュ with gu"
+  },
+  {
+    "slug": "charlotte",
+    "display": "Charlotte",
+    "kana": "シャルロット",
+    "romaji": "sharurotto",
+    "art": "sharuroto",
+    "gender": "f"
+  },
+  {
+    "slug": "lucie",
+    "display": "Lucie",
+    "kana": "リュシー",
+    "romaji": "ryushī",
+    "art": "ryushi",
+    "gender": "f",
+    "defaults": [
+      "琉",
+      "詩"
+    ]
+  },
+  {
+    "slug": "margaux",
+    "display": "Margaux",
+    "kana": "マルゴー",
+    "romaji": "marugō",
+    "art": "marugo",
+    "gender": "f",
+    "note": "マルゴ also seen"
+  },
+  {
+    "slug": "ines",
+    "display": "Inès",
+    "kana": "イネス",
+    "romaji": "inesu",
+    "art": "inesu",
+    "gender": "f"
+  },
+  {
+    "slug": "capucine",
+    "display": "Capucine",
+    "kana": "キャプシーヌ",
+    "romaji": "kyapushīnu",
+    "art": "kapushinu",
+    "gender": "f",
+    "note": "Search check 2026-11-18 (jawiki / eiga.com / soccer media).",
+    "alt": [
+      "カピュシーヌ"
+    ]
+  }
 ]
