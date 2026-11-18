@@ -21,114 +21,141 @@
 --washi:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 .9 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E")}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.7;position:relative}
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 60% 40% at 78% 8%,rgba(232,226,213,.045),transparent 70%),radial-gradient(ellipse 46% 34% at -6% 86%,rgba(199,62,44,.04),transparent 72%),var(--washi)}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 60% 40% at 78% 8%,rgba(232,226,213,.045),transparent 70%),var(--washi)}
 .wrap{max-width:920px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
-.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;padding:34px 0 0}
-.brand{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:12px}
+.brand{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);padding:34px 0 0;display:flex;align-items:center;gap:12px}
 .brand::before{content:"印";font-family:'Yuji Syuku',serif;font-size:13px;color:#fdf6ea;background:var(--seal);width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(3deg);letter-spacing:0}
 .brand a{color:inherit;text-decoration:none}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;padding:34px 0 0}
+.top .brand{padding:0}
 .langs{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:4px 14px;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.06em}
 .langs a{position:relative;color:var(--muted);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
 .langs a::after{content:"";position:absolute;inset:-8px -6px}
 .langs a:hover{color:var(--ink)}
 .langs a[aria-current]{color:var(--gold);border-bottom-color:var(--gold)}
-h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(32px,5.4vw,50px);line-height:1.2;margin:26px 0 10px;color:var(--head)}
-h2{font-family:'Shippori Mincho',serif;font-size:clamp(21px,3vw,25px);line-height:1.35;color:var(--head);margin:48px 0 14px}
-p{margin:10px 0}
-.lead{color:rgba(232,226,213,.82);max-width:680px;font-size:16px}
-.lead b{color:var(--head);font-weight:600}
-.namebox{margin:28px 0 0;padding:22px;border:1px solid var(--line);background:rgba(26,26,22,.82);max-width:680px}
-.namebox label{display:block;font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-.nb-row{display:flex;flex-wrap:wrap;gap:10px}
-.nb-row input{flex:1 1 220px;min-width:0;background:#0f0f0c;border:1px solid var(--line);color:var(--head);font-family:'Inter',sans-serif;font-size:18px;padding:13px 14px;border-radius:0}
-.nb-row input:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
-.cta{flex:0 1 auto;display:inline-block;background:#15150f;color:var(--gold);border:1px solid var(--gold);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:15px 22px;text-decoration:none;cursor:pointer;position:relative;overflow:hidden;z-index:0;transition:color .2s}
+h1{font-family:'Shippori Mincho',serif;font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.25;margin:16px 0 6px;color:var(--head)}
+h2{font-family:'Shippori Mincho',serif;font-size:24px;color:var(--head);margin:40px 0 12px}
+.sub{color:var(--muted);max-width:640px;font-size:15px}
+.hero{display:grid;grid-template-columns:280px 1fr;gap:34px;margin:30px 0;align-items:center}
+.art-preview{display:block;width:100%;height:auto;box-shadow:0 0 60px rgba(184,146,80,.12),0 24px 48px rgba(0,0,0,.45)}
+@media(max-width:700px){.hero{grid-template-columns:1fr}.art-preview{max-width:420px;margin-inline:auto}}
+table{border-collapse:collapse;width:100%;font-size:15px}
+td,th{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:middle}
+th{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+td .kj{font-family:'Yuji Syuku',serif;font-size:26px;color:var(--head)}
+.alts{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 4px}
+.alt{border:1px solid var(--line);background:var(--panel);padding:10px 14px;min-width:96px;text-align:center}
+.alt .kj{font-family:'Yuji Syuku',serif;font-size:30px;color:var(--head);display:block}
+.alt .mm{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold)}
+.syl{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:22px 0 0}
+.cta{display:inline-block;background:#15150f;color:var(--gold);border:1px solid var(--gold);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:16px 30px;text-decoration:none;margin:26px 0 8px;position:relative;overflow:hidden;z-index:0;transition:.2s}
 .cta::before{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.3,0,.2,1);z-index:-1}
-.cta:hover,.cta:focus-visible{color:#131310}
-.cta:hover::before,.cta:focus-visible::before{transform:scaleX(1)}
+.cta:hover{color:#131310}
+.cta:hover::before{transform:scaleX(1)}
+.cta:active{transform:translateY(1px)}
 @media(prefers-reduced-motion:reduce){.cta::before{transition:none}}
-@media(max-width:480px){.cta{flex:1 1 100%}}
-.nb-note{font-size:13px;color:var(--muted);margin:12px 0 0}
-.nb-note b{color:var(--ink);font-weight:600}
-.scripts{margin:0;display:grid;max-width:760px}
-.sc-row{display:grid;grid-template-columns:110px minmax(0,1fr);gap:4px 18px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
-.sc-row:first-child{border-top:1px solid var(--line)}
+.note{font-size:12.5px;color:var(--muted)}
+.apx{color:var(--muted);font-size:.85em;letter-spacing:.04em}
+.alt .apx{display:block;font-size:10px;margin-top:2px}
+.alt{position:relative}
+.alt.sel{border:2px solid var(--gold);background:rgba(184,146,80,.08);padding:9px 13px}
+.seal-sel{font-style:normal;font-family:'Yuji Syuku',serif;font-size:11px;color:var(--seal);background:#e8e2d5;border:1px solid var(--seal);box-sizing:border-box;width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;border-radius:2px;transform:rotate(-6deg);position:absolute;top:6px;right:6px;letter-spacing:0}
+.selline{display:block;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:4px}
+.qa{border-bottom:1px solid var(--line);padding:14px 0}
+.qa b{display:block;color:var(--head);margin-bottom:4px}
+.qa p{color:var(--muted);font-size:14.5px}
+.qa-more{margin-top:6px;font-size:13px}
+.qa-more a{color:var(--gold)}
+.rel{display:flex;flex-wrap:wrap;gap:8px}
+.rel a{border:1px solid var(--line);color:var(--ink);text-decoration:none;padding:7px 14px;font-size:13px}
+.rel a:hover{border-color:var(--gold)}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:24px 0 40px;color:var(--muted);font-size:13px;text-align:center}
+footer a{color:var(--gold)}
+.flogo{display:inline-block;margin-bottom:12px}
+.flogo img{width:84px;height:84px;display:block;opacity:.92;transition:opacity .2s,transform .2s}
+.flogo:hover img{opacity:1;transform:rotate(-3deg)}
+.az-nav{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}
+.az-nav a{border:1px solid var(--line);color:var(--ink);text-decoration:none;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-family:'Shippori Mincho',serif;font-size:15px}
+.az-nav a:hover{border-color:var(--gold);color:var(--gold)}
+p{margin:10px 0}
+.body-copy{color:var(--ink);max-width:720px}
+.say-pick{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 0}
+.say-q{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.say-b{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.04em;padding:8px 14px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:.15s}
+.say-b:hover{border-color:var(--gold);color:var(--ink)}
+.say-b.on{background:var(--gold);color:#131310;border-color:var(--gold);font-weight:700}
+.say-b .ss{display:block;font-size:10px;letter-spacing:.08em;opacity:.72;margin-top:2px;font-weight:400}
+.vgrp[hidden]{display:none}
+.an{margin:22px 0 0;padding-top:16px;border-top:1px solid var(--line);text-align:left}
+.an p{margin:0}
+.an-l1{font-size:13.5px;line-height:1.75;color:var(--ink)}
+.an-lbl{font-family:'Space Grotesk',sans-serif;color:rgba(232,226,213,.6)}
+.an-kana{font-family:'Shippori Mincho',serif;font-size:17px;color:var(--ink);margin:0 .3em;white-space:nowrap}
+.an-romaji{font-family:'Inter',sans-serif;color:rgba(232,226,213,.6)}
+.sc-h{font-size:17px;margin:0 0 10px}
+.scripts{margin:0;display:grid;gap:10px}
+.sc-row{display:grid;grid-template-columns:92px minmax(0,1fr);gap:4px 14px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line)}
 .sc-row dt{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
-.sc-row dd{margin:0;font-size:14px;line-height:1.75;color:rgba(232,226,213,.78)}
-.sc-script{font-family:'Shippori Mincho',serif;font-size:26px;color:var(--head);margin-right:.4em}
-.sc-kanji{font-family:'Yuji Syuku',serif}
-.romaji{color:var(--muted);font-size:13px}
-.sc-why{display:block;margin-top:4px}
+.sc-row dd{margin:0;font-size:13px;line-height:1.7;color:rgba(232,226,213,.72)}
+.sc-script{font-family:'Shippori Mincho',serif;font-size:22px;color:var(--head);margin-right:.4em}
+.sc-why{display:block;margin-top:2px}
+.sc-copy{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);background:transparent;border:1px solid var(--line);min-height:28px;padding:4px 10px;margin-right:.7em;vertical-align:.35em;cursor:pointer;transition:border-color .15s,color .15s}
+.sc-copy:hover,.sc-copy:focus-visible{border-color:var(--gold)}
+.sc-copy:focus-visible{outline:1px solid var(--gold);outline-offset:2px}
+.sc-copy.done{color:var(--ink);border-color:var(--gold)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.pop-h{margin-top:28px}
 @media(max-width:480px){.sc-row{grid-template-columns:1fr}}
-.body-copy{max-width:720px;color:rgba(232,226,213,.82)}
-.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin:18px 0 0}
+.an-l2,.an-l3{font-family:'Inter',sans-serif;font-size:12.5px;color:rgba(232,226,213,.55);line-height:1.75;margin-top:6px}
+
+.crumbs{font-size:12.5px;color:var(--muted);margin:18px 0 0;display:flex;flex-wrap:wrap;gap:2px 8px}
+.crumbs a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+.crumbs a:hover{color:var(--ink)}
+.crumbs + h1{margin-top:10px}
+.sub b{color:var(--ink)}
+.kcard{container-type:inline-size;position:relative;aspect-ratio:2/3;background:radial-gradient(ellipse 90% 70% at 30% 18%,#f7efdf,#e7dbc1 78%);color:#1b1812;display:flex;align-items:center;justify-content:center;padding:9% 0 14%;overflow:hidden}
+.kcard::before{content:"";position:absolute;inset:3.5%;border:1px solid rgba(27,24,18,.16);pointer-events:none}
+.kcard-k{writing-mode:vertical-rl;font-family:'Yuji Syuku',serif;font-size:var(--ks,30cqw);line-height:1.05;letter-spacing:.06em}
+.kcard-seal{position:absolute;right:9%;bottom:7%;width:max(20px,8cqw);height:max(20px,8cqw);background:var(--seal);color:#fdf6ea;font-family:'Yuji Syuku',serif;font-size:max(12px,4.6cqw);display:flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(-4deg)}
+.kcard-name{position:absolute;left:0;right:0;bottom:8.5%;text-align:center;font-family:'Space Grotesk',sans-serif;font-size:max(9px,3.4cqw);letter-spacing:.3em;text-transform:uppercase;color:rgba(27,24,18,.55)}
+.alt{max-width:100%}
+.an-romaji{margin-right:.4em}
+.sc-alt,.sc-note{display:block;margin-top:2px;color:var(--ink)}
+.sc-note{color:rgba(232,226,213,.78);font-style:italic}
+.small-note{font-size:12.5px;color:var(--muted);max-width:720px}
+.qa h3{font:inherit;font-weight:700;color:var(--head);margin-bottom:4px}
+.trust{margin:40px 0 0;font-size:13px;color:var(--muted)}
+.trust a{color:var(--gold)}
+.jump{margin:22px 0 0}
+/* list pages: name cards (same look as the /fr/ /it/ /id/ landing grids) */
+.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin:14px 0 0}
 .nc{display:block;border:1px solid var(--line);background:rgba(26,26,22,.82);padding:14px 14px 12px;text-decoration:none;color:var(--ink);transition:border-color .15s}
 .nc:hover,.nc:focus-visible{border-color:var(--gold)}
 .nc-name{display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:var(--head)}
 .nc-kana{display:block;font-family:'Shippori Mincho',serif;font-size:16px;color:rgba(232,226,213,.8);margin-top:2px}
 .nc-kanji{display:block;font-family:'Yuji Syuku',serif;font-size:26px;line-height:1.3;color:var(--head);margin-top:6px;overflow-wrap:anywhere}
 .nc-mean{display:block;font-size:11.5px;line-height:1.5;color:var(--muted);margin-top:4px}
-.grid-note{font-size:13px;color:var(--muted);max-width:720px}
-.grid-more{margin:16px 0 0;font-size:14px}
-.grid-more a{color:var(--gold)}
-.qa{border-bottom:1px solid var(--line);padding:16px 0;max-width:760px}
-.qa h3{font-family:'Inter',sans-serif;font-size:15.5px;font-weight:600;color:var(--head);margin-bottom:4px}
-.qa p{color:rgba(232,226,213,.72);font-size:14.5px;margin:0}
-.trust{margin:44px 0 0;padding:18px 0 0;border-top:1px solid var(--line);font-size:14px;color:rgba(232,226,213,.8)}
-.trust a{color:var(--gold)}
-footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0 40px;color:var(--muted);font-size:13px;text-align:center}
-footer a{color:var(--gold)}
-.flogo{display:inline-block;margin-bottom:12px}
-.flogo img{width:84px;height:84px;display:block;opacity:.92}
+@media(max-width:480px){.ngrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
-.crumbs{font-size:12.5px;color:var(--muted);margin:22px 0 0;display:flex;flex-wrap:wrap;gap:2px 8px}
-.crumbs a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
-.crumbs a:hover{color:var(--ink)}
-.hero{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px;align-items:start;margin:30px 0 0}
-.kcard{position:relative;aspect-ratio:2/3;width:100%;background:radial-gradient(ellipse 90% 70% at 30% 18%,#f7efdf,#e7dbc1 78%);color:#1b1812;box-shadow:0 0 50px rgba(184,146,80,.12),0 20px 40px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px 0;overflow:hidden}
-.kcard-k{writing-mode:vertical-rl;font-family:'Yuji Syuku',serif;font-size:var(--ks,60px);line-height:1.05;letter-spacing:.06em}
-.kcard-seal{position:absolute;left:14px;bottom:14px;width:24px;height:24px;background:var(--seal);color:#fdf6ea;font-family:'Yuji Syuku',serif;font-size:14px;display:flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(-4deg)}
-.kcard-name{position:absolute;right:12px;bottom:12px;font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(27,24,18,.55)}
-@media(max-width:640px){.hero{grid-template-columns:1fr;gap:24px}.kcard{width:180px;margin:0 auto}}
-.sc-copy{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);background:transparent;border:1px solid var(--line);min-height:28px;padding:4px 10px;margin-right:.7em;vertical-align:.35em;cursor:pointer}
-.sc-copy:hover,.sc-copy:focus-visible{border-color:var(--gold)}
-.sc-copy.done{color:var(--ink);border-color:var(--gold)}
-.cta-row{margin:30px 0 0}
-.cta-note{font-size:12.5px;color:var(--muted);margin:10px 0 0}
-table{border-collapse:collapse;width:100%;max-width:760px;font-size:15px;margin:14px 0 0}
-td,th{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:middle}
-th{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
-td .kj{font-family:'Yuji Syuku',serif;font-size:26px;color:var(--head)}
-.apx{color:var(--muted);font-size:.85em;letter-spacing:.04em}
-.small-note{font-size:12.5px;color:var(--muted);max-width:720px}
-.syl{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.12em;color:var(--muted);margin:22px 0 0}
-.alts{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 4px}
-.alt{position:relative;border:1px solid var(--line);background:var(--panel);padding:10px 14px;min-width:96px;max-width:100%;text-align:center}
-.alt .kj{font-family:'Yuji Syuku',serif;font-size:30px;color:var(--head);display:block}
-.alt .mm{font-size:11.5px;line-height:1.4;color:var(--gold);display:block}
-.alt .apx{display:block;font-size:10px;margin-top:2px}
-.alt.sel{border:2px solid var(--gold);background:rgba(184,146,80,.08);padding:9px 13px}
-.seal-sel{font-style:normal;font-family:'Yuji Syuku',serif;font-size:11px;color:var(--seal);background:#e8e2d5;border:1px solid var(--seal);width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;border-radius:2px;transform:rotate(-6deg);position:absolute;top:6px;right:6px}
-.selline{display:block;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:4px}
-.sc-alt,.sc-note{display:block;margin-top:4px;font-size:13px;color:var(--ink)}
-.sc-note{color:rgba(232,226,213,.78);font-style:italic}
-.rel{display:flex;flex-wrap:wrap;gap:8px}
-.rel a{border:1px solid var(--line);color:var(--ink);text-decoration:none;padding:7px 14px;font-size:13px}
-.rel a:hover{border-color:var(--gold)}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.names-index::before{background:radial-gradient(ellipse 60% 40% at 78% 8%,rgba(232,226,213,.05),transparent 70%),radial-gradient(ellipse 46% 34% at -6% 86%,rgba(199,62,44,.05),transparent 72%),var(--washi)}
+.list-watermark{position:fixed;z-index:0;pointer-events:none;writing-mode:vertical-rl;font-family:'Yuji Syuku',serif;line-height:.82;letter-spacing:.1em;user-select:none}
+.list-watermark-left{left:-.14em;top:56%;font-size:clamp(175px,22vw,350px);color:rgba(232,226,213,.03);transform:rotate(7deg)}
+.list-watermark-right{right:-.08em;top:13%;font-size:clamp(150px,18vw,290px);color:rgba(232,226,213,.036);transform:rotate(-5deg)}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://kanji.kugainc.com/id/nama/#webpage","url":"https://kanji.kugainc.com/id/nama/","name":"Nama Indonesia dalam bahasa Jepang","inLanguage":"id","description":"50 nama yang populer di Indonesia dalam bahasa Jepang: katakana sesuai pelafalan Indonesia, hiragana, dan kanji (ateji) beserta maknanya.","isPartOf":{"@id":"https://kanji.kugainc.com/#website"},"mainEntity":{"@id":"https://kanji.kugainc.com/id/nama/#names"}},{"@type":"ItemList","@id":"https://kanji.kugainc.com/id/nama/#names","name":"Nama Indonesia dalam bahasa Jepang","numberOfItems":50,"itemListElement":[{"@type":"ListItem","position":1,"name":"Putri dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/putri"},{"@type":"ListItem","position":2,"name":"Siti dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/siti"},{"@type":"ListItem","position":3,"name":"Rizky dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/rizky"},{"@type":"ListItem","position":4,"name":"Dewi dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/dewi"},{"@type":"ListItem","position":5,"name":"Budi dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/budi"},{"@type":"ListItem","position":6,"name":"Sri dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/sri"},{"@type":"ListItem","position":7,"name":"Agus dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/agus"},{"@type":"ListItem","position":8,"name":"Nur dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/nur"},{"@type":"ListItem","position":9,"name":"Wahyu dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/wahyu"},{"@type":"ListItem","position":10,"name":"Ayu dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/ayu"},{"@type":"ListItem","position":11,"name":"Dimas dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/dimas"},{"@type":"ListItem","position":12,"name":"Indah dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/indah"},{"@type":"ListItem","position":13,"name":"Fajar dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/fajar"},{"@type":"ListItem","position":14,"name":"Aisyah dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/aisyah"},{"@type":"ListItem","position":15,"name":"Adi dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/adi"},{"@type":"ListItem","position":16,"name":"Nurhayati dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/nurhayati"},{"@type":"ListItem","position":17,"name":"Bayu dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/bayu"},{"@type":"ListItem","position":18,"name":"Lestari dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/lestari"},{"@type":"ListItem","position":19,"name":"Eko dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/eko"},{"@type":"ListItem","position":20,"name":"Nabila dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/nabila"},{"@type":"ListItem","position":21,"name":"Andi dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/andi"},{"@type":"ListItem","position":22,"name":"Salsabila dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/salsabila"},{"@type":"ListItem","position":23,"name":"Joko dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/joko"},{"@type":"ListItem","position":24,"name":"Wahyuni dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/wahyuni"},{"@type":"ListItem","position":25,"name":"Hendra dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/hendra"},{"@type":"ListItem","position":26,"name":"Fitri dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/fitri"},{"@type":"ListItem","position":27,"name":"Wahyudi dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/wahyudi"},{"@type":"ListItem","position":28,"name":"Ratna dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/ratna"},{"@type":"ListItem","position":29,"name":"Aldi dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/aldi"},{"@type":"ListItem","position":30,"name":"Intan dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/intan"},{"@type":"ListItem","position":31,"name":"Ardiansyah dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/ardiansyah"},{"@type":"ListItem","position":32,"name":"Rina dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/rina"},{"@type":"ListItem","position":33,"name":"Slamet dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/slamet"},{"@type":"ListItem","position":34,"name":"Citra dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/citra"},{"@type":"ListItem","position":35,"name":"Sutrisno dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/sutrisno"},{"@type":"ListItem","position":36,"name":"Dinda dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/dinda"},{"@type":"ListItem","position":37,"name":"Yusuf dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/yusuf"},{"@type":"ListItem","position":38,"name":"Anisa dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/anisa"},{"@type":"ListItem","position":39,"name":"Arif dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/arif"},{"@type":"ListItem","position":40,"name":"Kartika dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/kartika"},{"@type":"ListItem","position":41,"name":"Ilham dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/ilham"},{"@type":"ListItem","position":42,"name":"Rahma dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/rahma"},{"@type":"ListItem","position":43,"name":"Reza dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/reza"},{"@type":"ListItem","position":44,"name":"Zahra dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/zahra"},{"@type":"ListItem","position":45,"name":"Bagus dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/bagus"},{"@type":"ListItem","position":46,"name":"Sari dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/sari"},{"@type":"ListItem","position":47,"name":"Putra dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/putra"},{"@type":"ListItem","position":48,"name":"Dian dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/dian"},{"@type":"ListItem","position":49,"name":"Rudi dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/rudi"},{"@type":"ListItem","position":50,"name":"Rangga dalam bahasa Jepang","url":"https://kanji.kugainc.com/id/nama/rangga"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Kanji My Name","item":"https://kanji.kugainc.com/"},{"@type":"ListItem","position":2,"name":"Nama kamu dalam bahasa Jepang","item":"https://kanji.kugainc.com/id/"},{"@type":"ListItem","position":3,"name":"Nama Indonesia dalam bahasa Jepang","item":"https://kanji.kugainc.com/id/nama/"}]}]}</script>
 <script>(function(){var CF_BEACON_TOKEN="";if(!CF_BEACON_TOKEN)return;var s=document.createElement("script");s.type="module";s.src="https://static.cloudflareinsights.com/beacon.min.js";s.setAttribute("data-cf-beacon",JSON.stringify({token:CF_BEACON_TOKEN}));document.head.appendChild(s);})();</script>
 </head>
-<body>
+<body class="names-index">
+<div class="list-watermark list-watermark-left" aria-hidden="true">名</div>
+<div class="list-watermark list-watermark-right" aria-hidden="true">前</div>
 <div class="wrap">
   <div class="top"><div class="brand"><a href="../../">Kanji My Name</a></div><nav class="langs" aria-label="Bahasa"><a href="../../" hreflang="en" lang="en">English</a><a href="../../fr/" hreflang="fr" lang="fr">Français</a><a href="../../it/" hreflang="it" lang="it">Italiano</a><a href="../../id/" hreflang="id" lang="id" aria-current="page">Bahasa Indonesia</a></nav></div>
   <nav class="crumbs" aria-label="Breadcrumb"><a href="../">Nama kamu dalam bahasa Jepang</a></nav>
-
   <h1>Nama Indonesia dalam bahasa Jepang</h1>
-  <p class="lead">50 nama yang populer di Indonesia, ditulis dengan katakana sesuai pelafalannya, lengkap dengan satu usulan kanji. Klik nama untuk melihat semua cara menulisnya.</p>
+  <p class="sub">50 nama yang populer di Indonesia, ditulis dengan katakana sesuai pelafalannya, lengkap dengan satu usulan kanji. Klik nama untuk melihat semua cara menulisnya. <a style="color:var(--gold)" href="../../" hreflang="en">Buka generator (bahasa Inggris) →</a></p>
+  <nav class="rel jump" aria-label="Nama Indonesia dalam bahasa Jepang"><a href="#f">Nama perempuan (24)</a><a href="#m">Nama laki-laki (25)</a><a href="#u">Nama uniseks (1)</a></nav>
 
-  <h2>Nama perempuan</h2>
+  <h2 id="f">Nama perempuan</h2>
   <div class="ngrid">
     <a class="nc" href="putri"><span class="nc-name">Putri</span><span class="nc-kana" lang="ja">プトゥリ</span><span class="nc-kanji" lang="ja">風斗莉</span><span class="nc-mean">angin / Bintang Biduk / melati</span></a>
     <a class="nc" href="siti"><span class="nc-name">Siti</span><span class="nc-kana" lang="ja">シティ</span><span class="nc-kanji" lang="ja">志智</span><span class="nc-mean">cita-cita / kebijaksanaan</span></a>
@@ -156,7 +183,7 @@ td .kj{font-family:'Yuji Syuku',serif;font-size:26px;color:var(--head)}
     <a class="nc" href="sari"><span class="nc-name">Sari</span><span class="nc-kana" lang="ja">サリ</span><span class="nc-kanji" lang="ja">咲莉</span><span class="nc-mean">mekar / melati</span></a>
   </div>
 
-  <h2>Nama laki-laki</h2>
+  <h2 id="m">Nama laki-laki</h2>
   <div class="ngrid">
     <a class="nc" href="rizky"><span class="nc-name">Rizky</span><span class="nc-kana" lang="ja">リズキ</span><span class="nc-kanji" lang="ja">理瑞輝</span><span class="nc-mean">nalar · kebenaran / pertanda baik / sinar gemilang</span></a>
     <a class="nc" href="budi"><span class="nc-name">Budi</span><span class="nc-kana" lang="ja">ブディ</span><span class="nc-kanji" lang="ja">武慈</span><span class="nc-mean">pejuang / welas asih</span></a>
@@ -185,7 +212,7 @@ td .kj{font-family:'Yuji Syuku',serif;font-size:26px;color:var(--head)}
     <a class="nc" href="rangga"><span class="nc-name">Rangga</span><span class="nc-kana" lang="ja">ランガ</span><span class="nc-kanji" lang="ja">蘭雅</span><span class="nc-mean">anggrek / keanggunan</span></a>
   </div>
 
-  <h2>Nama uniseks</h2>
+  <h2 id="u">Nama uniseks</h2>
   <div class="ngrid">
     <a class="nc" href="dian"><span class="nc-name">Dian</span><span class="nc-kana" lang="ja">ディアン</span><span class="nc-kanji" lang="ja">慈安</span><span class="nc-mean">welas asih / damai</span></a>
   </div>

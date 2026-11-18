@@ -25,7 +25,7 @@ import { STRINGS, LOCALE_NAME_STRINGS } from "./i18n-strings.mjs";
 import {
   langSwitcher,
   LOCALES, LOCALE_DIRS, loadLocaleNames, loadLocaleMeanings, extractEngine, analyzeLocaleName,
-  foldName, I18N_CSS, I18N_FONTS_LINK, CF_BEACON_SNIPPET,
+  foldName, NAME_PAGE_CSS, NAME_HUB_ART_CSS, I18N_FONTS_LINK, CF_BEACON_SNIPPET,
 } from "./locale-names-lib.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -121,42 +121,37 @@ const newSrc = src.replace(MARK, (_, a, b) => `${a}const LOCALE_NAMES=${JSON.str
 if (newSrc !== src) fs.writeFileSync(INDEX, newSrc);
 
 // ---- 3. pages ----
-const PAGE_CSS = I18N_CSS + `
-.crumbs{font-size:12.5px;color:var(--muted);margin:22px 0 0;display:flex;flex-wrap:wrap;gap:2px 8px}
+// Same look and section order as the English /names/<name> pages: their CSS (NAME_PAGE_CSS, shared
+// via locale-names-lib.mjs) + only what the locale pages add on top.
+const PAGE_CSS = NAME_PAGE_CSS + `
+.crumbs{font-size:12.5px;color:var(--muted);margin:18px 0 0;display:flex;flex-wrap:wrap;gap:2px 8px}
 .crumbs a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
 .crumbs a:hover{color:var(--ink)}
-.hero{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px;align-items:start;margin:30px 0 0}
-.kcard{position:relative;aspect-ratio:2/3;width:100%;background:radial-gradient(ellipse 90% 70% at 30% 18%,#f7efdf,#e7dbc1 78%);color:#1b1812;box-shadow:0 0 50px rgba(184,146,80,.12),0 20px 40px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px 0;overflow:hidden}
-.kcard-k{writing-mode:vertical-rl;font-family:'Yuji Syuku',serif;font-size:var(--ks,60px);line-height:1.05;letter-spacing:.06em}
-.kcard-seal{position:absolute;left:14px;bottom:14px;width:24px;height:24px;background:var(--seal);color:#fdf6ea;font-family:'Yuji Syuku',serif;font-size:14px;display:flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(-4deg)}
-.kcard-name{position:absolute;right:12px;bottom:12px;font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(27,24,18,.55)}
-@media(max-width:640px){.hero{grid-template-columns:1fr;gap:24px}.kcard{width:180px;margin:0 auto}}
-.sc-copy{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);background:transparent;border:1px solid var(--line);min-height:28px;padding:4px 10px;margin-right:.7em;vertical-align:.35em;cursor:pointer}
-.sc-copy:hover,.sc-copy:focus-visible{border-color:var(--gold)}
-.sc-copy.done{color:var(--ink);border-color:var(--gold)}
-.cta-row{margin:30px 0 0}
-.cta-note{font-size:12.5px;color:var(--muted);margin:10px 0 0}
-table{border-collapse:collapse;width:100%;max-width:760px;font-size:15px;margin:14px 0 0}
-td,th{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:middle}
-th{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
-td .kj{font-family:'Yuji Syuku',serif;font-size:26px;color:var(--head)}
-.apx{color:var(--muted);font-size:.85em;letter-spacing:.04em}
-.small-note{font-size:12.5px;color:var(--muted);max-width:720px}
-.syl{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.12em;color:var(--muted);margin:22px 0 0}
-.alts{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 4px}
-.alt{position:relative;border:1px solid var(--line);background:var(--panel);padding:10px 14px;min-width:96px;max-width:100%;text-align:center}
-.alt .kj{font-family:'Yuji Syuku',serif;font-size:30px;color:var(--head);display:block}
-.alt .mm{font-size:11.5px;line-height:1.4;color:var(--gold);display:block}
-.alt .apx{display:block;font-size:10px;margin-top:2px}
-.alt.sel{border:2px solid var(--gold);background:rgba(184,146,80,.08);padding:9px 13px}
-.seal-sel{font-style:normal;font-family:'Yuji Syuku',serif;font-size:11px;color:var(--seal);background:#e8e2d5;border:1px solid var(--seal);width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;border-radius:2px;transform:rotate(-6deg);position:absolute;top:6px;right:6px}
-.selline{display:block;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:4px}
-.sc-alt,.sc-note{display:block;margin-top:4px;font-size:13px;color:var(--ink)}
+.crumbs + h1{margin-top:10px}
+.sub b{color:var(--ink)}
+.kcard{container-type:inline-size;position:relative;aspect-ratio:2/3;background:radial-gradient(ellipse 90% 70% at 30% 18%,#f7efdf,#e7dbc1 78%);color:#1b1812;display:flex;align-items:center;justify-content:center;padding:9% 0 14%;overflow:hidden}
+.kcard::before{content:"";position:absolute;inset:3.5%;border:1px solid rgba(27,24,18,.16);pointer-events:none}
+.kcard-k{writing-mode:vertical-rl;font-family:'Yuji Syuku',serif;font-size:var(--ks,30cqw);line-height:1.05;letter-spacing:.06em}
+.kcard-seal{position:absolute;right:9%;bottom:7%;width:max(20px,8cqw);height:max(20px,8cqw);background:var(--seal);color:#fdf6ea;font-family:'Yuji Syuku',serif;font-size:max(12px,4.6cqw);display:flex;align-items:center;justify-content:center;border-radius:3px;transform:rotate(-4deg)}
+.kcard-name{position:absolute;left:0;right:0;bottom:8.5%;text-align:center;font-family:'Space Grotesk',sans-serif;font-size:max(9px,3.4cqw);letter-spacing:.3em;text-transform:uppercase;color:rgba(27,24,18,.55)}
+.alt{max-width:100%}
+.an-romaji{margin-right:.4em}
+.sc-alt,.sc-note{display:block;margin-top:2px;color:var(--ink)}
 .sc-note{color:rgba(232,226,213,.78);font-style:italic}
-.rel{display:flex;flex-wrap:wrap;gap:8px}
-.rel a{border:1px solid var(--line);color:var(--ink);text-decoration:none;padding:7px 14px;font-size:13px}
-.rel a:hover{border-color:var(--gold)}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.small-note{font-size:12.5px;color:var(--muted);max-width:720px}
+.qa h3{font:inherit;font-weight:700;color:var(--head);margin-bottom:4px}
+.trust{margin:40px 0 0;font-size:13px;color:var(--muted)}
+.trust a{color:var(--gold)}
+.jump{margin:22px 0 0}
+/* list pages: name cards (same look as the /fr/ /it/ /id/ landing grids) */
+.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin:14px 0 0}
+.nc{display:block;border:1px solid var(--line);background:rgba(26,26,22,.82);padding:14px 14px 12px;text-decoration:none;color:var(--ink);transition:border-color .15s}
+.nc:hover,.nc:focus-visible{border-color:var(--gold)}
+.nc-name{display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:var(--head)}
+.nc-kana{display:block;font-family:'Shippori Mincho',serif;font-size:16px;color:rgba(232,226,213,.8);margin-top:2px}
+.nc-kanji{display:block;font-family:'Yuji Syuku',serif;font-size:26px;line-height:1.3;color:var(--head);margin-top:6px;overflow-wrap:anywhere}
+.nc-mean{display:block;font-size:11.5px;line-height:1.5;color:var(--muted);margin-top:4px}
+@media(max-width:480px){.ngrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 `;
 
 const ICON = `<link rel="icon" type="image/png" href="../../image/kanjimyname-icon.png?v=2">`;
@@ -165,7 +160,7 @@ const FOOTER = `<footer><a href="../../" class="flogo" aria-label="Kanji My Name
 // French typography (same rule as build-i18n.mjs): no-break space before : ; ? ! » and after «.
 const finish = (lc, html) => (lc === "fr" ? html.replace(/ ([:;?!»])(?=[\s<"])/g, " $1").replace(/« /g, "« ") : html);
 
-function head(lc, { title, description, url, ogTitle, ld, ogType }) {
+function head(lc, { title, description, url, ogTitle, ld, ogType, extraCss = "" }) {
   const S = STRINGS[lc];
   return `<!DOCTYPE html>
 <html lang="${S.htmlLang}">
@@ -185,7 +180,7 @@ function head(lc, { title, description, url, ogTitle, ld, ogType }) {
 <meta name="twitter:card" content="summary_large_image">
 ${ICON}
 ${I18N_FONTS_LINK}
-<style>${PAGE_CSS}</style>
+<style>${PAGE_CSS}${extraCss}</style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 ${CF_BEACON_SNIPPET}
 </head>`;
@@ -248,7 +243,8 @@ function namePage(lc, a, all) {
       },
     ],
   };
-  const ks = Math.min(60, Math.floor(250 / Math.max(1, a.toks.length)));
+  // Kanji size on the CSS art card, in % of the card width (cqw): one tall column that always fits.
+  const ks = Math.min(30, Math.floor(1150 / Math.max(1, a.toks.length)) / 10);
   const copyBtn = (script, label) =>
     `<button type="button" class="sc-copy" data-copy="${esc(script)}" aria-label="${esc(LS.copyAria(raw, label))}">${esc(LS.copy)}</button>`;
   const soundCell = (t, e) => {
@@ -262,27 +258,24 @@ function namePage(lc, a, all) {
   <nav class="crumbs" aria-label="Breadcrumb"><a href="../">${esc(S.breadcrumbName)}</a><span aria-hidden="true">›</span><a href="./">${esc(LS.listH1)}</a></nav>
 
   <h1>${esc(LS.h1(raw))}</h1>
-  <p class="lead">${LS.sub(h)}</p>
-
+  <p class="sub">${LS.sub(h)}</p>
+  <div class="an">
+    <h2 class="sc-h">${LS.scriptsH2(h)}</h2>
+    <dl class="scripts"><div class="sc-row"><dt>Katakana</dt><dd><span class="sc-script" lang="ja">${h.K}</span>${copyBtn(a.kana, "katakana")}<span class="an-romaji">(${h.R})</span>${a.alt ? `<span class="sc-alt">${esc(LS.altLine(raw.alts))}</span>` : ""}${a.kanaNote ? `<span class="sc-note">${h.kanaNote}</span>` : ""}<span class="sc-why">${LS.kataWhy(h)}</span></dd></div><div class="sc-row"><dt>Hiragana</dt><dd><span class="sc-script" lang="ja">${h.H}</span>${copyBtn(a.hira, "hiragana")}<span class="sc-why">${LS.hiraWhy}</span></dd></div><div class="sc-row"><dt>Kanji</dt><dd><span class="sc-script" lang="ja">${h.kanji}</span><span class="sc-why">${LS.kanjiWhy(h)}</span></dd></div></dl>
+    <p class="an-l3">${esc(LS.permanentNote)}</p>
+    <p class="an-l3">${esc(S.trust)}</p>
+  </div>
   <div class="hero">
-    <div class="kcard" role="img" aria-label="${esc(LS.cardAria(raw))}" style="--ks:${ks}px"><span class="kcard-k" lang="ja">${esc(a.kanji)}</span><span class="kcard-seal" aria-hidden="true">名</span><span class="kcard-name" aria-hidden="true">${esc(a.display)}</span></div>
+    <div class="art-preview kcard" role="img" aria-label="${esc(LS.cardAria(raw))}" style="--ks:${ks}cqw"><span class="kcard-k" lang="ja">${esc(a.kanji)}</span><span class="kcard-seal" aria-hidden="true">名</span><span class="kcard-name" aria-hidden="true">${esc(a.display)}</span></div>
     <div>
-      <h2 style="margin-top:0">${LS.scriptsH2(h)}</h2>
-      <dl class="scripts">
-        <div class="sc-row"><dt>Katakana</dt><dd><span class="sc-script" lang="ja">${h.K}</span>${copyBtn(a.kana, "katakana")}<span class="romaji">(${h.R})</span>${a.alt ? `<span class="sc-alt">${esc(LS.altLine(raw.alts))}</span>` : ""}${a.kanaNote ? `<span class="sc-note">${h.kanaNote}</span>` : ""}<span class="sc-why">${LS.kataWhy(h)}</span></dd></div>
-        <div class="sc-row"><dt>Hiragana</dt><dd><span class="sc-script" lang="ja">${h.H}</span>${copyBtn(a.hira, "hiragana")}<span class="sc-why">${LS.hiraWhy}</span></dd></div>
-        <div class="sc-row"><dt>Kanji</dt><dd><span class="sc-script sc-kanji" lang="ja">${h.kanji}</span><span class="sc-why">${LS.kanjiWhy(h)}</span></dd></div>
-      </dl>
+      <h2 style="margin-top:0">${LS.heroH2(h)}</h2>
+      <p class="body-copy">${LS.breakdownIntro(h)}</p>
+      <a class="cta" href="${genHref}" onclick="try{navigator.sendBeacon&&navigator.sendBeacon('${METRICS}?k=np_cta&s=${lc}')}catch(e){}">${esc(LS.cta(raw))}</a>
+      <p class="note">${esc(LS.ctaNote)}</p>
     </div>
   </div>
 
-  <div class="cta-row">
-    <a class="cta" href="${genHref}" onclick="try{navigator.sendBeacon&&navigator.sendBeacon('${METRICS}?k=np_cta&s=${lc}')}catch(e){}">${esc(LS.cta(raw))}</a>
-    <p class="cta-note">${esc(LS.ctaNote)}</p>
-  </div>
-
   <h2>${LS.breakdownH2(h)}</h2>
-  <p class="body-copy">${LS.breakdownIntro(h)}</p>
   <table>
     <tr><th>${esc(LS.th[0])}</th><th>${esc(LS.th[1])}</th><th>${esc(LS.th[2])}</th></tr>
     ${a.toks.map((t, j) => { const e = a.variants[j][a.picks[j]]; return `<tr><td>${soundCell(t, e)}</td><td><span class="kj" lang="ja">${esc(e[0])}</span></td><td>${meanHtml([a.meaningsLoc[j]])}</td></tr>`; }).join("\n    ")}
@@ -299,13 +292,16 @@ function namePage(lc, a, all) {
     return `<div class="alt${sel ? " sel" : ""}">${sel ? `<i class="seal-sel" aria-label="${esc(LS.selAria)}">選</i>` : ""}<span class="kj" lang="ja">${esc(e[0])}</span><span class="mm">${meanHtml([a.locMeaning(e[1])])}</span>${ts !== t ? `<span class="apx">≈ ${esc(ts)}</span>` : ""}${sel ? `<span class="selline">${esc(LS.selLabel)}</span>` : ""}</div>`;
   }).join("")}</div>`).join("\n  ")}
 
+  <h2>${esc(LS.giftH2)}</h2>
+  <p class="body-copy">${LS.giftBody(h)}</p>
+
   <h2>${LS.faqH2(h)}</h2>
   ${faqHtml.map(([q, ans]) => `<div class="qa"><h3>${q}</h3><p>${ans}</p></div>`).join("\n  ")}
 
   <h2>${esc(LS.relatedH2)}</h2>
   <div class="rel">${rel.map((w) => `<a href="${w.slug}">${esc(w.display)} <span lang="ja">${esc(w.kana)}</span></a>`).join("")}<a href="./">${esc(LS.allLink)}</a></div>
 
-  <p class="trust">${esc(S.trust)} <a href="../">${esc(S.breadcrumbName)}</a> · <a href="../../about" hreflang="en">${esc(S.about)}</a> · <a href="../../" hreflang="en">${esc(S.toolLink)}</a></p>
+  <p class="trust"><a href="../">${esc(S.breadcrumbName)}</a> · <a href="../../about" hreflang="en">${esc(S.about)}</a> · <a href="../../" hreflang="en">${esc(S.toolLink)}</a></p>
 
   ${FOOTER}
 </div>
@@ -354,16 +350,19 @@ function listPage(lc, all) {
   };
   const card = (g) => `<a class="nc" href="${g.slug}"><span class="nc-name">${esc(g.display)}</span><span class="nc-kana" lang="ja">${esc(g.kana)}</span><span class="nc-kanji" lang="ja">${esc(g.kanji)}</span><span class="nc-mean">${meanHtml(g.meaningsLoc)}</span></a>`;
   const groups = ["f", "m", "u"].map((gk) => [gk, all.filter((a) => a.gender === gk)]).filter(([, xs]) => xs.length);
-  const html = `${head(lc, { title: LS.listTitle, description: LS.listDescription(all.length), url, ogTitle: LS.listH1, ld, ogType: "website" })}
-<body>
+  // Same frame as the English /names/ hub (watermarks 名・前, .sub with the generator link, h2 + list per group).
+  const html = `${head(lc, { title: LS.listTitle, description: LS.listDescription(all.length), url, ogTitle: LS.listH1, ld, ogType: "website", extraCss: NAME_HUB_ART_CSS })}
+<body class="names-index">
+<div class="list-watermark list-watermark-left" aria-hidden="true">名</div>
+<div class="list-watermark list-watermark-right" aria-hidden="true">前</div>
 <div class="wrap">
   <div class="top"><div class="brand"><a href="../../">Kanji My Name</a></div>${langSwitcher("../../", lc)}</div>
   <nav class="crumbs" aria-label="Breadcrumb"><a href="../">${esc(S.breadcrumbName)}</a></nav>
-
   <h1>${esc(LS.listH1)}</h1>
-  <p class="lead">${esc(LS.listLead(all.length))}</p>
+  <p class="sub">${esc(LS.listLead(all.length))} <a style="color:var(--gold)" href="../../" hreflang="en">${esc(S.toolLink)} →</a></p>
+  ${groups.length > 1 ? `<nav class="rel jump" aria-label="${esc(LS.listH1)}">${groups.map(([gk, xs]) => `<a href="#${gk}">${esc(LS.groups[gk])} (${xs.length})</a>`).join("")}</nav>` : ""}
 
-  ${groups.map(([gk, xs]) => `<h2>${esc(LS.groups[gk])}</h2>
+  ${groups.map(([gk, xs]) => `<h2 id="${gk}">${esc(LS.groups[gk])}</h2>
   <div class="ngrid">
     ${xs.map(card).join("\n    ")}
   </div>`).join("\n\n  ")}
