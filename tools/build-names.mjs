@@ -37,6 +37,8 @@ const code = [
   // example fi → hi). They are part of the generator's token vocabulary.
   extract(/const ATEJI\s*=\s*\{[\s\S]*?ATEJI\.ye=ATEJI\.e;/, "ATEJI + aliases"),
   extract(/function nameVariants\([^)]*\)\{[\s\S]*?\n\}/, "nameVariants"),
+  extract(/const NAME_KANA=\{.*?\};/s, "NAME_KANA display fixes"),
+  extract(/function displayReading\([^)]*\)\{[\s\S]*?\n\}/, "displayReading"),
   extract(/function pinyinTerminalNgReading\([^)]*\)\{[\s\S]*?\n\}/, "Pinyin terminal -ng rule"),
   extract(/function toRomaji\(name[^)]*\)\{[\s\S]*?\n\}/, "toRomaji"),
   extract(/const KANA_MAP=\{[\s\S]*?\};/, "KANA_MAP"),
@@ -47,8 +49,8 @@ const code = [
   extract(/function trueSound\([^\n]*\}/, "trueSound"),
   extract(/function pickDefaults\([\s\S]*?\n\}/, "pickDefaults"),
 ].join("\n");
-const { ATEJI, toRomaji, tokenize, NAME_SAY, nameVariants, toKatakana, trueSound, pickDefaults, nameTokens, nameTokenOptions, nameDefaultPicks } = new Function(
-  code + "\nreturn {ATEJI,toRomaji,tokenize,NAME_SAY,nameVariants,toKatakana,trueSound,pickDefaults,nameTokens,nameTokenOptions,nameDefaultPicks};"
+const { ATEJI, toRomaji, tokenize, NAME_SAY, nameVariants, displayReading, toKatakana, trueSound, pickDefaults, nameTokens, nameTokenOptions, nameDefaultPicks } = new Function(
+  code + "\nreturn {ATEJI,toRomaji,tokenize,NAME_SAY,nameVariants,displayReading,toKatakana,trueSound,pickDefaults,nameTokens,nameTokenOptions,nameDefaultPicks};"
 )();
 
 // ---- 名前リスト ----
@@ -64,6 +66,8 @@ const only = process.argv.includes("--only")
 const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const cap = (s) => s[0].toUpperCase() + s.slice(1);
+// Katakana → hiragana (same mora, shifted code block). ー stays: it is also used in hiragana loan spellings.
+const toHiragana = (k) => k.replace(/[\u30A1-\u30F6]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
 
 // Task E: /guide/* pages (independent FAQ deep-dives, see doc/faq-4.md). Listed here so the
 // sitemap and every name page's shared FAQ 1/4 entries stay in sync with the guide slugs.
@@ -182,6 +186,14 @@ p{margin:10px 0}
 .an-lbl{font-family:'Space Grotesk',sans-serif;color:rgba(232,226,213,.6)}
 .an-kana{font-family:'Shippori Mincho',serif;font-size:17px;color:var(--ink);margin:0 .3em;white-space:nowrap}
 .an-romaji{font-family:'Inter',sans-serif;color:rgba(232,226,213,.6)}
+.sc-h{font-size:17px;margin:0 0 10px}
+.scripts{margin:0;display:grid;gap:10px}
+.sc-row{display:grid;grid-template-columns:92px minmax(0,1fr);gap:4px 14px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line)}
+.sc-row dt{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.sc-row dd{margin:0;font-size:13px;line-height:1.7;color:rgba(232,226,213,.72)}
+.sc-script{font-family:'Shippori Mincho',serif;font-size:22px;color:var(--head);margin-right:.4em}
+.sc-why{display:block;margin-top:2px}
+@media(max-width:480px){.sc-row{grid-template-columns:1fr}}
 .an-l2,.an-l3{font-family:'Inter',sans-serif;font-size:12.5px;color:rgba(232,226,213,.55);line-height:1.75;margin-top:6px}
 `;
 
@@ -209,8 +221,11 @@ function pageHtml(d, all) {
     }
   }
   // Fix 5: default-reading katakana for the tattoo FAQ (same source as the Task B note).
-  const kata0 = toKatakana(nameVariants(d.name)[0] || toRomaji(d.name, 0));
+  const kata0 = toKatakana(displayReading(d.name, 0));
   const faq = [
+    ...(kata0 ? [[`How do you write ${d.Name} in Japanese?`,
+     `${d.Name} is normally written ${kata0} in katakana — Japanese writes foreign names and other foreign words in katakana. In hiragana it would be ${toHiragana(kata0)}, though foreign names aren't normally written that way. As kanji art, one ateji spelling is ${d.kanji} ("${mm}"), chosen for sound and meaning rather than as an official spelling.`,
+     "katakana-vs-kanji-names"]] : []),
     [`What is the kanji for ${d.Name}?`,
      `There is no single official kanji for ${d.Name}. This is one sound-based ateji (当て字) option: ${d.kanji}, read as "${d.toks.join("-")}", with the meanings "${mm}". You can swap a character for another with the same or closest Japanese sound: ${d.Name} has ${d.combos} possible kanji spellings in this generator.`],
     [`Is ${d.kanji} suitable for a tattoo?`,
@@ -226,14 +241,17 @@ function pageHtml(d, all) {
   // summary. One per reading, reusing the page's existing .vgrp toggle (sayScript) so it
   // tracks the "How do you say it?" picker for names with more than one pronunciation.
   const noteBlock = (r, i) => {
-    const raw = (nameVariants(d.name)[i]) || toRomaji(d.name, 0);
+    const raw = displayReading(d.name, i);
     const kk = toKatakana(raw);
-    const l1 = kk
-      ? `<p class="an-l1"><span class="an-lbl">In Japanese, ${esc(d.Name)} is usually written</span> <span class="an-kana">${esc(kk)}</span> <span class="an-romaji">(${esc(raw)})</span></p>`
-      : "";
+    const row = (lbl, script, txt, lang) => `<div class="sc-row"><dt>${lbl}</dt><dd><span class="sc-script"${lang ? ` lang="${lang}"` : ""}>${esc(script)}</span>${txt}</dd></div>`;
+    const rows = [
+      kk ? row("Katakana", kk, `<span class="an-romaji">(${esc(raw)})</span><span class="sc-why">Japanese writes foreign names and other foreign words in katakana. This is how ${esc(d.Name)} is normally written in Japan.</span>`, "ja") : "",
+      kk ? row("Hiragana", toHiragana(kk), `<span class="sc-why">Hiragana is used for native Japanese words, so foreign names aren't normally written this way. Some people still like it for its soft, rounded look.</span>`, "ja") : "",
+      row("Kanji", r.kanji, `<span class="sc-why">Ateji: kanji chosen for their sound and meaning (“${esc(r.meanings.join(" · "))}”). It's an art form, not an official spelling.</span>`, "ja"),
+    ].join("");
     return `<div class="an vgrp" data-v="${i}"${i > 0 ? " hidden" : ""}>
-    ${l1}
-    <p class="an-l2">${esc(r.kanji)} is an artistic ateji — chosen for sound and meaning, not an official spelling.</p>
+    <h2 class="sc-h">${esc(d.Name)} in Japanese: three ways to write it</h2>
+    <dl class="scripts">${rows}</dl>
     <p class="an-l3">For anything permanent, have a native speaker check it.</p>
     ${SHOW_REVIEWED_BY ? `<p class="an-l3">Reviewed by Hitomi Kuga, Japanese-language teacher</p>` : ""}
   </div>`;
@@ -245,7 +263,7 @@ function pageHtml(d, all) {
     "@graph": [
       {
         "@type": "WebPage", "@id": `${url}#webpage`, url,
-        name: `${d.Name} in Japanese Kanji`, inLanguage: "en",
+        name: `${d.Name} in Japanese — Katakana, Hiragana & Kanji`, inLanguage: "en",
         description: `${d.Name} in Japanese kanji: ${d.kanji}. One sound-based ateji option, with meanings ${mm}.`,
         isPartOf: { "@id": `${SITE}/#website` },
         breadcrumb: { "@id": `${url}#breadcrumb` },
@@ -255,7 +273,7 @@ function pageHtml(d, all) {
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Kanji My Name", item: SITE + "/" },
           { "@type": "ListItem", position: 2, name: "Names in Kanji", item: SITE + "/names/" },
-          { "@type": "ListItem", position: 3, name: `${d.Name} in Kanji`, item: url },
+          { "@type": "ListItem", position: 3, name: `${d.Name} in Japanese`, item: url },
         ],
       },
       {
@@ -322,12 +340,12 @@ document.addEventListener("click",function(e){
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(d.Name)} in Kanji (${esc(d.kanji)}) — Meaning &amp; Name Art | Kanji My Name</title>
-<meta name="description" content="${esc(`${d.Name} in Japanese kanji: ${d.kanji} ("${mm}"). See all ${d.combos} kanji spellings of ${d.Name} with meanings, and download free calligraphy name art — for tattoo ideas, gifts, and wall art.`)}">
+<title>${esc(d.Name)} in Japanese — Katakana, Hiragana &amp; Kanji | Kanji My Name</title>
+<meta name="description" content="${esc(kata0 ? `${d.Name} in Japanese is written ${kata0} in katakana, the script for foreign names. See it in hiragana and as kanji art (${d.kanji}, "${mm}"), explore ${d.combos} kanji spellings, and download free calligraphy name art.` : `${d.Name} in Japanese kanji: ${d.kanji} ("${mm}"). Explore ${d.combos} kanji spellings with meanings and download free calligraphy name art.`)}">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <link rel="canonical" href="${url}">
 <meta property="og:url" content="${url}">
-<meta property="og:title" content="${esc(d.Name)} in Kanji — ${esc(d.kanji)}">
+<meta property="og:title" content="${esc(d.Name)} in Japanese — ${esc(kata0 ? kata0 + " · " : "")}${esc(d.kanji)}">
 <meta property="og:description" content="${esc(`${d.kanji} means "${mm}". Choose your own meanings and download it as calligraphy art.`)}">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Kanji My Name">
@@ -346,7 +364,7 @@ ${CF_BEACON_SNIPPET}
 <body>
 <div class="wrap">
   <div class="brand"><a href="../">Kanji My Name</a></div>
-  <h1>${esc(d.Name)} in Japanese Kanji</h1>
+  <h1>${esc(d.Name)} in Japanese</h1>
   <p class="sub"><b>${esc(d.Name)} in kanji: ${esc(d.kanji)}</b> — one way to write ${esc(d.Name)}, with meanings you choose yourself, in the Japanese <i>ateji</i> (当て字) tradition.${hasApprox ? ` Some sounds have no exact kanji; ateji tradition uses the closest reading — marked ≈ below (e.g. ヴァ → ba, フィ → hi).` : ""}</p>
   ${artNotes}
   ${sayPicker}

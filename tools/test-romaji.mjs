@@ -27,14 +27,16 @@ const code = [
   extract(/function pinyinTerminalNgReading\([^)]*\)\{[\s\S]*?\n\}/, "Pinyin terminal -ng rule"),
   extract(/function toRomaji\(name[^)]*\)\{[\s\S]*?\n\}/, "toRomaji"),
   extractOpt(/function nameVariants\([^)]*\)\{[\s\S]*?\n\}/),
+  extract(/const NAME_KANA=\{.*?\};/s, "NAME_KANA display fixes"),
+  extract(/function displayReading\([^)]*\)\{[\s\S]*?\n\}/, "displayReading"),
   extract(/const KANA_MAP=\{[\s\S]*?\};/, "KANA_MAP"),
   extract(/function toKatakana\([^)]*\)\{[\s\S]*?\n\}/, "toKatakana"),
   extract(/function tokenize\(r\)\{[\s\S]*?\n\}/, "tokenize"),
   extract(/const CN_MIN=[\s\S]*?function nameDefaultPicks\([^\n]*\}/, "name profiles"),
 ].join("\n");
-const { ATEJI, toRomaji, toKatakana, tokenize, NAME_SAY, nameVariants, pinyinTerminalNgReading, nameTokens, nameTokenOptions } = new Function(
+const { ATEJI, toRomaji, toKatakana, displayReading, tokenize, NAME_SAY, nameVariants, pinyinTerminalNgReading, nameTokens, nameTokenOptions } = new Function(
   code +
-    "\nreturn {ATEJI,toRomaji,toKatakana,tokenize," +
+    "\nreturn {ATEJI,toRomaji,toKatakana,displayReading,tokenize," +
     "NAME_SAY:typeof NAME_SAY==='undefined'?null:NAME_SAY," +
     "nameVariants:typeof nameVariants==='undefined'?null:nameVariants," +
     "pinyinTerminalNgReading:typeof pinyinTerminalNgReading==='undefined'?null:pinyinTerminalNgReading,nameTokens,nameTokenOptions};"
@@ -104,6 +106,13 @@ eq(toKatakana(nameVariants("yuying")[0]), "ユーイン", "Yuying practical kata
 eq(toRomaji("yuying", 1), "yuingu", "Yuying English art reading = yu+in+gu");
 eq(tokenize(toRomaji("yuying", 1)), ["yu", "in", "gu"], "Yuying English reading tokenizes as three kanji sounds");
 eq(toKatakana(nameVariants("yuying")[1]), "ユイング", "Yuying English practical katakana = ユイング");
+
+// 2026-11-18 practical katakana display fixes (NAME_KANA) — display only, kanji tokens unchanged
+for (const [n, k] of [["wyatt","ワイアット"],["raj","ラージ"],["priya","プリヤ"],["maddox","マドックス"],["henry","ヘンリー"],["aaron","アーロン"],["william","ウィリアム"],["edward","エドワード"],["ruby","ルビー"]])
+  eq(toKatakana(displayReading(n, 0)), k, `${n} display katakana = ${k}`);
+eq(toKatakana(displayReading("yuying", 1)), "ユイング", "displayReading falls back to NAME_DICT variant");
+eq(nameTokens("wyatt",0).join("-"), "wa-i-a-to", "Wyatt kanji tokens unchanged by NAME_KANA");
+eq(nameTokens("raj",0).join("-"), "ra-ju", "Raj kanji tokens unchanged by NAME_KANA");
 eq(NAME_SAY.yuying, ["Chinese reading", "English reading"], "Yuying variant labels identify the reading origin");
 ok(ATEJI.yū && ATEJI.yū[0][0] === "優", "yū has 優 as its regular reading without approximation");
 eq(pinyinTerminalNgReading("yuying"), "yuin", "Pinyin yuying terminal -ng becomes final n");
