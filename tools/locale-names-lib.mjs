@@ -66,7 +66,8 @@ export function analyzeLocaleName(engine, n, meanings) {
   const { ATEJI, tokenize, pickDefaults } = engine;
   const toks = tokenize(n.art);
   const variants = toks.map((t) => ATEJI[t]);
-  const picks = pickDefaults(toks);
+  // optional curated defaults (validated in build-locale-names.mjs): one kanji per token
+  const picks = n.defaults ? n.defaults.map((k, i) => variants[i].findIndex(([kk]) => kk === k)) : pickDefaults(toks);
   const loc = (en) => (meanings[en] ? { text: meanings[en], en: false } : { text: en, en: true });
   const def = toks.map((t, i) => variants[i][picks[i]]);
   return {

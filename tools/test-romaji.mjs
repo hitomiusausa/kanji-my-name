@@ -230,8 +230,16 @@ for (const name of list) {
     eq(toks, L.tokenize(e.a), `${w}@${lc} kanji tokens come from art`);
     eq(toks.join(""), e.a, `${w}@${lc} art tokenizes fully`);
     ok(toks.every((t) => L.wordTokenOptions(w, 0, lc, t) === L.ATEJI[t]), `${w}@${lc} options are plain ATEJI`);
-    eq(L.wordDefaultPicks(w, 0, lc, toks, toks.map((t) => L.ATEJI[t])), L.pickDefaults(toks), `${w}@${lc} default kanji = pickDefaults (same as the locale page)`);
+    eq(L.wordDefaultPicks(w, 0, lc, toks, toks.map((t) => L.ATEJI[t])), e.p || L.pickDefaults(toks), `${w}@${lc} default kanji = curated p or pickDefaults (same as the locale page)`);
   }
+  // optional curated defaults (p): every entry with p is used by the generator instead of pickDefaults
+  for (const [lc, table] of Object.entries(L.LOCALE_NAMES)) for (const [slug, e] of Object.entries(table)) {
+    if (!e.p) continue;
+    const toks = L.tokenize(e.a), os = toks.map((t) => L.ATEJI[t]);
+    eq(L.wordDefaultPicks(slug, 0, lc, toks, os), e.p, `${lc}/${slug} curated defaults used`);
+    ok(e.p.length === toks.length && e.p.every((o, i) => o >= 0 && o < os[i].length), `${lc}/${slug} defaults are valid option indices`);
+  }
+  ok(Object.values(L.LOCALE_NAMES).some((t) => Object.values(t).some((e) => e.p)), "at least one locale name carries curated defaults (fixture: dewi@id)");
   // Lorenzo differs from the English reading (that is the point)
   ok(L.wordReading("Lorenzo", 0, "it").kana !== L.wordReading("Lorenzo", 0, null).kana, "Lorenzo@it reading differs from English");
   // English Wyatt unchanged through the new word* layer

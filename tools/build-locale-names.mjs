@@ -14,6 +14,8 @@
 //
 // Single-source rule: no dictionary is copied here — ATEJI/tokenize/pickDefaults are extracted from
 // index.html (locale-names-lib.mjs → extractEngine), so page kanji == generator kanji for #Name@lc.
+// Optional per-name field: "defaults": ["天","伊"] = one kanji per token of tokenize(art), each an
+// existing ATEJI option for that token; replaces pickDefaults on the page AND in the generator (p).
 // Usage: node tools/build-locale-names.mjs [--check]   (--check = validate only, write nothing)
 import fs from "node:fs";
 import path from "node:path";
@@ -66,7 +68,16 @@ for (const lc of LOCALES) {
       const t = tokenize(n.art);
       if (t.join("") !== n.art) bad(`art "${n.art}" does not tokenize fully (got ${t.join("-") || "nothing"})`);
       else if (t.length > 8) bad(`art "${n.art}" needs ${t.length} kanji (generator MAX_KANJI is 8)`);
-      else for (const tok of t) for (const [, en] of ATEJI[tok]) if (!meanings[en]) (missingGloss[lc] ??= new Set()).add(en);
+      else {
+        for (const tok of t) for (const [, en] of ATEJI[tok]) if (!meanings[en]) (missingGloss[lc] ??= new Set()).add(en);
+        // optional "defaults": one kanji per token, each an existing option of that token
+        if (n.defaults !== undefined) {
+          if (!Array.isArray(n.defaults) || n.defaults.length !== t.length) bad(`defaults must list ${t.length} kanji (one per token ${t.join("-")}), got ${JSON.stringify(n.defaults)}`);
+          else n.defaults.forEach((k, j) => {
+            if (!ATEJI[t[j]].some(([kk]) => kk === k)) bad(`defaults[${j}] "${k}" is not an option for "${t[j]}" (options: ${ATEJI[t[j]].map(([kk]) => kk).join(" ")})`);
+          });
+        }
+      }
     }
     if (!["f", "m", "u"].includes(n.gender)) bad(`gender must be "f" | "m" | "u" (got ${JSON.stringify(n.gender)})`);
   });
@@ -87,7 +98,11 @@ if (CHECK_ONLY) {
 // ---- 2. index.html: LOCALE_NAMES block (generator data, never hand-edited) ----
 const block = {};
 for (const lc of LOCALES) {
-  block[lc] = Object.fromEntries(data[lc].names.map((n) => [n.slug, { d: n.display, k: n.kana, r: n.romaji, a: n.art }]));
+  block[lc] = Object.fromEntries(data[lc].names.map((n) => {
+    const e = { d: n.display, k: n.kana, r: n.romaji, a: n.art };
+    if (n.defaults) { const t = tokenize(n.art); e.p = n.defaults.map((k, i) => ATEJI[t[i]].findIndex(([kk]) => kk === k)); }
+    return [n.slug, e];
+  }));
 }
 const MARK = /(\/\* locale-names:start \*\/\n)[\s\S]*?(\n\/\* locale-names:end \*\/)/;
 if (!MARK.test(src)) throw new Error("index.html: locale-names markers missing");

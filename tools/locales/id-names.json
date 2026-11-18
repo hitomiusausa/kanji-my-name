@@ -1,5 +1,5 @@
 [
-  { "slug": "putri", "display": "Putri", "kana": "プトリ", "romaji": "putori", "art": "putori", "gender": "f", "note": "FIXTURE — replaced by the real data at merge" },
-  { "slug": "budi", "display": "Budi", "kana": "ブディ", "romaji": "budi", "art": "budi", "gender": "m", "note": "FIXTURE" },
-  { "slug": "dewi", "display": "Dewi", "kana": "デウィ", "romaji": "dewi", "art": "dewi", "gender": "f", "note": "FIXTURE" }
+  {"slug": "putri", "display": "Putri", "kana": "プトリ", "romaji": "putori", "art": "putori", "gender": "f", "note": "FIXTURE — replaced by the real data at merge"},
+  {"slug": "budi", "display": "Budi", "kana": "ブディ", "romaji": "budi", "art": "budi", "gender": "m", "note": "FIXTURE"},
+  {"slug": "dewi", "display": "Dewi", "kana": "デウィ", "romaji": "dewi", "art": "dewi", "gender": "f", "note": "FIXTURE (defaults test: 伊 'that beauty' instead of 衣)", "defaults": ["天", "伊"]}
 ]

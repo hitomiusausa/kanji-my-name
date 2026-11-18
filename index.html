@@ -735,9 +735,10 @@ function pickDefaults(toks,rand){
 // ===== LOCALE READINGS (D-56) =====
 // Names read the way France / Italy / Indonesia say them: #Lorenzo@it → ロレンツォ, kanji built
 // from the locale "art" romaji (a). k = practical katakana, r = its romaji (display only).
+// p (optional) = curated default option index per token (replaces pickDefaults; "Surprise me" still randomises).
 // The data block is written by tools/build-locale-names.mjs from tools/locales/*.json — never hand-edit.
 /* locale-names:start */
-const LOCALE_NAMES={"fr":{"chloe":{"d":"Chloé","k":"クロエ","r":"kuroe","a":"kuroe"},"louis":{"d":"Louis","k":"ルイ","r":"rui","a":"rui"},"lea":{"d":"Léa","k":"レア","r":"rea","a":"rea"},"camille":{"d":"Camille","k":"カミーユ","r":"kamīyu","a":"kamiyu"}},"it":{"lorenzo":{"d":"Lorenzo","k":"ロレンツォ","r":"rorentso","a":"rorenzo"},"matteo":{"d":"Matteo","k":"マッテオ","r":"matteo","a":"mateo"},"giulia":{"d":"Giulia","k":"ジュリア","r":"juria","a":"juria"},"niccolo":{"d":"Niccolò","k":"ニッコロ","r":"nikkoro","a":"nikoro"}},"id":{"putri":{"d":"Putri","k":"プトリ","r":"putori","a":"putori"},"budi":{"d":"Budi","k":"ブディ","r":"budi","a":"budi"},"dewi":{"d":"Dewi","k":"デウィ","r":"dewi","a":"dewi"}}};
+const LOCALE_NAMES={"fr":{"chloe":{"d":"Chloé","k":"クロエ","r":"kuroe","a":"kuroe"},"louis":{"d":"Louis","k":"ルイ","r":"rui","a":"rui"},"lea":{"d":"Léa","k":"レア","r":"rea","a":"rea"},"camille":{"d":"Camille","k":"カミーユ","r":"kamīyu","a":"kamiyu"}},"it":{"lorenzo":{"d":"Lorenzo","k":"ロレンツォ","r":"rorentso","a":"rorenzo"},"matteo":{"d":"Matteo","k":"マッテオ","r":"matteo","a":"mateo"},"giulia":{"d":"Giulia","k":"ジュリア","r":"juria","a":"juria"},"niccolo":{"d":"Niccolò","k":"ニッコロ","r":"nikkoro","a":"nikoro"}},"id":{"putri":{"d":"Putri","k":"プトリ","r":"putori","a":"putori"},"budi":{"d":"Budi","k":"ブディ","r":"budi","a":"budi"},"dewi":{"d":"Dewi","k":"デウィ","r":"dewi","a":"dewi","p":[0,3]}}};
 /* locale-names:end */
 const LOCALE_LABEL={fr:"French",it:"Italian",id:"Indonesian"};
 const foldKey=w=>String(w).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z]/g,"");
@@ -746,7 +747,7 @@ function localeEntry(w,lc){const t=lc&&LOCALE_NAMES[lc];return (t&&t[foldKey(w)]
 function parseHashWord(s){const m=String(s).match(/^(.+?)(?:~(\d+))?(?:@([a-z]{2}))?$/);if(!m)return {w:s,v:0,lc:null};return {w:m[1],v:m[2]?Math.max(0,+m[2]-1):0,lc:m[3]&&localeEntry(m[1],m[3])?m[3]:null};}
 function wordTokens(w,vi,lc){const e=localeEntry(w,lc);return e?tokenize(e.a):nameTokens(w,vi);}
 function wordTokenOptions(w,vi,lc,t){return localeEntry(w,lc)?ATEJI[t]:nameTokenOptions(w,vi,t);}
-function wordDefaultPicks(w,vi,lc,ts,os,rand){return localeEntry(w,lc)?pickDefaults(ts,rand):nameDefaultPicks(w,vi,ts,os,rand);}
+function wordDefaultPicks(w,vi,lc,ts,os,rand){const e=localeEntry(w,lc);if(!e)return nameDefaultPicks(w,vi,ts,os,rand);return e.p&&!rand?e.p.slice():pickDefaults(ts,rand);}
 function wordReading(w,vi,lc){const e=localeEntry(w,lc);if(e)return {raw:e.r,kana:e.k};const raw=displayReading(w,vi);return {raw,kana:toKatakana(raw)};}
 // locale-readings:end
 
