@@ -16,6 +16,7 @@ export const LANG_LABELS = { en: "English", fr: "Français", it: "Italiano", id:
 export const STRINGS = {
   fr: {
     htmlLang: "fr",
+    altNames: ["Générateur de prénoms en kanji", "Générateur de kanji"], // structured-data alternateName (D-58)
     ogLocale: "fr_FR",
     title: "Votre prénom en japonais : katakana et kanji | Kanji My Name",
     description:
@@ -44,6 +45,9 @@ export const STRINGS = {
       "Le katakana note un son, pas une orthographe. Or notre générateur lit les prénoms à l'anglaise : Thomas y devient トーマス (tōmasu), alors qu'un Thomas français s'écrit plutôt トマ (toma). Si votre prénom se prononce autrement en français, tapez-le comme il se prononce : « Toma » donne トマ, et « Batist » donne バティスト pour Baptiste.",
     faqH2: "Questions fréquentes",
     faq: [
+      // 2026-11-21: search phrase « écrire mon prénom en kanji » (D-58).
+      ["Comment écrire mon prénom en kanji ?",
+       "Tapez votre prénom dans le champ en haut de la page, puis appuyez sur « Créer mes kanji ». Le générateur découpe votre prénom en sons japonais et propose pour chacun un kanji et son sens ; touchez un caractère pour en choisir un autre au son identique ou proche. Téléchargez ensuite gratuitement votre prénom en kanji au format PNG (avec une petite mention du site). Au quotidien, au Japon, il s'écrirait plutôt en katakana : nous l'affichons aussi sous l'image."],
       ["Comment écrit-on un prénom français en japonais ?",
        "En katakana, l'écriture que le japonais utilise pour les mots et les noms étrangers. On transcrit le prénom d'après sa prononciation : Emma devient エマ, Juliette ジュリエット. On ne le traduit pas, c'est le son qui compte."],
       ["Existe-t-il un kanji officiel pour mon prénom ?",
@@ -65,6 +69,7 @@ export const STRINGS = {
 
   it: {
     htmlLang: "it",
+    altNames: ["Generatore di nomi in kanji", "Generatore di kanji"], // structured-data alternateName (D-58)
     ogLocale: "it_IT",
     title: "Il tuo nome in giapponese: katakana e kanji | Kanji My Name",
     description:
@@ -93,6 +98,9 @@ export const STRINGS = {
       "Il katakana trascrive un suono, non una grafia. Il nostro generatore però legge i nomi secondo le regole dell'inglese, e alcune lettere italiane possono ingannarlo: Lucia, per esempio, verrebbe letta ルシア invece di ルチア (ruchia). In questi casi scrivi il nome come si pronuncia: «Luchia» dà ルチア, e «Francheska» dà フランチェスカ per Francesca.",
     faqH2: "Domande frequenti",
     faq: [
+      // 2026-11-21: search phrase «scrivere il mio nome in kanji» (D-58).
+      ["Come scrivere il mio nome in kanji?",
+       "Scrivi il tuo nome nel campo in alto e tocca «Crea i miei kanji». Il generatore divide il nome in suoni giapponesi e per ognuno propone un kanji con il suo significato; tocca un carattere per sceglierne un altro con lo stesso suono o uno simile. Poi scarica gratis il tuo nome in kanji come file PNG (con una piccola scritta con il nome del sito). Nella vita di tutti i giorni, in Giappone, il tuo nome si scriverebbe in katakana: lo trovi anche sotto l'immagine."],
       ["Come si scrive un nome italiano in giapponese?",
        "In katakana, la scrittura che il giapponese usa per le parole e i nomi stranieri. Il nome si trascrive in base alla pronuncia: Sofia diventa ソフィア, Luca ルカ. Non si traduce: conta il suono."],
       ["Esiste un kanji ufficiale per il mio nome?",
@@ -113,6 +121,7 @@ export const STRINGS = {
 
   id: {
     htmlLang: "id",
+    altNames: ["Generator nama kanji", "Generator kanji"], // structured-data alternateName (D-58)
     ogLocale: "id_ID",
     title: "Nama Kamu dalam Bahasa Jepang: Katakana & Kanji | Kanji My Name",
     description:
@@ -142,6 +151,9 @@ export const STRINGS = {
       "Katakana menuliskan bunyi, bukan ejaan. Ejaan bahasa Indonesia umumnya sesuai dengan bunyinya, jadi banyak nama bisa langsung diketik apa adanya: Putri menjadi プトゥリ, Budi menjadi ブディ. Tapi generator kami membaca nama dengan aturan bahasa Inggris, sehingga huruf c bisa terbaca seperti “s”: Cinta menjadi シンタ, bukan チンタ. Kalau begitu, ketik sesuai bunyinya: “Chinta” menghasilkan チンタ.",
     faqH2: "Pertanyaan yang sering diajukan",
     faq: [
+      // 2026-11-21: search phrase "menulis nama dalam kanji" (D-58).
+      ["Bagaimana cara menulis nama dalam kanji?",
+       "Ketik namamu di kolom di bagian atas halaman, lalu ketuk “Buat kanjiku”. Generator memecah namamu menjadi bunyi-bunyi bahasa Jepang dan mengusulkan satu kanji beserta maknanya untuk setiap bunyi; ketuk satu karakter untuk menggantinya dengan kanji lain yang bunyinya sama atau mirip. Setelah itu, unduh namamu dalam kanji sebagai gambar PNG — gratis (dengan tanda air kecil). Dalam kehidupan sehari-hari di Jepang, namamu akan ditulis dengan huruf katakana — itu juga kami tampilkan di bawah gambar."],
       ["Bagaimana cara menulis nama Indonesia dalam bahasa Jepang?",
        "Dengan katakana, huruf yang dipakai bahasa Jepang untuk kata dan nama asing. Nama ditulis sesuai bunyinya: Putri menjadi プトゥリ, Maya menjadi マヤ. Nama tidak diterjemahkan; yang ditulis adalah bunyinya."],
       ["Apakah ada kanji resmi untuk namaku?",

@@ -140,6 +140,7 @@ export function landingParts(lang) {
     "@graph": [
       {
         "@type": "WebPage", "@id": `${url}#webpage`, url, name: S.ogTitle, inLanguage: S.htmlLang,
+        ...(S.altNames ? { alternateName: S.altNames } : {}),
         description: S.description, isPartOf: { "@id": `${SITE}/#website` },
         about: { "@id": `${SITE}/#app` },
       },

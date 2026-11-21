@@ -14,7 +14,7 @@
 // it / id: translated 2026-11-19 (tu / kamu). Keep the keys and placeholders when editing.
 
 const en = {
-  sub: "Type your name. Kanji My Name crafts it into Japanese kanji — and <b>you choose the meaning</b> behind every character: love, dreams, strength, light. Then download it as elegant calligraphy art. Free.",
+  sub: "Type your name. Kanji My Name crafts it into Japanese kanji — and <b>you choose the meaning</b> behind every character: love, dreams, strength, light. Then download it as elegant calligraphy art. A free kanji name maker, right in your browser.",
   stat: "Any name · 28,000+ kanji combinations",
   lbl_name: "Your name (any language, in Latin letters)",
   ph_name: "e.g. Emma, Michael, Lucas…",
@@ -148,7 +148,7 @@ const en = {
 };
 
 const fr = {
-  sub: "Tapez votre prénom. Kanji My Name l'écrit en kanji japonais — et <b>c'est vous qui choisissez le sens</b> de chaque caractère : amour, rêves, force, lumière. Téléchargez-le ensuite en calligraphie élégante. Gratuit.",
+  sub: "Tapez votre prénom. Le générateur Kanji My Name l'écrit en kanji japonais — et <b>c'est vous qui choisissez le sens</b> de chaque caractère : amour, rêves, force, lumière. Téléchargez-le ensuite en calligraphie élégante. Gratuit.",
   stat: "Tous les prénoms · plus de 28 000 combinaisons de kanji",
   lbl_name: "Votre prénom (toutes langues, en lettres latines)",
   ph_name: "ex. : Chloé, Louis, Léa…",
@@ -286,7 +286,7 @@ export const APP_STRINGS = {
   fr,
   // Italian: tu form, «» quotes, same terms as the landing copy in tools/i18n-strings.mjs.
   it: {
-    sub: "Scrivi il tuo nome. Kanji My Name lo trasforma in kanji giapponesi — e <b>sei tu a scegliere il significato</b> di ogni carattere: amore, sogni, forza, luce. Poi scarica il risultato come un'elegante opera di calligrafia. Gratis.",
+    sub: "Scrivi il tuo nome. Il generatore Kanji My Name lo trasforma in kanji giapponesi — e <b>sei tu a scegliere il significato</b> di ogni carattere: amore, sogni, forza, luce. Poi scarica il risultato come un'elegante opera di calligrafia. Gratis.",
     stat: "Qualsiasi nome · oltre 28.000 combinazioni di kanji",
     lbl_name: "Il tuo nome (in qualsiasi lingua, in lettere latine)",
     ph_name: "es. Giulia, Marco, Sofia…",
@@ -421,7 +421,7 @@ export const APP_STRINGS = {
   // id: Indonesian (2026-11-19) — "kamu" form, PUEBI, terms as in STRINGS.id / LOCALE_NAME_STRINGS.id
   // (Paket Premium, ateji, penutur asli). "unlock code" = kode aktivasi.
   id: {
-    sub: "Ketik namamu. Kanji My Name mengubahnya menjadi kanji Jepang — dan <b>kamu sendiri yang memilih makna</b> setiap hurufnya: cinta, mimpi, kekuatan, cahaya. Lalu unduh sebagai karya kaligrafi yang elegan. Gratis.",
+    sub: "Ketik namamu. Generator Kanji My Name akan mengubahnya menjadi kanji Jepang — dan <b>kamu sendiri yang memilih makna</b> setiap hurufnya: cinta, mimpi, kekuatan, cahaya. Lalu unduh sebagai karya kaligrafi yang elegan. Gratis.",
     stat: "Nama apa saja · lebih dari 28.000 kombinasi kanji",
     lbl_name: "Nama kamu (bahasa apa pun, dalam huruf Latin)",
     ph_name: "contoh: Putri, Budi, Rizky…",
